@@ -14,16 +14,16 @@ TOPIC BRAINSTORMING
 Dipersiapkan oleh:
 | Informasi | Keterangan |
 | --- | --- |
-| Kelas | *\[Kelas\]* |
-| Kelompok | *\[Nomor Kelompok\]*  |
+| Kelas | *\[K1\]* |
+| Kelompok | *\[6\]*  |
 
 | NIM | Nama |
 |---|---|
-| *[NIM 1]* | *[Nama Anggota 1]* |
-| *[NIM 2]* | *[Nama Anggota 2]* |
-| *[NIM 3]* | *[Nama Anggota 3]* |
-| *[NIM 4]* | *[Nama Anggota 4]* |
-| *[NIM 5]* | *[Nama Anggota 5]* |
+| *[13525067]* | *[Fathar Atandra Denaya]* |
+| *[13525040]* | *[Muhammad Zaky Amani]* |
+| *[13525139]* | *[Josephine Bintang N.L]* |
+| *[13525070]* | *[Devina Athalia Putri Kusumah]* |
+| *[13525004]* | *[Nabil Rabbani]* |
 ---
 
 <br>
@@ -56,8 +56,9 @@ Buatlah daftar seluruh aktor (pengguna) yang akan berinteraksi langsung dengan s
 
 | Aktor | Deskripsi |
 | :--- | :--- |
-| *Kasir* | *Pengguna ini bertindak sebagai pihak yang bertanggung jawab untuk memproses transaksi harian dan melayani pembayaran pelanggan. Karakteristik dari pengguna ini adalah mengutamakan kecepatan dan keakuratan saat bertransaksi.* |
-| ... | ... |
+| *Penjual* | *Pengguna ini bertindak sebagai pihak yang menjual makanan dan minuman yang sudah melewati hari penjualan namun masih layak untuk dikonsumsi.* |
+| *Pembeli* | *Pengguna ini bertindak sebagai pihak yang membeli makanan dan minuman dengan tujuan dapat mengonsumsi makanan yang layak dengan harga yang murah.* |
+| *Driver* | *Pengguna ini bertindak sebagai pengantar makanan dan minuman dari penjual ke pembeli.* |
 
 
 ## 3.2 Kebutuhan Pengguna Awal
