@@ -4,20 +4,20 @@
 
 | Informasi | Keterangan |
 |---|---|
-| Kelas | *[Kelas]* |
-| Nomor Kelompok | *[Nomor Kelompok]* |
-| Nama Kelompok | *[Nama Kelompok]* |
+| Kelas | *[K1]* |
+| Nomor Kelompok | *[6]* |
+| Nama Kelompok | *[MZakyBTW]* |
 | Nama Perangkat Lunak | *[Nama P/L]* |
 
 **Anggota Kelompok:**
 
 | NIM | Nama |
 |---|---|
-| *[NIM 1]* | *[Nama Anggota 1]* |
-| *[NIM 2]* | *[Nama Anggota 2]* |
-| *[NIM 3]* | *[Nama Anggota 3]* |
-| *[NIM 4]* | *[Nama Anggota 4]* |
-| *[NIM 5]* | *[Nama Anggota 5]* |
+| *[13525067]* | *[Fathar Atandra Denaya]* |
+| *[13525040]* | *[Muhammad Zaky Amani]* |
+| *[13525139]* | *[Josephine Bintang N.L]* |
+| *[13525070]* | *[Devina Athalia Putri Kusumah]* |
+| *[13525004]* | *[Nabil Rabbani]* |
 
 ---
 
@@ -33,7 +33,7 @@
 
 | Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
-| *04-05-2026* | *[Nama Mahasiswa]* | *[Jelaskan Pekerjaan secara Singkat]* | *[Durasi Pengerjaan]* | *[On Progress/Done]* | [Kendala yang dialami, jika tidak ada cukup tandai "-"] | 
+| *30-08-2026* | *[Muhammad Zaky Amani]* | *[Mengerjakan Milestone 1 bagian 3.1 dan mengisi data kelompok]* | *[15 Menit]* | *[Done]* | [-] | 
 | *05-05-2026* | *John Doe* | *Mendesain diagram kelas* | *3* | *Done* | *-* | 
 | | | | | | | |
 
