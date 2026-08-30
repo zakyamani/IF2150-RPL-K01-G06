@@ -40,6 +40,7 @@ Saat ini, penanganan sisa makanan pada industri kuliner retail masih mengandalka
 
 Kondisi tersebut menyisakan celah besar belum adanya mekanisme distribusi pangan berlebih yang cepat, fleksibel, dan bernilai ekonomi. Aplikasi berbasis sistem gacha hadir untuk menyelesaikan kesenjangan ini dengan menghilangkan kerumitan pengelolaan inventory harian. Merchant cukup memasukkan kuota paket tanpa perlu mendaftarkan varian menu satu per satu, sehingga operasional toko tetap efisien. Konsep gacha ini juga melindungi nilai merek merchant sekaligus memungkinkan pemotongan harga secara signifikan (50%-70%), sehingga masyarakat dapat mengakses makanan berkualitas dengan harga terjangkau secara real-time sebelum jam operasional toko berakhir.
 
+source : https://www.liputan6.com/bisnis/read/5634939/miris-indonesia-buang-buang-48-juta-ton-makanan-per-tahun-setara-kebutuhan-pangan-125-juta-orang
 ---
 
 # BAB 2: Analisis Solusi
