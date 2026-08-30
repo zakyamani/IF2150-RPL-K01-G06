@@ -33,8 +33,9 @@
 
 | Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
-| *30-08-2026* | *[Muhammad Zaky Amani]* | *[Mengerjakan Milestone 1 bagian 3.1 dan mengisi data kelompok]* | *[15 Menit]* | *[Done]* | [-] | 
-| *05-05-2026* | *John Doe* | *Mendesain diagram kelas* | *3* | *Done* | *-* | 
+| *30-08-2026* | *Muhammad Zaky Amani* | *Mengerjakan Milestone 1 bagian 3.1 dan mengisi data kelompok* | *15 Menit* | *Done* | *-* | 
+| *30-08-2026* | *Fathar Atandra Denaya* | *Mengerjakan Milestone 1 bagian 1.1 dan 1.2* | *15 Menit* | *Done* | *-* | 
+| *30-08-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan Milestone 1 bagian 3.2 berdasarkan data aktor bagian 3.1* | *20 Menit* | *Done* | *-* | 
 | | | | | | | |
 
 **Catatan/Evaluasi Milestone 1:**
