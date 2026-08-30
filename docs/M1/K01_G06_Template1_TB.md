@@ -70,14 +70,14 @@ Mendefinisikan apa yang ingin dicapai oleh pengguna saat menggunakan sistem ini 
 
 | ID | Aktor | Kebutuhan / Aktivitas | Tujuan / Nilai |
 | :--- | :--- | :--- | :--- |
-| US-01 | *Penjual * |  *Mengunggah makanan/minuman yang sudah melewati hari penjualan beserta harga diskon* | *Produk dapat terjual sebelum terbuang* |
+| US-01 | *Penjual* |  *Mengunggah makanan/minuman yang sudah melewati hari penjualan beserta harga diskon* | *Produk dapat terjual sebelum terbuang* |
 | US-02 | *Penjual* | *Mengatur stok dan status ketersediaan produk yang sudah diunggah* | *Informasi yang dilihat pembeli selalu akurat dan tidak menjual produk yang sudah habis* |
-| US-03 | *Penjual * |  *Melihat daftar pesanan yang masuk beserta detail pembeli* | *Dapat menyiapkan pesanan dengan benar dan tepat waktu* |
+| US-03 | *Penjual* |  *Melihat daftar pesanan yang masuk beserta detail pembeli* | *Dapat menyiapkan pesanan dengan benar dan tepat waktu* |
 | US-04 | *Pembeli* | *Mencari makanan/minuman diskon sesuai lokasi terdekat* | *Menemukan makanan layak konsumsi dengan harga murah tanpa perlu mencari manual* |
 | US-05 | *Pembeli* | *Melihat detail produk (foto, tanggal produksi/kedaluwarsa, harga diskon)* | *Dapat memastikan produk masih layak dikonsumsi sebelum membeli* |
-| US-06 | *Pembeli * |  *Memesan dan membayar produk langsung melalui aplikasi* | *Proses transaksi yang cepat, praktis, dan aman* |
+| US-06 | *Pembeli* |  *Memesan dan membayar produk langsung melalui aplikasi* | *Proses transaksi yang cepat, praktis, dan aman* |
 | US-07 | *Pembeli* | *Melacak status pesanan secara real-time* | *Mengetahui kapan pesanan akan sampai* |
-| US-08 | *Driver * |  *Menerima notifikasi pesanan baru yang perlu diantar* | *Dapat segera mengambil dan mengantarkan pesanan tanpa menunggu* |
+| US-08 | *Driver* |  *Menerima notifikasi pesanan baru yang perlu diantar* | *Dapat segera mengambil dan mengantarkan pesanan tanpa menunggu* |
 | US-09 | *Driver* | *Melihat lokasi penjual dan pembeli dalam satu tampilan/rute* | *Mengantar pesanan dengan efisien dan tidak salah alamat* |
 | US-10 | *Driver* | *Memperbarui status pengantaran (diambil, dalam perjalanan, terkirim)* | *Penjual dan pembeli mendapat informasi terkini tentang pesanan* |
 
