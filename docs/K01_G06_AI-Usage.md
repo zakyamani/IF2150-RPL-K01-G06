@@ -37,7 +37,7 @@ Silakan catat penggunaan AI yang berdampak signifikan pada pengerjaan tugas (mis
 | :--- | :--- | :--- | :--- |
 | *[Nama AI]* | *[Sertakan Tujuan Penggunaan]* | *[Tuliskan Prompt Utama]* | *[Tuliskan Keputusan Hasil Validasi]* |
 | *Gemini* | *Mengecek relasi antar class* | *"Apakah relasi antara class User dan Order dalam UML ini seharusnya composition atau aggregation?"* | *AI menyarankan composition, tapi setelah dicek kembali ke requirement, kami menggunakan aggregation karena Order masih bisa eksis di history.* |
-| | | | | |
+| *OpenAI Codex* | *Melakukan riset SDG 2 Indonesia dan Too Good To Go, lalu menyusun draf Bab 2 berdasarkan Bab 1 dan kebutuhan awal proyek* | *"Lakukan research dengan beberapa parallel agent ... integrasikan dua research untuk membuat Bab 2; pastikan melihat Bab 1 terlebih dahulu."* | *Draf telah diselaraskan dengan konsep paket kejutan, diskon 50–70%, penawaran anonim, pickup-only, pembayaran QRIS, serta aktor penjual dan pembeli. Validasi akhir dan keputusan penggunaan oleh kelompok masih diperlukan.* |
 
 ### Milestone 2
 | Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
