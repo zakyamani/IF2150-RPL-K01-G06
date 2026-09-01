@@ -186,11 +186,16 @@ Mendefinisikan apa yang ingin dicapai oleh pengguna saat menggunakan sistem ini 
   Daftar seluruh aktivitas yang terdapat dalam sistem solusi, lengkap dengan ID dan penjelasan. Telusuri hubungan aktivitas tersebut dengan *user story* yang sudah dituliskan sebelumnya. Dibuat dalam bentuk tabel.
 | ID | Aktivitas | Penjelasan | ID User Story |
 | :--- | :--- | :--- | :--- |
-| A01 | *Membuat Penawaran Paket* | *Penjual memilih kategori, menentukan kuota, nilai normal, harga diskon, dan jendela pickup untuk surplus makanan yang tersedia.* | *US-01* |
+| A01 | *Membuat Penawaran Paket* | *Penjual memilih kategori, menentukan kuota, harga, dan jendela pickup untuk surplus makanan yang tersedia.* | *US-01* |
 | A02 | *Mengelola Penawaran Aktif* | *Penjual dapat mengedit penawaran selama paket belum terjual, serta memantau sisa kuota.* | *US-02*|
 | A03 | *Melihat Daftar Pesanan Masuk* | *Penjual melihat pesanan yang sudah dibayar beserta jadwal pickup agar paket dapat disiapkan tepat waktu.* | *US-03*|
-| A04 | *Memindai QR Pickup* | *Penjual * | *US-04*|
-| ... | ... | ... | ... |
+| A04 | *Menelusuri Penawaran Anonim* | *Pembeli melihat daftar penawaran berdasarkan kategori, kuota tersisa, harga, jarak perkiraan, dan jendela pickup tanpa identitas merchant.* | *US-04*|
+| A05 | *Melakukan Pembayaran* | *Pembeli membayar paket yang dipilih melalui QRIS atau metode pembayaran digital yang didukung.* | *US-05*|
+| A06 | *Membuka Detail Merchant dan QR Pickup* | *Sistem membuka nama merchant, alamat pickup, dan menghasilkan QR pickup sekali pakai setelah pembayaran berhasil dikonfirmasi.* | *US-06*|
+| A07 | *Mengambil Paket di Lokasi* | *Pembeli datang pada perkiraan waktu yang ditentukan dan menunjukkan QR pickup kepada penjual.* | *US-07*|
+| A08 | *Memindai QR Pickup* | *Penjual memindai QR pickup pembeli sebagai bukti serah-terima, memicu status transaksi berubah dan payout dijadwalkan.* | *US-08*|
+| A09 | *Mengajukan Refund* | *Pembeli dapat mengajukan pengembalian dana apabila merchant membatalkan, paket tidak tersedia, atau bermasalah sebelum QR dipindai.* | *US-09*|
+| A10 | *Memantau Status dan Riwayat Transaksi* | *Pembeli dapat melihat status pembayaran, pickup, refund, serta riwayat transaksi yang telah dilakukan.* | *US-10*|
 
 ## 3.4 Model Proses Bisnis
 Buatlah *Activity Diagram* atau *Swimlane Diagram* yang menunjukkan alur kerja proses bisnis dari sistem solusi. Diagram ini harus memvisualisasikan bagaimana alur operasional di dunia nyata berjalan lebih efisien dengan adanya interaksi antara aktor (yang didefinisikan pada poin 3.1) dan sistem perangkat lunak. Perhatikan notasi yang digunakan dalam pembuatannya.
