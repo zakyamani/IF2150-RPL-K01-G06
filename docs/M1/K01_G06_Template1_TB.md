@@ -182,7 +182,17 @@ Mendefinisikan apa yang ingin dicapai oleh pengguna saat menggunakan sistem ini 
 | US-09 | *Pembeli* | *Mengajukan refund apabila merchant membatalkan, paket tidak tersedia, atau paket tidak diterima sebelum QR dipindai* | *Dana terlindungi ketika transaksi gagal karena merchant atau paket bermasalah* |
 | US-10 | *Pembeli* | *Melihat status pembayaran, pickup, refund, dan riwayat transaksi* | *Dapat memantau penyelesaian setiap transaksi secara transparan* |
 
-## 3.3 Model Proses Bisnis
+## 3.3 Deskripsi Aktivitas
+  Daftar seluruh aktivitas yang terdapat dalam sistem solusi, lengkap dengan ID dan penjelasan. Telusuri hubungan aktivitas tersebut dengan *user story* yang sudah dituliskan sebelumnya. Dibuat dalam bentuk tabel.
+| ID | Aktivitas | Penjelasan | ID User Story |
+| :--- | :--- | :--- | :--- |
+| A01 | *Membuat Penawaran Paket* | *Penjual memilih kategori, menentukan kuota, nilai normal, harga diskon, dan jendela pickup untuk surplus makanan yang tersedia.* | *US-01* |
+| A02 | *Mengelola Penawaran Aktif* | *Penjual dapat mengedit penawaran selama paket belum terjual, serta memantau sisa kuota.* | *US-02*|
+| A03 | *Melihat Daftar Pesanan Masuk* | *Penjual melihat pesanan yang sudah dibayar beserta jadwal pickup agar paket dapat disiapkan tepat waktu.* | *US-03*|
+| A04 | *Memindai QR Pickup* | *Penjual * | *US-04*|
+| ... | ... | ... | ... |
+
+## 3.4 Model Proses Bisnis
 Buatlah *Activity Diagram* atau *Swimlane Diagram* yang menunjukkan alur kerja proses bisnis dari sistem solusi. Diagram ini harus memvisualisasikan bagaimana alur operasional di dunia nyata berjalan lebih efisien dengan adanya interaksi antara aktor (yang didefinisikan pada poin 3.1) dan sistem perangkat lunak. Perhatikan notasi yang digunakan dalam pembuatannya.
 <br>
 
