@@ -4,13 +4,13 @@
 
 | Informasi | Keterangan |
 | --- | --- |
-| **Hari** | *\[Hari\]* |
-| **Tanggal** | *\[DD/MM/YYYY\]* |
+| **Hari** | *\[Selasa\]* |
+| **Tanggal** | *\[01/09/2026\]* |
 | **Kelas** | *\[K1\]* |
 | **Nomor Kelompok** | *\[6\]*  |
 | **Nama Kelompok** | *\[MZakyBTW\]*  |
 | **Nama Perangkat Lunak** | *\[Nama P/L\]*  |
-| **Dokumen** | *\[Nama Dokumen yang diasistensikan\]*  |
+| **Dokumen** | *\[M1\]*  |
 
 ### Anggota Kelompok
 
@@ -26,13 +26,9 @@
 
 | Catatan |
 | --- |
-| 1. *\[Berikan catatan hasil asistensi\]*  |
-| 2. ... |
-| 3. ... |
-| 4. ... |
-
-**Notes for this section:**  
-*Catatan dapat dituliskan dalam bentuk paragraf atau poin-poin, disesuaikan saja.* 
+| 1. *\[Melakukan riset terkait hukum/peraturan yang berlaku.\]*  |
+| 2. *\[Menentukan sistem gacha yang dapat mengakomodasi informasi alergen.\]*  |
+| 3. *\[Membuat diagram proses bisnis sistem.\]*  |
 
 ## Dokumentasi
 
