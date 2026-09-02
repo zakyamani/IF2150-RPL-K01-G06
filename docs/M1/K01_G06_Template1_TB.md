@@ -40,7 +40,6 @@ Saat ini, penanganan sisa makanan pada industri kuliner retail masih mengandalka
 
 Kondisi tersebut menyisakan celah besar belum adanya mekanisme distribusi pangan berlebih yang cepat, fleksibel, dan bernilai ekonomi. Aplikasi berbasis sistem gacha hadir untuk menyelesaikan kesenjangan ini dengan menghilangkan kerumitan pengelolaan inventory harian. Merchant cukup memasukkan kuota paket tanpa perlu mendaftarkan varian menu satu per satu, sehingga operasional toko tetap efisien. Konsep gacha ini juga melindungi nilai merek merchant sekaligus memungkinkan pemotongan harga secara signifikan (50%-70%), sehingga masyarakat dapat mengakses makanan berkualitas dengan harga terjangkau secara real-time sebelum jam operasional toko berakhir.
 
-source : https://www.liputan6.com/bisnis/read/5634939/miris-indonesia-buang-buang-48-juta-ton-makanan-per-tahun-setara-kebutuhan-pangan-125-juta-orang
 ---
 
 # BAB 2: Analisis Solusi
@@ -202,10 +201,10 @@ Buatlah *Activity Diagram* atau *Swimlane Diagram* yang menunjukkan alur kerja p
 <br>
 
 <p align="center">
-<img alt="Activity Diagram Proses Bisnis Marketplace Surplus Makanan" src="./assets/diagram/activity-diagram-bisnis.png" width="85%">
+<img alt="Contoh Activity Diagram" src="./assets/diagram/diagram-act-1.avif" width="70%">
 </p>
 <p align="center">
-<i>Gambar 1. Activity Diagram Proses Bisnis Marketplace Surplus Makanan</i>
+<i>Gambar 1. Contoh Activity Diagram</i>
 </p>
 
 <br>
@@ -224,4 +223,5 @@ Buatlah *Activity Diagram* atau *Swimlane Diagram* yang menunjukkan alur kerja p
 - [11] Republik Indonesia. (1999). *Undang-Undang Nomor 8 Tahun 1999 tentang Perlindungan Konsumen*. https://peraturan.bpk.go.id/Details/45288/uu-no-8-tahun-1999
 - [12] Republik Indonesia. (2022). *Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi*. https://peraturan.bpk.go.id/Details/229798/uu-no-27-tahun-2022
 - [13] Republik Indonesia. (2019). *Peraturan Pemerintah Nomor 71 Tahun 2019 tentang Penyelenggaraan Sistem dan Transaksi Elektronik*. https://peraturan.bpk.go.id/Details/122030/pp-no-71-tahun-2019
+- [14] Deny, S. (2024, 4 Juli). Miris, Indonesia buang-buang 48 juta ton makanan per tahun setara kebutuhan pangan 125 juta orang. Liputan6. https://www.liputan6.com/bisnis/read/5634939/miris-indonesia-buang-buang-48-juta-ton-makanan-per-tahun-setara-kebutuhan-pangan-125-juta-orang
 - Diagram UML: https://www.drawio.com/, https://staruml.io/
