@@ -7,7 +7,7 @@ TOPIC BRAINSTORMING
 </h1>
 <br>
 
-## *Nama Perangkat Lunak*
+## *SisaRasa*
 
 ### Untuk: *[Amanda Aurellia Salsabilla]*
 

@@ -7,7 +7,7 @@
 | Kelas | *[K1]* |
 | Nomor Kelompok | *[6]* |
 | Nama Kelompok | *[MZakyBTW]* |
-| Nama Perangkat Lunak | *[Nama P/L]* |
+| Nama Perangkat Lunak | *[SisaRasa]* |
 
 **Anggota Kelompok:**
 
