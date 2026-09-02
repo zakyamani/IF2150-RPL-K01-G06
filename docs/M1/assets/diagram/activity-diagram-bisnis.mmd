@@ -1,0 +1,81 @@
+```mermaid
+flowchart TD
+    classDef seller fill:#4f46e5,stroke:#3730a3,stroke-width:1.5px,color:#ffffff,font-weight:bold;
+    classDef system fill:#4f46e5,stroke:#3730a3,stroke-width:1.5px,color:#ffffff,font-weight:bold;
+    classDef buyer fill:#4f46e5,stroke:#3730a3,stroke-width:1.5px,color:#ffffff,font-weight:bold;
+    classDef decision fill:#fce7f3,stroke:#db2777,stroke-width:1.5px,color:#831843,font-weight:bold;
+    classDef refund fill:#d97706,stroke:#b45309,stroke-width:1.5px,color:#ffffff,font-weight:bold;
+    classDef cancel fill:#64748b,stroke:#475569,stroke-width:1.5px,color:#ffffff,font-weight:bold;
+
+    subgraph Penjual ["Penjual (Merchant Kuliner Retail)"]
+        startNode((Start)) --> A1["Mengidentifikasi Makanan Surplus & Menentukan Parameter<br>[US-01 / A01]"]:::seller
+        A1 --> A2["Mengirim Formulir Penawaran Paket Kejutan<br>[A01]"]:::seller
+        A10["Menerima Notifikasi Pesanan & Menyiapkan Paket<br>[A03 / US-03]"]:::seller
+        A10b["Menyimpan Paket pada Suhu Aman Higienis<br>[A03 / Bab 2.2.3]"]:::seller
+        A10 --> A10b
+        A14["Memeriksa Ketersediaan & Menunjukkan Paket Makanan<br>[US-08]"]:::seller
+        A10b --> A14
+        D2{"Paket Tersedia & Layak Sesuai?"}:::decision
+        A14 --> D2
+        A15["Menyerahkan Paket & Memindai QR Pickup Pembeli<br>[A08 / US-04]"]:::seller
+        D2 -- "[Ya / Sesuai]" --> A15
+        A19["Menerima Notifikasi Transaksi Sukses & Estimasi Payout<br>[US-04]"]:::seller
+    end
+
+    subgraph Sistem ["Sistem (Platform Aplikasi PWA)"]
+        A3["Memvalidasi & Menerbitkan Penawaran Anonim ke Katalog<br>[A01, A04 / US-05]"]:::system
+        A7["Memproses dan Memverifikasi Status Pembayaran<br>[A05]"]:::system
+        D1{"Pembayaran Berhasil?"}:::decision
+        A7 --> D1
+        A8["Mengurangi Kuota (-1) & Menerbitkan QR Pickup<br>[A06]"]:::system
+        D1 -- "[Berhasil]" --> A8
+        A9["Membuka Identitas Toko & Alamat Lengkap Pickup<br>[A06 / US-07]"]:::system
+        A8 --> A9
+        A14c["Memproses Refund Penuh Otomatis & Catat Riwayat Batal<br>[A09, A10]"]:::refund
+        EndRefund(((Refund Selesai)))
+        A14c --> EndRefund
+        A16["Memvalidasi Keabsahan Kode QR Pickup<br>[A08]"]:::system
+        D3{"Kode QR Valid?"}:::decision
+        A16 --> D3
+        A17["Mengubah Status Transaksi: 'Paket Berhasil Diserahkan'<br>[A08, A10]"]:::system
+        D3 -- "[Valid]" --> A17
+        A18["Menjadwalkan Payout ke Penjual via Escrow - Fee<br>[A08 / Bab 2.1.5]"]:::system
+        A17 --> A18
+        EndFinal(((Transaksi Selesai)))
+    end
+
+    subgraph Pembeli ["Pembeli (Konsumen / Food Rescuer)"]
+        A4["Menelusuri Katalog Penawaran Anonim Terdekat<br>[A04 / US-05]"]:::buyer
+        A5["Memilih Paket Kejutan & Checkout Pesanan<br>[US-05]"]:::buyer
+        A4 --> A5
+        A6["Melakukan Pembayaran Digital QRIS<br>[A05 / US-06]"]:::buyer
+        A5 --> A6
+        A7b["Menerima Notifikasi Gagal & Pesanan Dibatalkan<br>[A10]"]:::cancel
+        EndCancel(((Pesanan Batal)))
+        A7b --> EndCancel
+        A11["Menerima QR Pickup serta Info Lokasi & Waktu<br>[A06, A10 / US-07]"]:::buyer
+        A12["Mendatangi Gerai dalam Jendela Waktu (Self-Pickup)<br>[A07 / US-08]"]:::buyer
+        A11 --> A12
+        A13["Menunjukkan Kode QR Pickup pada Ponsel ke Penjual<br>[A07 / US-08]"]:::buyer
+        A12 --> A13
+        A14b["Mengajukan Refund Penuh via Aplikasi<br>[A09 / US-09]"]:::refund
+        A20["Menerima Makanan Fisik & Memberikan Rating di Aplikasi<br>[A10 / US-10]"]:::buyer
+    end
+
+    %% Cross-lane transitions
+    A2 --> A3
+    A3 --> A4
+    A6 --> A7
+    D1 -- "[Gagal / Waktu Habis]" --> A7b
+    A9 --> A10
+    A9 --> A11
+    A13 --> A14
+    D2 -- "[Tidak Tersedia / Batal]" --> A14b
+    A14b --> A14c
+    A15 --> A16
+    D3 -- "[Tidak Valid (Pindai Ulang)]" --> A15
+    A18 --> A19
+    A18 --> A20
+    A19 --> EndFinal
+    A20 --> EndFinal
+```

@@ -1,0 +1,161 @@
+@startuml activity-diagram-bisnis
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing true
+skinparam defaultFontName "Helvetica"
+skinparam defaultFontSize 12
+skinparam ActivityFontSize 12
+skinparam ActivityDiamondFontSize 11
+skinparam ActivityBorderColor #3730a3
+skinparam ActivityBackgroundColor #4f46e5
+skinparam ActivityFontColor #ffffff
+skinparam ArrowColor #1e293b
+skinparam ArrowThickness 1.5
+
+title ACTIVITY DIAGRAM: PROSES BISNIS MARKETPLACE SURPLUS MAKANAN\n(Sistem Penyelamatan Surplus Food Berbasis Jarak & Waktu — IF2150 RPL Kelompok 6)
+
+|#f8fafc|Penjual|
+start
+:Mengidentifikasi Makanan Surplus & Menentukan
+Kategori, Kuota, Nilai Normal, Harga Diskon,
+serta Jendela Waktu Pickup
+[US-01 / A01];
+
+:Mengirim Formulir Penawaran
+Paket Kejutan (Surprise Package)
+[A01];
+
+|#ffffff|Sistem|
+:Memvalidasi Formulir & Menerbitkan
+Penawaran Anonim ke Katalog Sistem
+(Foto, Nama Toko, & Alamat Presisi Dirahasiakan)
+[A01, A04 / US-05];
+
+|#f8fafc|Pembeli|
+:Menelusuri Katalog Penawaran Anonim
+Berdasarkan Perkiraan Jarak Terdekat
+[A04 / US-05];
+
+:Memilih Kategori Paket Kejutan &
+Melakukan Checkout Pesanan
+[US-05];
+
+:Melakukan Pembayaran Digital
+melalui QRIS / Payment Gateway
+[A05 / US-06];
+
+|Sistem|
+:Memproses dan Memverifikasi Status
+Pembayaran via Payment Gateway
+[A05];
+
+if (Pembayaran Berhasil?) then ([Gagal / Waktu Habis])
+  |Pembeli|
+  #64748b:Menerima Notifikasi Pembayaran Gagal &
+  Pesanan Dibatalkan Otomatis
+  [A10];
+  stop
+else ([Berhasil])
+  |Sistem|
+  :Mengurangi Kuota Paket (-1) & Menerbitkan
+  Kode QR Pickup Satu Kali Pakai
+  [A06];
+  
+  :Membuka Detail Identitas Merchant &
+  Alamat Lokasi Toko untuk Pengambilan
+  [A06 / US-07];
+
+  fork
+    |Penjual|
+    :Menerima Notifikasi Pesanan Masuk &
+    Menyiapkan Paket Makanan Surplus
+    sesuai Kategori yang Dipesan
+    [A03 / US-03];
+    
+    :Menyimpan Paket pada Suhu Aman
+    Sesuai Standar Higiene Sanitasi
+    Menunggu Kedatangan Pembeli
+    [A03 / Bab 2.2.3];
+  fork again
+    |Pembeli|
+    :Menerima QR Pickup serta Informasi
+    Nama Toko, Alamat Lengkap, &
+    Jendela Waktu Pengambilan
+    [A06, A10 / US-07];
+
+    :Mendatangi Gerai Penjual dalam Jendela
+    Waktu Pickup yang Ditetapkan
+    (Self-Pickup Mandiri)
+    [A07 / US-08];
+
+    :Menunjukkan Kode QR Pickup
+    pada Ponsel kepada Penjual
+    [A07 / US-08];
+  end fork
+
+  |Penjual|
+  :Memeriksa Ketersediaan & Kondisi Fisik
+  serta Menunjukkan Paket Makanan
+  Surplus kepada Pembeli
+  [US-08];
+
+  if (Paket Tersedia & Layak Sesuai?) then ([Tidak Tersedia / Dibatalkan])
+    |Pembeli|
+    #d97706:Mengajukan Permohonan Refund Penuh
+    via Aplikasi (Sebelum QR Dipindai)
+    [A09 / US-09];
+    |Sistem|
+    #d97706:Memproses Refund Penuh Otomatis ke Pembeli
+    & Mencatat Transaksi Batal di Riwayat
+    [A09, A10];
+    stop
+  else ([Ya / Sesuai])
+    |Penjual|
+    :Menyerahkan Paket Makanan Surplus &
+    Memindai QR Pickup Milik Pembeli
+    [A08 / US-04];
+  endif
+
+  |Sistem|
+  :Memvalidasi Keabsahan Kode QR Pickup
+  & Integritas Status Transaksi
+  [A08];
+
+  repeat
+    if (Kode QR Valid?) then ([Valid])
+      break
+    else ([Tidak Valid (Pindai Ulang)])
+      |Penjual|
+      :Pindai Ulang QR Pickup Pembeli
+      [A08];
+      |Sistem|
+    endif
+  repeat while (Validasi Ulang)
+
+  :Mengubah Status Transaksi Menjadi
+  'Paket Berhasil Diserahkan'
+  [A08, A10];
+
+  :Menjadwalkan Pencairan Dana (Payout) ke Penjual
+  (Diproses via Escrow setelah Dipotong Platform Fee)
+  [A08 / Bab 2.1.5];
+
+  fork
+    |Penjual|
+    :Menerima Notifikasi Transaksi Sukses &
+    Estimasi Nilai Bersih Payout
+    yang Akan Dicairkan
+    [US-04];
+  fork again
+    |Pembeli|
+    :Menerima Paket Makanan Fisik &
+    Memberikan Rating serta Ulasan
+    pada Aplikasi
+    [A10 / US-10];
+  end fork
+
+  |Sistem|
+  stop
+endif
+
+@enduml

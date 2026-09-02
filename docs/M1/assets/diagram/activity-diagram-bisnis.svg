@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 2560" width="1260" height="2560">
+
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#1e293b" />
+        </marker>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12" flood-color="#0f172a" />
+        </filter>
+        <style>
+            .title { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 22px; font-weight: 800; fill: #0f172a; text-anchor: middle; letter-spacing: -0.3px; }
+            .subtitle { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 500; fill: #475569; text-anchor: middle; }
+            .lane-header { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+            .lane-sub { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 500; fill: #64748b; text-anchor: middle; }
+            .act-text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12.5px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+            .act-sub { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 500; fill: #e0e7ff; text-anchor: middle; }
+            .act-id { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #fef08a; text-anchor: middle; }
+            .dec-text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; fill: #831843; text-anchor: middle; }
+            .badge-text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #1e293b; text-anchor: middle; }
+            .final-text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+            .flow-line { fill: none; stroke: #1e293b; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+        </style>
+    </defs>
+    
+<rect width="1260" height="2560" fill="#ffffff" />
+<text x="630" y="42" class="title">ACTIVITY DIAGRAM: PROSES BISNIS MARKETPLACE SURPLUS MAKANAN</text>
+<text x="630" y="68" class="subtitle">Sistem Penyelamatan Surplus Food Berbasis Jarak &amp; Waktu (Paket Kejutan / Surprise Package) — IF2150 RPL Kelompok 6</text>
+<rect x="40" y="95" width="380" height="2410" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" />
+<rect x="420" y="95" width="420" height="2410" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" />
+<rect x="840" y="95" width="380" height="2410" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" />
+<rect x="40" y="95" width="380" height="56" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" />
+<rect x="420" y="95" width="420" height="56" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" />
+<rect x="840" y="95" width="380" height="56" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5" />
+<text x="230" y="120" class="lane-header">Penjual</text>
+<text x="230" y="140" class="lane-sub">(Merchant Kuliner Retail / Toko Roti / Kafe)</text>
+<text x="630" y="120" class="lane-header">Sistem</text>
+<text x="630" y="140" class="lane-sub">(Platform Aplikasi PWA Marketplace)</text>
+<text x="1030" y="120" class="lane-header">Pembeli</text>
+<text x="1030" y="140" class="lane-sub">(Konsumen / Food Rescuer)</text>
+<circle cx="230" cy="185" r="13" fill="#dc2626" stroke="#0f172a" stroke-width="2" filter="url(#shadow)" />
+<path d="M 230 198 L 230 227" class="flow-line" />
+<rect x="70" y="227" width="320" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="245.5" class="act-text">Mengidentifikasi Makanan Surplus &amp; Menentukan</text>
+<text x="230" y="261.5" class="act-text">Kategori, Kuota, Nilai Normal, Harga Diskon,</text>
+<text x="230" y="277.5" class="act-text">serta Jendela Waktu Pickup</text>
+<text x="230" y="294.5" class="act-id">[US-01 / A01]</text>
+<path d="M 230 303 L 230 339" class="flow-line" />
+<rect x="80" y="339" width="300" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="358.5" class="act-text">Mengirim Formulir Penawaran</text>
+<text x="230" y="374.5" class="act-text">Paket Kejutan (Surprise Package)</text>
+<text x="230" y="391.5" class="act-id">[A01]</text>
+<path d="M 380 370 L 452 370" class="flow-line" />
+<rect x="453" y="332" width="355" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="350.5" class="act-text">Memvalidasi Formulir &amp; Menerbitkan</text>
+<text x="630" y="366.5" class="act-text">Penawaran Anonim ke Katalog Sistem</text>
+<text x="630" y="383.5" class="act-sub">(Foto, Nama Toko, &amp; Alamat Presisi Dirahasiakan)</text>
+<text x="630" y="399.5" class="act-id">[A01, A04 / US-05]</text>
+<path d="M 808 370 L 1030 370 L 1030 442" class="flow-line" />
+<rect x="875" y="442" width="310" height="66" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="463.5" class="act-text">Menelusuri Katalog Penawaran Anonim</text>
+<text x="1030" y="479.5" class="act-text">Berdasarkan Perkiraan Jarak Terdekat</text>
+<text x="1030" y="496.5" class="act-id">[A04 / US-05]</text>
+<path d="M 1030 508 L 1030 537" class="flow-line" />
+<rect x="885" y="537" width="290" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="556.5" class="act-text">Memilih Kategori Paket Kejutan &amp;</text>
+<text x="1030" y="572.5" class="act-text">Melakukan Checkout Pesanan</text>
+<text x="1030" y="589.5" class="act-id">[US-05]</text>
+<path d="M 1030 599 L 1030 630" class="flow-line" />
+<rect x="885" y="630" width="290" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="649.5" class="act-text">Melakukan Pembayaran Digital</text>
+<text x="1030" y="665.5" class="act-text">melalui QRIS / Payment Gateway</text>
+<text x="1030" y="682.5" class="act-id">[A05 / US-06]</text>
+<path d="M 885 661 L 630 661 L 630 729" class="flow-line" />
+<rect x="460" y="729" width="340" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="748.5" class="act-text">Memproses dan Memverifikasi Status</text>
+<text x="630" y="764.5" class="act-text">Pembayaran via Payment Gateway</text>
+<text x="630" y="781.5" class="act-id">[A05]</text>
+<path d="M 630 791 L 630 827.5" class="flow-line" />
+<polygon points="630,828 710,865 630,902 550,865" fill="#fce7f3" stroke="#db2777" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="857" class="dec-text">Pembayaran</text>
+<text x="630" y="873" class="dec-text">Berhasil?</text>
+<path d="M 710 865 L 1030 865 L 1030 915" class="flow-line" />
+<rect x="709" y="845" width="163" height="20" rx="4" ry="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1" />
+<text x="790" y="859" class="badge-text">[Gagal / Waktu Habis]</text>
+<rect x="885" y="915" width="290" height="62" rx="10" ry="10" fill="#64748b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="934.5" class="act-text">Menerima Notifikasi Pembayaran Gagal &amp;</text>
+<text x="1030" y="950.5" class="act-text">Pesanan Dibatalkan Otomatis</text>
+<text x="1030" y="967.5" class="act-id">[A10]</text>
+<path d="M 1030 977 L 1030 1004" class="flow-line" />
+<circle cx="1030" cy="1018" r="15" fill="#ffffff" stroke="#0f172a" stroke-width="2" filter="url(#shadow)" />
+<circle cx="1030" cy="1018" r="9" fill="#0f172a" stroke="none" />
+<text x="1030" y="1049" class="final-text">Pesanan Batal</text>
+<path d="M 630 902.5 L 630 944" class="flow-line" />
+<rect x="632" y="913" width="86" height="20" rx="4" ry="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1" />
+<text x="675" y="927" class="badge-text">[Berhasil]</text>
+<rect x="455" y="944" width="350" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="963.5" class="act-text">Mengurangi Kuota Paket (-1) &amp; Menerbitkan</text>
+<text x="630" y="979.5" class="act-text">Kode QR Pickup Satu Kali Pakai</text>
+<text x="630" y="996.5" class="act-id">[A06]</text>
+<path d="M 630 1006 L 630 1037" class="flow-line" />
+<rect x="455" y="1037" width="350" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="1056.5" class="act-text">Membuka Detail Identitas Merchant &amp;</text>
+<text x="630" y="1072.5" class="act-text">Alamat Lokasi Toko untuk Pengambilan</text>
+<text x="630" y="1089.5" class="act-id">[A06 / US-07]</text>
+<path d="M 630 1099 L 630 1135" class="flow-line" />
+<rect x="230" y="1135" width="800" height="8" rx="4" ry="4" fill="#0f172a" filter="url(#shadow)" />
+<path d="M 230 1143 L 230 1175" class="flow-line" />
+<path d="M 1030 1143 L 1030 1175" class="flow-line" />
+<rect x="70" y="1175" width="320" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="1193.5" class="act-text">Menerima Notifikasi Pesanan Masuk &amp;</text>
+<text x="230" y="1209.5" class="act-text">Menyiapkan Paket Makanan Surplus</text>
+<text x="230" y="1225.5" class="act-text">sesuai Kategori yang Dipesan</text>
+<text x="230" y="1242.5" class="act-id">[A03 / US-03]</text>
+<path d="M 230 1251 L 230 1282" class="flow-line" />
+<rect x="70" y="1282" width="320" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="1300.5" class="act-text">Menyimpan Paket pada Suhu Aman</text>
+<text x="230" y="1316.5" class="act-text">Sesuai Standar Higiene Sanitasi</text>
+<text x="230" y="1332.5" class="act-text">Menunggu Kedatangan Pembeli</text>
+<text x="230" y="1349.5" class="act-id">[A03 / Bab 2.2.3]</text>
+<path d="M 230 1358 L 230 1457" class="flow-line" />
+<rect x="870" y="1175" width="320" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="1193.5" class="act-text">Menerima QR Pickup serta Informasi</text>
+<text x="1030" y="1209.5" class="act-text">Nama Toko, Alamat Lengkap, &amp;</text>
+<text x="1030" y="1225.5" class="act-text">Jendela Waktu Pengambilan</text>
+<text x="1030" y="1242.5" class="act-id">[A06, A10 / US-07]</text>
+<path d="M 1030 1251 L 1030 1282" class="flow-line" />
+<rect x="875" y="1282" width="310" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="1300.5" class="act-text">Mendatangi Gerai Penjual dalam Jendela</text>
+<text x="1030" y="1316.5" class="act-text">Waktu Pickup yang Ditetapkan</text>
+<text x="1030" y="1332.5" class="act-text">(Self-Pickup Mandiri)</text>
+<text x="1030" y="1349.5" class="act-id">[A07 / US-08]</text>
+<path d="M 1030 1358 L 1030 1389" class="flow-line" />
+<rect x="885" y="1389" width="290" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="1408.5" class="act-text">Menunjukkan Kode QR Pickup</text>
+<text x="1030" y="1424.5" class="act-text">pada Ponsel kepada Penjual</text>
+<text x="1030" y="1441.5" class="act-id">[A07 / US-08]</text>
+<path d="M 885 1420 L 405 1420 L 405 1495 L 392 1495" class="flow-line" />
+<rect x="70" y="1457" width="320" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="1475.5" class="act-text">Memeriksa Ketersediaan &amp; Kondisi Fisik</text>
+<text x="230" y="1491.5" class="act-text">serta Menunjukkan Paket Makanan</text>
+<text x="230" y="1507.5" class="act-text">Surplus kepada Pembeli</text>
+<text x="230" y="1524.5" class="act-id">[US-08]</text>
+<path d="M 230 1533 L 230 1570.5" class="flow-line" />
+<polygon points="230,1571 310,1608 230,1645 150,1608" fill="#fce7f3" stroke="#db2777" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="1600" class="dec-text">Paket Tersedia</text>
+<text x="230" y="1616" class="dec-text">&amp; Layak Sesuai?</text>
+<path d="M 310 1608 L 868 1608" class="flow-line" />
+<rect x="398" y="1588" width="165" height="20" rx="4" ry="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1" />
+<text x="480" y="1602" class="badge-text">[Tidak Tersedia / Dibatalkan]</text>
+<rect x="870" y="1577" width="320" height="62" rx="10" ry="10" fill="#d97706" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="1596.5" class="act-text">Mengajukan Permohonan Refund Penuh</text>
+<text x="1030" y="1612.5" class="act-text">via Aplikasi (Sebelum QR Dipindai)</text>
+<text x="1030" y="1629.5" class="act-id">[A09 / US-09]</text>
+<path d="M 1030 1639 L 1030 1690 L 810 1690" class="flow-line" />
+<rect x="453" y="1659" width="355" height="62" rx="10" ry="10" fill="#d97706" stroke="#b45309" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="1678.5" class="act-text">Memproses Refund Penuh Otomatis ke Pembeli</text>
+<text x="630" y="1694.5" class="act-text">&amp; Mencatat Transaksi Batal di Riwayat</text>
+<text x="630" y="1711.5" class="act-id">[A09, A10]</text>
+<path d="M 630 1721 L 630 1748" class="flow-line" />
+<circle cx="630" cy="1762" r="15" fill="#ffffff" stroke="#0f172a" stroke-width="2" filter="url(#shadow)" />
+<circle cx="630" cy="1762" r="9" fill="#0f172a" stroke="none" />
+<text x="630" y="1793" class="final-text">Refund Selesai</text>
+<path d="M 230 1645.5 L 230 1717" class="flow-line" />
+<rect x="232" y="1665" width="107" height="20" rx="4" ry="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1" />
+<text x="285" y="1679" class="badge-text">[Ya / Sesuai]</text>
+<rect x="75" y="1717" width="310" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="1736.5" class="act-text">Menyerahkan Paket Makanan Surplus &amp;</text>
+<text x="230" y="1752.5" class="act-text">Memindai QR Pickup Milik Pembeli</text>
+<text x="230" y="1769.5" class="act-id">[A08 / US-04]</text>
+<path d="M 385 1748 L 435 1748 L 435 1845 L 452 1845" class="flow-line" />
+<rect x="455" y="1814" width="350" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="1833.5" class="act-text">Memvalidasi Keabsahan Kode QR Pickup</text>
+<text x="630" y="1849.5" class="act-text">&amp; Integritas Status Transaksi</text>
+<text x="630" y="1866.5" class="act-id">[A08]</text>
+<path d="M 630 1876 L 630 1910.5" class="flow-line" />
+<polygon points="630,1911 705,1948 630,1985 555,1948" fill="#fce7f3" stroke="#db2777" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="1940" class="dec-text">Kode QR</text>
+<text x="630" y="1956" class="dec-text">Valid?</text>
+<path d="M 555 1948 L 56 1948 L 56 1748 L 73 1748" class="flow-line" />
+<rect x="315" y="1928" width="170" height="20" rx="4" ry="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1" />
+<text x="400" y="1942" class="badge-text">[Tidak Valid (Pindai Ulang)]</text>
+<path d="M 630 1985.5 L 630 2024" class="flow-line" />
+<rect x="643" y="1995" width="65" height="20" rx="4" ry="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1" />
+<text x="675" y="2009" class="badge-text">[Valid]</text>
+<rect x="455" y="2024" width="350" height="62" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="2043.5" class="act-text">Mengubah Status Transaksi Menjadi</text>
+<text x="630" y="2059.5" class="act-text">'Paket Berhasil Diserahkan'</text>
+<text x="630" y="2076.5" class="act-id">[A08, A10]</text>
+<path d="M 630 2086 L 630 2117" class="flow-line" />
+<rect x="448" y="2117" width="365" height="66" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="630" y="2138.5" class="act-text">Menjadwalkan Pencairan Dana (Payout) ke Penjual</text>
+<text x="630" y="2154.5" class="act-text">(Diproses via Escrow setelah Dipotong Platform Fee)</text>
+<text x="630" y="2171.5" class="act-id">[A08 / Bab 2.1.5]</text>
+<path d="M 630 2183 L 630 2220" class="flow-line" />
+<rect x="230" y="2220" width="800" height="8" rx="4" ry="4" fill="#0f172a" filter="url(#shadow)" />
+<path d="M 230 2228 L 230 2262" class="flow-line" />
+<path d="M 1030 2228 L 1030 2262" class="flow-line" />
+<rect x="73" y="2262" width="315" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="230" y="2280.5" class="act-text">Menerima Notifikasi Transaksi Sukses &amp;</text>
+<text x="230" y="2296.5" class="act-text">Estimasi Nilai Bersih Payout</text>
+<text x="230" y="2312.5" class="act-text">yang Akan Dicairkan</text>
+<text x="230" y="2329.5" class="act-id">[US-04]</text>
+<path d="M 230 2338 L 230 2380" class="flow-line" />
+<rect x="873" y="2262" width="315" height="76" rx="10" ry="10" fill="#4f46e5" stroke="#3730a3" stroke-width="1.5" filter="url(#shadow)" />
+<text x="1030" y="2280.5" class="act-text">Menerima Paket Makanan Fisik &amp;</text>
+<text x="1030" y="2296.5" class="act-text">Memberikan Rating serta Ulasan</text>
+<text x="1030" y="2312.5" class="act-text">pada Aplikasi</text>
+<text x="1030" y="2329.5" class="act-id">[A10 / US-10]</text>
+<path d="M 1030 2338 L 1030 2380" class="flow-line" />
+<rect x="230" y="2380" width="800" height="8" rx="4" ry="4" fill="#0f172a" filter="url(#shadow)" />
+<path d="M 630 2388 L 630 2429" class="flow-line" />
+<circle cx="630" cy="2445" r="16" fill="#ffffff" stroke="#0f172a" stroke-width="2" filter="url(#shadow)" />
+<circle cx="630" cy="2445" r="10" fill="#0f172a" stroke="none" />
+<text x="630" y="2477" class="final-text">Transaksi Selesai (Paket Berhasil Diselamatkan)</text>
+<text x="630" y="2530" class="lane-sub">Notasi: UML 2.x Activity Diagram dengan Swimlane Partition (Aktor &amp; Sistem). Kode [A01–A10] dan [US-01–US-10] merujuk pada Dokumen M1 RPL.</text>
+</svg>
