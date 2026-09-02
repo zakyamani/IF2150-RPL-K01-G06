@@ -38,6 +38,8 @@
 | *30-08-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan Milestone 1 bagian 3.2 berdasarkan data aktor bagian 3.1* | *20 Menit* | *Done* | *-* | 
 | *31-08-2026* | *Nabil Rabbani (13525004)* | *Melakukan riset SDG 2 dan Too Good To Go, memvalidasi alur E2E, serta mengintegrasikan Bab 2 dan penyesuaian kebutuhan pengguna* | *1 Jam 32 Menit (15.00–16.32 WIB)* | *Done* | *-* |
 | *01-09-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan Milestone 1 bagian 3.3 dan mengisi notulensi asistensi 1* | *45 Menit* | *Done* | *-* |
+| *01-09-2026* | *Josephine Bintang N.L.* | *Generate diagram proses bisnis sementara yang dipakai sebagai acuan* | *10 Menit* | *Done* | *-* |
+| *02-09-2026* | *Josephine Bintang N.L.* | *Melakukan riset hukum yang berlaku, merancang penyesuaian sistem gacha untuk memfasilitasi pengecualian alergen, memperbarui diagram proses bisnis, serta merevisi Bab 2 dan Bab 3 sesuai fitur baru.* | *58 Menit* | *Done* | *-* |
 | | | | | | | |
 
 **Catatan/Evaluasi Milestone 1:**
