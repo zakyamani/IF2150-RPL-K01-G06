@@ -157,7 +157,7 @@ Ketentuan hukum yang dicantumkan merupakan batas perancangan awal, bukan pendapa
 # BAB 3: Spesifikasi Kebutuhan dan Proses Bisnis
 
 ## 3.1 Identifikasi Aktor
-Daftar seluruh aktor (pengguna) yang akan berinteraksi langsung dengan sistem solusi yang dikembangkan. Berisi penjelasan singkat mengenai peran dan karakteristik dari masing-masing aktor.
+Sistem perangkat lunak marketplace penyelamatan makanan ini melibatkan aktor utama yang berinteraksi langsung dengan platform. Berikut adalah daftar dan deskripsi peran dari masing-masing aktor:
 
 | Aktor | Deskripsi |
 | :--- | :--- |
@@ -166,7 +166,7 @@ Daftar seluruh aktor (pengguna) yang akan berinteraksi langsung dengan sistem so
 
 
 ## 3.2 Kebutuhan Pengguna Awal
-Mendefinisikan apa yang ingin dicapai oleh pengguna saat menggunakan sistem ini dalam format *User Story* (Sebagai [Aktor], saya ingin [Aktivitas/Kebutuhan], sehingga [Tujuan/Nilai]). Berfokus pada "apa yang ingin dilakukan pengguna".
+Kebutuhan fungsional awal dari sistem ini didefinisikan menggunakan format User Story untuk mengidentifikasi aktivitas spesifik dan nilai yang diharapkan oleh setiap aktor. Kebutuhan tersebut dijabarkan pada tabel berikut:
 
 | ID | Aktor | Kebutuhan / Aktivitas | Tujuan / Nilai |
 | :--- | :--- | :--- | :--- |
@@ -182,7 +182,8 @@ Mendefinisikan apa yang ingin dicapai oleh pengguna saat menggunakan sistem ini 
 | US-10 | *Pembeli* | *Melihat status pembayaran, pickup, refund, dan riwayat transaksi* | *Dapat memantau penyelesaian setiap transaksi secara transparan* |
 
 ## 3.3 Deskripsi Aktivitas
-  Daftar seluruh aktivitas yang terdapat dalam sistem solusi, lengkap dengan ID dan penjelasan. Telusuri hubungan aktivitas tersebut dengan *user story* yang sudah dituliskan sebelumnya. Dibuat dalam bentuk tabel.
+Berdasarkan user story yang telah didefinisikan, berikut adalah deskripsi alur aktivitas utama yang dapat dilakukan oleh pengguna di dalam sistem beserta keterkaitannya:
+
 | ID | Aktivitas | Penjelasan | ID User Story |
 | :--- | :--- | :--- | :--- |
 | A01 | *Membuat Penawaran Paket* | *Penjual memilih kategori, menentukan kuota, harga, dan jendela pickup untuk surplus makanan yang tersedia.* | *US-01* |
