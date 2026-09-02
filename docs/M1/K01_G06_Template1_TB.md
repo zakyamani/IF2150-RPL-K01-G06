@@ -201,7 +201,7 @@ Buatlah *Activity Diagram* atau *Swimlane Diagram* yang menunjukkan alur kerja p
 <br>
 
 <p align="center">
-<img alt="Contoh Activity Diagram" src="./assets/diagram/diagram-act-1.avif" width="70%">
+<img alt="Contoh Activity Diagram" src="./assets/diagram/activity-diagram-bisnis.png" width="70%">
 </p>
 <p align="center">
 <i>Gambar 1. Contoh Activity Diagram</i>
