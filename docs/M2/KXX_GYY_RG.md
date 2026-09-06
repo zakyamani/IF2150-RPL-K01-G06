@@ -7,24 +7,24 @@ REQUIREMENT GATHERING
 </h1>
 <br>
 
-## *Nama Perangkat Lunak*
+## *SisaRasa*
 
-### Untuk: *[Nama Asisten]*
+### Untuk: *[Amanda Aurellia Salsabilla]*
 
 Dipersiapkan oleh:
 
 | Informasi | Keterangan |
 | --- | --- |
-| Kelas | *\[Kelas\]* |
-| Kelompok | *\[Nomor Kelompok\]* |
+| Kelas | *\[K1\]* |
+| Kelompok | *\[6\]*  |
 
 | NIM | Nama |
-| --- | --- |
-| *\[NIM 1\]* | *\[Nama Anggota 1\]* |
-| *\[NIM 2\]* | *\[Nama Anggota 2\]* |
-| *\[NIM 3\]* | *\[Nama Anggota 3\]* |
-| *\[NIM 4\]* | *\[Nama Anggota 4\]* |
-| *\[NIM 5\]* | *\[Nama Anggota 5\]* |
+|---|---|
+| *[13525067]* | *[Fathar Atandra Denaya]* |
+| *[13525040]* | *[Muhammad Zaky Amani]* |
+| *[13525139]* | *[Josephine Bintang N.L]* |
+| *[13525070]* | *[Devina Athalia Putri Kusumah]* |
+| *[13525004]* | *[Nabil Rabbani]* |
 
 ---
 
