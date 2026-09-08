@@ -4,35 +4,30 @@
 
 | Informasi | Keterangan |
 | --- | --- |
-| **Hari** | *\[Hari\]* |
-| **Tanggal** | *\[DD/MM/YYYY\]* |
-| **Kelas** | *\[Kelas\]* |
-| **Nomor Kelompok** | *\[Nomor Kelompok\]*  |
-| **Nama Kelompok** | *\[Nama Kelompok\]*  |
-| **Nama Perangkat Lunak** | *\[Nama P/L\]*  |
-| **Dokumen** | *\[Nama Dokumen yang diasistensikan\]*  |
+| **Hari** | *\[Selasa\]* |
+| **Tanggal** | *\[08/09/2026\]* |
+| **Kelas** | *\[K1\]* |
+| **Nomor Kelompok** | *\[6\]*  |
+| **Nama Kelompok** | *\[MZakyBTW\]*  |
+| **Nama Perangkat Lunak** | *\[SisaRasa\]*  |
+| **Dokumen** | *\[M2\]*  |
 
 ### Anggota Kelompok
 
 | NIM | Nama |
 | --- | --- |
-| *\[NIM 1\]* | *\[Nama Anggota 1\]* |
-| *\[NIM 2\]* | *\[Nama Anggota 2\]* |
-| *\[NIM 3\]* | *\[Nama Anggota 3\]* |
-| *\[NIM 4\]* | *\[Nama Anggota 4\]* |
-| *\[NIM 5\]* | *\[Nama Anggota 5\]* |
+| *\[NIM 1\]* | *\[Fathar Atandra Denaya\]* |
+| *\[NIM 2\]* | *\[Muhammad Zaky Amani\]* |
+| *\[NIM 3\]* | *\[Josephine Bintang N.L\]* |
+| *\[NIM 4\]* | *\[Devina Athalia Putri Kusumah\]* |
+| *\[NIM 5\]* | *\[Nabil Rabbani\]* |
 
 ### Catatan
 
 | Catatan |
 | --- |
-| 1. *\[Berikan catatan hasil asistensi\]*  |
-| 2. ... |
-| 3. ... |
-| 4. ... |
-
-**Notes for this section:**  
-*Catatan dapat dituliskan dalam bentuk paragraf atau poin-poin, disesuaikan saja.* 
+| 1. *\[Melakukan breakdown terhadap penjelasan pada setiap bagian Bab 2 sesuai hasil asistensi\]*  |
+| 2. *\[Melakukan revisi pada bagian Deskripsi Aktivitas sesuai dengan hasil asistensi\]*  |
 
 ## Dokumentasi
 
