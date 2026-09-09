@@ -61,6 +61,7 @@
 | *09-09-2026* | *Josephine Bintang N.L.* | *Menyusun perincian kebutuhan operasional, hukum, dan sistem (R01-R43) beserta penetapan status P/L* | *1.5 Jam* | *Done* | *-* | 
 | *09-09-2026* | *Devina Athalia Putri Kusumah* | *Memetakan 14 Kebutuhan Fungsional (KF01-KF14) menggantikan seluruh placeholder ID RXX dengan ID presisi* | *1.5 Jam* | *Done* | *-* | 
 | *09-09-2026* | *Nabil Rabbani* | *Melakukan cross-check konsistensi akhir, mengaudit arsitektur ACID/Escrow, dan merumuskan KNF terukur (KNF01-KNF05)* | *2 Jam* | *Done* | *-* | 
+| *09-09-2026* | *Fathar Atandra Denaya* | *Mengganti format penulisan bab 2.4 dan 2.5 dengan model EARS* | *0.5 Jam* | *Done* | *-* | 
 
 **Catatan/Evaluasi Milestone 2:**
 * *Tim berhasil memecahkan ambiguitas aturan bisnis (seperti mitigasi no-show dan pembatalan merchant) berkat audit silang multi-layer.*
