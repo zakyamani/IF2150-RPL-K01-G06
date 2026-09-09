@@ -23,6 +23,7 @@
 
 ### Daftar Isi
 * [Milestone 1](#milestone-1)
+* [Milestone 2](#milestone-2)
 * Notes: Copy bagian Daftar Isi seperti Milestone 1 untuk Milestone berikutnya, contoh ``* [Milestone 2](#milestone-2)``. Ketika Daftar isi diklik maka akan langsung diarahkan ke bagian bawah sesuai dengan Milestone tujuan.
 
 ---
@@ -43,8 +44,7 @@ Silakan catat penggunaan AI yang berdampak signifikan pada pengerjaan tugas (mis
 ### Milestone 2
 | Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
 | :--- | :--- | :--- | :--- |
-| | | | | |
-| | | | | |
+| | *Antigravity (LLM)* | *Memvalidasi matriks keterlacakan (Traceability Matrix) dan dekomposisi hierarkis Bab 2* | *"Lakukan looping crosscheck berulang pada keseluruhan Bab 2 dan pastikan konsistensi dengan Bab lainnya menggunakan agen paralel"* | *AI secara akurat menemukan kontradiksi pada aturan no-show pembeli, kelemahan pada skema refund otomatis, algoritma hashing usang (SHA-256), dan hilangnya peringatan alergen (anafilaksis). Kami menyetujui seluruh koreksi tersebut dan menerapkannya pada Draf Bab 2 final.* | |
 
 ---
 ### Pernyataan Integritas dan Persetujuan
