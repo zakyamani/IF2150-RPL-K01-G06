@@ -23,6 +23,7 @@
 
 ### Daftar Isi
 * [Milestone 1](#milestone-1)
+* [Milestone 2](#milestone-2)
 * Notes: Copy bagian Daftar Isi seperti Milestone 1 untuk Milestone berikutnya, contoh ``* [Milestone 2](#milestone-2)``. Ketika Daftar isi diklik maka akan langsung diarahkan ke bagian bawah sesuai dengan Milestone tujuan.
 
 
@@ -47,5 +48,22 @@
 
 ---
 
+
+
+### Milestone 2
+**Periode:** 08-09-2026 - 09-09-2026
+
+| Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
+| :--- | :--- | :--- | :--- | :--- | :--- | 
+| *08-09-2026* | *Fathar Atandra Denaya* | *Mengikuti Asistensi 2 bersama asisten dan mencatat arahan perbaikan dekomposisi Bab 2* | *1 Jam* | *Done* | *-* | 
+| *08-09-2026* | *Muhammad Zaky Amani* | *Menganalisis hasil asistensi dan merancang kerangka awal dekomposisi hierarkis US ke Aktivitas (A01-A23)* | *2 Jam* | *Done* | *-* | 
+| *09-09-2026* | *Josephine Bintang N.L.* | *Menyusun perincian kebutuhan operasional, hukum, dan sistem (R01-R43) beserta penetapan status P/L* | *1.5 Jam* | *Done* | *-* | 
+| *09-09-2026* | *Devina Athalia Putri Kusumah* | *Memetakan 14 Kebutuhan Fungsional (KF01-KF14) menggantikan seluruh placeholder ID RXX dengan ID presisi* | *1.5 Jam* | *Done* | *-* | 
+| *09-09-2026* | *Nabil Rabbani* | *Melakukan cross-check konsistensi akhir, mengaudit arsitektur ACID/Escrow, dan merumuskan KNF terukur (KNF01-KNF05)* | *2 Jam* | *Done* | *-* | 
+
+**Catatan/Evaluasi Milestone 2:**
+* *Tim berhasil memecahkan ambiguitas aturan bisnis (seperti mitigasi no-show dan pembatalan merchant) berkat audit silang multi-layer.*
+
+---
 
 ``Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. ``
