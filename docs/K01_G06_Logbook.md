@@ -55,6 +55,7 @@
 
 | Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
+| *07-09-2026* | *Fathar Atandra Denaya* | *Membuat draf bab 2.4 Kebutuhan Fungsional* | *2 Jam* | *Done* | *-* | 
 | *08-09-2026* | *Fathar Atandra Denaya* | *Mengikuti Asistensi 2 bersama asisten dan mencatat arahan perbaikan dekomposisi Bab 2* | *1 Jam* | *Done* | *-* | 
 | *08-09-2026* | *Muhammad Zaky Amani* | *Menganalisis hasil asistensi dan merancang kerangka awal dekomposisi hierarkis US ke Aktivitas (A01-A23)* | *2 Jam* | *Done* | *-* | 
 | *09-09-2026* | *Josephine Bintang N.L.* | *Menyusun perincian kebutuhan operasional, hukum, dan sistem (R01-R43) beserta penetapan status P/L* | *1.5 Jam* | *Done* | *-* | 
