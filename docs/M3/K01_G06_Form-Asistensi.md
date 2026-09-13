@@ -6,21 +6,21 @@
 | --- | --- |
 | **Hari** | *\[Hari\]* |
 | **Tanggal** | *\[DD/MM/YYYY\]* |
-| **Kelas** | *\[Kelas\]* |
-| **Nomor Kelompok** | *\[Nomor Kelompok\]*  |
-| **Nama Kelompok** | *\[Nama Kelompok\]*  |
-| **Nama Perangkat Lunak** | *\[Nama P/L\]*  |
-| **Dokumen** | *\[Nama Dokumen yang diasistensikan\]*  |
+| **Kelas** | *\[K1\]* |
+| **Nomor Kelompok** | *\[6\]*  |
+| **Nama Kelompok** | *\[MZakyBTW\]*  |
+| **Nama Perangkat Lunak** | *\[SisaRasa\]*  |
+| **Dokumen** | *\[M3\]*  |
 
 ### Anggota Kelompok
 
 | NIM | Nama |
 | --- | --- |
-| *\[NIM 1\]* | *\[Nama Anggota 1\]* |
-| *\[NIM 2\]* | *\[Nama Anggota 2\]* |
-| *\[NIM 3\]* | *\[Nama Anggota 3\]* |
-| *\[NIM 4\]* | *\[Nama Anggota 4\]* |
-| *\[NIM 5\]* | *\[Nama Anggota 5\]* |
+| *\[NIM 1\]* | *\[Fathar Atandra Denaya\]* |
+| *\[NIM 2\]* | *\[Muhammad Zaky Amani\]* |
+| *\[NIM 3\]* | *\[Josephine Bintang N.L\]* |
+| *\[NIM 4\]* | *\[Devina Athalia Putri Kusumah\]* |
+| *\[NIM 5\]* | *\[Nabil Rabbani\]* |
 
 ### Catatan
 
