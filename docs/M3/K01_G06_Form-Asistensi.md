@@ -4,8 +4,8 @@
 
 | Informasi | Keterangan |
 | --- | --- |
-| **Hari** | *\[Hari\]* |
-| **Tanggal** | *\[DD/MM/YYYY\]* |
+| **Hari** | *\[Selasa\]* |
+| **Tanggal** | *\[15/09/2026\]* |
 | **Kelas** | *\[K1\]* |
 | **Nomor Kelompok** | *\[6\]*  |
 | **Nama Kelompok** | *\[MZakyBTW\]*  |
@@ -26,13 +26,10 @@
 
 | Catatan |
 | --- |
-| 1. *\[Berikan catatan hasil asistensi\]*  |
-| 2. ... |
-| 3. ... |
-| 4. ... |
+| 1. *\[Menambahkan skenario alternatif pada setiap use case yang relevan.\]*  |
+| 2. *\[Membuat diagram use case 3.3 berdasarkan use case yang telah disusun pada bagian 3.2.\]* |
+| 3. *\[Menyesuaikan format penulisan M2 dengan menggunakan format EARS.\]* |
 
-**Notes for this section:**  
-*Catatan dapat dituliskan dalam bentuk paragraf atau poin-poin, disesuaikan saja.* 
 
 ## Dokumentasi
 
