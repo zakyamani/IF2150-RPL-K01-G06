@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="24.0.0">
+  <diagram name="Use Case Diagram 7 UC" id="SisaRasa-M3-UC-7">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="880" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Header Title -->
+        <mxCell id="title" parent="1" value="&lt;b&gt;USE CASE DIAGRAM: SISTEM MARKETPLACE MAKANAN SURPLUS (SISARASA)&lt;/b&gt;" vertex="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#000000;">
+          <mxGeometry x="150" y="25" width="1000" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- System Boundary -->
+        <mxCell id="boundary" parent="1" value="&lt;b&gt;Sistem Marketplace SisaRasa&lt;/b&gt;" vertex="1" style="swimlane;startSize=30;html=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.8;fontColor=#000000;fontSize=13;fontStyle=1;collapsible=0;recursiveResize=0;expand=0;shadow=0;">
+          <mxGeometry x="210" y="65" width="880" height="780" as="geometry" />
+        </mxCell>
+
+        <!-- Actor: Pembeli -->
+        <mxCell id="actor_pembeli" parent="1" value="&lt;b&gt;Pembeli&lt;/b&gt;" vertex="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.8;fontColor=#000000;fontSize=13;fontStyle=1;shadow=0;">
+          <mxGeometry x="85" y="380" width="55" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Actor: Penjual -->
+        <mxCell id="actor_penjual" parent="1" value="&lt;b&gt;Penjual&lt;/b&gt;" vertex="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.8;fontColor=#000000;fontSize=13;fontStyle=1;shadow=0;">
+          <mxGeometry x="1160" y="380" width="55" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- USE CASES INSIDE BOUNDARY -->
+        <!-- UC02: Menelusuri Penawaran Anonim -->
+        <mxCell id="uc02" parent="boundary" value="&lt;b&gt;UC02:&lt;/b&gt; Menelusuri Penawaran Anonim&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[KF06, KF07, KF08]&lt;/font&gt;" vertex="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11.5;fontStyle=1;shadow=0;">
+          <mxGeometry x="45" y="65" width="270" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC01: Membuat dan Mengelola Penawaran -->
+        <mxCell id="uc01" parent="boundary" value="&lt;b&gt;UC01:&lt;/b&gt; Membuat dan Mengelola Penawaran&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[KF03, KF04]&lt;/font&gt;" vertex="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11.5;fontStyle=1;shadow=0;">
+          <mxGeometry x="565" y="65" width="270" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC03: Melakukan Transaksi Pembayaran -->
+        <mxCell id="uc03" parent="boundary" value="&lt;b&gt;UC03:&lt;/b&gt; Melakukan Transaksi Pembayaran&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[KF01, KF02, KF09, KF10]&lt;/font&gt;" vertex="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11.5;fontStyle=1;shadow=0;">
+          <mxGeometry x="45" y="225" width="270" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC04: Memantau Pesanan Masuk -->
+        <mxCell id="uc04" parent="boundary" value="&lt;b&gt;UC04:&lt;/b&gt; Memantau Pesanan Masuk&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[KF05]&lt;/font&gt;" vertex="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11.5;fontStyle=1;shadow=0;">
+          <mxGeometry x="565" y="225" width="270" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC05: Memvalidasi Pengambilan Pesanan -->
+        <mxCell id="uc05" parent="boundary" value="&lt;b&gt;UC05:&lt;/b&gt; Memvalidasi Pengambilan Pesanan&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[KF11, KF12]&lt;/font&gt;" vertex="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11.5;fontStyle=1;shadow=0;">
+          <mxGeometry x="565" y="380" width="270" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC06: Mengelola Pesanan (Center) -->
+        <mxCell id="uc06" parent="boundary" value="&lt;b&gt;UC06:&lt;/b&gt; Mengelola Pesanan&lt;br&gt;&lt;font size=&quot;1&quot;&gt;(Refund / Pembatalan / No-Show)&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[KF13]&lt;/font&gt;" vertex="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11.5;fontStyle=1;shadow=0;">
+          <mxGeometry x="290" y="525" width="300" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- UC07: Melihat Riwayat dan Memberikan Ulasan (Center Bottom) -->
+        <mxCell id="uc07" parent="boundary" value="&lt;b&gt;UC07:&lt;/b&gt; Melihat Riwayat dan Memberikan Ulasan&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[KF14]&lt;/font&gt;" vertex="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11.5;fontStyle=1;shadow=0;">
+          <mxGeometry x="270" y="665" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: PEMBELI (SOLID BLACK LINES) -->
+        <mxCell id="e_pem_uc02" parent="1" source="actor_pembeli" target="uc02" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pem_uc03" parent="1" source="actor_pembeli" target="uc03" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pem_uc06" parent="1" source="actor_pembeli" target="uc06" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pem_uc07" parent="1" source="actor_pembeli" target="uc07" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS: PENJUAL (SOLID BLACK LINES) -->
+        <mxCell id="e_pen_uc01" parent="1" source="actor_penjual" target="uc01" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pen_uc04" parent="1" source="actor_penjual" target="uc04" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pen_uc05" parent="1" source="actor_penjual" target="uc05" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pen_uc06" parent="1" source="actor_penjual" target="uc06" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pen_uc07" parent="1" source="actor_penjual" target="uc07" edge="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- DEPENDENCIES: EXTEND (GRAY DASHED LINES) -->
+        <!-- UC06 extend UC03 (Refund) -->
+        <mxCell id="rel_ext_refund" parent="boundary" source="uc06" target="uc03" edge="1" style="html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#64748b;strokeWidth=1.4;fontSize=10;fontColor=#64748b;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ext_refund" parent="rel_ext_refund" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#64748b&quot;&gt;(Pengajuan Refund)&lt;/font&gt;" vertex="1" connectable="0" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9.5;fontColor=#64748b;fontStyle=1;backgroundColor=#ffffff;">
+          <mxGeometry x="0.05" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- UC06 extend UC05 (No-Show) -->
+        <mxCell id="rel_ext_noshow" parent="boundary" source="uc06" target="uc05" edge="1" style="html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#64748b;strokeWidth=1.4;fontSize=10;fontColor=#64748b;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ext_noshow" parent="rel_ext_noshow" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#64748b&quot;&gt;(Pembeli No-Show)&lt;/font&gt;" vertex="1" connectable="0" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9.5;fontColor=#64748b;fontStyle=1;backgroundColor=#ffffff;">
+          <mxGeometry x="0.05" relative="1" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
