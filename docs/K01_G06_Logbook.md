@@ -24,6 +24,7 @@
 ### Daftar Isi
 * [Milestone 1](#milestone-1)
 * [Milestone 2](#milestone-2)
+* [Milestone 3](#milestone-3)
 * Notes: Copy bagian Daftar Isi seperti Milestone 1 untuk Milestone berikutnya, contoh ``* [Milestone 2](#milestone-2)``. Ketika Daftar isi diklik maka akan langsung diarahkan ke bagian bawah sesuai dengan Milestone tujuan.
 
 
@@ -65,6 +66,15 @@
 
 **Catatan/Evaluasi Milestone 2:**
 * *Tim berhasil memecahkan ambiguitas aturan bisnis (seperti mitigasi no-show dan pembatalan merchant) berkat audit silang multi-layer.*
+
+---
+
+### Milestone 3
+**Periode:** 15-09-2026 - 16-09-2026
+
+| Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
+| :--- | :--- | :--- | :--- | :--- | :--- | 
+| *16-09-2026* | *Nabil Rabbani* | *Merancang Use Case Diagram 7 UC* | *2 Jam* | *Done* | *-* | 
 
 ---
 
