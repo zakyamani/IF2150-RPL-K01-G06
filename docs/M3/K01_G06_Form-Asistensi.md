@@ -16,11 +16,11 @@
 
 | NIM | Nama |
 | --- | --- |
-| *\[NIM 1\]* | *\[Fathar Atandra Denaya\]* |
-| *\[NIM 2\]* | *\[Muhammad Zaky Amani\]* |
-| *\[NIM 3\]* | *\[Josephine Bintang N.L\]* |
-| *\[NIM 4\]* | *\[Devina Athalia Putri Kusumah\]* |
-| *\[NIM 5\]* | *\[Nabil Rabbani\]* |
+| *[13525067]* | *[Fathar Atandra Denaya]* |
+| *[13525040]* | *[Muhammad Zaky Amani]* |
+| *[13525139]* | *[Josephine Bintang N.L]* |
+| *[13525070]* | *[Devina Athalia Putri Kusumah]* |
+| *[13525004]* | *[Nabil Rabbani]* |
 
 ### Catatan
 
