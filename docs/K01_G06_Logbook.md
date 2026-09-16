@@ -78,7 +78,8 @@
 | *15-09-2026* | *Muhammad Zaky Amani* | *Mengerjakan 3.4 bagian skenario normal* | *1,5 Jam* | *Done* | *-* |
 | *15-09-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan 3.4 bagian skenario alternatif dan mengisi notulensi asistensi 3* | *1,5 Jam* | *Done* | *-* | 
 | *16-09-2026* | *Nabil Rabbani* | *Merancang Use Case Diagram 7 UC* | *2 Jam* | *Done* | *-* |
-| *16-09-2026* | *Josephine Bintang N.L.* | *Mengerjakan bagian 3.1* | *0.5 Jam* | *Done* | *-* |  
+| *16-09-2026* | *Josephine Bintang N.L.* | *Mengerjakan bagian 3.1* | *0.5 Jam* | *Done* | *-* | 
+| *16-09-2026* | *Muhammad Zaky Amani* | *Merevisi deskripsi 3.1, 3.2, 3.3, dan 3.4* | *0.3 Jam* | *Done* | *-* |  
 ---
 
 ``Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. ``
