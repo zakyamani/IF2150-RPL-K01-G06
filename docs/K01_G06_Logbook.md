@@ -91,6 +91,9 @@
 | :--- | :--- | :--- | :--- | :--- | :--- | 
 | *20-09-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan bagian 4.1* | *1 Jam* | *Done* | *-* |
 | *23-09-2026* | *Muhammad Zaky Amani* | *Mengerjakan bab 5* | *0,5 Jam* | *Done* | *-* |
+| *23-09-2026* | *Josephine Bintang NL* | *Use Case Bab 4.2* | *2 Jam* | *Done* | *-* |
+| *23-09-2026* | *Nabil Rabbani* | *Membuat Diagram BAB 4.2 dan 4.3* | *1 Jam* | *Done* | *-* |
+| *23-09-2026* | *Fathar Atandra Denaya* | *Mengerjakan BAB 4.3 dan mengisi notulensi asistensi* | *0,5 Jam* | *Done* | *-* |
 
 ---
 
