@@ -89,7 +89,7 @@
 
 | Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
-| *20-09-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan bagian 4.1* | 1 Jam* | *Done* | *-* |
+| *20-09-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan bagian 4.1* | *1 Jam* | *Done* | *-* |
 
 ---
 
