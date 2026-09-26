@@ -61,24 +61,38 @@ Tabel 1.3. Definisi Istilah dan Singkatan
 | *...* | *...* |
 
 ## 1.4 Aturan Penomoran
-Tuliskan aturan penomoran (ID) yang digunakan dalam dokumen ini. Gunakan pola ID yang **sama** dengan yang sudah dipakai pada dokumen-dokumen sebelumnya, jangan membuat pola baru di dokumen ini.
+Dokumen Spesifikasi Kebutuhan Perangkat Lunak (SKPL) ini menggunakan aturan penomoran identitas (ID) yang konsisten dengan dokumen-dokumen perancangan sebelumnya. Penomoran ID digunakan untuk mempermudah pemetaan dan pelacakan antar-elemen kebutuhan, aktor, *use case*, dan kelas.
 
 Tabel 1.4. Aturan Penomoran
 
 | Hal/Bagian | Penomoran | Keterangan |
 | :--- | :--- | :--- |
-| *Kebutuhan Fungsional* | *KFXX* | |
-| *Kebutuhan Non-Fungsional* | *KNFXX* | |
-| *Aktor* | *AXX* | |
-| *Use Case* | *UCXX* | |
-| *Kelas* | *CXX* | |
-| *...* | *...* |
+| *Pemetaan Kebutuhan* | *RXX* | Menunjukkan ID kebutuhan dasar hasil analisis masalah. |
+| *Kebutuhan Fungsional* | *KFXX* | Menunjukkan ID Kebutuhan Fungsional perangkat lunak. |
+| *Kebutuhan Non-Fungsional* | *KNFXX* | Menunjukkan ID Kebutuhan Non-Fungsional (kualitas, keamanan, performa). |
+| *Aktor* | *AXX* | Menunjukkan ID aktor pengguna yang berinteraksi dengan sistem. |
+| *Use Case* | *UCXX* | Menunjukkan ID fungsi/unit interaksi pada *Use Case Diagram*. |
+| *Kelas* | *CXX* | Menunjukkan ID struktur entitas data/kelas pada *Class Diagram*. |
 
 ## 1.5 Referensi
-Dokumentasi P/L yang dirujuk oleh dokumen ini. Referensi dapat berupa buku, panduan, ataupun dokumentasi lain yang dipakai dalam pengembangan P/L ini.
+Dokumentasi dan acuan standar yang dirujuk dalam penyusunan dokumen SKPL aplikasi SisaRasa ini meliputi:
+
+1. **Kementerian PPN/Bappenas.** (2021). *Kajian Food Loss and Waste di Indonesia dalam Rangka Membangun Ekonomi Sirkular*.
+2. **Republik Indonesia.** (2012). *Undang-Undang Nomor 18 Tahun 2012 tentang Pangan*.
+3. **Republik Indonesia.** (2022). *Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP)*.
+4. **IEEE Computer Society.** (1998). *IEEE Std 830-1998: IEEE Recommended Practice for Software Requirements Specifications*.
+5. **PlantUML Documentation.** (n.d.). *Class Diagram Syntax and Features*. Diakses dari https://plantuml.com/class-diagram
+6. **Draw.io / Diagrams.net.** (n.d.). *Open source diagramming software for UML*. Diakses dari https://www.drawio.com/
 
 ## 1.6 Deskripsi Umum Dokumen (Ikhtisar)
-Tuliskan sistematika pembahasan dokumen SKPL ini secara runut (misalnya: BAB 2 membahas deskripsi umum P/L, BAB 3 membahas kebutuhan fungsional dan non-fungsional, dst).
+Dokumen SKPL ini disusun secara sistematis ke dalam 6 bab utama untuk memberikan gambaran menyeluruh mengenai spesifikasi aplikasi SisaRasa:
+
+* **BAB 1 Pendahuluan:** Membahas tujuan penulisan dokumen, lingkup masalah aplikasi SisaRasa, daftar definisi/singkatan, aturan penomoran ID, referensi pendukung, serta ikhtisar struktur dokumen.
+* **BAB 2 Deskripsi Perangkat Lunak:** Memuat gambaran umum sistem SisaRasa, alur proses bisnis (*Activity Diagram*), keterkaitan P/L dengan sistem eksternal (*Payment Gateway*), batasan pengembangan, dan spesifikasi lingkungan operasi (*server*, *client*, DBMS, OS).
+* **BAB 3 Deskripsi Kebutuhan Perangkat Lunak:** Menyajikan daftar lengkap Kebutuhan Fungsional (KF) berbasis pola EARS dan Kebutuhan Non-Fungsional (KNF).
+* **BAB 4 Pemodelan Use Case:** Memuat identifikasi aktor (A), daftar *Use Case* (UC), visualisasi *Use Case Diagram*, serta skenario rinci (normal dan alternatif) untuk setiap *use case*.
+* **BAB 5 Pemodelan Kelas:** Menjabarkan identifikasi kelas (C), *Class Diagram* per *use case*, hingga *Class Diagram* keseluruhan beserta rincian atribut dan operasinya.
+* **BAB 6 Traceability:** Menyajikan tabel keterlacakan yang menghubungkan keterkaitan antara Kebutuhan Fungsional (KF), *Use Case* (UC), dan Kelas (C) secara utuh.
 
 ---
 
