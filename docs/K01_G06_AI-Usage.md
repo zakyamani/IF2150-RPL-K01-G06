@@ -52,6 +52,11 @@ Silakan catat penggunaan AI yang berdampak signifikan pada pengerjaan tugas (mis
 | :--- | :--- | :--- | :--- |
 | *Muse Spark (via OpenCode)* | *Membuat file .drawio class diagram Bab 4 (7 per-UC + 1 keseluruhan) berdasarkan tabel 4.2.1–4.2.7 dan contoh M4* | *"Buatkan file .drawio untuk semuanya di bahan termasuk 4.3, teliti sesuai contoh dan tabel 4.2.1 dst"* | *Nabil memverifikasi kelas dan relasi tiap diagram terhadap tabel 4.2, me-render ulang di diagrams.net, dan memilih versi nama-saja sesuai template (menolak opsi kompartemen atribut).* |
 
+### Milestone 5
+| Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
+| :--- | :--- | :--- | :--- |
+| *Antigravity (LLM)* | *Konsultasi cakupan spesifikasi lingkungan operasi perangkat lunak (Bab 2.5) dan klarifikasi batasan arsitektur deployment sistem* | *"coba anda cek 2.5 itu arsitektur bukan?"* | *Nabil memvalidasi bahwa Bab 2.5 pada SKPL merupakan spesifikasi lingkungan operasi (IEEE Std 830).* |
+
 ---
 ### Pernyataan Integritas dan Persetujuan
 
