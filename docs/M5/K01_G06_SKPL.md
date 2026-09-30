@@ -397,52 +397,179 @@ Skenario berikut mendeskripsikan urutan interaksi langkah demi langkah antara Ak
 # BAB 5: Pemodelan Kelas
 
 ## 5.1 Identifikasi Kelas
-Salin ulang seluruh kelas yang telah diidentifikasi dari BAB 4.1 dokumen *Class Diagram*.
+Identifikasi seluruh kelas yang diperlukan untuk merealisasikan kebutuhan dan alur *use case* pada aplikasi SisaRasa ditunjukkan pada Tabel 5.1 berikut:
+
+Tabel 5.1. Identifikasi Kelas Sistem
 
 | ID Kelas | Nama Kelas | Deskripsi Kelas | ID Use Case |
 | :--- | :--- | :--- | :--- |
-| *C01* | *Pelanggan* | *Menyimpan data akun pelanggan yang membuat pesanan.* | *UC01, UC05* |
-| *C02* | *Pesanan* | *Menyimpan data pesanan beserta status pembayarannya.* | *UC01, UC03, UC05* |
-| *C03* | *Keranjang* | *Menyimpan sementara item yang dipilih sebelum checkout.* | *UC01, UC02* |
-| *...* | *...* | *...* | *...* |
+| **C01** | *Penjual* | Menyimpan data akun *merchant* terverifikasi yang membuat penawaran, memantau pesanan masuk, memindai kode QR *pickup*, dan menerima *payout*. | UC01, UC04, UC05, UC06, UC07 |
+| **C02** | *Pembeli* | Menyimpan data akun konsumen yang menelusuri katalog anonim, melakukan pembayaran digital, mengambil pesanan, dan memberi ulasan. | UC02, UC03, UC05, UC06, UC07 |
+| **C03** | *Penawaran* | Menyimpan data satu paket kejutan (kategori, info alergen, kuota, harga normal/diskon, jendela *pickup*) yang dibuat penjual dan ditampilkan di katalog. | UC01, UC02, UC03 |
+| **C04** | *Pesanan* | Menyimpan data satu transaksi pemesanan atas sebuah penawaran, beserta status alurnya (menunggu bayar, menunggu *pickup*, selesai, *no-show*, dibatalkan). | UC03, UC04, UC05, UC06, UC07 |
+| **C05** | *MetodePembayaran* | Kelas abstrak/induk yang merepresentasikan metode pembayaran digital yang dipilih pembeli saat *checkout*. | UC03 |
+| **C06** | *QRIS* | Spesialisasi metode pembayaran yang merealisasikan otorisasi transaksi via QRIS. | UC03 |
+| **C07** | *EWallet* | Spesialisasi metode pembayaran yang merealisasikan otorisasi transaksi via dompet digital (*e-wallet*). | UC03 |
+| **C08** | *QRPickup* | Menyimpan token kode QR dinamis sekali pakai (dan kode OTP *fallback*) yang menjadi bukti sah penjemputan pesanan sekaligus pemicu *payout*. | UC03, UC05 |
+| **C09** | *Pengaduan* | Menyimpan data pengajuan *refund* / sengketa atas pesanan bermasalah (paket rusak, toko tutup saat penjemputan, atau *no-show*) beserta status penyelesaiannya. | UC06 |
+| **C10** | *Ulasan* | Menyimpan *rating* bintang dan komentar yang diberikan pembeli terhadap pesanan yang telah berstatus "Selesai". | UC07 |
+| **C11** | *RiwayatTransaksi* | Mencatat *log* seluruh transaksi (*audit trail*) dan mengakumulasi metrik dampak penyelamatan makanan. | UC07 |
+
+---
 
 ## 5.2 Diagram Kelas per Use Case
-Salin ulang diagram kelas untuk setiap use case dari BAB 4.2 dokumen *Class Diagram*, lengkap dengan tabel atribut dan metode/operasinya.
 
-### 5.2.1 Use Case UC01
-
-**Nama Use Case:** *Memesan Produk*
+### 5.2.1 Use Case UC01: Membuat dan Mengelola Penawaran
 
 <p align="center">
-<img alt="Contoh Class Diagram" src="./assets/diagram/contoh-class-diagram.webp" width="70%">
+<img alt="Class Diagram UC01" src="./assets/diagram/class-diagram-UC01.webp" width="70%">
 </p>
 <p align="center">
-<i>Gambar 3. Contoh Diagram Kelas Use Case UC01</i>
+<i>Gambar 5.1. Diagram Kelas Use Case UC01</i>
 </p>
 
 | ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
 | :--- | :--- | :--- | :--- |
-| *C02* | *Pesanan* | *idPesanan, total, status* | *buatPesanan(), hitungTotal()* |
-| *C03* | *Keranjang* | *daftarItem* | *tambahItem(), checkout()* |
-| *...* | *...* | *...* | *...* |
+| **C01** | *Penjual* | `idPenjual`, `namaGerai`, `alamatPresisi` | `buatPenawaran()`, `ubahPenawaran()`, `tutupPenawaran()` |
+| **C03** | *Penawaran* | `idPenawaran`, `kategori`, `infoAlergen`, `kuota`, `hargaNormal`, `hargaDiskon`, `jendelaPickup`, `status` | `simpanPenawaran()`, `perbaruiDetail()`, `kurangiKuota()` |
 
-> Lanjutkan pola **5.2.x** untuk setiap use case pada 4.2.
+---
+
+### 5.2.2 Use Case UC02: Menelusuri Penawaran Anonim
+
+<p align="center">
+<img alt="Class Diagram UC02" src="./assets/diagram/class-diagram-UC02.webp" width="70%">
+</p>
+<p align="center">
+<i>Gambar 5.2. Diagram Kelas Use Case UC02</i>
+</p>
+
+| ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
+| :--- | :--- | :--- | :--- |
+| **C02** | *Pembeli* | `idPembeli`, `filterAlergenAktif` | `setFilterAlergen()`, `telusuriKatalog()` |
+| **C03** | *Penawaran* | `idPenawaran`, `kategori`, `infoAlergen`, `kuota`, `hargaDiskon`, `jendelaPickup` | `tampilkanAnonim()`, `filterAlergen()` |
+
+---
+
+### 5.2.3 Use Case UC03: Melakukan Transaksi Pembayaran
+
+<p align="center">
+<img alt="Class Diagram UC03" src="./assets/diagram/class-diagram-UC03.webp" width="75%">
+</p>
+<p align="center">
+<i>Gambar 5.3. Diagram Kelas Use Case UC03</i>
+</p>
+
+| ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
+| :--- | :--- | :--- | :--- |
+| **C02** | *Pembeli* | `idPembeli`, `nama`, `email` | `checkoutPesanan()`, `pilihMetodeBayar()` |
+| **C03** | *Penawaran* | `idPenawaran`, `kuota` | `cekKetersediaanKuota()`, `kurangiKuota()` |
+| **C04** | *Pesanan* | `idPesanan`, `totalHarga`, `statusPesanan` | `buatPesanan()`, `batalkanTagihan()` |
+| **C05** | *MetodePembayaran* | `idMetode`, `jenisBayar` | `prosesPembayaran()` |
+| **C06** | *QRIS* | `kodeQRIS` | `mintaOtorisasi()` |
+| **C07** | *EWallet* | `idAkun` | `mintaOtorisasi()` |
+| **C08** | *QRPickup* | `tokenQR`, `statusQR` | `generateQR()` |
+
+---
+
+### 5.2.4 Use Case UC04: Memantau Pesanan Masuk
+
+<p align="center">
+<img alt="Class Diagram UC04" src="./assets/diagram/class-diagram-UC04.webp" width="70%">
+</p>
+<p align="center">
+<i>Gambar 5.4. Diagram Kelas Use Case UC04</i>
+</p>
+
+| ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
+| :--- | :--- | :--- | :--- |
+| **C01** | *Penjual* | `idPenjual` | `lihatDashboardPesanan()` |
+| **C04** | *Pesanan* | `idPesanan`, `statusPesanan`, `jadwalPickup` | `tampilkanDetailPesanan()`, `kirimNotifikasiMasuk()` |
+
+---
+
+### 5.2.5 Use Case UC05: Memvalidasi Pengambilan Pesanan
+
+<p align="center">
+<img alt="Class Diagram UC05" src="./assets/diagram/class-diagram-UC05.webp" width="75%">
+</p>
+<p align="center">
+<i>Gambar 5.5. Diagram Kelas Use Case UC05</i>
+</p>
+
+| ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
+| :--- | :--- | :--- | :--- |
+| **C01** | *Penjual* | `idPenjual` | `scanQRPickup()`, `inputOTPManual()` |
+| **C02** | *Pembeli* | `idPembeli` | `tampilkanQRPickup()` |
+| **C04** | *Pesanan* | `idPesanan`, `statusPesanan` | `selesaikanPesanan()`, `jadwalkanPayout()` |
+| **C08** | *QRPickup* | `tokenQR`, `kodeOTP`, `statusQR` | `validasiQR()`, `validasiOTP()`, `tandaiTerpakai()` |
+
+---
+
+### 5.2.6 Use Case UC06: Mengelola Pesanan
+
+<p align="center">
+<img alt="Class Diagram UC06" src="./assets/diagram/class-diagram-UC06.webp" width="75%">
+</p>
+<p align="center">
+<i>Gambar 5.6. Diagram Kelas Use Case UC06</i>
+</p>
+
+| ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
+| :--- | :--- | :--- | :--- |
+| **C01** | *Penjual* | `idPenjual` | `batalkanPesanan()`, `konfirmasiSengketa()` |
+| **C02** | *Pembeli* | `idPembeli` | `ajukanRefund()`, `laporkanTokoTutup()` |
+| **C04** | *Pesanan* | `idPesanan`, `statusPesanan` | `ubahStatusGagal()`, `ubahStatusBatal()` |
+| **C09** | *Pengaduan* | `idPengaduan`, `alasan`, `buktiFoto`, `statusPenyelesaian` | `prosesRefund()`, `tanganiNoShow()`, `tahanDana()` |
+
+---
+
+### 5.2.7 Use Case UC07: Melihat Riwayat dan Memberikan Ulasan
+
+<p align="center">
+<img alt="Class Diagram UC07" src="./assets/diagram/class-diagram-UC07.webp" width="75%">
+</p>
+<p align="center">
+<i>Gambar 5.7. Diagram Kelas Use Case UC07</i>
+</p>
+
+| ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
+| :--- | :--- | :--- | :--- |
+| **C01** | *Penjual* | `idPenjual` | `lihatRiwayat()`, `lihatUlasan()` |
+| **C02** | *Pembeli* | `idPembeli` | `lihatRiwayat()`, `buatUlasan()` |
+| **C04** | *Pesanan* | `idPesanan`, `statusPesanan` | `tampilkanDetailSelesai()` |
+| **C10** | *Ulasan* | `idUlasan`, `rating`, `komentar` | `simpanUlasan()` |
+| **C11** | *RiwayatTransaksi* | `idRiwayat`, `logTransaksi`, `metrikDampak` | `catatLog()`, `hitungMetrik()` |
+
+---
 
 ## 5.3 Diagram Kelas Keseluruhan
-Gabungkan seluruh kelas dan hubungan antarkelas dari BAB 4.3 dokumen *Class Diagram* menjadi satu diagram kelas keseluruhan. Pastikan tidak ada kelas yang terduplikasi atau tertinggal.
+Diagram kelas keseluruhan pada Gambar 5.8 menyatukan seluruh kelas entitas (C01–C11) dan hubungan strukturalnya di dalam sistem SisaRasa:
 
 <p align="center">
-<img alt="Contoh Class Diagram Keseluruhan" src="./assets/diagram/contoh-class-diagram.webp" width="70%">
+<img alt="Class Diagram Keseluruhan Sistem SisaRasa" src="./assets/diagram/class-diagram-overall.webp" width="95%">
 </p>
 <p align="center">
-<i>Gambar 4. Contoh Diagram Kelas Keseluruhan</i>
+<i>Gambar 5.8. Diagram Kelas Keseluruhan Sistem SisaRasa</i>
 </p>
+
+Tabel 5.3 merinci atribut dan metode/operasi lengkap untuk seluruh kelas dalam sistem SisaRasa tanpa duplikasi:
+
+Tabel 5.3. Rincian Atribut dan Metode Kelas Keseluruhan
 
 | ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
 | :--- | :--- | :--- | :--- |
-| *C01* | *Pelanggan* | *idPelanggan, nama, email* | *lihatRiwayatPesanan()* |
-| *C02* | *Pesanan* | *idPesanan, total, status* | *hitungTotal(), perbaruiStatus()* |
-| *...* | *...* | *...* | *...* |
+| **C01** | *Penjual* | `idPenjual`, `namaToko`, `alamatPresisi`, `koordinatGPS`, `saldoRekening` | `buatPenawaran()`, `batalkanPesanan()`, `tarikDana()`, `scanQRPickup()` |
+| **C02** | *Pembeli* | `idPembeli`, `nama`, `email`, `filterAlergenAktif` | `checkoutPesanan()`, `ajukanRefund()`, `beriUlasan()`, `laporkanTokoTutup()` |
+| **C03** | *Penawaran* | `idPenawaran`, `kategori`, `infoAlergen`, `kuota`, `hargaNormal`, `hargaDiskon`, `jendelaPickup` | `simpanPenawaran()`, `kurangiKuota()`, `tutupPenawaran()`, `kembalikanKuota()` |
+| **C04** | *Pesanan* | `idPesanan`, `totalHarga`, `statusPesanan`, `waktuDibuat` | `buatPesanan()`, `perbaruiStatus()`, `tandaiSelesai()`, `batalkanTagihan()` |
+| **C05** | *MetodePembayaran* | `idMetode`, `jenisBayar` | `prosesPembayaran()` |
+| **C06** | *QRIS* | `kodeQRIS`, `batasWaktuTunggu` | `mintaOtorisasi()` |
+| **C07** | *EWallet* | `idAkun`, `namaProvider` | `mintaOtorisasi()` |
+| **C08** | *QRPickup* | `idToken`, `kodeHash`, `kodeOTP`, `statusValid` | `generateQR()`, `validasiQR()`, `validasiOTP()` |
+| **C09** | *Pengaduan* | `idPengaduan`, `alasan`, `buktiFoto`, `statusPenyelesaian` | `prosesRefund()`, `tanganiNoShow()`, `tahanDana()` |
+| **C10** | *Ulasan* | `idUlasan`, `rating`, `komentar`, `waktuUlasan` | `simpanUlasan()`, `tampilkanUlasan()` |
+| **C11** | *RiwayatTransaksi* | `idRiwayat`, `logData`, `metrikDampak` | `catatLog()`, `tampilkanRiwayat()`, `hitungMetrik()` |
 
 ---
 
