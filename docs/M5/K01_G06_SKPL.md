@@ -7,44 +7,42 @@ SPESIFIKASI KEBUTUHAN PERANGKAT LUNAK (SKPL)
 </h1>
 <br>
 
-## *SisaRasa*
+## SisaRasa
 
-### Untuk: *[Amanda Aurellia Salsabilla]*
+### Untuk: Amanda Aurellia Salsabilla
 
 Dipersiapkan oleh:
 
 | Informasi | Keterangan |
 | --- | --- |
-| Kelas | *\[K1\]* |
-| Kelompok | *\[6\]*  |
+| Kelas | K1 |
+| Kelompok | 6 |
 
 | NIM | Nama |
 |---|---|
-| *[13525067]* | *[Fathar Atandra Denaya]* |
-| *[13525040]* | *[Muhammad Zaky Amani]* |
-| *[13525139]* | *[Josephine Bintang N.L]* |
-| *[13525070]* | *[Devina Athalia Putri Kusumah]* |
-| *[13525004]* | *[Nabil Rabbani]* |
+| 13525067 | Fathar Atandra Denaya |
+| 13525040 | Muhammad Zaky Amani |
+| 13525139 | Josephine Bintang N.L |
+| 13525070 | Devina Athalia Putri Kusumah |
+| 13525004 | Nabil Rabbani |
+
 ---
 
 ## Daftar Perubahan
 
 | Revisi | Deskripsi |
 | :--- | :--- |
-| *A* | Penyesuaian arsitektur klien dari PWA ke aplikasi Android native (Flutter) serta penyusunan spesifikasi lingkungan operasi perangkat lunak (Bab 2.5). |
-| *B* |  |
-| *C* |  |
-| ... |  |
+| **A** | **Penyusunan awal dokumen SKPL (Milestone 5).** Penyesuaian arsitektur klien dari PWA ke aplikasi Android native (Flutter) dengan backend Node.js Express, integrasi modul Payment Gateway dummy internal, notifikasi real-time via WebSocket foreground service, penutupan celah operasional (penjualan surplus max 2 jam, aturan refund, dan fallback OTP), serta pemutakhiran seluruh kebutuhan EARS, Use Case, Class Diagram, dan Matriks Keterlacakan. |
 
 <br>
 
 # BAB 1: Pendahuluan
 
 ## 1.1 Tujuan Penulisan Dokumen
-Dokumen Spesifikasi Kebutuhan Perangkat Lunak (SKPL) ini bertujuan untuk merinci secara komprehensif seluruh spesifikasi fungsional, non-fungsional, serta batasan operasional yang dibutuhkan dalam pengembangan aplikasi SisaRasa. Dokumen ini dirancang sebagai acuan teknis utama bagi tim pengembang, perancang sistem, penguji (tester), serta pihak asisten mata kuliah Rekayasa Perangkat Lunak dalam memahami ruang lingkup dan perilaku sistem secara utuh sebelum tahap implementasi kode dilakukan.
+Dokumen Spesifikasi Kebutuhan Perangkat Lunak (SKPL) ini bertujuan untuk merinci secara komprehensif seluruh spesifikasi fungsional, non-fungsional, serta batasan operasional yang dibutuhkan dalam pengembangan aplikasi SisaRasa. Dokumen ini dirancang sebagai acuan teknis utama bagi tim pengembang, perancang sistem, penguji (*tester*), serta pihak asisten mata kuliah Rekayasa Perangkat Lunak dalam memahami ruang lingkup dan perilaku sistem secara utuh sebelum tahap implementasi kode dilakukan.
 
 ## 1.2 Lingkup Masalah
-SisaRasa adalah aplikasi *marketplace* penyelamat makanan surplus berbasis Android native (Flutter) yang memfasilitasi transaksi "paket kejutan" anonim antara *merchant* makanan (Penjual) dan konsumen (Pembeli). Solusi ini dirancang untuk mengatasi kerugian finansial *merchant* akibat penumpukan makanan layak makan yang tak terjual, sekaligus menyediakan akses pangan berkualitas dengan harga terjangkau (diskon 50%–70%) bagi masyarakat. Sistem membatasi interaksi secara anonim hingga transaksi lunas, serta mewajibkan mekanisme pengambilan mandiri (*pickup-only*) menggunakan kode QR dinamis untuk menjamin kepraktisan operasional tanpa mengganggu sistem kasir internal toko.
+SisaRasa adalah aplikasi *marketplace* penyelamat makanan surplus berbasis Android native (Flutter) yang memfasilitasi transaksi "paket kejutan" (*mystery box*) anonim antara *merchant* makanan (Penjual) dan konsumen (Pembeli). Solusi ini dirancang untuk mengatasi kerugian finansial *merchant* akibat penumpukan makanan layak makan yang tak terjual, sekaligus menyediakan akses pangan berkualitas dengan harga terjangkau (diskon 50%–70%) bagi masyarakat. Sistem membatasi interaksi secara anonim hingga transaksi lunas, serta mewajibkan mekanisme pengambilan mandiri (*pickup-only*) menggunakan kode QR dinamis untuk menjamin kepraktisan operasional tanpa mengganggu sistem kasir internal toko.
 
 ## 1.3 Definisi, Istilah, dan Singkatan
 Semua definisi, singkatan, dan akronim yang digunakan dalam dokumen SKPL ini beserta penjelasannya diuraikan pada Tabel 1.3 di bawah ini:
@@ -53,18 +51,21 @@ Tabel 1.3. Definisi Istilah dan Singkatan
 
 | Singkatan, Akronim, atau Istilah | Penjelasan |
 | :--- | :--- |
-| *SisaRasa* | *Nama perangkat lunak berupa aplikasi marketplace penyelamat makanan surplus berbasis web (PWA)* |
-| *P/L* | *Singkatan dari Perangkat Lunak, yaitu aplikasi yang memberikan parintah kepada komputer untuk menjalankan tugas tertentu.* |
-| *KF* | *Singkatan dari Kebutuhan Fungsional.* |
-| *KNF* | *Singkatan dari Kebutuhan Non-Fungsional.* |
-| *UC* | *Singkatan dari Use Case.* |
-| *EARS* | *Easy Approach to Requirements Syntax, yaitu pola penulisan kebutuhan agar konsisten dan mudah diuji.* |
-| *QRIS* | *Quick Response Code Indonesian Standard, yaitu standarisasi pembayaran menggunakan kode QR nasional untuk memproses transaksi digital.* |
-| *Payout* | *Proses pencairan dana dari platform kepada penjual setelah pesanan berhasil diserahkan dan divalidasi.* |
-| *Pickup-only* | *Mekanisme pemenuhan pesanan di mana pembeli wajib mengambil makanan secara mandiri ke lokasi penjual tanpa menggunakan jasa kurir pengantaran* |
+| *SisaRasa* | Nama perangkat lunak berupa aplikasi *marketplace* penyelamat makanan surplus berbasis Android native (Flutter). |
+| *P/L* | Singkatan dari Perangkat Lunak, yaitu aplikasi yang memberikan perintah kepada komputer untuk menjalankan tugas tertentu. |
+| *SKPL* | Singkatan dari Spesifikasi Kebutuhan Perangkat Lunak, yaitu dokumen yang merangkum kriteria yang diperlukan untuk membangun aplikasi. |
+| *KF* | Singkatan dari Kebutuhan Fungsional. |
+| *KNF* | Singkatan dari Kebutuhan Non-Fungsional. |
+| *UC* | Singkatan dari *Use Case*. |
+| *EARS* | *Easy Approach to Requirements Syntax*, yaitu pola penulisan kebutuhan agar konsisten dan mudah diuji. |
+| *Flutter* | *Framework open-source* berbasis bahasa Dart yang digunakan untuk membangun aplikasi Android native. |
+| *QRIS* | *Quick Response Code Indonesian Standard*, yaitu standarisasi pembayaran menggunakan kode QR nasional untuk memproses transaksi digital. |
+| *WebSocket* | Protokol komunikasi dua arah secara *real-time* antara server API dan aplikasi Android. |
+| *Payout* | Proses pencairan dana dari platform kepada penjual setelah pesanan berhasil diserahkan dan divalidasi. |
+| *Pickup-only* | Mekanisme pemenuhan pesanan di mana pembeli wajib mengambil makanan secara mandiri ke lokasi penjual tanpa menggunakan jasa kurir pengantaran. |
 
 ## 1.4 Aturan Penomoran
-Dokumen Spesifikasi Kebutuhan Perangkat Lunak (SKPL) ini menggunakan aturan penomoran identitas (ID) yang konsisten dengan dokumen-dokumen perancangan sebelumnya. Penomoran ID digunakan untuk mempermudah pemetaan dan pelacakan antar-elemen kebutuhan, aktor, *use case*, dan kelas.
+Dokumen Spesifikasi Kebutuhan Perangkat Lunak (SKPL) ini menggunakan aturan penomoran identitas (ID) yang konsisten dengan dokumen-dokumen perancangan sebelumnya. Penomoran ID digunakan untuk mempermudah pemetaan dan pelacakan (*traceability*) antar-elemen kebutuhan, aktor, *use case*, dan kelas.
 
 Tabel 1.4. Aturan Penomoran
 
@@ -91,7 +92,7 @@ Dokumentasi dan acuan standar yang dirujuk dalam penyusunan dokumen SKPL aplikas
 Dokumen SKPL ini disusun secara sistematis ke dalam 6 bab utama untuk memberikan gambaran menyeluruh mengenai spesifikasi aplikasi SisaRasa:
 
 * **BAB 1 Pendahuluan:** Membahas tujuan penulisan dokumen, lingkup masalah aplikasi SisaRasa, daftar definisi/singkatan, aturan penomoran ID, referensi pendukung, serta ikhtisar struktur dokumen.
-* **BAB 2 Deskripsi Perangkat Lunak:** Memuat gambaran umum sistem SisaRasa, alur proses bisnis (*Activity Diagram*), keterkaitan P/L dengan sistem eksternal (*Payment Gateway*), batasan pengembangan, dan spesifikasi lingkungan operasi (*server*, *client*, DBMS, OS).
+* **BAB 2 Deskripsi Perangkat Lunak:** Memuat gambaran umum sistem SisaRasa, alur proses bisnis (*Activity Diagram*), keterkaitan P/L dengan sistem eksternal (*Payment Gateway dummy*), batasan pengembangan, dan spesifikasi lingkungan operasi (*server*, *client*, DBMS, OS).
 * **BAB 3 Deskripsi Kebutuhan Perangkat Lunak:** Menyajikan daftar lengkap Kebutuhan Fungsional (KF) berbasis pola EARS dan Kebutuhan Non-Fungsional (KNF).
 * **BAB 4 Pemodelan Use Case:** Memuat identifikasi aktor (A), daftar *Use Case* (UC), visualisasi *Use Case Diagram*, serta skenario rinci (normal dan alternatif) untuk setiap *use case*.
 * **BAB 5 Pemodelan Kelas:** Menjabarkan identifikasi kelas (C), *Class Diagram* per *use case*, hingga *Class Diagram* keseluruhan beserta rincian atribut dan operasinya.
@@ -105,51 +106,57 @@ Dokumen SKPL ini disusun secara sistematis ke dalam 6 bab utama untuk memberikan
 SisaRasa adalah marketplace penyelamat makanan surplus yang mempertemukan Penjual dan Pembeli melalui sistem "paket kejutan" anonim. Dari segi ekspektasi, Penjual mengharapkan kepraktisan dalam menjual sisa stok secara efisien tanpa merusak citra merek, sedangkan Pembeli menginginkan akses makanan terjangkau yang aman dikonsumsi berkat ketersediaan filter penyaring alergen. Alur operasional sistem ini dimulai saat Penjual membuat penawaran paket (berisi kategori, info alergen, kuota, dan harga), yang kemudian dicari dan dibayar oleh Pembeli melalui metode digital. Setelah transaksi berhasil, barulah lokasi Penjual diungkap agar Pembeli dapat mendatangi lokasi dan mengambil makanannya secara mandiri (pickup-only) menggunakan bukti kode QR. Penerapan solusi ini secara nyata diharapkan mampu meminimalkan kerugian finansial merchant, menyediakan akses pangan yang lebih murah bagi masyarakat, serta menekan angka pemborosan pangan untuk mendukung tercapainya target SDG 2 di Indonesia.
 
 <p align="center">
-<img alt="Aktivity Diagram Bisnis" src="./assets/diagram/activity-diagram-bisnis.png" width="70%">
+<img alt="Activity Diagram Bisnis" src="./assets/diagram/activity-diagram-bisnis.png" width="70%">
 </p>
 <p align="center">
-<i>Gambar 1. Activity Diagram Proses Bisnis</i>
+<i>Gambar 2.1. Activity Diagram Proses Bisnis SisaRasa</i>
 </p>
 
 ## 2.2 Deskripsi Umum Perangkat Lunak
-Perangkat lunak SisaRasa adalah aplikasi marketplace penyelamat makanan surplus yang akan memfasilitasi transaksi "paket kejutan" secara anonim antara penjual dan pembeli. Perangkat lunak mampu menerima penawaran paket dari penjual, menampilkan informasi alergen dan harga, serta mengelola pesanan dari pembeli. Untuk mendukung proses pelunasan pesanan, sistem akan berinteraksi dengan modul Payment Gateway (dummy) internal untuk memproses otorisasi pembayaran digital. Aplikasi dapat mengirimkan permintaan transaksi, melakukan simulasi pembayaran melalui QRIS atau e-wallet, dan mengembalikan status konfirmasi keberhasilan pembayaran kepada pengguna. Setelah transaksi lunas, perangkat lunak akan menampilkan detail lokasi penjual kepada pembeli untuk  pengambilan pesanan menggunakan pemindaian kode QR. Selain itu, perangkat lunak akan mengirimkan pemberitahuan pesanan baru secara real-time ke perangkat penjual agar pesanan dapat segera diproses tanpa pengguna harus membuka aplikasi.
+Perangkat lunak SisaRasa adalah aplikasi marketplace penyelamat makanan surplus yang memfasilitasi transaksi "paket kejutan" secara anonim antara penjual dan pembeli. Perangkat lunak mampu menerima penawaran paket dari penjual, menampilkan informasi alergen dan harga, serta mengelola pesanan dari pembeli. Untuk mendukung proses pelunasan pesanan, sistem berinteraksi dengan modul Payment Gateway (dummy) internal untuk memproses otorisasi pembayaran digital. Aplikasi dapat mengirimkan permintaan transaksi, melakukan simulasi pembayaran melalui QRIS atau e-wallet, dan mengembalikan status konfirmasi keberhasilan pembayaran kepada pengguna. Setelah transaksi lunas, perangkat lunak menampilkan detail lokasi penjual kepada pembeli untuk pengambilan pesanan menggunakan pemindaian kode QR. Selain itu, perangkat lunak mengirimkan pemberitahuan pesanan baru secara real-time ke perangkat penjual via koneksi WebSocket agar pesanan dapat segera diproses tanpa pengguna harus membuka aplikasi.
 
 ## 2.3 Pengguna dan Kebutuhan Pengguna Perangkat Lunak
-Tuliskan seluruh jenis pengguna (*role*/aktor) yang terlibat dalam perangkat lunak (P/L), beserta kebutuhannya secara umum. Bagian ini dapat disalin dari 1.2 *Deskripsi Pengguna Perangkat Lunak* (dokumen Requirement Gathering) atau 3.1 *Identifikasi Aktor* (dokumen Use Case), pastikan sudah konsisten dengan aktor final yang dipakai di BAB 4.
+Perangkat lunak SisaRasa melibatkan dua jenis aktor pengguna utama (*human actor*) beserta kebutuhan operasionalnya yang dijelaskan pada Tabel 2.3:
+
+Tabel 2.3. Pengguna dan Kebutuhan Pengguna
 
 | Pengguna | Kebutuhan |
 | :--- | :--- |
-| *Pelanggan* | *Pelanggan harus dapat memesan produk, mengelola keranjang, dan menyelesaikan pembayaran melalui sistem.* |
-| *...* | *...* |
+| **Pembeli (A01)** | Pembeli harus dapat menelusuri katalog penawaran makanan surplus secara anonim, menyaring paket berdasarkan lokasi dan filter alergen, melakukan pembayaran digital, mendapatkan kode QR *pickup* dan lokasi gerai setelah lunas, serta mengajukan *refund* jika makanan tidak layak atau gerai tutup. |
+| **Penjual (A02)** | Penjual harus dapat menerbitkan dan mengelola penawaran paket surplus, memantau pesanan masuk secara *real-time* melalui notifikasi WebSocket, memindai kode QR *pickup* pembeli (atau *input* OTP *fallback*) untuk konfirmasi serah-terima, serta memantau saldo pencairan dana (*payout*). |
 
 ## 2.4 Batasan Perangkat Lunak
-Batasan teknis perangkat lunak, di antaranya:
-1. *Perangkat lunak harus memproses seluruh transaksi (otorisasi QRIS/e-wallet, penahanan kuota, kedaluwarsa tagihan, konfirmasi pembayaran) melalui modul Payment Gateway dummy yang berjalan pada server yang sama, bukan QRIS bank sungguhan.*
-2. *Pemberitahuan pesanan baru ke Penjual wajib disalurkan lewat koneksi WebSocket (/ws) milik server sendiri yang dijaga foreground service Android, dan tidak menggunakan layanan pihak ketiga seperti Firebase Cloud Messaging.*
-3. *Perhitungan jarak perkiraan antara Pembeli dan lokasi Penjual dilakukan sepenuhnya oleh server aplikasi sendiri, tanpa bergantung pada API peta/geolokasi pihak ketiga eksternal.*
-4. *Seluruh komunikasi antara aplikasi Android (Flutter) dan Server API harus menggunakan format JSON melalui REST API, termasuk payload permintaan/respons ke modul Payment Gateway dummy (ID pesanan, nominal, status transaksi).*
-5. *Notifikasi pesanan baru yang dikirim lewat WebSocket harus mengikuti skema pesan JSON yang sama dengan skema data pesanan pada REST API.*
-6. *Perangkat lunak harus berupa aplikasi Android native yang dibangun dengan Flutter (bukan aplikasi web/PWA lintas platform).*
-7. *Server harus berjalan pada Node.js 18+ dengan Express 4 dan dapat dijalankan pada Linux/Windows/macOS maupun VPS berbasis Linux.*
-8. *Aplikasi Android harus mendapatkan izin internet, kamera (untuk pemindaian QR oleh Penjual), lokasi (opsional, untuk pengurutan jarak), galeri (unggah foto gerai), dan notifikasi, tanpa izin tersebut fitur terkait tidak dapat berfungsi.*
-9. *HP dan server wajib berada dalam jangkauan jaringan (IP/domain VPS) yang sama/saling terjangkau.*
-10. *Foto gerai disimpan sebagai berkas lokal di direktori server (uploads/), tidak pada layanan cloud storage pihak ketiga, dan hanya dapat diunduh melalui API setelah pengguna login serta identitas toko memang sudah boleh dibuka (pasca-pembayaran).*
+Batasan teknis dan operasional perangkat lunak SisaRasa di antaranya:
+1. Perangkat lunak harus memproses seluruh transaksi (otorisasi QRIS/e-wallet, penahanan kuota, kedaluwarsa tagihan, konfirmasi pembayaran) melalui modul Payment Gateway dummy yang berjalan pada server yang sama, bukan QRIS bank sungguhan.
+2. Pemberitahuan pesanan baru ke Penjual wajib disalurkan lewat koneksi WebSocket (`/ws`) milik server sendiri yang dijaga *foreground service* Android, dan tidak menggunakan layanan pihak ketiga seperti Firebase Cloud Messaging.
+3. Perhitungan jarak perkiraan antara Pembeli dan lokasi Penjual dilakukan sepenuhnya oleh server aplikasi sendiri, tanpa bergantung pada API peta/geolokasi pihak ketiga eksternal.
+4. Seluruh komunikasi antara aplikasi Android (Flutter) dan Server API harus menggunakan format JSON melalui REST API, termasuk *payload* permintaan/respons ke modul Payment Gateway dummy (ID pesanan, nominal, status transaksi).
+5. Notifikasi pesanan baru yang dikirim lewat WebSocket harus mengikuti skema pesan JSON yang sama dengan skema data pesanan pada REST API.
+6. Perangkat lunak harus berupa aplikasi Android native yang dibangun dengan Flutter (bukan aplikasi web/PWA lintas platform).
+7. Server harus berjalan pada Node.js 18+ dengan Express 4 dan dapat dijalankan pada Linux/Windows/macOS maupun VPS berbasis Linux.
+8. Aplikasi Android harus mendapatkan izin internet, kamera (untuk pemindaian QR oleh Penjual), lokasi (opsional, untuk pengurutan jarak), galeri (unggah foto gerai), dan notifikasi; tanpa izin tersebut fitur terkait tidak dapat berfungsi.
+9. HP dan server wajib berada dalam jangkauan jaringan (IP/domain VPS) yang sama/saling terjangkau.
+10. Foto gerai disimpan sebagai berkas lokal di direktori server (`uploads/`), tidak pada layanan *cloud storage* pihak ketiga, dan hanya dapat diunduh melalui API setelah pengguna *login* serta identitas toko memang sudah boleh dibuka (pasca-pembayaran).
+11. Penawaran paket surplus hanya dapat diterbitkan oleh Penjual maksimal 2 jam sebelum jendela penjemputan (*pickup window*) dimulai untuk memastikan ketersediaan fisik makanan.
+12. Perangkat lunak tidak memfasilitasi pengembalian dana (*refund*) atas dasar preferensi rasa atau variasi isi paket kejutan, melainkan terbatas pada kerusakan fisik makanan yang terbukti, gerai tutup saat penjemputan, atau pelanggaran deklarasi alergen.
+13. Tanggung jawab kualitas makanan setelah kode QR divalidasi berpindah sepenuhnya kepada Pembeli sesuai dengan batas jam konsumsi aman (*safe-eat limit*) yang tertera pada bukti transaksi.
 
 ## 2.5 Lingkungan Operasi Perangkat Lunak
-
 SisaRasa berjalan sebagai dua bagian. **Aplikasi Android** dipakai Pembeli dan Penjual. **Server API** menyimpan data, menghitung jarak, memproses pembayaran dummy, menyimpan foto gerai, dan mengirim pemberitahuan pesanan baru ke HP Penjual. Server dapat dijalankan di komputer pengembangan atau di VPS. Aplikasi mengarah ke alamat server tersebut lewat isian URL di layar masuk.
+
+Tabel 2.5. Spesifikasi Lingkungan Operasi
 
 | Komponen | Spesifikasi |
 | :--- | :--- |
-| *Server aplikasi* | *Node.js 18 atau lebih baru dengan Express 4. API mendengarkan pada port 3000, termasuk jalur WebSocket `/ws` untuk pemberitahuan pesanan baru.* |
-| *DBMS* | *PostgreSQL 15. Pada pengembangan, basis data dijalankan dengan Docker dan dipetakan ke port 5433.* |
-| *Penyimpanan berkas* | *Foto gerai disimpan di direktori server (`uploads/`). Berkas hanya dapat diunduh lewat API setelah pengguna login dan identitas toko memang boleh dibuka.* |
-| *Payment Gateway* | *Modul dummy di dalam server yang sama. Mendukung simulasi QRIS dan e-wallet, penahanan kuota, kedaluwarsa tagihan, serta konfirmasi pembayaran. Bukan QRIS bank sungguhan.* |
-| *Client* | *Aplikasi Android yang dibangun dengan Flutter. Dipasang sebagai berkas APK. Satu aplikasi memuat peran Pembeli dan Penjual.* |
-| *OS klien* | *Android. Membutuhkan izin internet, lokasi (opsional, untuk urutan jarak), kamera (pemindaian QR Penjual), galeri (foto gerai), dan notifikasi.* |
-| *OS server* | *Linux pada VPS untuk operasi. Pengembangan dapat dilakukan di Linux, Windows, atau macOS selama Node.js, Docker, dan Flutter tersedia.* |
-| *Jaringan* | *HP dan server harus saling terjangkau. Contohnya Wi-Fi yang sama saat server masih di laptop, atau IP/domain VPS saat server dipindah. HTTPS dapat dipakai. HTTP tetap didukung untuk demo.* |
-| *Pemberitahuan Penjual* | *Koneksi WebSocket yang dijaga oleh layanan latar depan Android. Tidak memakai Firebase. Selama layanan itu hidup, pesanan baru memunculkan notifikasi meski aplikasi tidak sedang dibuka.* |
+| **Server aplikasi** | Node.js 18 atau lebih baru dengan Express 4. API mendengarkan pada port 3000, termasuk jalur WebSocket `/ws` untuk pemberitahuan pesanan baru. |
+| **DBMS** | PostgreSQL 15. Pada pengembangan, basis data dijalankan dengan Docker dan dipetakan ke port 5433. |
+| **Penyimpanan berkas** | Foto gerai disimpan di direktori server (`uploads/`). Berkas hanya dapat diunduh lewat API setelah pengguna login dan identitas toko memang boleh dibuka. |
+| **Payment Gateway** | Modul dummy di dalam server yang sama. Mendukung simulasi QRIS dan e-wallet, penahanan kuota, kedaluwarsa tagihan, serta konfirmasi pembayaran. Bukan QRIS bank sungguhan. |
+| **Client** | Aplikasi Android yang dibangun dengan Flutter. Dipasang sebagai berkas APK. Satu aplikasi memuat peran Pembeli dan Penjual. |
+| **OS klien** | Android. Membutuhkan izin internet, lokasi (opsional, untuk urutan jarak), kamera (pemindaian QR Penjual), galeri (foto gerai), dan notifikasi. |
+| **OS server** | Linux pada VPS untuk operasi. Pengembangan dapat dilakukan di Linux, Windows, atau macOS selama Node.js, Docker, dan Flutter tersedia. |
+| **Jaringan** | HP dan server harus saling terjangkau. Contohnya Wi-Fi yang sama saat server masih di laptop, atau IP/domain VPS saat server dipindah. HTTPS dapat dipakai. HTTP tetap didukung untuk demo. |
+| **Pemberitahuan Penjual** | Koneksi WebSocket yang dijaga oleh layanan latar depan Android. Tidak memakai Firebase. Selama layanan itu hidup, pesanan baru memunculkan notifikasi meski aplikasi tidak sedang dibuka. |
 
 ---
 
@@ -191,7 +198,6 @@ Tabel 3.2. Kebutuhan Non-Fungsional
 | **KNF05** | *R24* | *Safety & Privacy* | Selama transaksi pembayaran belum terverifikasi sukses, sistem harus tidak mengirimkan koordinat lokasi presisi *merchant* ke antarmuka pembeli guna melindungi privasi pedagang serta memenuhi ketentuan pelindungan data pribadi sesuai UU No. 27/2022 (UU PDP). |
 
 ---
-
 
 # BAB 4: Pemodelan Use Case
 
@@ -392,7 +398,6 @@ Skenario berikut mendeskripsikan urutan interaksi langkah demi langkah antara Ak
 | 1 | Pembeli mencoba menekan tombol ulasan pada pesanan yang masih aktif. | Sistem menyembunyikan/menonaktifkan tombol ulasan hingga transaksi terkonfirmasi "Selesai". |
 
 ---
-
 
 # BAB 5: Pemodelan Kelas
 
