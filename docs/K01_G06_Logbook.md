@@ -97,4 +97,13 @@
 
 ---
 
+### Milestone 5
+**Periode:** 29-09-2026 - 02-10-2026
+
+| Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
+| :--- | :--- | :--- | :--- | :--- | :--- | 
+| *30-09-2026* | *Nabil Rabbani* | *Menyusun spesifikasi lingkungan operasi perangkat lunak (Bab 2.5)* | *1 Jam* | *Done* | *-* | 
+
+---
+
 ``Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. ``
