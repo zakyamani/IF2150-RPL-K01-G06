@@ -56,6 +56,7 @@ Silakan catat penggunaan AI yang berdampak signifikan pada pengerjaan tugas (mis
 | Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
 | :--- | :--- | :--- | :--- |
 | *Antigravity (LLM)* | *Konsultasi cakupan spesifikasi lingkungan operasi perangkat lunak (Bab 2.5) dan klarifikasi batasan arsitektur deployment sistem* | *"coba anda cek 2.5 itu arsitektur bukan?"* | *Nabil memvalidasi bahwa Bab 2.5 pada SKPL merupakan spesifikasi lingkungan operasi (IEEE Std 830).* |
+| *Antigravity (LLM)* | *Mengecek isi yang kurang/template yang masih ada di dokumen untuk final checkup* | *"coba list semua bagian yang masih terlihat template docs takut ada yang terlewat"* | *Atan memverifikasi bagian-bagian yang terlewat dan menambahkan kontennya (copas dari dokumen sebelumnya dan dimodifikasi).* |
 
 ---
 ### Pernyataan Integritas dan Persetujuan
