@@ -126,11 +126,17 @@ Tuliskan seluruh jenis pengguna (*role*/aktor) yang terlibat dalam perangkat lun
 | *...* | *...* |
 
 ## 2.4 Batasan Perangkat Lunak
-Batasan yang harus dituliskan, di antaranya:
-1. *P/L harus memakai file data/API dari sistem lain (sebutkan, misal Payment Gateway dummy).*
-2. *P/L harus memakai format data yang sama dengan sistem lain.*
-3. *P/L harus berfungsi pada platform tertentu (misal: web browser modern, atau desktop Windows dan Linux).*
-4. *...*
+Batasan teknis perangkat lunak, di antaranya:
+1. *Perangkat lunak harus memproses seluruh transaksi (otorisasi QRIS/e-wallet, penahanan kuota, kedaluwarsa tagihan, konfirmasi pembayaran) melalui modul Payment Gateway dummy yang berjalan pada server yang sama, bukan QRIS bank sungguhan.*
+2. *Pemberitahuan pesanan baru ke Penjual wajib disalurkan lewat koneksi WebSocket (/ws) milik server sendiri yang dijaga foreground service Android, dan tidak menggunakan layanan pihak ketiga seperti Firebase Cloud Messaging.*
+3. *Perhitungan jarak perkiraan antara Pembeli dan lokasi Penjual dilakukan sepenuhnya oleh server aplikasi sendiri, tanpa bergantung pada API peta/geolokasi pihak ketiga eksternal.*
+4. *Seluruh komunikasi antara aplikasi Android (Flutter) dan Server API harus menggunakan format JSON melalui REST API, termasuk payload permintaan/respons ke modul Payment Gateway dummy (ID pesanan, nominal, status transaksi).*
+5. *Notifikasi pesanan baru yang dikirim lewat WebSocket harus mengikuti skema pesan JSON yang sama dengan skema data pesanan pada REST API.*
+6. *Perangkat lunak harus berupa aplikasi Android native yang dibangun dengan Flutter (bukan aplikasi web/PWA lintas platform).*
+7. *Server harus berjalan pada Node.js 18+ dengan Express 4 dan dapat dijalankan pada Linux/Windows/macOS maupun VPS berbasis Linux.*
+8. *Aplikasi Android harus mendapatkan izin internet, kamera (untuk pemindaian QR oleh Penjual), lokasi (opsional, untuk pengurutan jarak), galeri (unggah foto gerai), dan notifikasi, tanpa izin tersebut fitur terkait tidak dapat berfungsi.*
+9. *HP dan server wajib berada dalam jangkauan jaringan (IP/domain VPS) yang sama/saling terjangkau.*
+10. *Foto gerai disimpan sebagai berkas lokal di direktori server (uploads/), tidak pada layanan cloud storage pihak ketiga, dan hanya dapat diunduh melalui API setelah pengguna login serta identitas toko memang sudah boleh dibuka (pasca-pembayaran).*
 
 ## 2.5 Lingkungan Operasi Perangkat Lunak
 
