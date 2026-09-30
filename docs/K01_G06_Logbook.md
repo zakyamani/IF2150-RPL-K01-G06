@@ -104,7 +104,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- | 
 | *30-09-2026* | *Nabil Rabbani* | *Menyusun spesifikasi lingkungan operasi perangkat lunak (Bab 2.5)* | *1 Jam* | *Done* | *-* | 
 | *30-09-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan 2.4 Batasan Perangkat Lunak* | *45 menit* | *Done* | *-* | 
-
+| *30-09-2026* | *Muhammad Zaky Amani* | *Mengerjakan 2.2 Deskripsi Umum Perangkat Lunak* | *45 menit* | *Done* | *-* | 
 ---
 
 ``Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. ``

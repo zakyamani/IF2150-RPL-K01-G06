@@ -113,9 +113,7 @@ SisaRasa adalah marketplace penyelamat makanan surplus yang mempertemukan Penjua
 </p>
 
 ## 2.2 Deskripsi Umum Perangkat Lunak
-Diisi dengan deskripsi umum perangkat lunak untuk mendukung proses bisnis yang telah diuraikan pada sub-bab sebelumnya. Uraian harus menunjukkan lingkup perangkat lunak, mencakup keterkaitan perangkat lunak dengan sistem lain di luar (misalnya *Payment Gateway* atau layanan pihak ketiga lain yang dipakai).
-
-*Contoh narasi:* "*[Nama P/L]* merupakan aplikasi *[deskripsi singkat]* yang berinteraksi dengan *Payment Gateway (dummy)* untuk memproses otorisasi pembayaran. Sistem menerima input dari *Pelanggan* melalui antarmuka aplikasi dan mengirimkan permintaan transaksi ke *Payment Gateway* setiap kali pelanggan melakukan checkout."
+Perangkat lunak SisaRasa adalah aplikasi marketplace penyelamat makanan surplus yang akan memfasilitasi transaksi "paket kejutan" secara anonim antara penjual dan pembeli. Perangkat lunak mampu menerima penawaran paket dari penjual, menampilkan informasi alergen dan harga, serta mengelola pesanan dari pembeli. Untuk mendukung proses pelunasan pesanan, sistem akan berinteraksi dengan modul Payment Gateway (dummy) internal untuk memproses otorisasi pembayaran digital. Aplikasi dapat mengirimkan permintaan transaksi, melakukan simulasi pembayaran melalui QRIS atau e-wallet, dan mengembalikan status konfirmasi keberhasilan pembayaran kepada pengguna. Setelah transaksi lunas, perangkat lunak akan menampilkan detail lokasi penjual kepada pembeli untuk  pengambilan pesanan menggunakan pemindaian kode QR. Selain itu, perangkat lunak akan mengirimkan pemberitahuan pesanan baru secara real-time ke perangkat penjual agar pesanan dapat segera diproses tanpa pengguna harus membuka aplikasi.
 
 ## 2.3 Pengguna dan Kebutuhan Pengguna Perangkat Lunak
 Tuliskan seluruh jenis pengguna (*role*/aktor) yang terlibat dalam perangkat lunak (P/L), beserta kebutuhannya secara umum. Bagian ini dapat disalin dari 1.2 *Deskripsi Pengguna Perangkat Lunak* (dokumen Requirement Gathering) atau 3.1 *Identifikasi Aktor* (dokumen Use Case), pastikan sudah konsisten dengan aktor final yang dipakai di BAB 4.
