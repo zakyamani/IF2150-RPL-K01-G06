@@ -31,7 +31,7 @@ Dipersiapkan oleh:
 
 | Revisi | Deskripsi |
 | :--- | :--- |
-| *A* | *Deskripsikan perubahan yang dilakukan dari dokumen sebelumnya pada dokumen ini. Jika tidak terdapat perubahan, harap kosongkan tabel.* |
+| *A* | Penyesuaian arsitektur klien dari PWA ke aplikasi Android native (Flutter) serta penyusunan spesifikasi lingkungan operasi perangkat lunak (Bab 2.5). |
 | *B* |  |
 | *C* |  |
 | ... |  |
@@ -133,15 +133,20 @@ Batasan yang harus dituliskan, di antaranya:
 4. *...*
 
 ## 2.5 Lingkungan Operasi Perangkat Lunak
-Spesifikasi *operating system* atau lingkungan yang dibutuhkan P/L untuk beroperasi. Bagian ini digunakan untuk memastikan pengguna memiliki spesifikasi yang cukup untuk menjalankan P/L. Misalnya mencakup komponen server, client, OS, DBMS, tetapi tidak menutupi kemungkinan komponen lain.
+
+SisaRasa berjalan sebagai dua bagian. **Aplikasi Android** dipakai Pembeli dan Penjual. **Server API** menyimpan data, menghitung jarak, memproses pembayaran dummy, menyimpan foto gerai, dan mengirim pemberitahuan pesanan baru ke HP Penjual. Server dapat dijalankan di komputer pengembangan atau di VPS. Aplikasi mengarah ke alamat server tersebut lewat isian URL di layar masuk.
 
 | Komponen | Spesifikasi |
 | :--- | :--- |
-| *Server* | *[contoh: Node.js v20, dijalankan pada layanan cloud]* |
-| *Client* | *[contoh: Web Browser modern (Chrome, Firefox terbaru)]* |
-| *DBMS* | *[contoh: PostgreSQL 15]* |
-| *OS* | *[contoh: Cross-platform (Windows/Linux/MacOS) melalui browser]* |
-| *...* | *...* |
+| *Server aplikasi* | *Node.js 18 atau lebih baru dengan Express 4. API mendengarkan pada port 3000, termasuk jalur WebSocket `/ws` untuk pemberitahuan pesanan baru.* |
+| *DBMS* | *PostgreSQL 15. Pada pengembangan, basis data dijalankan dengan Docker dan dipetakan ke port 5433.* |
+| *Penyimpanan berkas* | *Foto gerai disimpan di direktori server (`uploads/`). Berkas hanya dapat diunduh lewat API setelah pengguna login dan identitas toko memang boleh dibuka.* |
+| *Payment Gateway* | *Modul dummy di dalam server yang sama. Mendukung simulasi QRIS dan e-wallet, penahanan kuota, kedaluwarsa tagihan, serta konfirmasi pembayaran. Bukan QRIS bank sungguhan.* |
+| *Client* | *Aplikasi Android yang dibangun dengan Flutter. Dipasang sebagai berkas APK. Satu aplikasi memuat peran Pembeli dan Penjual.* |
+| *OS klien* | *Android. Membutuhkan izin internet, lokasi (opsional, untuk urutan jarak), kamera (pemindaian QR Penjual), galeri (foto gerai), dan notifikasi.* |
+| *OS server* | *Linux pada VPS untuk operasi. Pengembangan dapat dilakukan di Linux, Windows, atau macOS selama Node.js, Docker, dan Flutter tersedia.* |
+| *Jaringan* | *HP dan server harus saling terjangkau. Contohnya Wi-Fi yang sama saat server masih di laptop, atau IP/domain VPS saat server dipindah. HTTPS dapat dipakai. HTTP tetap didukung untuk demo.* |
+| *Pemberitahuan Penjual* | *Koneksi WebSocket yang dijaga oleh layanan latar depan Android. Tidak memakai Firebase. Selama layanan itu hidup, pesanan baru memunculkan notifikasi meski aplikasi tidak sedang dibuka.* |
 
 ---
 
