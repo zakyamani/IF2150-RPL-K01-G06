@@ -103,6 +103,7 @@
 | Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
 | *30-09-2026* | *Nabil Rabbani* | *Menyusun spesifikasi lingkungan operasi perangkat lunak (Bab 2.5)* | *1 Jam* | *Done* | *-* | 
+| *30-09-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan 2.4 Batasan Perangkat Lunak* | *45 menit* | *Done* | *-* | 
 
 ---
 
