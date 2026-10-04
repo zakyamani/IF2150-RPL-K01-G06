@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="24.0.0">
+  <diagram name="Deployment Diagram SisaRasa" id="SisaRasa-M6-Deployment">
+    <mxGraphModel dx="1200" dy="750" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title Block -->
+        <mxCell id="title" value="&lt;b&gt;DEPLOYMENT DIAGRAM (PHYSICAL VIEW) SISTEM SISARASA&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;Arsitektur Fisik Multi-Tier: Android Client (Flutter), Application Server (Node.js/Express), dan Database Server (Docker PostgreSQL 15)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="15" width="1000" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== NODE 1: CLIENT SMARTPHONE ==================== -->
+        <mxCell id="node_client" value="&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Client Smartphone&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[Android Device]&lt;/font&gt;" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;verticalAlign=top;align=center;spacingTop=10;size=15;" vertex="1" parent="1">
+          <mxGeometry x="50" y="75" width="310" height="615" as="geometry" />
+        </mxCell>
+
+        <mxCell id="env_android" value="&amp;lt;&amp;lt;execution environment&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Android OS&lt;/b&gt; (v10.0+ / API 29+)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#444444;strokeWidth=1;dashed=1;fontColor=#000000;fontSize=11;verticalAlign=top;spacingTop=6;" vertex="1" parent="node_client">
+          <mxGeometry x="15" y="70" width="280" height="530" as="geometry" />
+        </mxCell>
+
+        <mxCell id="art_apk" value="&amp;lt;&amp;lt;artifact&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;SisaRasaApp.apk&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;(Aplikasi Flutter / Mobile Client)&lt;/font&gt;" style="shape=module;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;verticalAlign=top;spacingTop=6;" vertex="1" parent="env_android">
+          <mxGeometry x="15" y="55" width="250" height="460" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c_ui" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;UI Presentation&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Katalog Anonim, Filter Alergen,&lt;br&gt;Checkout, Form Penawaran, &amp;amp; Ulasan&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_apk">
+          <mxGeometry x="15" y="60" width="220" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c_rest_client" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;REST API Client&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Pustaka Dio + JWT Interceptor&lt;br&gt;Konfigurasi URL Dinamis&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_apk">
+          <mxGeometry x="15" y="135" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c_fg_service" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Foreground Alert Service&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;flutter_foreground_task + WebSocket&lt;br&gt;Push Notifikasi Pesanan Baru (No Firebase)&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_apk">
+          <mxGeometry x="15" y="205" width="220" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c_native_plugins" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Hardware &amp;amp; UI Plugins&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;mobile_scanner (Kamera QR), qr_flutter,&lt;br&gt;geolocator (GPS), image_picker (Galeri)&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_apk">
+          <mxGeometry x="15" y="280" width="220" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c_storage" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Local Secure Storage&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;SharedPreferences (Token JWT &amp;amp; URL Server)&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_apk">
+          <mxGeometry x="15" y="355" width="220" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c_session" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Session &amp;amp; Role State Manager&lt;/b&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_apk">
+          <mxGeometry x="15" y="410" width="220" height="35" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== NODE 2: APPLICATION SERVER ==================== -->
+        <mxCell id="node_server" value="&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Application Server&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[Linux Host / Ubuntu VPS]&lt;/font&gt;" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;verticalAlign=top;align=center;spacingTop=10;size=15;" vertex="1" parent="1">
+          <mxGeometry x="420" y="75" width="350" height="615" as="geometry" />
+        </mxCell>
+
+        <mxCell id="env_nodejs" value="&amp;lt;&amp;lt;execution environment&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Node.js LTS Runtime&lt;/b&gt; (v18+)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#444444;strokeWidth=1;dashed=1;fontColor=#000000;fontSize=11;verticalAlign=top;spacingTop=6;" vertex="1" parent="node_server">
+          <mxGeometry x="15" y="70" width="320" height="410" as="geometry" />
+        </mxCell>
+
+        <mxCell id="art_backend" value="&amp;lt;&amp;lt;artifact&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;SisaRasaBackend.js&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;(Express.js 4 App / Port 3000)&lt;/font&gt;" style="shape=module;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;verticalAlign=top;spacingTop=6;" vertex="1" parent="env_nodejs">
+          <mxGeometry x="15" y="50" width="290" height="345" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s_router" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;REST API Router &amp;amp; Controllers&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;/api/auth, /api/catalog, /api/orders, /api/offers, /api/scan, /api/complaints, /api/reviews&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_backend">
+          <mxGeometry x="15" y="55" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s_ws" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;WebSocket Server Engine (/ws)&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;notify.js (Push Real-time Order Paid ke Penjual)&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_backend">
+          <mxGeometry x="15" y="115" width="260" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s_auth" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Auth &amp;amp; Security Middleware&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;JWT Token Verifier, Hashing bcrypt, CORS, Role Guard&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_backend">
+          <mxGeometry x="15" y="170" width="260" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s_geo" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Geo-Distance Calculation Engine&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Kalkulasi Haversine di Server (Anonimitas Toko)&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_backend">
+          <mxGeometry x="15" y="225" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s_payment" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Payment Gateway Dummy Engine&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Simulasi QRIS &amp;amp; E-Wallet, Hold Kuota, Auto-Expiry&lt;/font&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_backend">
+          <mxGeometry x="15" y="275" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s_jobs" value="&amp;lt;&amp;lt;component&amp;gt;&amp;gt; &lt;b&gt;Background Worker&lt;/b&gt; (Timeout 15m &amp;amp; No-Show)" style="html=1;dropTarget=0;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#555555;fontColor=#000000;fontSize=10;" vertex="1" parent="art_backend">
+          <mxGeometry x="15" y="320" width="260" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Disk Storage -->
+        <mxCell id="node_disk" value="&amp;lt;&amp;lt;device&amp;gt;&amp;gt; &lt;b&gt;Local Storage Disk&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#444444;strokeWidth=1;fontColor=#000000;fontSize=11;verticalAlign=top;spacingTop=6;" vertex="1" parent="node_server">
+          <mxGeometry x="15" y="495" width="320" height="105" as="geometry" />
+        </mxCell>
+
+        <mxCell id="art_uploads" value="&amp;lt;&amp;lt;directory&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;uploads/&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Foto Gerai Merchant Terproteksi (Akses via Otorisasi API)&lt;br&gt;Dikelola Pustaka multer&lt;/font&gt;" style="shape=folder;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;verticalAlign=top;spacingTop=6;" vertex="1" parent="node_disk">
+          <mxGeometry x="15" y="30" width="290" height="65" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== NODE 3: DATABASE SERVER ==================== -->
+        <mxCell id="node_db" value="&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Database Server&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;[Docker Container DBMS]&lt;/font&gt;" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=12;verticalAlign=top;align=center;spacingTop=10;size=15;" vertex="1" parent="1">
+          <mxGeometry x="830" y="75" width="310" height="615" as="geometry" />
+        </mxCell>
+
+        <mxCell id="env_postgres" value="&amp;lt;&amp;lt;execution environment&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;PostgreSQL 15 Engine&lt;/b&gt; (Alpine)&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;Port 5432 (VPS) / Port 5433 (Dev Mapping)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#444444;strokeWidth=1;dashed=1;fontColor=#000000;fontSize=11;verticalAlign=top;spacingTop=6;" vertex="1" parent="node_db">
+          <mxGeometry x="15" y="70" width="280" height="530" as="geometry" />
+        </mxCell>
+
+        <mxCell id="art_db" value="&amp;lt;&amp;lt;database&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;sisarasa_db&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot; color=&quot;#555555&quot;&gt;(Skema Relasional ACID)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;verticalAlign=top;spacingTop=18;" vertex="1" parent="env_postgres">
+          <mxGeometry x="15" y="55" width="250" height="460" as="geometry" />
+        </mxCell>
+
+        <mxCell id="t_users" value="&lt;b&gt;users &amp;amp; merchants&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Akun Pembeli/Penjual, Filter Alergen,&lt;br&gt;Data Gerai, Koordinat Lat/Lng, Rekening&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#666666;fontColor=#000000;fontSize=10;" vertex="1" parent="art_db">
+          <mxGeometry x="15" y="70" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="t_offers" value="&lt;b&gt;offers &amp;amp; checkout_sessions&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Paket Kejutan, Kuota (Avail/Held/Total),&lt;br&gt;Validasi Diskon 50-70%, Sesi ACID Hold&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#666666;fontColor=#000000;fontSize=10;" vertex="1" parent="art_db">
+          <mxGeometry x="15" y="140" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="t_orders" value="&lt;b&gt;orders&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Status Pesanan (paid, completed, batal),&lt;br&gt;Token QR Dinamis, Bukti Scan, Payout&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#666666;fontColor=#000000;fontSize=10;" vertex="1" parent="art_db">
+          <mxGeometry x="15" y="215" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="t_complaints" value="&lt;b&gt;complaints &amp;amp; reviews&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Sengketa Refund, Konfirmasi Penjual,&lt;br&gt;Rating Bintang 1-5, &amp;amp; Ulasan Pembeli&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#666666;fontColor=#000000;fontSize=10;" vertex="1" parent="art_db">
+          <mxGeometry x="15" y="285" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="t_audit" value="&lt;b&gt;audit_logs &amp;amp; platform_metrics&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Audit Trail Mutasi Status Transaksi,&lt;br&gt;Akumulasi Metrik Makanan Terselamatkan&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#666666;fontColor=#000000;fontSize=10;" vertex="1" parent="art_db">
+          <mxGeometry x="15" y="355" width="220" height="55" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== COMMUNICATION EDGES ==================== -->
+        <!-- Link 1: REST API -->
+        <mxCell id="edge_rest" value="&lt;b&gt;HTTPS / HTTP&lt;/b&gt;&lt;br&gt;Port 443 / 3000&lt;br&gt;[REST JSON]" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#111111;strokeWidth=1.5;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="node_client" target="node_server">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="360" as="sourcePoint" />
+            <mxPoint x="420" y="360" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Link 2: WebSocket Push -->
+        <mxCell id="edge_ws" value="&lt;b&gt;WSS / WS&lt;/b&gt;&lt;br&gt;Port 443 / 3000 (/ws)&lt;br&gt;[Push Notifikasi]" style="endArrow=classic;html=1;strokeColor=#111111;strokeWidth=1.5;dashed=1;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="node_server" target="node_client">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="440" as="sourcePoint" />
+            <mxPoint x="360" y="440" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Link 3: Database Protocol -->
+        <mxCell id="edge_db" value="&lt;b&gt;TCP / IP&lt;/b&gt;&lt;br&gt;Port 5432 / 5433&lt;br&gt;[PG Protocol]" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#111111;strokeWidth=1.5;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="node_server" target="node_db">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="770" y="360" as="sourcePoint" />
+            <mxPoint x="830" y="360" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="800" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Link 4: File I/O -->
+        <mxCell id="edge_io" value="POSIX File I/O" style="endArrow=classic;html=1;strokeColor=#444444;strokeWidth=1.2;fontSize=9;fontColor=#333333;labelBackgroundColor=#ffffff;" edge="1" parent="node_server" source="art_backend" target="art_uploads">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="460" as="sourcePoint" />
+            <mxPoint x="160" y="525" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
