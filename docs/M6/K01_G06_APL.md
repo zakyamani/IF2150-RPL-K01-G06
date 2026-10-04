@@ -33,33 +33,68 @@ Dipersiapkan oleh:
 
 # BAB 1: Style/Pattern Arsitektur Acuan
 
-Pada bagian ini, tentukan *architectural style* atau *pattern* yang menjadi acuan untuk aplikasi yang Anda kembangkan. Misalnya *layered architecture*, *client-server*, *repository*, *pipe and filter architecture*, atau MVC (*Model-View-Controller*).
+## 1.1 Architectural Pattern yang Dipilih dan Peran Bagiannya
+Dalam perancangan arsitektur perangkat lunak SisaRasa, *architectural pattern* utama yang dipilih adallah **Client-Server Architecture** yang dipadukan dengan **Layered Architecture (MVC)** di masing-masing sisi. Pola ini memisahkan secara tegas antarmuka pengguna pada perangkat seluler (*Client*) dengan pusat pengolahan data dan logika bisnis pada infrastruktur belakang (*Server*) melalui protokol komunikasi REST API (HTTP/HTTPS) dan WebSocket.
 
 <p align="center">
-<img alt="Contoh Arsitektur MVC" src="./assets/diagram/contoh-arsitektur-mvc.webp" width="70%">
+  <img alt="Penerapan Arsitektur Client-Server dan Layered pada SisaRasa" src="./assets/diagram/arsitektur-acuan-sisarasa.png" width="85%">
 </p>
 <p align="center">
-<i>Gambar 1. Contoh Arsitektur MVC</i>
+  <i>Gambar 1.1. Penerapan Arsitektur Client-Server pada Aplikasi SisaRasa</i>
 </p>
 
-Isi bab ini dengan hal-hal berikut:
-1. **Style/pattern yang dipilih** beserta penjelasan singkat peran setiap bagiannya. Untuk MVC, jelaskan peran *Model*, *View*, dan *Controller*.
-2. **Alasan pemilihan** berdasarkan karakteristik P/L Anda, misalnya jenis pengguna, alur proses bisnis, serta KF dan KNF pada dokumen SKPL.
-3. **Gambar style/pattern yang diterapkan pada P/L Anda.** Jangan hanya menyalin Gambar 1. Isi setiap bagian pattern dengan komponen milik P/L Anda. Misalnya, kotak *Controller* berisi daftar *controller* yang ada di aplikasi dan kotak *Model* berisi daftar *model* yang ada di aplikasi.
+Pembagian peran dan tanggung jawab tiap komponen dalam arsitektur ini meliputi:
 
-Selain *style/pattern*, tuliskan juga lingkungan operasi P/L. Tabel berikut **disalin dari subbab 2.5 *Lingkungan Operasi Perangkat Lunak* pada dokumen SKPL** tanpa perubahan. Setelah tabel, jelaskan kaitan teknologi yang dipakai dengan *style/pattern* yang dipilih. Contohnya, Django (Python) secara bawaan mengikuti pola MVT (*Model-View-Template*), yaitu varian dari MVC.
+1. **Client Side (Android Flutter Application):**
+   * **View (UI Layer):** Bertanggung jawab menyajikan antarmuka bagi Pembeli (katalog anonim, *checkout*, filter alergen, tampilan QR *pickup*) dan Penjual (*dashboard* pesanan, formulir penawaran, pemindai QR kamera).
+   * **State Controller / Client Logic:** Mengelola keadaan lokal (*state*), menangani *user events*, menyimpan token autentikasi/QR secara *cached*, serta mempertahankan koneksi *WebSocket Background Service* untuk menerima notifikasi pesanan masuk.
+
+2. **Server Side (Node.js Express Backend):**
+   * **API Controller Layer:** Menangani *endpoint* REST API, memvalidasi *payload* JSON masukan dari klien, serta mengelola lalu lintas koneksi WebSocket (`/ws`).
+   * **Business Service Layer:** Mengeksekusi aturan bisnis inti (*business rules*), seperti validasi jendela terbit penawaran (maksimal 2 jam), perhitungan jarak relatif berbasis geolokasi di *server*, pembuatan token QR dinamis & *fallback* OTP 6-digit, serta penanganan sengketa/pembatalan.
+   * **Data Access / Repository Layer:** Berinteraksi langsung dengan basis data terpusat (PostgreSQL) dan penyimpanan berkas lokal server (`uploads/`) untuk operasi CRUD data entitas.
+
+3. **Modul Eksternal / Subsistem Terintegrasi:**
+   * **Dummy Payment Gateway Module:** Modul simulasi transaksi pembayaran digital (QRIS & *E-Wallet*) yang berjalan di dalam *server* untuk mengelola penahanan kuota, waktu kedaluwarsa tagihan, dan pengiriman *webhook callback*.
+
+---
+
+## 1.2 Alasan Pemilihan Pattern
+Pemilihan pola *Client-Server Architecture* terintegrasi *Layered MVC* didasarkan pada karakteristik fungsional (KF) dan non-fungsional (KNF) pada dokumen SKPL SisaRasa:
+
+1. **Pemisahan Peran Pengguna Lintas Perangkat (Multi-User Role & Centralized State):**
+   SisaRasa melibatkan dua aktor manusia (Pembeli `A01` dan Penjual `A02`) yang berada pada lokasi fisik terpisah. Pola *Client-Server* memungkinkan seluruh keadaan transaksi, kuota paket surplus, dan penandatanganan status pesanan tersinkronisasi secara terpusat di server.
+2. **Kebutuhan Komunikasi Real-Time (KF05 & KNF04):**
+   Penjual membutuhkan notifikasi instan saat ada pembayaran lunas dari Pembeli tanpa perlu melakukan *refresh* manual. Integrasi *Client-Server* via saluran *WebSocket persistent* yang dijaga *foreground service* Android memastikan pesan notfikasi terkirim tepat waktu.
+3. **Keamanan dan Kerahasiaan Data (KF06, KF08, & KNF05):**
+   Sistem mewajibkan katalog disajikan secara anonim dan perhitungan jarak relatif dilakukan di server tanpa mengekspos koordinat GPS presisi *merchant* sebelum pembayaran terverifikasi. Pola *Client-Server* menjamin logika peka privasi ini dieksekusi secara aman di sisi server.
+4. **Portabilitas & Kemudahan Pemeliharaan (KNF04):**
+   Pengorganisasian kode secara *Layered MVC* memudahkan pengembang untuk memperbarui antarmuka aplikasi Android  atau mengubah modul internal (seperti *Payment Gateway dummy*) tanpa merusak struktur basis data inti.
+
+---
+
+## 1.3 Lingkungan Operasi Perangkat Lunak
+Lingkungan operasi yang dibutuhkan agar aplikasi SisaRasa dapat berjalan dengan optimal ditunjukkan pada Tabel 1.1 berikut:
 
 Tabel 1.1. Lingkungan Operasi Perangkat Lunak
 
 | Komponen | Spesifikasi |
 | :--- | :--- |
-| *Server* | *[contoh: Node.js v20 dengan Next.js, dijalankan secara lokal (localhost)]* |
-| *Client* | *[contoh: Web Browser modern (Chrome, Firefox terbaru)]* |
-| *DBMS* | *[contoh: PostgreSQL 15 pada Supabase sebagai basis data terpusat]* |
-| *OS* | *[contoh: Cross-platform (Windows/Linux/MacOS) melalui browser]* |
-| *...* | *...* |
+| **Server aplikasi** | Node.js 18 atau lebih baru dengan Express 4. API mendengarkan pada port 3000, termasuk jalur WebSocket `/ws` untuk pemberitahuan pesanan baru. |
+| **DBMS** | PostgreSQL 15. Pada pengembangan, basis data dijalankan dengan Docker dan dipetakan ke port 5433. |
+| **Penyimpanan berkas** | Foto gerai disimpan di direktori server (`uploads/`). Berkas hanya dapat diunduh lewat API setelah pengguna login dan identitas toko memang boleh dibuka. |
+| **Payment Gateway** | Modul dummy di dalam server yang sama. Mendukung simulasi QRIS dan e-wallet, penahanan kuota, kedaluwarsa tagihan, serta konfirmasi pembayaran. Bukan QRIS bank sungguhan. |
+| **Client** | Aplikasi Android yang dibangun dengan Flutter. Dipasang sebagai berkas APK. Satu aplikasi memuat peran Pembeli dan Penjual. |
+| **OS klien** | Android. Membutuhkan izin internet, lokasi (opsional, untuk urutan jarak), kamera (pemindaian QR Penjual), galeri (foto toko), dan notifikasi. |
+| **OS server** | Linux pada VPS untuk operasi. Pengembangan dapat dilakukan di Linux, Windows, atau macOS selama Node.js, Docker, dan Flutter tersedia. |
+| **Jaringan** | HP dan server harus saling terjangkau. Contohnya Wi-Fi yang sama saat server masih di laptop, atau IP/domain VPS saat server dipindah. HTTPS dapat dipakai. HTTP tetap didukung untuk demo. |
+| **Pemberitahuan Penjual** | Koneksi WebSocket yang dijaga oleh layanan latar depan Android. Tidak memakai Firebase. Selama layanan itu hidup, pesanan baru memunculkan notifikasi meski aplikasi tidak sedang dibuka. |
 
-<sub><b><i>Catatan</i></b>: <i>Style/pattern yang dipilih di bab ini menjadi acuan untuk BAB 2 (pengelompokan komponen) dan BAB 3 (model arsitektur). Contoh pada dokumen ini memakai MVC secara konsisten dari BAB 1 sampai BAB 3. Kelompok boleh memakai pattern lain selama alasannya dijelaskan dan BAB 2 serta BAB 3 disesuaikan. Tabel 1.1 harus sama persis dengan subbab 2.5 dokumen SKPL; jangan menambah atau mengubah isinya karena SKPL sudah final.</i></sub>
+### Kaitan Teknologi dengan Style/Pattern Arsitektur
+Spesifikasi teknologi pada Tabel 1.1 mendukung penuh penerapan arsitektur *Client-Server* dan *Layered MVC*:
+* **Flutter (Dart) pada Sisi Klien:** Menyediakan arsitektur berbasis komponen UI (*Widget-View*) dan *State Management* yang terpisah dari logika pemanggilan API, mewujudkan prinsip *Presentation Layer*.
+* **Node.js Express 4 pada Sisi Server:** Mengadopsi struktur *routing/controller* yang menangani permintaan HTTP REST API serta mengarahkan pemrosesan logika bisnis ke modul *services* dan *repository* basis data (PostgreSQL 15 via ORM/Driver).
+* **Modul Native Android & WebSocket:** Koneksi WebSocket `/ws` dan *Foreground Service* Android menghubungkan *Client* dan *Server* secara independen, memastikan peristiwa *real-time* dapat diterima tanpa mengganggu pemrosesan data utama.
 
 ---
 
