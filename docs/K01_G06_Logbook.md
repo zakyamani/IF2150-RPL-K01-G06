@@ -108,4 +108,13 @@
 | *30-09-2026* | *Fathar Atandra Denaya* | *Mengerjakan 1.4, 1.5, 1.6 Serta mengisi ulang seluruh bagian BAB 2, 3, dan 4* | *1.5 Jam* | *Done* | *-* |
 ---
 
+### Milestone 6
+**Periode:** 04-10-2026 - 08-10-2026
+
+| Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
+| :--- | :--- | :--- | :--- | :--- | :--- | 
+| *04-10-2026* | *Nabil Rabbani* | *Merancang Deployment View (Physical View) sistem dan melakukan audit konsistensi lingkungan operasi (Bab 3.2)* | *1 Jam* | *Done* | *-* | 
+
+---
+
 ``Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. ``
