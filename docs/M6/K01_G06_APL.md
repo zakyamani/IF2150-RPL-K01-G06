@@ -164,6 +164,69 @@ Gambar 2 adalah contoh *Logical View* dalam bentuk *block diagram*. Seluruh komp
 
 <sub><b><i>Catatan</i></b>: <i>Ganti XXX dengan nama view yang dibuat, misalnya Logical View. Gambar 2 hanya contoh untuk P/L e-commerce, ganti dengan view milik kelompok Anda yang memuat seluruh komponen pada Tabel 2.1. Jenis view dan notasinya boleh berbeda dari contoh. Jika membuat view tambahan, lanjutkan pola 3.x ini (3.2, 3.3, dan seterusnya).</i></sub>
 
+## 3.2 Deployment View (Physical View) & Audit Konsistensi
+
+### 3.2.1 Deskripsi Deployment View
+Deployment View (Physical View) menggambarkan pemetaan fisik antara modul dan artefak perangkat lunak SisaRasa ke dalam simpul komputasi (*nodes*), lingkungan eksekusi (*runtime*), serta media komunikasi fisik yang menghubungkannya. Seluruh pemetaan pada *view* ini diturunkan secara langsung dari spesifikasi lingkungan operasi pada Tabel 1.1 dokumen ini (serta subbab 2.5 dokumen SKPL).
+
+<p align="center">
+  <img alt="Deployment Diagram Sistem SisaRasa" src="./assets/diagram/deployment-diagram.webp" width="95%">
+</p>
+<p align="center">
+  <i>Gambar 3. Deployment Diagram (Physical View) Sistem SisaRasa</i>
+</p>
+
+Sistem SisaRasa terdistribusi ke dalam 3 simpul fisik (*tier*) utama:
+1. **Client Node (Smartphone Android Pengguna):**
+   * **Simpul Fisik**: Perangkat bergerak (*smartphone*) pengguna yang menjalankan sistem operasi Android (minimal Android 10 / API level 29 ke atas).
+   * **Artefak Perangkat Lunak**: Berkas biner tunggal `SisaRasaApp.apk` yang dibangun menggunakan framework Flutter. Berkas aplikasi ini memuat peran Pembeli dan Penjual sekaligus yang dapat diakses sesuai kredensial saat autentikasi.
+   * **Subsistem & Modul Internal**:
+     - *Modul Pembeli*: Penelusuran katalog makanan surplus secara anonim, pengaturan preferensi filter alergen, formulir checkout, penampil tiket penjemputan (kode QR dinamis), serta antarmuka pemberian ulasan/rating.
+     - *Modul Penjual*: Manajemen formulir penawaran (validasi diskon 50–70% dan kelayakan konsumsi), pemantau jadwal penjemputan, serta antarmuka pemindai kode QR penjemputan.
+     - *Layanan Native & Jaringan*: Pustaka kamera `mobile_scanner` untuk validasi serah-terima fisik, plugin geolokasi perangkat (`geolocator`) untuk penghitungan jarak, modul HTTP REST client berbasis JSON (`dio`) dengan penyisipan *Bearer JWT Token*, serta *Android Foreground Service* (`flutter_foreground_task`) yang menjaga koneksi WebSocket tetap hidup di latar belakang agar notifikasi pesanan baru dapat diterima oleh Penjual secara seketika.
+2. **Application Server Node (Host Server Aplikasi):**
+   * **Simpul Fisik**: Server komputasi fisik atau Virtual Private Server (VPS) berbasis sistem operasi Linux (Ubuntu LTS). Pada fase pengembangan lokal, simpul ini dapat berjalan langsung di komputer pengembang.
+   * **Lingkungan Eksekusi**: Runtime Node.js LTS (versi 18 ke atas) yang menjalankan aplikasi web server berbasis Express.js 4 pada port 3000.
+   * **Subsistem & Modul Internal**:
+     - *Router & Controller API*: Mengelola jalur permintaan REST API (`/api/auth`, `/api/catalog`, `/api/orders`, `/api/scan`, `/api/complaints`, dll.).
+     - *WebSocket Server Engine*: Mengelola saluran komunikasi persisten `/ws` untuk menyiarkan pemberitahuan pesanan masuk baru ke HP Penjual secara *real-time*.
+     - *Geo-Calculation Engine*: Menghitung perkiraan jarak relatif antara pembeli dan merchant di sisi server menggunakan formula Haversine tanpa mengekspos koordinat GPS presisi toko sebelum pembayaran.
+     - *In-Server Payment Gateway Simulator*: Modul dummy terintegrasi di dalam server untuk memproses simulasi pembayaran digital (QRIS dan e-wallet), penahanan kuota, serta pembatalan tagihan kedaluwarsa.
+     - *Background Job Worker*: Proses latar belakang terjadwal untuk membatalkan sesi checkout yang melewati batas waktu 15 menit, menonaktifkan kode QR yang kedaluwarsa, dan menjadwalkan pencairan dana (*payout*).
+     - *Penyimpanan Berkas Terproteksi*: Direktori disk lokal server (`uploads/`) untuk menyimpan foto gerai toko yang hanya dapat diakses melalui otorisasi API setelah transaksi berhasil.
+3. **Database Server Node (Simpul Persistensi Data):**
+   * **Simpul Fisik / Kontainer**: Kontainer terisolasi Docker yang menjalankan sistem manajemen basis data relasional PostgreSQL 15.
+   * **Basis Data Relasional (`sisarasa_db`)**: Mengelola tabel persisten sistem, meliputi `users`, `merchants`, `offers`, `orders`, `checkout_sessions` (pengendali isolasi ACID kuota), `complaints` (pengaduan refund), `reviews` (ulasan pembeli), serta `audit_logs` dan `platform_metrics`.
+
+### 3.2.2 Protokol Jaringan dan Komunikasi Antar-Simpul
+Interaksi antar-simpul fisik diatur dengan ketentuan protokol sebagai berikut:
+1. **Client Node ↔ Application Server Node (REST API)**:
+   * Menggunakan protokol **HTTPS / HTTP** pada port 443 / 3000 dengan format muatan data pertukaran terstandarisasi **JSON**.
+   * Seluruh permintaan yang memerlukan hak akses dilindungi oleh *Authorization Header* berbasis JSON Web Token (JWT).
+2. **Client Node ↔ Application Server Node (Notifikasi Real-time)**:
+   * Menggunakan protokol **WebSocket (WSS / WS)** pada port 443 / 3000 melalui endpoint `/ws`.
+   * Saluran ini beroperasi secara *full-duplex* dan dipertahankan oleh layanan latar depan Android (*Android Foreground Service*) sehingga penjual langsung memperoleh getaran/notifikasi saat ada pesanan masuk meskipun aplikasi tidak sedang aktif dibuka di layar utama.
+3. **Application Server Node ↔ Database Server Node**:
+   * Menggunakan protokol biner bawaan basis data (**PostgreSQL Wire Protocol**) melalui jaringan TCP/IP internal pada port 5432 (atau port 5433 pada pemetaan Docker lokal pengembang) dengan mekanisme *connection pooling* (`pg.Pool`).
+4. **Application Server Node ↔ Storage Disk**:
+   * Menggunakan panggilan antarmuka I/O berkas lokal sistem operasi (*POSIX Local File System API*) untuk operasi baca/tulis berkas foto gerai.
+
+### 3.2.3 Audit Konsistensi Arsitektur Fisik
+Bagian audit ini mengevaluasi keselarasan antara perancangan Deployment View terhadap spesifikasi Lingkungan Operasi pada Tabel 1.1 dokumen APL (serta subbab 2.5 dokumen SKPL) dan pemenuhan Kebutuhan Non-Fungsional (KNF):
+
+| Komponen / Kebutuhan | Spesifikasi Acuan (Tabel 1.1 / SKPL) | Implementasi Fisik pada Deployment View | Status Evaluasi |
+| :--- | :--- | :--- | :---: |
+| **Klien Mobile** | Aplikasi Android dibangun dengan Flutter (berkas APK) | Simpul `Client Smartphone` memuat artefak `SisaRasaApp.apk` (gabungan peran Pembeli & Penjual) | **Valid (100% Konsisten)** |
+| **Server Aplikasi** | Node.js 18+ dengan Express 4 (Port 3000, rute WebSocket `/ws`) | Simpul `Application Server` menjalankan runtime Node.js dan Express 4 API + WebSocket Engine pada port 3000 | **Valid (100% Konsisten)** |
+| **DBMS** | PostgreSQL 15 via Docker (port 5433 dev / 5432 VPS) | Simpul `Database Server` menjalankan kontainer Docker PostgreSQL 15 (`sisarasa_db`) | **Valid (100% Konsisten)** |
+| **Penyimpanan Berkas**| Foto gerai disimpan di direktori `uploads/` server terproteksi | Direktori lokal `uploads/` pada disk simpul Application Server dengan gerbang otorisasi API | **Valid (100% Konsisten)** |
+| **Payment Gateway** | Modul simulasi dummy in-server (QRIS & e-wallet) | Subkomponen simulator terintegrasi di dalam simpul `Application Server` | **Valid (100% Konsisten)** |
+| **Pemberitahuan Penjual**| WebSocket via layanan latar depan Android (tanpa Firebase) | Jalur protokol WSS/WS terdedikasi antara HP Penjual dan `/ws` pada server aplikasi | **Valid (100% Konsisten)** |
+| **KNF01 (Keandalan ACID)** | Transaksi pembayaran & kuota memenuhi prinsip ACID | Ditangani oleh transaksi terisolasi PostgreSQL 15 (`checkout_sessions` & kuota `offers`) | **Terpenuhi** |
+| **KNF02 (Keamanan Data)** | Enkripsi data & perlindungan identitas | Jalur komunikasi HTTPS/TLS, otorisasi token JWT, dan koordinat GPS presisi toko tidak terekspos | **Terpenuhi** |
+| **KNF03 (Notifikasi Cepat)** | Pemberitahuan pesanan masuk seketika | Mekanisme *event push* WebSocket seketika ke HP Penjual begitu status pembayaran berhasil | **Terpenuhi** |
+| **KNF04 (Efisiensi Biaya)** | Biaya pihak ketiga Rp 0 (Self-hosted open-source) | Seluruh stack berjalan mandiri di VPS/lokal tanpa layanan berbayar pihak ketiga | **Terpenuhi** |
+
 ---
 
 # Referensi
