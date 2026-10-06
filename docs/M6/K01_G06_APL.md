@@ -104,26 +104,43 @@ Pada bagian ini, lakukan identifikasi terhadap komponen, modul, atau subsistem y
 
 Setiap komponen memiliki tanggung jawab tertentu dalam mendukung fungsionalitas sistem secara keseluruhan. Komponen dapat dikelompokkan berdasarkan lapisan arsitektur (misalnya *Model*, *View*, dan *Controller* pada pattern MVC), atau berdasarkan fungsi atau peran komponen di dalam sistem (misalnya modul autentikasi, manajemen data, dan integrasi eksternal).
 
-Tabel 2.1. Identifikasi Komponen/Modul/Subsistem
+Tabel 2.1. Identifikasi Komponen Subsistem Modul Pembeli
 
 | Nama Komponen/Modul/Subsistem | Jenis                 | Penjelasan                                                                                                           |
 | :---------------------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------- |
-| *KatalogView*                 | *View*                | *Menampilkan daftar produk dan meneruskan aksi pelanggan (misalnya "Tambah ke Keranjang") ke KatalogController.*     |
-| *KeranjangView*               | *View*                | *Menampilkan isi keranjang pelanggan beserta tombol checkout.*                                                       |
-| *CheckoutView*                | *View*                | *Menampilkan ringkasan pesanan dan pilihan metode pembayaran kepada pelanggan.*                                      |
-| *RiwayatPesananView*          | *View*                | *Menampilkan daftar pesanan yang pernah dibuat pelanggan beserta statusnya.*                                         |
-| *KatalogController*           | *Controller*          | *Memproses permintaan daftar produk dan penambahan produk ke keranjang.*                                             |
-| *KeranjangController*         | *Controller*          | *Memproses perubahan isi keranjang dan membuat pesanan baru saat checkout.*                                          |
-| *PembayaranController*        | *Controller*          | *Memproses pemilihan metode pembayaran dan meneruskan permintaan otorisasi ke PaymentGatewayAdapter.*                |
-| *PesananController*           | *Controller*          | *Memproses permintaan riwayat pesanan milik pelanggan.*                                                              |
-| *Produk*                      | *Model*               | *Merepresentasikan data produk beserta stoknya serta metode untuk mengakses dan mengubahnya.*                        |
-| *Keranjang*                   | *Model*               | *Merepresentasikan item yang dipilih pelanggan sebelum checkout serta metode untuk mengakses dan mengubahnya.*       |
-| *Pesanan*                     | *Model*               | *Merepresentasikan data pesanan beserta status pembayarannya serta metode untuk mengakses dan mengubahnya.*          |
-| *Pelanggan*                   | *Model*               | *Merepresentasikan data akun pelanggan serta metode untuk mengakses dan mengubahnya.*                                |
-| *Validasi*                    | *Pendukung*           | *Memvalidasi input pelanggan sebelum diproses oleh controller.*                                                      |
-| *PaymentGatewayAdapter*       | *Integrasi Eksternal* | *Mengirim permintaan otorisasi ke payment gateway (dummy) dan meneruskan status pembayaran ke PembayaranController.* |
-| *Database*                    | *Penyimpanan Data*    | *Menyimpan seluruh data model secara persisten, baik lokal (misalnya SQLite) maupun terpusat (misalnya Supabase).*   |
-| *...*                         | *...*                 | *...*                                                                                                                |
+| *Modul Pembeli*                 | *Subsistem*                | *Mewadahi seluruh view, controller, dan lokal yang digunakan peran Pembeli di aplikasi.*     |
+| *KatalogAnonimView*               | *View*                | *Menampilkan daftar penawaran paket surplus secara anonim beserta kontrol filter alergen dan pengurutan jarak (meneruskan aksi pencarian/filter ke PenawaranController).*                                                       |
+| *DetailPenawaranView*                | *View*                | *Menampilkan rincian satu penawaran (kategori, info alergen, harga normal/diskon, jendela pickup) sebelum Pembeli melanjutkan ke checkout.*                                      |
+| *CheckoutView*          | *View*                | *Menampilkan ringkasan pesanan dan pilihan metode pembayaran (QRIS/E-Wallet), meneruskan konfirmasi ke CheckoutController.*                                         |
+| *KatalogController*           | *View*          | *Memproses permintaan daftar produk dan penambahan produk ke keranjang.*                                             |
+| *TiketPickupView*         | *View*          | *Menampilkan kode QR pickup beserta nama dan alamat merchant yang baru terbuka setelah pembayaran terverifikasi.*                                          |
+| *RiwayatPesananPembeliView*        | *View*          | *Memproses pemilihan metode pembayaran dan meneruskan permintaan otorisasi ke PaymentGatewayAdapter.*                |
+| *PesananController*           | *Controller*          | *Menampilkan daftar pesanan milik Pembeli beserta status (menunggu bayar, menunggu pickup, selesai, gagal diambil) dan akses ke form ulasan.*                                                              |
+| *UlasanFormView*                      | *View*               | *Menampilkan form rating bintang dan komentar untuk pesanan berstatus "Selesai".*                        |
+| *PenawaranController*                   | *Controller*               | *Memproses permintaan daftar penawaran dari KatalogAnonimView, meneruskan parameter filter alergen/lokasi ke HttpApiClient.*       |
+| *CheckoutController*                     | *Controller*               | *Memproses pemilihan metode pembayaran dan mengirimkan permintaan checkout/otorisasi pembayaran ke server melalui HttpApiClient.*          |
+| *PesananPembeliController*                   | *Controller*               | *Mengambil status dan detail pesanan Pembeli (termasuk token QR pickup) secara berkala dari server.*                                |
+| *UlasanController*                    | *Controller*           | *Memvalidasi input ulasan melalui ValidasiFormInput, lalu mengirimkan data rating/komentar ke server.*                                                      |
+| *Penawaran*       | *Model* | *Representasi lokal data satu paket penawaran (kategori, harga, kuota, jendela pickup) yang diterima dari server, dipakai oleh KatalogAnonimView dan DetailPenawaranView.* |
+| *Pesanan*                    | *Model*    | *Representasi lokal data satu pesanan beserta status alurnya, dipakai bersama oleh Modul Pembeli dan Modul Penjual.*   |
+| *QRPickup*       | *Model* | *Representasi lokal token QR pickup dan masa berlakunya, ditampilkan oleh TiketPickupView.* |
+| *Ulasan*                    | *Model*    | *Representasi lokal rating dan komentar yang akan dikirim lewat UlasanController.*   |
+
+Tabel 2.2. Identifikasi Komponen Subsistem Modul Penjual
+
+| Nama Komponen/Modul/Subsistem | Jenis                 | Penjelasan                                                                                                           |
+| :---------------------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| *Modul Penjual*                 | *Subsistem*                | *Mewadahi seluruh view, controller, dan lokal yang digunakan peran Penjual di aplikasi.*     |
+| *DashboardPenawaranView*               | *View*                | *Menampilkan daftar penawaran aktif milik Penjual beserta sisa kuota, dan aksi edit/tutup penawaran.*                                                       |
+| *FormPenawaranView*                | *View*                | *Formulir untuk membuat atau mengubah penawaran (kategori, nilai normal, harga diskon, kuota, jendela pickup), dengan validasi lokal rentang diskon 50–70%.*                                      |
+| *DaftarPesananMasukView*          | *View*                | *Menampilkan pesanan yang sudah dibayar dan perlu disiapkan, lengkap jadwal pickup-nya.*                                         |
+| *PindaiQRView*           | *View*          | *Antarmuka/Interface kamera untuk memindai kode QR pickup Pembeli sebagai bukti serah-terima.*                                             |
+| *RiwayatTransaksiPenjualView*         | *View*          | *Menampilkan riwayat transaksi milik Penjual.*                                          |
+| *PenawaranManajemenController*        | *Controller*          | *Memproses pembuatan, perubahan, dan penutupan penawaran dari FormPenawaranView/DashboardPenawaranView, memanggil ValidasiFormInput sebelum mengirim ke server.*                |
+| *PesananMasukController*           | *Controller*          | *Mengambil daftar pesanan masuk dari server dan memperbarui tampilan DaftarPesananMasukView saat ada notifikasi baru dari WebSocketListener.*                                                              |
+| *PemindaianController*                      | *Controller*               | *Menerima hasil pemindaian dari KameraScannerAdapter, lalu mengirimkan token QR ke server untuk divalidasi*                        |
+| *PengaduanController*                   | *Controller*               | *Memproses konfirmasi/penolakan Penjual atas pengajuan sengketa/refund dari Pembeli.*       |
+
 
 Ketentuan pengisian Tabel 2.1:
 1. Kolom **Jenis** mengikuti pengelompokan pada *style/pattern* di BAB 1. Untuk MVC, jenisnya adalah *Model*, *View*, dan *Controller*. Jenis lain boleh ditambahkan, misalnya *Pendukung* untuk komponen bantu yang dipakai bersama, atau *Integrasi Eksternal* untuk penghubung ke sistem di luar P/L yang disebutkan pada subbab 2.2 dokumen SKPL. Kolom ini juga boleh diisi dengan *Subsistem*, *Modul*, atau *Komponen* apabila komponen dikelompokkan berdasarkan fungsinya. Tuliskan subsistem terlebih dahulu, lalu komponen penyusunnya di baris-baris berikutnya.
