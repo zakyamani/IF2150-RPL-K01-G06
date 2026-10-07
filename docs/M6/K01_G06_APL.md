@@ -161,14 +161,6 @@ Tabel 2.3. Identifikasi Komponen Server Side & Integrasi
 | _FileStorageService_          | _Penyimpanan Berkas_          | _Mengelola otorisasi akses dan penyimpanan fisik foto gerai pada direktori lokal `uploads/` di server._                                      |
 | _Database (PostgreSQL)_       | _Penyimpanan Data_            | _Menjalankan transaksi ACID untuk menyimpan data pengguna, penawaran, pesanan, dan log audit secara persisten._                              |
 
-Ketentuan pengisian Tabel 2.1:
-
-1. Kolom **Jenis** mengikuti pengelompokan pada _style/pattern_ di BAB 1. Untuk MVC, jenisnya adalah _Model_, _View_, dan _Controller_. Jenis lain boleh ditambahkan, misalnya _Pendukung_ untuk komponen bantu yang dipakai bersama, atau _Integrasi Eksternal_ untuk penghubung ke sistem di luar P/L yang disebutkan pada subbab 2.2 dokumen SKPL. Kolom ini juga boleh diisi dengan _Subsistem_, _Modul_, atau _Komponen_ apabila komponen dikelompokkan berdasarkan fungsinya. Tuliskan subsistem terlebih dahulu, lalu komponen penyusunnya di baris-baris berikutnya.
-2. Komponen **tidak sama dengan** kelas. Satu komponen boleh mewadahi beberapa kelas dari diagram kelas pada dokumen SKPL. Pastikan seluruh kelas tercakup oleh setidaknya satu komponen.
-3. Pastikan seluruh use case pada dokumen SKPL dapat dijalankan oleh komponen-komponen yang didaftarkan di tabel ini. Jangan menambahkan komponen untuk fitur yang tidak ada di SKPL.
-
-<sub><b><i>Catatan</i></b>: <i>Nama komponen pada Tabel 2.1 harus dipakai sama persis pada gambar di BAB 1 dan setiap view di BAB 3. Jika saat membuat view ternyata dibutuhkan komponen baru, tambahkan komponen tersebut ke Tabel 2.1 terlebih dahulu.</i></sub>
-
 ---
 
 # BAB 3: Model Arsitektur Perangkat Lunak
