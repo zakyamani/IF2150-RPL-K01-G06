@@ -114,7 +114,8 @@
 | Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi (Jam) | Status | Kendala / *Blocker* | 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
 | *04-10-2026* | *Nabil Rabbani* | *Merancang Deployment View (Physical View) sistem dan melakukan audit konsistensi lingkungan operasi (Bab 3.2)* | *1 Jam* | *Done* | *-* |
-| *07-10-2026* | *Muhammad Zaky Amani* | *Merancang Logical view dan melakukan audit konsistensi arsitektur logis (Bab 3.1)* | *1.5 Jam* | *Done* | *-* | 
+| *06-10-2026* | *Devina Athalia Putri Kusumah* | *Mengerjakan Bab 2 Komponen Client Side tabel 2.1 dan 2.2* | *1 Jam* | *Done* | *-* |
+| *07-10-2026* | *Muhammad Zaky Amani* | *Merancang Logical view dan melakukan audit konsistensi arsitektur logis (Bab 3.1)* | *1.5 Jam* | *Done* | *-* |
 
 ---
 
