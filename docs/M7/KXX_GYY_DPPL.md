@@ -244,12 +244,36 @@ Tabel 4.1. Daftar Kelas Perancangan Keseluruhan
 
 # BAB 5: Matriks Kerunutan
 
-Petakan kelas perancangan dengan use case yang terkait. Gunakan **BAB 6 Traceability pada dokumen SKPL** sebagai acuan keterkaitan kelas analisis dan use case, lalu sesuaikan dengan realisasi use case dan kelas perancangan pada BAB 3–BAB 5 DPPL.
+Matriks berikut memetakan setiap kelas terhadap use case yang direalisasikannya. Pemetaan mengacu pada traceability SKPL dan Identifikasi Kelas M4 (C01–C11), dengan nama use case sesuai SKPL BAB 4.2.
 
 Tabel 7.1. Matriks Kerunutan Kelas terhadap Use Case
 
 | Kelas | Use Case Terkait |
 | :--- | :--- |
-| *[ID kelas - Nama kelas]* | *[ID UC - Nama use case]* |
-| *[ID kelas - Nama kelas]* | *[ID UC - Nama use case]* |
+| *[C01 - Penjual]* | *[UC01 - Membuat dan Mengelola Penawaran
+UC04 - Memantau Pesanan Masuk
+UC05 - Memvalidasi Pengambilan Pesanan
+UC06 - Mengelola Pesanan
+UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
+| *[C02 - Pembeli]* | *[UC02 - Menelusuri Penawaran Anonim
+UC03 - Melakukan Transaksi Pembayaran
+UC05 - Memvalidasi Pengambilan Pesanan
+UC06 - Mengelola Pesanan
+UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
+| *[C03 - Penawaran]* | *[UC01 - Membuat dan Mengelola Penawaran
+UC02 - Menelusuri Penawaran Anonim
+UC03 - Melakukan Transaksi Pembayaran]* |
+| *[C04 - Pesanan]* | *[UC03 - Melakukan Transaksi Pembayaran
+UC04 - Memantau Pesanan Masuk
+UC05 - Memvalidasi Pengambilan Pesanan
+UC06 - Mengelola Pesanan
+UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
+| *[C05 - MetodePembayaran]* | *[UC03 - Melakukan Transaksi Pembayaran]* |
+| *[C06 - QRIS]* | *[UC03 - Melakukan Transaksi Pembayaran]* |
+| *[C07 - EWallet]* | *[UC03 - Melakukan Transaksi Pembayaran]* |
+| *[C08 - QRPickup]* | *[UC03 - Melakukan Transaksi Pembayaran
+UC05 - Memvalidasi Pengambilan Pesanan]* |
+| *[C09 - Pengaduan]* | *[UC06 - Mengelola Pesanan]* |
+| *[C10 - Ulasan]* | *[UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
+| *[C11 - RiwayatTransaksi]* | *[UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
 | *...* | *...* |
