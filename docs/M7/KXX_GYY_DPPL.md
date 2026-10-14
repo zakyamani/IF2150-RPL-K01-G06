@@ -248,32 +248,13 @@ Matriks berikut memetakan setiap kelas terhadap use case yang direalisasikannya.
 
 Tabel 7.1. Matriks Kerunutan Kelas terhadap Use Case
 
-| Kelas | Use Case Terkait |
-| :--- | :--- |
-| *[C01 - Penjual]* | *[UC01 - Membuat dan Mengelola Penawaran
-UC04 - Memantau Pesanan Masuk
-UC05 - Memvalidasi Pengambilan Pesanan
-UC06 - Mengelola Pesanan
-UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
-| *[C02 - Pembeli]* | *[UC02 - Menelusuri Penawaran Anonim
-UC03 - Melakukan Transaksi Pembayaran
-UC05 - Memvalidasi Pengambilan Pesanan
-UC06 - Mengelola Pesanan
-UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
-| *[C03 - Penawaran]* | *[UC01 - Membuat dan Mengelola Penawaran
-UC02 - Menelusuri Penawaran Anonim
-UC03 - Melakukan Transaksi Pembayaran]* |
-| *[C04 - Pesanan]* | *[UC03 - Melakukan Transaksi Pembayaran
-UC04 - Memantau Pesanan Masuk
-UC05 - Memvalidasi Pengambilan Pesanan
-UC06 - Mengelola Pesanan
-UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
-| *[C05 - MetodePembayaran]* | *[UC03 - Melakukan Transaksi Pembayaran]* |
-| *[C06 - QRIS]* | *[UC03 - Melakukan Transaksi Pembayaran]* |
-| *[C07 - EWallet]* | *[UC03 - Melakukan Transaksi Pembayaran]* |
-| *[C08 - QRPickup]* | *[UC03 - Melakukan Transaksi Pembayaran
-UC05 - Memvalidasi Pengambilan Pesanan]* |
-| *[C09 - Pengaduan]* | *[UC06 - Mengelola Pesanan]* |
-| *[C10 - Ulasan]* | *[UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
-| *[C11 - RiwayatTransaksi]* | *[UC07 - Melihat Riwayat dan Memberikan Ulasan]* |
-| *...* | *...* |
+| Kelas                  | Use Case Terkait                                                                                                                                                                                                                 |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C01 - Penjual          | UC01 - Membuat dan Mengelola Penawaran<br>UC04 - Memantau Pesanan Masuk<br>UC05 - Memvalidasi Pengambilan Pesanan<br>UC06 - Mengelola Pesanan<br>UC07 - Melihat Riwayat dan Memberikan Ulasan                                    |
+| C02 - Pembeli          | UC02 - Menelusuri Penawaran Anonim<br>UC03 - Melakukan Transaksi Pembayaran<br>UC05 - Memvalidasi Pengambilan Pesanan<br>UC06 - Mengelola Pesanan<br>UC07 - Melihat Riwayat dan Memberikan Ulasan                                |
+| C03 - Penawaran        | UC01 - Membuat dan Mengelola Penawaran<br>UC02 - Menelusuri Penawaran Anonim<br>UC03 - Melakukan Transaksi Pembayaran                                                                                                            |
+| C04 - Pesanan          | UC03 - Melakukan Transaksi Pembayaran<br>UC04 - Memantau Pesanan Masuk<br>UC05 - Memvalidasi Pengambilan Pesanan<br>UC06 - Mengelola Pesanan<br>UC07 - Melihat Riwayat dan Memberikan Ulasan                                     |
+| C05 - MetodePembayaran | UC03 - Melakukan Transaksi Pembayaran                                                                                                                                                                                            |
+| C06 - QRIS             | UC03 - Melakukan Transaksi Pembayaran                                                                                                                                                                                            |
+| C07 - EWallet          | UC03 - Melakukan Transaksi Pembayaran                                                                                                                                                                                            |
+| C08 - QRPickup         | UC03 - Melakukan Transaksi Pembayaran<br>UC05 - Memvalidasi Pengambilan Pesanan                                                                                                                                                  |
