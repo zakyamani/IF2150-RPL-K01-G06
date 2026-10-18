@@ -114,21 +114,40 @@ Dokumen DPPL ini disusun secara sistematis ke dalam 5 bab utama untuk memberikan
 
 ## 2.1 Rancangan Lingkungan Implementasi
 
-Sebutkan *operating system*, DBMS, *development tools*, *filing system*, dan bahasa pemrograman yang digunakan.
+Spesifikasi teknis lingkungan implementasi perangkat lunak SisaRasa dirancang sebagai berikut:
+
+* **Sistem Operasi Server**: Linux (Ubuntu LTS) pada Virtual Private Server (VPS) untuk lingkungan produksi, serta Windows/macOS/Linux untuk lingkungan pengembangan lokal.
+* **Sistem Operasi Klien**: Android (minimal Android 10 / API level 29 ke atas).
+* **Bahasa Pemrograman**: Dart (untuk klien Android Flutter) dan JavaScript / Node.js (untuk server *backend*).
+* **Framework & Library Utama**: Flutter (Klien Mobile), Express.js 4 (Web Server API), `pg` (Database Driver), `mobile_scanner` (Kamera QR), dan `flutter_foreground_task` (Layanan Latar Belakang WebSocket).
+* **DBMS**: PostgreSQL 15 yang dijalankan di dalam kontainer terisolasi Docker (port 5433 untuk dev / 5432 untuk prod).
+* **Filing System**: POSIX Local File System pada direktori terproteksi server (`uploads/`) untuk penyimpanan foto gerai *merchant*.
+* **Development Tools**: Visual Studio Code / Android Studio, Docker Desktop, Git & GitHub, serta Postman untuk pengujian API.
 
 ## 2.2 Style/Pattern Arsitektur Acuan
 
-Tentukan *architectural style* atau *pattern* yang menjadi acuan aplikasi, misalnya *layered architecture*, *client-server*, *repository*, *pipe and filter*, atau MVC (*Model-View-Controller*).
-
-
-Gunakan hasil **BAB 1 Style/Pattern Arsitektur Acuan pada dokumen APL**, termasuk alasan pemilihan dan gambar penerapannya pada P/L kelompok. Gunakan komponen aplikasi sendiri pada gambar, bukan hanya contoh pola umum.
+Dalam perancangan arsitektur perangkat lunak SisaRasa, _architectural pattern_ utama yang dipilih adallah **Client-Server Architecture** yang dipadukan dengan **Layered Architecture (MVC)** di masing-masing sisi. Pola ini memisahkan secara tegas antarmuka pengguna pada perangkat seluler (_Client_) dengan pusat pengolahan data dan logika bisnis pada infrastruktur belakang (_Server_) melalui protokol komunikasi REST API (HTTP/HTTPS) dan WebSocket.
 
 <p align="center">
-<img alt="Contoh Arsitektur MVC" src="./assets/diagram/contoh-arsitektur-mvc.webp" width="40%">
+  <img alt="Penerapan Arsitektur Client-Server dan Layered pada SisaRasa" src="./assets/diagram/arsitektur-acuan-sisarasa.png" width="85%">
 </p>
 <p align="center">
-<i>Gambar 1. Contoh Arsitektur MVC</i>
+  <i>Gambar 1.1. Penerapan Arsitektur Client-Server pada Aplikasi SisaRasa</i>
 </p>
+
+Pembagian peran dan tanggung jawab tiap komponen dalam arsitektur ini meliputi:
+
+1. **Client Side (Android Flutter Application):**
+   - **View (UI Layer):** Bertanggung jawab menyajikan antarmuka bagi Pembeli (katalog anonim, _checkout_, filter alergen, tampilan QR _pickup_) dan Penjual (_dashboard_ pesanan, formulir penawaran, pemindai QR kamera).
+   - **State Controller / Client Logic:** Mengelola keadaan lokal (_state_), menangani _user events_, menyimpan token autentikasi/QR secara _cached_, serta mempertahankan koneksi _WebSocket Background Service_ untuk menerima notifikasi pesanan masuk.
+
+2. **Server Side (Node.js Express Backend):**
+   - **API Controller Layer:** Menangani _endpoint_ REST API, memvalidasi _payload_ JSON masukan dari klien, serta mengelola lalu lintas koneksi WebSocket (`/ws`).
+   - **Business Service Layer:** Mengeksekusi aturan bisnis inti (_business rules_), seperti validasi jendela terbit penawaran (maksimal 2 jam), perhitungan jarak relatif berbasis geolokasi di _server_, pembuatan token QR dinamis & _fallback_ OTP 6-digit, serta penanganan sengketa/pembatalan.
+   - **Data Access / Repository Layer:** Berinteraksi langsung dengan basis data terpusat (PostgreSQL) dan penyimpanan berkas lokal server (`uploads/`) untuk operasi CRUD data entitas.
+
+3. **Modul Eksternal / Subsistem Terintegrasi:**
+   - **Dummy Payment Gateway Module:** Modul simulasi transaksi pembayaran digital (QRIS & _E-Wallet_) yang berjalan di dalam _server_ untuk mengelola penahanan kuota, waktu kedaluwarsa tagihan, dan pengiriman _webhook callback_.
 
 ## 2.3 Identifikasi Komponen / Modul / Subsistem
 
