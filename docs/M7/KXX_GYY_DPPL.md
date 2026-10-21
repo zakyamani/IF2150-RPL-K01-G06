@@ -123,7 +123,7 @@ Dalam perancangan arsitektur perangkat lunak SisaRasa, _architectural pattern_ u
   <img alt="Penerapan Arsitektur Client-Server dan Layered pada SisaRasa" src="./assets/diagram/arsitektur-acuan-sisarasa.png" width="85%">
 </p>
 <p align="center">
-  <i>Gambar 1.1. Penerapan Arsitektur Client-Server pada Aplikasi SisaRasa</i>
+  <i>Gambar 2.1. Penerapan Arsitektur Client-Server pada Aplikasi SisaRasa</i>
 </p>
 
 Pembagian peran dan tanggung jawab tiap komponen dalam arsitektur ini meliputi:
@@ -200,7 +200,7 @@ Logical View ini menstrukturkan komponen-komponen sistem ke dalam pola Model-Vie
 <img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/diagram-logical-view.jpg" width="100%">
 </p>
 <p align="center">
-<i>Gambar 2. Diagram Logical View SisaRasa</i>
+<i>Gambar 2.2. Diagram Logical View SisaRasa</i>
 </p>
 
 #### 2.4.1.2 Relasi dan Interaksi Antarkomponen
@@ -234,7 +234,7 @@ Deployment View (Physical View) menggambarkan pemetaan fisik antara modul dan ar
   <img alt="Deployment Diagram Sistem SisaRasa" src="./assets/diagram/deployment-diagram.webp" width="95%">
 </p>
 <p align="center">
-  <i>Gambar 3. Deployment Diagram (Physical View) Sistem SisaRasa</i>
+  <i>Gambar 2.3. Deployment Diagram (Physical View) Sistem SisaRasa</i>
 </p>
 
 Sistem SisaRasa terdistribusi ke dalam 3 simpul fisik (_tier_) utama:
