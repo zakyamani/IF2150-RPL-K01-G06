@@ -617,23 +617,30 @@ Tabel 3.7. Identifikasi Kelas Use Case UC07
 
 ## 4.1 Diagram Kelas
 
-**Bagian ini diisi dengan diagram kelas keseluruhan.**
+Diagram kelas keseluruhan di bawah ini merupakan gabungan dari seluruh diagram kelas perancangan dari setiap use case yang telah dijabarkan pada Bab 3. Diagram ini memodelkan struktur statis sistem, mencakup Entity/Model utama (dengan ID C01-C11) beserta Controller inti yang menangani logika bisnis sistem SisaRasa.
 
 <p align="center">
-<img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/contoh-class_diargam.png" width="35%">
+<img alt="Diagram Class Keseluruhan" src="./assets/diagram/diagram-class-keseluruhan.png" width="35%">
 </p>
 <p align="center">
-<i>Gambar 4.1. Diagram Kelas Perancangan Keseluruhan [Nama P/L]</i>
+<i>Gambar 4.1. Diagram Kelas Perancangan Keseluruhan SisaRasa</i>
 </p>
 
 Tabel 4.1. Daftar Kelas Perancangan Keseluruhan
 
 | ID Kelas | Nama Kelas | Atribut | Metode/Operasi |
 | :--- | :--- | :--- | :--- |
-| *[C01]* | *[Nama kelas]* | *[Daftar atribut]* | *[Daftar metode/operasi]* |
-| *[C02]* | *[Nama kelas]* | *[Daftar atribut]* | *[Daftar metode/operasi]* |
-| *[C03]* | *[Nama kelas]* | *[Daftar atribut]* | *[Daftar metode/operasi]* |
-| *...* | *...* | *...* | *...* |
+| C01 | Penjual | - idPenjual: String<br>- namaToko: String<br>- alamatToko: String<br>- koordinatLokasi: String<br>- statusBuka: Boolean | + getIdPenjual(): String<br>+ getProfil(): Penjual |
+| C02 | Pembeli | - idPembeli: String<br>- nama: String<br>- email: String<br>- preferensiAlergen: String[] | + getIdPembeli(): String<br>+ getPreferensiAlergen(): String[]<br>+ updatePreferensi(alergen: String[]): void |
+| C03 | Penawaran | - idPenawaran: String<br>- kategori: String<br>- hargaNormal: double<br>- hargaDiskon: double<br>- sisaKuota: int<br>- waktuPickupMulai: DateTime<br>- waktuPickupSelesai: DateTime<br>- daftarAlergen: String[]<br>- statusAktif: Boolean | + getIdPenawaran(): String<br>+ kurangiKuota(qty: int): Boolean<br>+ getDetailPenawaran(): Penawaran<br>+ ubahStatus(status: Boolean): void |
+| C04 | Pesanan | - idPesanan: String<br>- statusPesanan: String<br>- totalHarga: double<br>- waktuPesan: DateTime | + buatPesanan(): Pesanan<br>+ ubahStatus(statusBaru: String): void<br>+ getStatusPesanan(): String<br>+ getDetailPesanan(): Pesanan |
+| C05 | MetodePembayaran | - idPembayaran: String<br>- jumlahBayar: double<br>- statusBayar: String | + prosesPembayaran(): Boolean<br>+ verifikasiStatus(): String |
+| C06 | QRIS | - stringQRIS: String<br>- batasWaktu: DateTime | + generateQRIS(): String |
+| C07 | EWallet | - nomorHP: String<br>- provider: String | + kirimTagihan(): Boolean |
+| C08 | QRPickup | - idQR: String<br>- stringToken: String<br>- otpFallback: String<br>- isDigunakan: Boolean | + generateToken(): String<br>+ validasiToken(token: String): Boolean<br>+ tandaiDigunakan(): void |
+| C09 | Pengaduan | - idPengaduan: String<br>- alasan: String<br>- fotoBukti: String<br>- statusPengaduan: String | + ajukanPengaduan(): void<br>+ prosesPengaduan(keputusan: String): void |
+| C10 | Ulasan | - idUlasan: String<br>- ratingBintang: int<br>- komentar: String<br>- tanggal: DateTime | + tambahUlasan(): void<br>+ getUlasan(): Ulasan |
+| C11 | RiwayatTransaksi | - idRiwayat: String | + getRiwayatPembeli(idPembeli: String): Pesanan[]<br>+ getRiwayatPenjual(idPenjual: String): Pesanan[] |
 
 <br>
 

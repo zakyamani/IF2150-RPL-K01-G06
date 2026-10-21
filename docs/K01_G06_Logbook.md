@@ -135,10 +135,11 @@
 
 | Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                                                                             | Durasi (Jam) | Status | Kendala / _Blocker_ |
 | :----------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------- | :----- | :------------------ |
-| _14-10-2026_ | _Devina Athalia Putri Kusumah_                | _Menyusun BAB 5 Matriks Kerunutan, lalu memastikan semua use case dan kelas terpetakan._ | _45 Jam_      | _Done_ | _-_                 |
+| _14-10-2026_ | _Devina Athalia Putri Kusumah_                | _Menyusun BAB 5 Matriks Kerunutan, lalu memastikan semua use case dan kelas terpetakan._ | _45 Menit_      | _Done_ | _-_                 |
 | _18-10-2026_ | _Fathar Atandra Denaya_                | _Mengerjakan BAB 1, 2.1, dan 2.2_ | _1 Jam_      | _Done_ | _-_                 |
 | _21-10-2026_ | _Fathar Atandra Denaya_                | _Mengerjakan BAB 2.3, 2.4, dan memasukkan logo SisaRasa_ | _1 Jam_      | _Done_ | _Formatting tabel pada BAB 2.3_                 |
-
+| _21-10-2026_ | _Josephine Bintang N.L_                | _Mengerjakan keseluruhan BAB 3 dan Memasukkan tiap diagram untuk BAB 3_ | _2 Jam_      | _Done_ | _-_                 |
+| _21-10-2026_ | _Muhammad Zaky Amani_                | _Mengerjakan BAB 4_ | _1 Jam_      | _Done_ | _-_                 |
 ---
 
 `Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `
