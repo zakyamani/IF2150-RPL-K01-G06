@@ -306,66 +306,317 @@ Bagian audit ini mengevaluasi keselarasan antara perancangan Deployment View ter
 
 # BAB 3: Realisasi Use Case
 
-## 3.1 Use Case [Nama Use Case 1]
+## 3.1 Use Case Membuat dan Mengelola Penawaran
 
-**ID Use Case:** *[UC01 sesuai SKPL]*  
-**Nama Use Case:** *[Nama use case sesuai SKPL]*
+**ID Use Case:** UC01  
+**Nama Use Case:** Membuat dan Mengelola Penawaran
 
 ### 3.1.1 Identifikasi Kelas
 
-Identifikasi kelas yang terkait dengan use case tersebut. Kelas di tahap perancangan dapat berbeda dengan dengan kelas di tahap analisis. Dapat menggunakan tabel di bawah:
-
-Tabel 3.1. Identifikasi Kelas Use Case [UC01]
+Tabel 3.1. Identifikasi Kelas Use Case UC01
 
 | No | Nama Kelas Perancangan | Nama Kelas Analisis Terkait |
 |:--- | :--- | :--- |
-| 1 | *[Nama kelas perancangan]* | *[Nama kelas analisis pada SKPL]* |
-| 2 | *[Nama kelas perancangan]* | *[Nama kelas analisis pada SKPL]* |
-| ... | *...* | *...* |
+| 1 | DashboardPenawaranView | - |
+| 2 | FormPenawaranView | - |
+| 3 | PenawaranManajemenController | - |
+| 4 | PenawaranController (Server) | - |
+| 5 | Penjual | Penjual (C01) |
+| 6 | Penawaran | Penawaran (C03) |
 
 ### 3.1.2 Sequence Diagram
-
-Buat *sequence diagram* untuk **setiap skenario use case**, mencakup skenario normal dan alternatif pada subbab 4.4 SKPL. Diagram melibatkan kelas-kelas yang telah diidentifikasi pada SKPL. 
-
-- **Skenario Normal**
+<p align="center">
+<img alt="Sequence Diagram Skenario Normal UC01" src="./assets/diagram/seq-UC01-normal.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.1. Sequence Diagram Skenario Normal UC01</i></p>
+<br>
 
 <p align="center">
-<img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/contoh-sequence_diagram.png" width="50%">
+<img alt="Sequence Diagram Skenario Alternatif 1 UC01" src="./assets/diagram/seq-UC01-alt1.png" width="70%">
 </p>
-<p align="center">
-<i>Gambar X. Sequence Diagram [UC01]</i>
-</p>
-
-- **Skenario Alternatif [Nomor]: [Nama Skenario]**
+<p align="center"><i>Gambar 3.2. Sequence Diagram Skenario Alternatif 1 UC01</i></p>
+<br>
 
 <p align="center">
-<img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/contoh-sequence_diagram.png" width="50%">
+<img alt="Sequence Diagram Skenario Alternatif 2 UC01" src="./assets/diagram/seq-UC01-alt2.png" width="70%">
 </p>
-<p align="center">
-<i>Gambar X. Sequence Diagram [UC01] - [Nama skenario alternatif]</i>
-</p>
+<p align="center"><i>Gambar 3.3. Sequence Diagram Skenario Alternatif 2 UC01</i></p>
+<br>
 
 ### 3.1.3 Diagram Kelas
+<p align="center">
+<img alt="Class Diagram UC01" src="./assets/diagram/class-UC01.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.4. Diagram Kelas UC01</i></p>
+<br>
 
-Buatlah diagram kelas untuk use case ini yang terdiri atas kelas-kelas dari 3.1.1. **Setiap kelas pada diagram wajib menampilkan atribut dan metode/operasi langsung di dalam kotak kelasnya**, sehingga tidak perlu membuat tabel daftar atribut dan metode per kelas pada subbab ini. Daftar lengkap atribut dan metode seluruh kelas disajikan pada Tabel 4.1 (Bab 4).
+---
+
+## 3.2 Use Case Menelusuri Penawaran Anonim
+
+**ID Use Case:** UC02  
+**Nama Use Case:** Menelusuri Penawaran Anonim
+
+### 3.2.1 Identifikasi Kelas
+
+Tabel 3.2. Identifikasi Kelas Use Case UC02
+
+| No | Nama Kelas Perancangan | Nama Kelas Analisis Terkait |
+|:--- | :--- | :--- |
+| 1 | KatalogAnonimView | - |
+| 2 | DetailPenawaranView | - |
+| 3 | KatalogController | - |
+| 4 | PenawaranController (Server) | - |
+| 5 | Pembeli | Pembeli (C02) |
+| 6 | Penawaran | Penawaran (C03) |
+
+### 3.2.2 Sequence Diagram
+<p align="center">
+<img alt="Sequence Diagram Skenario Normal UC02" src="./assets/diagram/seq-UC02-normal.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.5. Sequence Diagram Skenario Normal UC02</i></p>
+<br>
 
 <p align="center">
-<img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/contoh_class-diagram2.jpg" width="35%">
+<img alt="Sequence Diagram Skenario Alternatif 1 UC02" src="./assets/diagram/seq-UC02-alt1.png" width="70%">
 </p>
+<p align="center"><i>Gambar 3.6. Sequence Diagram Skenario Alternatif 1 UC02</i></p>
+<br>
+
 <p align="center">
-<i>Gambar X. Diagram Kelas [Nama Uce Case]</i>
+<img alt="Sequence Diagram Skenario Alternatif 2 UC02" src="./assets/diagram/seq-UC02-alt2.png" width="70%">
 </p>
+<p align="center"><i>Gambar 3.7. Sequence Diagram Skenario Alternatif 2 UC02</i></p>
+<br>
 
-Pada diagram, pastikan:
-- Atribut dituliskan beserta visibilitas dan tipe datanya, misalnya `- email: String`.
-- Operasi dituliskan beserta visibilitas, parameter, dan tipe kembaliannya, misalnya `+ login(email: String, password: String): Boolean`.
-- Relasi antarkelas (asosiasi, agregasi, komposisi, generalisasi, dan dependensi) digambarkan lengkap dengan multiplisitas.
-- Semua operasi yang dipanggil pada sequence diagram 3.1.2 (skenario normal dan alternatif) ada pada kelas yang bersangkutan.
-- Kelas yang sama dengan kelas di use case lain memakai nama, atribut, dan metode yang konsisten.
+### 3.2.3 Diagram Kelas
+<p align="center">
+<img alt="Class Diagram UC02" src="./assets/diagram/class-UC02.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.8. Diagram Kelas UC02</i></p>
+<br>
 
-## 3.2 Use Case XX
+---
 
-Silahkan lanjutkan untuk  *use case* berikutnya dengan content yang sama dengan 3.1
+## 3.3 Use Case Melakukan Transaksi Pembayaran
+
+**ID Use Case:** UC03  
+**Nama Use Case:** Melakukan Transaksi Pembayaran
+
+### 3.3.1 Identifikasi Kelas
+
+Tabel 3.3. Identifikasi Kelas Use Case UC03
+
+| No | Nama Kelas Perancangan | Nama Kelas Analisis Terkait |
+|:--- | :--- | :--- |
+| 1 | CheckoutView | - |
+| 2 | TiketPickupView | - |
+| 3 | CheckoutController | - |
+| 4 | PembayaranController (Server) | - |
+| 5 | PaymentGatewaySimulator | - |
+| 6 | Pembeli | Pembeli (C02) |
+| 7 | Penawaran | Penawaran (C03) |
+| 8 | Pesanan | Pesanan (C04) |
+| 9 | MetodePembayaran | MetodePembayaran (C05) |
+| 10 | QRIS | QRIS (C06) |
+| 11 | EWallet | EWallet (C07) |
+| 12 | QRPickup | QRPickup (C08) |
+
+### 3.3.2 Sequence Diagram
+<p align="center">
+<img alt="Sequence Diagram Skenario Normal UC03" src="./assets/diagram/seq-UC03-normal.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.9. Sequence Diagram Skenario Normal UC03</i></p>
+<br>
+
+<p align="center">
+<img alt="Sequence Diagram Skenario Alternatif 1 UC03" src="./assets/diagram/seq-UC03-alt1.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.10. Sequence Diagram Skenario Alternatif 1 UC03</i></p>
+<br>
+
+<p align="center">
+<img alt="Sequence Diagram Skenario Alternatif 2 UC03" src="./assets/diagram/seq-UC03-alt2.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.11. Sequence Diagram Skenario Alternatif 2 UC03</i></p>
+<br>
+
+### 3.3.3 Diagram Kelas
+<p align="center">
+<img alt="Class Diagram UC03" src="./assets/diagram/class-UC03.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.12. Diagram Kelas UC03</i></p>
+<br>
+
+---
+
+## 3.4 Use Case Memantau Pesanan Masuk
+
+**ID Use Case:** UC04  
+**Nama Use Case:** Memantau Pesanan Masuk
+
+### 3.4.1 Identifikasi Kelas
+
+Tabel 3.4. Identifikasi Kelas Use Case UC04
+
+| No | Nama Kelas Perancangan | Nama Kelas Analisis Terkait |
+|:--- | :--- | :--- |
+| 1 | DaftarPesananMasukView | - |
+| 2 | PesananMasukController | - |
+| 3 | WebSocket Engine | - |
+| 4 | Penjual | Penjual (C01) |
+| 5 | Pesanan | Pesanan (C04) |
+
+### 3.4.2 Sequence Diagram
+<p align="center">
+<img alt="Sequence Diagram Skenario Normal UC04" src="./assets/diagram/seq-UC04-normal.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.13. Sequence Diagram Skenario Normal UC04</i></p>
+<br>
+
+<p align="center">
+<img alt="Sequence Diagram Skenario Alternatif 1 UC04" src="./assets/diagram/seq-UC04-alt1.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.14. Sequence Diagram Skenario Alternatif 1 UC04</i></p>
+<br>
+
+### 3.4.3 Diagram Kelas
+<p align="center">
+<img alt="Class Diagram UC04" src="./assets/diagram/class-UC04.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.15. Diagram Kelas UC04</i></p>
+<br>
+
+---
+
+## 3.5 Use Case Memvalidasi Pengambilan Pesanan
+
+**ID Use Case:** UC05  
+**Nama Use Case:** Memvalidasi Pengambilan Pesanan
+
+### 3.5.1 Identifikasi Kelas
+
+Tabel 3.5. Identifikasi Kelas Use Case UC05
+
+| No | Nama Kelas Perancangan | Nama Kelas Analisis Terkait |
+|:--- | :--- | :--- |
+| 1 | PindaiQRView | - |
+| 2 | PemindaianController | - |
+| 3 | PesananController (Server) | - |
+| 4 | Penjual | Penjual (C01) |
+| 5 | Pembeli | Pembeli (C02) |
+| 6 | Pesanan | Pesanan (C04) |
+| 7 | QRPickup | QRPickup (C08) |
+
+### 3.5.2 Sequence Diagram
+<p align="center">
+<img alt="Sequence Diagram Skenario Normal UC05" src="./assets/diagram/seq-UC05-normal.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.16. Sequence Diagram Skenario Normal UC05</i></p>
+<br>
+
+<p align="center">
+<img alt="Sequence Diagram Skenario Alternatif 1 UC05" src="./assets/diagram/seq-UC05-alt1.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.17. Sequence Diagram Skenario Alternatif 1 UC05</i></p>
+<br>
+
+### 3.5.3 Diagram Kelas
+<p align="center">
+<img alt="Class Diagram UC05" src="./assets/diagram/class-UC05.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.18. Diagram Kelas UC05</i></p>
+<br>
+
+---
+
+## 3.6 Use Case Mengelola Pesanan
+
+**ID Use Case:** UC06  
+**Nama Use Case:** Mengelola Pesanan
+
+### 3.6.1 Identifikasi Kelas
+
+Tabel 3.6. Identifikasi Kelas Use Case UC06
+
+| No | Nama Kelas Perancangan | Nama Kelas Analisis Terkait |
+|:--- | :--- | :--- |
+| 1 | PengaduanController | - |
+| 2 | PesananController (Server) | - |
+| 3 | Penjual | Penjual (C01) |
+| 4 | Pembeli | Pembeli (C02) |
+| 5 | Pesanan | Pesanan (C04) |
+| 6 | Pengaduan | Pengaduan (C09) |
+
+### 3.6.2 Sequence Diagram
+<p align="center">
+<img alt="Sequence Diagram Skenario Normal UC06" src="./assets/diagram/seq-UC06-normal.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.19. Sequence Diagram Skenario Normal UC06</i></p>
+<br>
+
+<p align="center">
+<img alt="Sequence Diagram Skenario Alternatif 1 UC06" src="./assets/diagram/seq-UC06-alt1.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.20. Sequence Diagram Skenario Alternatif 1 UC06</i></p>
+<br>
+
+<p align="center">
+<img alt="Sequence Diagram Skenario Alternatif 2 UC06" src="./assets/diagram/seq-UC06-alt2.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.21. Sequence Diagram Skenario Alternatif 2 UC06</i></p>
+<br>
+
+### 3.6.3 Diagram Kelas
+<p align="center">
+<img alt="Class Diagram UC06" src="./assets/diagram/class-UC06.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.22. Diagram Kelas UC06</i></p>
+<br>
+
+---
+
+## 3.7 Use Case Melihat Riwayat dan Memberikan Ulasan
+
+**ID Use Case:** UC07  
+**Nama Use Case:** Melihat Riwayat dan Memberikan Ulasan
+
+### 3.7.1 Identifikasi Kelas
+
+Tabel 3.7. Identifikasi Kelas Use Case UC07
+
+| No | Nama Kelas Perancangan | Nama Kelas Analisis Terkait |
+|:--- | :--- | :--- |
+| 1 | RiwayatPesananPembeliView | - |
+| 2 | RiwayatTransaksiPenjualView | - |
+| 3 | UlasanFormView | - |
+| 4 | PesananPembeliController | - |
+| 5 | UlasanController | - |
+| 6 | Penjual | Penjual (C01) |
+| 7 | Pembeli | Pembeli (C02) |
+| 8 | Pesanan | Pesanan (C04) |
+| 9 | Ulasan | Ulasan (C10) |
+| 10| RiwayatTransaksi | RiwayatTransaksi (C11) |
+
+### 3.7.2 Sequence Diagram
+<p align="center">
+<img alt="Sequence Diagram Skenario Normal UC07" src="./assets/diagram/seq-UC07-normal.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.23. Sequence Diagram Skenario Normal UC07</i></p>
+<br>
+
+<p align="center">
+<img alt="Sequence Diagram Skenario Alternatif 1 UC07" src="./assets/diagram/seq-UC07-alt1.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.24. Sequence Diagram Skenario Alternatif 1 UC07</i></p>
+<br>
+
+### 3.7.3 Diagram Kelas
+<p align="center">
+<img alt="Class Diagram UC07" src="./assets/diagram/class-UC07.png" width="70%">
+</p>
+<p align="center"><i>Gambar 3.25. Diagram Kelas UC07</i></p>
+<br>
 
 <br>
 
