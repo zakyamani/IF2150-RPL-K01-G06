@@ -620,7 +620,7 @@ Tabel 3.7. Identifikasi Kelas Use Case UC07
 Diagram kelas keseluruhan di bawah ini merupakan gabungan dari seluruh diagram kelas perancangan dari setiap use case yang telah dijabarkan pada Bab 3. Diagram ini memodelkan struktur statis sistem, mencakup Entity/Model utama (dengan ID C01-C11) beserta Controller inti yang menangani logika bisnis sistem SisaRasa.
 
 <p align="center">
-<img alt="Diagram Class Keseluruhan" src="./assets/diagram/diagram-class-keseluruhan.png" width="50%">
+<img alt="Diagram Class Keseluruhan" src="./assets/diagram/diagram-class-keseluruhan.png" width="100%">
 </p>
 <p align="center">
 <i>Gambar 4.1. Diagram Kelas Perancangan Keseluruhan SisaRasa</i>
