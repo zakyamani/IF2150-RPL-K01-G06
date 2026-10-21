@@ -151,39 +151,155 @@ Pembagian peran dan tanggung jawab tiap komponen dalam arsitektur ini meliputi:
 
 ## 2.3 Identifikasi Komponen / Modul / Subsistem
 
-Identifikasi komponen, modul, atau subsistem penyusun aplikasi berdasarkan *pattern* yang telah ditetapkan. Jelaskan tanggung jawab masing-masing komponen. Pengelompokan dapat mengikuti lapisan arsitektur atau fungsi/peran komponen dalam sistem.
-
-Ambil dari **Tabel 2.1 dokumen APL**, lalu kelompokkan berdasarkan lapisan (Model/View/Controller). Kolom **Jenis** diisi sesuai pattern, misalnya View, Controller, Model, Service, Repository. Satu komponen merepresentasikan saatu tanggung jawab utama yang jelas,
+Komponen-komponen penyusun aplikasi SisaRasa diidentifikasi dari dokumen APL dan dikelompokkan berdasarkan lapisan arsitekturnya (View, Controller, Model, Service, Penyimpanan Data, dan Integrasi Eksternal):
 
 Tabel 2.3. Identifikasi Komponen/Modul/Subsistem
 
 | Nama Komponen/Modul/Subsistem | Jenis | Penjelasan |
 | :--- | :--- | :--- |
-| *[Nama komponen/modul/subsistem]* | *[Jenis]* | *[Tanggung jawab komponen]* |
-| *[Nama komponen/modul/subsistem]* | *[Jenis]* | *[Tanggung jawab komponen]* |
-| *...* | *...* | *...* |
+| **Modul Pembeli** | *Subsistem* | Mewadahi seluruh view, controller, dan lokal yang digunakan peran Pembeli di aplikasi. |
+| **Modul Penjual** | *Subsistem* | Mewadahi seluruh view, controller, dan lokal yang digunakan peran Penjual di aplikasi. |
+| **Modul Server Side** | *Subsistem* | Mewadahi seluruh routing, controller, dan integrasi yang memproses logika bisnis di sisi server Node.js. |
+| **KatalogAnonimView** | *View* | Menampilkan daftar penawaran paket surplus secara anonim beserta kontrol filter alergen dan pengurutan jarak (meneruskan aksi pencarian/filter ke PenawaranController). |
+| **DetailPenawaranView** | *View* | Menampilkan rincian satu penawaran (kategori, info alergen, harga normal/diskon, jendela pickup) sebelum Pembeli melanjutkan ke checkout. |
+| **CheckoutView** | *View* | Menampilkan ringkasan pesanan dan pilihan metode pembayaran (QRIS/E-Wallet), meneruskan konfirmasi ke CheckoutController. |
+| **KatalogController** | *View* | Memproses permintaan daftar produk dan penambahan produk ke keranjang. |
+| **TiketPickupView** | *View* | Menampilkan kode QR pickup beserta nama dan alamat merchant yang baru terbuka setelah pembayaran terverifikasi. |
+| **RiwayatPesananPembeliView** | *View* | Memproses pemilihan metode pembayaran dan meneruskan permintaan otorisasi ke PaymentGatewayAdapter. |
+| **UlasanFormView** | *View* | Menampilkan form rating bintang dan komentar untuk pesanan berstatus "Selesai". |
+| **DashboardPenawaranView** | *View* | Menampilkan daftar penawaran aktif milik Penjual beserta sisa kuota, dan aksi edit/tutup penawaran. |
+| **FormPenawaranView** | *View* | Formulir untuk membuat atau mengubah penawaran (kategori, nilai normal, harga diskon, kuota, jendela pickup), dengan validasi lokal rentang diskon 50–70%. |
+| **DaftarPesananMasukView** | *View* | Menampilkan pesanan yang sudah dibayar dan perlu disiapkan, lengkap jadwal pickup-nya. |
+| **PindaiQRView** | *View* | Antarmuka/Interface kamera untuk memindai kode QR pickup Pembeli sebagai bukti serah-terima. |
+| **RiwayatTransaksiPenjualView** | *View* | Menampilkan riwayat transaksi milik Penjual. |
+| **PesananController** | *Controller* | Menampilkan daftar pesanan milik Pembeli beserta status (menunggu bayar, menunggu pickup, selesai, gagal diambil) dan akses ke form ulasan. |
+| **PenawaranController** | *Controller* | Memproses permintaan daftar penawaran dari KatalogAnonimView, meneruskan parameter filter alergen/lokasi ke HttpApiClient. |
+| **CheckoutController** | *Controller* | Memproses pemilihan metode pembayaran dan mengirimkan permintaan checkout/otorisasi pembayaran ke server melalui HttpApiClient. |
+| **PesananPembeliController** | *Controller* | Mengambil status dan detail pesanan Pembeli (termasuk token QR pickup) secara berkala dari server. |
+| **UlasanController** | *Controller* | Memvalidasi input ulasan melalui ValidasiFormInput, lalu mengirimkan data rating/komentar ke server. |
+| **PenawaranManajemenController**| *Controller* | Memproses pembuatan, perubahan, dan penutupan penawaran dari FormPenawaranView/DashboardPenawaranView, memanggil ValidasiFormInput sebelum mengirim ke server. |
+| **PesananMasukController** | *Controller* | Mengambil daftar pesanan masuk dari server dan memperbarui tampilan DaftarPesananMasukView saat ada notifikasi baru dari WebSocketListener. |
+| **PemindaianController** | *Controller* | Menerima hasil pemindaian dari KameraScannerAdapter, lalu mengirimkan token QR ke server untuk divalidasi. |
+| **PengaduanController** | *Controller* | Memproses konfirmasi/penolakan Penjual atas pengajuan sengketa/refund dari Pembeli. |
+| **PenawaranController (Server)** | *Controller (Server)* | Mengeksekusi logika bisnis untuk menerbitkan, mengubah, menutup, dan memfilter penawaran makanan surplus dari sisi server. |
+| **PesananController (Server)** | *Controller (Server)* | Menangani pembuatan pesanan, verifikasi pemindaian token kode QR pickup, serta memperbarui status transaksi di basis data. |
+| **PembayaranController (Server)**| *Controller (Server)* | Memproses permintaan checkout dari klien dan meneruskannya ke PaymentGatewaySimulator. |
+| **Penawaran** | *Model* | Representasi lokal data satu paket penawaran (kategori, harga, kuota, jendela pickup) yang diterima dari server, dipakai oleh KatalogAnonimView dan DetailPenawaranView. |
+| **Pesanan** | *Model* | Representasi lokal data satu pesanan beserta status alurnya, dipakai bersama oleh Modul Pembeli dan Modul Penjual. |
+| **QRPickup** | *Model* | Representasi lokal token QR pickup dan masa berlakunya, ditampilkan oleh TiketPickupView. |
+| **Ulasan** | *Model* | Representasi lokal rating dan komentar yang akan dikirim lewat UlasanController. |
+| **Router API** | *Routing* | Mengelola dan mengarahkan jalur permintaan HTTP (REST API) dari aplikasi Android klien ke Controller yang sesuai. |
+| **WebSocket Engine** | *Integrasi / Komunikasi* | Mengelola saluran komunikasi persisten dua arah (`/ws`) untuk menyiarkan notifikasi pesanan baru secara real-time ke perangkat Penjual. |
+| **HaversineGeoService** | *Pendukung (Service)* | Menghitung perkiraan jarak spasial antara Pembeli dan Penjual sepenuhnya di sisi server untuk melindungi privasi koordinat merchant. |
+| **PaymentGatewaySimulator** | *Integrasi Eksternal (Dummy)* | Subsistem internal yang mensimulasikan otorisasi pembayaran (QRIS/E-Wallet), menahan kuota sementara, dan membatalkan tagihan kedaluwarsa. |
+| **FileStorageService** | *Penyimpanan Berkas* | Mengelola otorisasi akses dan penyimpanan fisik foto gerai pada direktori lokal `uploads/` di server. |
+| **Database (PostgreSQL)** | *Penyimpanan Data* | Menjalankan transaksi ACID untuk menyimpan data pengguna, penawaran, pesanan, dan log audit secara persisten. |
 
 ## 2.4 Model Arsitektur Perangkat Lunak
 
-Buat model arsitektur dalam bentuk satu atau lebih *view* yang memperlihatkan interaksi dan kolaborasi komponen, modul, serta subsistem dalam menjalankan fungsi sistem. Pilih notasi yang sesuai. Contoh *view*: *Logical View*, *Process View*, *Development View*, dan *Physical View*.
+### 2.4.1 Logical View
 
-Gunakan hasil **BAB 3 Model Arsitektur Perangkat Lunak pada dokumen APL**. 
+#### 2.4.1.1 Deksripsi Logical View
 
-### 2.4.1 View [Nama View]
+Logical View mendeskripsikan abstraksi utama sistem dan hubungannya untuk mendukung kebutuhan fungsional perangkat lunak. Fokus utama dari view ini adalah memetakan layanan dan fitur yang disediakan sistem agar pembagian fungsi dan hubungan layanan yang memenuhi kebutuhan bisnis SisaRasa dapat lebih mudah dipahami.
 
-Tuliskan secara singkat model arsitektur yang dipilih dan alasan model tersebut cocok untuk aplikasi.
+Logical View ini menstrukturkan komponen-komponen sistem ke dalam pola Model-View-Controller (MVC). Pola MVC secara tegas memisahkan pengelolaan data dan perilaku domain pada lapisan Model, penyajian informasi pada lapisan View, serta koordinasi interaksi pengguna pada lapisan Controller. Pembagian ini menjamin modularitas tinggi antara Modul Pembeli dan Modul Penjual, meskipun keduanya berinteraksi dengan entitas domain sentral yang sama.
 
 <p align="center">
-<img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/contoh-logical-view.webp" width="50%">
+<img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/diagram-logical-view.jpg" width="100%">
 </p>
 <p align="center">
-<i>Gambar 2. Contoh Logical View pada P/L E-Commerce</i>
+<i>Gambar 2. Diagram Logical View SisaRasa</i>
 </p>
 
-### 2.4.X View [Nama View]
-*[Lakukan hal yang sama dengan bagian sebelumnya]*
+#### 2.4.1.2 Relasi dan Interaksi Antarkomponen
 
-<br>
+Diagram keseluruhan sistem di atas mendeskripsikan abstraksi relasi fungsional. Hubungan antarkomponen diatur berdasarkan prinsip arsitektur MVC:
+
+1. View --> Controller (User Events): Komponen View bertanggung jawab menyajikan antarmuka dan menangkap interaksi pengguna (seperti menekan tombol checkout atau menyimpan penawaran). Interaksi ini diteruskan ke Controller dalam bentuk User events.
+2. Controller --> Model (Update Request): Controller memetakan aksi pengguna menjadi pembaruan pada entitas data. Controller mengirimkan Update request ke komponen Model untuk mengubah status, memotong kuota, atau memvalidasi logika bisnis.
+3. Model --> Model (Agregasi & Komposisi): Entitas data pada Model saling berelasi. Pesanan memiliki relasi agregasi dengan Penawaran (karena penawaran tetap ada meskipun pesanan dibatalkan). Sebaliknya, Pesanan memiliki relasi komposisi dengan QRPickup dan Ulasan (karena QR dan Ulasan tidak dapat berdiri sendiri tanpa adanya pesanan).
+4. Controller --> Eksternal: CheckoutController mendelegasikan proses penahanan kuota dan pemrosesan dana ke sistem eksternal Payment Gateway Dummy melalui koneksi terpisah.
+
+#### 2.4.1.3 Audit Konsistensi Arsitektur Logis
+
+Audit ini memastikan bahwa rancangan _Logical View_ telah mencakup seluruh komponen, kelas, dan subsistem yang diidentifikasi pada Bab 2, serta mendukung seluruh _use case_ yang ditetapkan pada SKPL.
+
+| Aspek Arsitektur                  | Kriteria Acuan (Bab 1, Bab 2 & SKPL)                                       | Implementasi pada Logical View                                                                         | Status Evaluasi |
+| :-------------------------------- | :------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- | :-------------: |
+| **Kepatuhan Pola (Pattern)**      | Memisahkan data, penyajian, dan koordinasi interaksi pada pola MVC.        | Diagram dikelompokkan secara hierarkis menjadi tiga lapisan utama: _View_, _Controller_, dan _Model_.  |    **Valid**    |
+| **Kelengkapan Subsistem Pembeli** | Mencakup seluruh kelas _View_ dan _Controller_ Modul Pembeli (Tabel 2.1).  | `KatalogAnonimView`, `CheckoutView`, `KatalogController`, dll., seluruhnya terpetakan di zona Pembeli. |    **Valid**    |
+| **Kelengkapan Subsistem Penjual** | Mencakup seluruh kelas _View_ dan _Controller_ Modul Penjual (Tabel 2.2).  | `FormPenawaranView`, `PindaiQRView`, `PesananMasukController`, dll., terpetakan di zona Penjual.       |    **Valid**    |
+| **Sentralisasi Domain (Model)**   | Berisi entitas data: `Penawaran`, `Pesanan`, `QRPickup`, `Ulasan` (Bab 2). | Dikelompokkan pada _Domain Layer_ yang diakses oleh _Controller_ dari kedua aktor (Pembeli & Penjual). |    **Valid**    |
+| **Dukungan Kebutuhan Eksternal**  | Mendukung integrasi dengan _Payment Gateway dummy_ sesuai alur bisnis.     | `CheckoutController` memiliki relasi _Permintaan Otorisasi_ terhadap modul `Payment Gateway Dummy`.    |    **Valid**    |
+
+### 2.4.2 Deployment View (Physical View) & Audit Konsistensi
+
+#### 2.4.2.1 Deskripsi Deployment View
+
+Deployment View (Physical View) menggambarkan pemetaan fisik antara modul dan artefak perangkat lunak SisaRasa ke dalam simpul komputasi (_nodes_), lingkungan eksekusi (_runtime_), serta media komunikasi fisik yang menghubungkannya. Seluruh pemetaan pada _view_ ini diturunkan secara langsung dari spesifikasi lingkungan operasi pada Tabel 1.1 dokumen ini (serta subbab 2.5 dokumen SKPL).
+
+<p align="center">
+  <img alt="Deployment Diagram Sistem SisaRasa" src="./assets/diagram/deployment-diagram.webp" width="95%">
+</p>
+<p align="center">
+  <i>Gambar 3. Deployment Diagram (Physical View) Sistem SisaRasa</i>
+</p>
+
+Sistem SisaRasa terdistribusi ke dalam 3 simpul fisik (_tier_) utama:
+
+1. **Client Node (Smartphone Android Pengguna):**
+   - **Simpul Fisik**: Perangkat bergerak (_smartphone_) pengguna yang menjalankan sistem operasi Android (minimal Android 10 / API level 29 ke atas).
+   - **Artefak Perangkat Lunak**: Berkas biner tunggal `SisaRasaApp.apk` yang dibangun menggunakan framework Flutter. Berkas aplikasi ini memuat peran Pembeli dan Penjual sekaligus yang dapat diakses sesuai kredensial saat autentikasi.
+   - **Subsistem & Modul Internal**:
+     - _Modul Pembeli_: Penelusuran katalog makanan surplus secara anonim, pengaturan preferensi filter alergen, formulir checkout, penampil tiket penjemputan (kode QR dinamis), serta antarmuka pemberian ulasan/rating.
+     - _Modul Penjual_: Manajemen formulir penawaran (validasi diskon 50–70% dan kelayakan konsumsi), pemantau jadwal penjemputan, serta antarmuka pemindai kode QR penjemputan.
+     - _Layanan Native & Jaringan_: Pustaka kamera `mobile_scanner` untuk validasi serah-terima fisik, plugin geolokasi perangkat (`geolocator`) untuk penghitungan jarak, modul HTTP REST client berbasis JSON (`dio`) dengan penyisipan _Bearer JWT Token_, serta _Android Foreground Service_ (`flutter_foreground_task`) yang menjaga koneksi WebSocket tetap hidup di latar belakang agar notifikasi pesanan baru dapat diterima oleh Penjual secara seketika.
+2. **Application Server Node (Host Server Aplikasi):**
+   - **Simpul Fisik**: Server komputasi fisik atau Virtual Private Server (VPS) berbasis sistem operasi Linux (Ubuntu LTS). Pada fase pengembangan lokal, simpul ini dapat berjalan langsung di komputer pengembang.
+   - **Lingkungan Eksekusi**: Runtime Node.js LTS (versi 18 ke atas) yang menjalankan aplikasi web server berbasis Express.js 4 pada port 3000.
+   - **Subsistem & Modul Internal**:
+     - _Router & Controller API_: Mengelola jalur permintaan REST API (`/api/auth`, `/api/catalog`, `/api/orders`, `/api/scan`, `/api/complaints`, dll.).
+     - _WebSocket Server Engine_: Mengelola saluran komunikasi persisten `/ws` untuk menyiarkan pemberitahuan pesanan masuk baru ke HP Penjual secara _real-time_.
+     - _Geo-Calculation Engine_: Menghitung perkiraan jarak relatif antara pembeli dan merchant di sisi server menggunakan formula Haversine tanpa mengekspos koordinat GPS presisi toko sebelum pembayaran.
+     - _In-Server Payment Gateway Simulator_: Modul dummy terintegrasi di dalam server untuk memproses simulasi pembayaran digital (QRIS dan e-wallet), penahanan kuota, serta pembatalan tagihan kedaluwarsa.
+     - _Background Job Worker_: Proses latar belakang terjadwal untuk membatalkan sesi checkout yang melewati batas waktu 15 menit, menonaktifkan kode QR yang kedaluwarsa, dan menjadwalkan pencairan dana (_payout_).
+     - _Penyimpanan Berkas Terproteksi_: Direktori disk lokal server (`uploads/`) untuk menyimpan foto gerai toko yang hanya dapat diakses melalui otorisasi API setelah transaksi berhasil.
+3. **Database Server Node (Simpul Persistensi Data):**
+   - **Simpul Fisik / Kontainer**: Kontainer terisolasi Docker yang menjalankan sistem manajemen basis data relasional PostgreSQL 15.
+   - **Basis Data Relasional (`sisarasa_db`)**: Mengelola tabel persisten sistem, meliputi `users`, `merchants`, `offers`, `orders`, `checkout_sessions` (pengendali isolasi ACID kuota), `complaints` (pengaduan refund), `reviews` (ulasan pembeli), serta `audit_logs` dan `platform_metrics`.
+
+#### 2.4.2.2 Protokol Jaringan dan Komunikasi Antar-Simpul
+
+Interaksi antar-simpul fisik diatur dengan ketentuan protokol sebagai berikut:
+
+1. **Client Node ↔ Application Server Node (REST API)**:
+   - Menggunakan protokol **HTTPS / HTTP** pada port 443 / 3000 dengan format muatan data pertukaran terstandarisasi **JSON**.
+   - Seluruh permintaan yang memerlukan hak akses dilindungi oleh _Authorization Header_ berbasis JSON Web Token (JWT).
+2. **Client Node ↔ Application Server Node (Notifikasi Real-time)**:
+   - Menggunakan protokol **WebSocket (WSS / WS)** pada port 443 / 3000 melalui endpoint `/ws`.
+   - Saluran ini beroperasi secara _full-duplex_ dan dipertahankan oleh layanan latar depan Android (_Android Foreground Service_) sehingga penjual langsung memperoleh getaran/notifikasi saat ada pesanan masuk meskipun aplikasi tidak sedang aktif dibuka di layar utama.
+3. **Application Server Node ↔ Database Server Node**:
+   - Menggunakan protokol biner bawaan basis data (**PostgreSQL Wire Protocol**) melalui jaringan TCP/IP internal pada port 5432 (atau port 5433 pada pemetaan Docker lokal pengembang) dengan mekanisme _connection pooling_ (`pg.Pool`).
+4. **Application Server Node ↔ Storage Disk**:
+   - Menggunakan panggilan antarmuka I/O berkas lokal sistem operasi (_POSIX Local File System API_) untuk operasi baca/tulis berkas foto gerai.
+
+#### 2.4.2.3 Audit Konsistensi Arsitektur Fisik
+
+Bagian audit ini mengevaluasi keselarasan antara perancangan Deployment View terhadap spesifikasi Lingkungan Operasi pada Tabel 1.1 dokumen APL (serta subbab 2.5 dokumen SKPL) dan pemenuhan Kebutuhan Non-Fungsional (KNF):
+
+| Komponen / Kebutuhan         | Spesifikasi Acuan (Tabel 1.1 / SKPL)                           | Implementasi Fisik pada Deployment View                                                                     |      Status Evaluasi       |
+| :--------------------------- | :------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- | :------------------------: |
+| **Klien Mobile**             | Aplikasi Android dibangun dengan Flutter (berkas APK)          | Simpul `Client Smartphone` memuat artefak `SisaRasaApp.apk` (gabungan peran Pembeli & Penjual)              | **Valid (100% Konsisten)** |
+| **Server Aplikasi**          | Node.js 18+ dengan Express 4 (Port 3000, rute WebSocket `/ws`) | Simpul `Application Server` menjalankan runtime Node.js dan Express 4 API + WebSocket Engine pada port 3000 | **Valid (100% Konsisten)** |
+| **DBMS**                     | PostgreSQL 15 via Docker (port 5433 dev / 5432 VPS)            | Simpul `Database Server` menjalankan kontainer Docker PostgreSQL 15 (`sisarasa_db`)                         | **Valid (100% Konsisten)** |
+| **Penyimpanan Berkas**       | Foto gerai disimpan di direktori `uploads/` server terproteksi | Direktori lokal `uploads/` pada disk simpul Application Server dengan gerbang otorisasi API                 | **Valid (100% Konsisten)** |
+| **Payment Gateway**          | Modul simulasi dummy in-server (QRIS & e-wallet)               | Subkomponen simulator terintegrasi di dalam simpul `Application Server`                                     | **Valid (100% Konsisten)** |
+| **Pemberitahuan Penjual**    | WebSocket via layanan latar depan Android (tanpa Firebase)     | Jalur protokol WSS/WS terdedikasi antara HP Penjual dan `/ws` pada server aplikasi                          | **Valid (100% Konsisten)** |
+| **KNF01 (Keandalan ACID)**   | Transaksi pembayaran & kuota memenuhi prinsip ACID             | Ditangani oleh transaksi terisolasi PostgreSQL 15 (`checkout_sessions` & kuota `offers`)                    |       **Terpenuhi**        |
+| **KNF02 (Keamanan Data)**    | Enkripsi data & perlindungan identitas                         | Jalur komunikasi HTTPS/TLS, otorisasi token JWT, dan koordinat GPS presisi toko tidak terekspos             |       **Terpenuhi**        |
+| **KNF03 (Notifikasi Cepat)** | Pemberitahuan pesanan masuk seketika                           | Mekanisme _event push_ WebSocket seketika ke HP Penjual begitu status pembayaran berhasil                   |       **Terpenuhi**        |
+| **KNF04 (Efisiensi Biaya)**  | Biaya pihak ketiga Rp 0 (Self-hosted open-source)              | Seluruh stack berjalan mandiri di VPS/lokal tanpa layanan berbayar pihak ketiga                             |       **Terpenuhi**        |
 
 ---
 
