@@ -715,44 +715,132 @@ Tabel 5.1.1. Query Operasi [Nama Operasi]
 
 # BAB 6: Perancangan Antarmuka
 
-## 6.1 Rancangan Antarmuka [ID Layar 1]
+Bab ini memuat versi awal prototipe antarmuka aplikasi Android SisaRasa beserta spesifikasi rinci objek pada setiap layar dan reaksi sistem terhadap interaksi pengguna. Setiap layar diberi ID unik berpola I-XX, dan ID yang sama dipakai pada subbab perancangan masing-masing layar serta pada Tabel 6.9. Layar disusun mengikuti alur pengguna Pembeli: masuk atau mendaftar, menelusuri katalog dengan filter alergen dan jarak, memantau pesanan, membuka tiket pengambilan, lalu mengelola akun. Nama komponen yang dirujuk pada kolom Komponen Terkait mengikuti Tabel 2.3.
 
-Masukkan versi awal prototipe antarmuka, dimana untuk setiap antarmuka/layar, tuliskan spesifikasi rinci objek yang ditampilkan dan reaksi sistem terhadap interaksi pengguna.
+## 6.1 Rancangan Antarmuka I-01
 
-**Antarmuka:** *[ID layar]*  
-**Nama Layar:** *[Nama layar]*
+**Antarmuka:** *I-01*  
+**Nama Layar:** *Masuk*
 
 <p align="center">
-<img alt="Contoh Logical View pada P/L E-Commerce" src="./assets/diagram/contoh-design.png" width="50%">
+<img alt="Rancangan Antarmuka I-01 - Masuk" src="./assets/diagram/I-01-login.jpeg" width="50%">
 </p>
 <p align="center">
-<i>Gambar 6.1. Rancangan Antarmuka [ID Layar] - [Nama Layar]</i>
+<i>Gambar 6.1. Rancangan Antarmuka I-01 - Masuk</i>
 </p>
 
-Tabel 6.1. Spesifikasi Objek Antarmuka [ID Layar]
+Tabel 6.1. Spesifikasi Objek Antarmuka I-01
 
 | Id_Objek | Jenis | Konten | Keterangan |
 | :--- | :--- | :--- | :--- |
-| *[ID objek]* | *[Jenis objek, misalnya Button, RTF Box, dll]* | *[String yang tampil pada layar]* | *[Reaksi sistem, layar tujuan, tautan, atau ID algoritma yang dijalankan]* |
-| *[ID objek]* | *[Jenis objek]* | *[Konten yang ditampilkan]* | *[Reaksi sistem atau nama file terkait beserta deskripsi ringkasnya]* |
-| *...* | *...* | *...* | *...* |
+| *I01-O01* | *Text* | *SisaRasa* | *Menampilkan nama aplikasi* |
+| *I01-O02* | *IconButton* | *Ikon pengaturan/settings* | *Membuka isian alamat server API agar aplikasi dapat diarahkan ke server pengembangan atau VPS sebelum pengguna masuk* |
+| *I01-O03* | *Image* | *Logo daun SisaRasa* | *Elemen identitas aplikasi* |
+| *I01-O04* | *Text* | *Makanan baik, kesempatan kedua* | *Menampilkan slogan aplikasi* |
+| *I01-O05* | *Text* | *Temukan paket kejutan dari makanan yang masih layak. Hemat 50–70% sambil mengurangi sisa makanan.* | *Menjelaskan nilai utama aplikasi* |
+| *I01-O06* | *TextField* | *Label "Email"* | *Menerima alamat email pengguna. Format email divalidasi sebelum permintaan dikirim ke server* |
+| *I01-O07* | *TextField* | *Label "Password"* | *Menerima kata sandi* |
+| *I01-O08* | *IconButton* | *Ikon mata pada kolom Password* | *Menampilkan atau menyembunyikan teks kata sandi* |
+| *I01-O09* | *Button* | *Masuk* | *Mengirim email dan kata sandi ke server melalui REST API. Jika valid, aplikasi menyimpan token dan membuka beranda sesuai peran akun (Pembeli menuju I-03). Jika gagal, sistem menampilkan pesan kesalahan dan tetap berada di layar ini* |
+| *I01-O10* | *TextButton* | *Belum punya akun? Daftar* | *Berpindah ke layar I-02 (Registrasi)* |
 
 
-## 6.X Rancangan Antarmuka [ID Layar X]
+## 6.2 Rancangan Antarmuka I-02
 
-*[Ulangi pola 6.1 untuk layar berikutnya sampai semua layar teridentifikasi]*
+**Antarmuka:** *I-02*  
+**Nama Layar:** *Registrasi Akun*
 
-## 6.Y Rancangan Antarmuka Keseluruhan
+<p align="center">
+<img alt="Rancangan Antarmuka I-02 - Masuk" src="./assets/diagram/I-02-registrasi.jpeg" width="50%">
+</p>
+<p align="center">
+<i>Gambar 6.2. Rancangan Antarmuka I-02 - Registrasi</i>
+</p>
 
-Tuliskan daftar gambar seluruh antarmuka. Berikan ID unik untuk setiap tampilan dan gunakan ID yang sama pada subbab perancangan antarmuka masing-masing.
+Tabel 6.2. Spesifikasi Objek Antarmuka I-02
 
-Tabel 6.Y. Rancangan Antarmuka Keseluruhan
+| Id_Objek | Jenis | Konten | Keterangan |
+| :--- | :--- | :--- | :--- |
+| *I02-O01* | *IconButton* | *Ikon panah kembali* | *Kembali ke layar I-01 (Masuk) tanpa membuat akun* |
+| *I02-O02* | *Text* | *SisaRasa* | *Menampilkan nama aplikasi* |
+| *I02-O03* | *IconButton* | *Ikon pengaturan/settings* | *Membuka isian alamat server API, sama seperti I01-O02* |
+| *I02-O04* | *TextField* | *Label "Nama"* | *Menerima nama pengguna* |
+| *I02-O05* | *Dropdown* | *Label "Saya ingin Membeli paket"* | *Menentukan peran akun yang dibuat. "Membeli paket" menghasilkan akun Pembeli* |
+| *I02-O06* | *TextField* | *Label "Email"* | *Menerima alamat email yang akan dipakai untuk masuk. Format email divalidasi* |
+| *I02-O07* | *TextField* | *Label "Password"* | *Menerima kata sandi* |
+| *I02-O08* | *IconButton* | *Ikon mata pada kolom Password* | *Menampilkan atau menyembunyikan teks kata sandi* |
+| *I02-O09* | *Text* | *Minimal 12 karakter* | *Menginformasikan aturan panjang kata sandi. Kata sandi kurang dari 12 karakter ditolak sebelum dikirim ke server* |
+| *I02-O10* | *Button* | *Buat akun* | *Memvalidasi seluruh isian, lalu mengirim data registrasi ke server. Jika berhasil, akun tersimpan dan pengguna dapat masuk melalui I-01. Jika gagal, sistem menampilkan pesan kesalahan* |
+| *I02-O11* | *TextButton* | *Sudah punya akun? Masuk* | *Berpindah ke layar I-01 (Masuk)* |
+
+
+## 6.3 Rancangan Antarmuka I-03
+
+**Antarmuka:** *I-03*  
+**Nama Layar:** *Registrasi Akun*
+
+<p align="center">
+<img alt="Rancangan Antarmuka I-03 - Katalog Penawaran" src="./assets/diagram/I-03-katalog.jpeg" width="50%">
+</p>
+<p align="center">
+<i>Gambar 6.2. Rancangan Antarmuka I-03 - Katalog Penawaran</i>
+</p>
+
+Tabel 6.3. Spesifikasi Objek Antarmuka I-03
+
+| Id_Objek | Jenis | Konten | Keterangan |
+| :--- | :--- | :--- | :--- |
+| *I03-O01* | *Text* | *SisaRasa* | *Menampilkan nama aplikasi* |
+| *I03-O02* | *IconButton* | *Ikon lonceng (notifikasi)* | *Membuka pemberitahuan/notifikasi pengguna* |
+| *I03-O03* | *Text* | *Selamatkan rasa. Kurangi yang terbuang* | *Menampilkan judul halaman* |
+| *I03-O04* | *Text* | *Paket kejutan layak konsumsi, dengan harga lebih ringan* | *Menjelaskan isi katalog* |
+| *I03-O05* | *ChoiceChip (grup)* | *Semua, Makanan berat, Roti & kudapan, Buah & sayur, Paket campuran* | *Memilih satu kategori paket. Setelah dipilih, aplikasi meminta daftar penawaran dari server dengan kategori tersebut dan memperbarui daftar. Nilai awal "Semua"* |
+| *I03-O06* | *OutlinedButton* | *Filter alergen* | *Berpindah ke layar I-04 (Hindari alergen)* |
+| *I03-O07* | *OutlinedButton* | *Hitung jarak* | *Menampilkan dialog izin lokasi pada layar I-05. Jika izin diberikan, daftar diurutkan berdasarkan jarak perkiraan dari server.* |
+| *I03-O08* | *List* | *Kartu paket kejutan anonim* | *Menampilkan penawaran aktif tanpa nama toko, foto toko, maupun alamat presisi. Penawaran yang melaporkan alergen terpilih disembunyikan (pada gambar daftar masih kosong)* |
+| *I03-O09* | *BottomNavigationBar* | *Katalog (aktif), Pesanan, Tiket, Akun* | *Berpindah antarmenu utama: Pesanan menuju I-06, Tiket menuju I-07, Akun menuju I-08* |
+
+
+## 6.4 Rancangan Antarmuka I-04
+
+**Antarmuka:** *I-04*  
+**Nama Layar:** *Filter Alergen*
+
+<p align="center">
+<img alt="Rancangan Antarmuka I-02 - Masuk" src="./assets/diagram/I-04-filter-alergen.jpeg" width="50%">
+</p>
+<p align="center">
+<i>Gambar 6.4. Rancangan Antarmuka I-04 - Filter Alergen</i>
+</p>
+
+Tabel 6.4. Spesifikasi Objek Antarmuka I-04
+
+| Id_Objek | Jenis | Konten | Keterangan |
+| :--- | :--- | :--- | :--- |
+| *I04-O01* | *IconButton* | *Ikon panah kembali* | *Kembali ke layar I-03 tanpa menyimpan perubahan* |
+| *I04-O02* | *Text* | *Hindari alergen* | *Menampilkan judul halaman* |
+| *I04-O03* | *Card peringatan* | *Filter alergen tidak menjamin bebas kontaminasi silang. Berhati-hati jika alergi berat (anafilaksis)* | *Menampilkan disclaimer risiko kontaminasi silang sesuai KF07* |
+| *I04-O04* | *Text* | *Paket yang melaporkan alergen pilihan Anda akan disembunyikan dari katalog.* | *Menjelaskan cara kerja filter* |
+| *I04-O05* | *Checkbox (daftar)* | *Daftar Alergen* | *Pengguna mencentang alergen yang ingin dihindari. Beberapa alergen dapat dipilih sekaligus.* |
+| *I04-O06* | *Button* | *Simpan filter* | *Menyimpan preferensi alergen Pembeli, lalu kembali ke layar I-03. Katalog menyembunyikan paket yang melaporkan alergen terpilih* |
+
+
+## 6.9 Rancangan Antarmuka Keseluruhan
+
+Tabel 6.9 memuat seluruh antarmuka beserta ID uniknya. ID yang sama dipakai pada subbab 6.1 sampai 6.8.
+
+Tabel 6.9. Rancangan Antarmuka Keseluruhan
 
 | No | Tampilan Antarmuka |
 | :--- | :--- |
-| *[I-01]* | <img src="./assets/diagram/contoh-design.png" alt="Contoh Desain" width="400"> |
-| *[I-02]* | *[Sisipkan gambar antarmuka I-02]* |
-| *[I-XX]* | *[Sisipkan gambar antarmuka berikutnya]* |
+| *[I-01]* | <img src="./assets/diagram/I-01-login.jpeg.png" alt="I-01 Masuk" width="400"> |
+| *[I-02]* | <img src="./assets/diagram/I-02-registrasi.jpeg" alt="I-02 Registrasi Akun" width="400"> |
+| *[I-03]* | <img src="./assets/diagram/I-03-katalog.jpeg" alt="I-03 Katalog Penawaran" width="400"> |
+| *[I-04]* | <img src="./assets/diagram/I-04-filter-alergen.jpeg" alt="I-04 Filter Alergen" width="400"> |
+| *[I-05]* | <img src="./assets/diagram/I-05-izin-lokasi.jpeg" alt="I-05 Izin Lokasi" width="400"> |
+| *[I-06]* | <img src="./assets/diagram/I-06-pesanan.jpeg" alt="I-06 Pesanan Pembeli" width="400"> |
+| *[I-07]* |<img src="./assets/diagram/I-07-tiket-offline.jpeg" alt="I-07 Tiket Pengambilan" width="400"> |
+| *[I-08]* | <img src="./assets/diagram//I-08-akun.jpeg" alt="I-08 Akun" width="400"> |
 
 <br>
 
