@@ -150,6 +150,7 @@
 | Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                                                                             | Durasi (Jam) | Status | Kendala / _Blocker_ |
 | :----------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------- | :----- | :------------------ |
 | _27-10-2026_ | _Devina Athalia Putri Kusumah_                | _Menyusun BAB 6 Racangan Antarmuka._ | _2 Jam_      | _Done_ | _-_                 |
+| _27-10-2026_ | _Muhammad Zaky Amani_                | _Menyusun BAB 5 Perancangan Rinci Kelas._ | _2,5 Jam_      | _Done_ | _-_                 |
 
 ---
 `Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `
