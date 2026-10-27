@@ -825,6 +825,111 @@ Tabel 6.4. Spesifikasi Objek Antarmuka I-04
 | *I04-O06* | *Button* | *Simpan filter* | *Menyimpan preferensi alergen Pembeli, lalu kembali ke layar I-03. Katalog menyembunyikan paket yang melaporkan alergen terpilih* |
 
 
+## 6.5 Rancangan Antarmuka I-05
+
+**Antarmuka:** *I-05*  
+**Nama Layar:** *Pop up Izin Lokasi*
+
+<p align="center">
+<img alt="Rancangan Antarmuka I-05 - Izin Lokasi" src="./assets/diagram/I-05-izin-lokasi.jpeg" width="50%">
+</p>
+<p align="center">
+<i>Gambar 6.5. Rancangan Antarmuka I-05 - Izin Lokasi</i>
+</p>
+
+Tabel 6.5. Spesifikasi Objek Antarmuka I-05
+
+| Id_Objek | Jenis | Konten | Keterangan |
+|:---------|:------|:-------|:-----------|
+| I05-O01 | Dialog | Gunakan lokasi? | Muncul di atas layar I-03 setelah tombol "Hitung jarak" ditekan |
+| I05-O02 | Text | Lokasi dipakai untuk menghitung jarak. Anda tetap dapat melihat paket jika izin ditolak | Menjelaskan tujuan penggunaan lokasi dan menegaskan katalog tetap dapat dibuka tanpa lokasi |
+| I05-O03 | TextButton | Batal | Menutup dialog. Katalog ditampilkan tanpa pengurutan jarak |
+| I05-O04 | Button | Gunakan lokasi | Meminta izin lokasi perangkat. Jika diberikan, koordinat Pembeli dikirim ke server untuk menghitung jarak perkiraan, lalu katalog diurutkan dari yang terdekat. Koordinat presisi merchant tidak dikirim ke aplikasi |
+| I05-O05 | Card informasi | Lokasi belum tersedia. Katalog tetap bisa dibuka tanpa jarak. | Muncul pada layar I-03 selama lokasi belum tersedia |
+
+
+## 6.6 Rancangan Antarmuka I-06
+
+**Antarmuka:** *I-06*  
+**Nama Layar:** *Daftar Pesanan Pembeli*
+
+<p align="center">
+<img alt="Rancangan Antarmuka I-06 - Daftar Pesanan" src="./assets/diagram/I-06-pesanan.jpeg" width="50%">
+</p>
+<p align="center">
+<i>Gambar 6.6. Rancangan Antarmuka I-06 - Daftar Pesanan Pembeli (kondisi jaringan tidak tersedia)</i>
+</p>
+
+Tabel 6.6. Spesifikasi Objek Antarmuka I-06
+
+| Id_Objek | Jenis | Konten | Keterangan |
+|:---------|:------|:-------|:-----------|
+| I06-O01 | Text | Pesanan | Menampilkan judul halaman |
+| I06-O02 | IconButton | Ikon lonceng (notifikasi) | Membuka pemberitahuan/notifikasi pengguna |
+| I06-O03 | Dropdown | Label "Status pesanan", nilai bawaan "Semua status" | Memfilter daftar pesanan berdasarkan status. Pilihan: Semua status, Menunggu pembayaran, Siap diambil, Dibatalkan, Selesai, Dalam pengaduan, Direfund, Tidak diambil |
+| I06-O04 | Icon | Ikon jaringan terputus | Menandai kondisi gagal memuat. Hanya tampil saat jaringan atau server tidak tersedia |
+| I06-O05 | Text | Belum dapat dimuat | Judul kondisi gagal memuat |
+| I06-O06 | Text | Jaringan belum tersedia. Tiket tersimpan tetap dapat dibuka. | Menjelaskan penyebab dan menginformasikan tiket tersimpan masih dapat dibuka pada layar I-07 |
+| I06-O07 | OutlinedButton | Coba lagi | Meminta ulang daftar pesanan dari server. Jika berhasil, daftar pesanan ditampilkan sesuai status terpilih |
+| I06-O08 | List | Kartu pesanan | Pada kondisi normal menampilkan pesanan beserta statusnya. Tidak tampil pada gambar karena daftar gagal dimuat |
+| I06-O09 | BottomNavigationBar | Katalog, Pesanan (aktif), Tiket, Akun | Berpindah antarmenu utama: Katalog menuju I-03, Tiket menuju I-07, Akun menuju I-08 |
+
+
+## 6.7 Rancangan Antarmuka I-07
+
+**Antarmuka:** *I-07*  
+**Nama Layar:** *Tiket Pengamnbilan (Mode Offline)*
+
+<p align="center">
+<img alt="Rancangan Antarmuka I-07 - Tiket Pengambilan" src="./assets/diagram/I-07-tiket-offline.jpeg" width="50%">
+</p>
+<p align="center">
+<i>Gambar 6.7. Rancangan Antarmuka I-07 - Tiket Pengambilan (kondisi belum ada tiket tersimpan)</i>
+</p>
+
+Tabel 6.7. Spesifikasi Objek Antarmuka I-07
+
+| Id_Objek | Jenis | Konten | Keterangan |
+|:---------|:------|:-------|:-----------|
+| I07-O01 | Text | Tiket offline | Menampilkan judul halaman |
+| I07-O02 | IconButton | Ikon lonceng (notifikasi) | Membuka pemberitahuan/notifikasi pengguna |
+| I07-O03 | Text | Tiket tersimpan | Menampilkan judul bagian tiket yang tersimpan di perangkat |
+| I07-O04 | Card informasi (hijau) | Tiket dapat dibuka offline. Konfirmasi pengambilan oleh penjual tetap memerlukan internet | Menjelaskan bahwa QR dan OTP tersimpan di perangkat dan tetap tampil tanpa internet, sedangkan pemindaian oleh Penjual tetap diverifikasi server |
+| I07-O05 | Card peringatan (oranye) | Sinkronisasi belum tersedia. Tiket tersimpan ditampilkan dengan status terakhir. | Muncul ketika aplikasi tidak dapat menyinkronkan status dengan server, sehingga tiket ditampilkan dengan status terakhir yang tersimpan |
+| I07-O06 | Icon | Ikon tas | Ilustrasi kondisi belum ada tiket |
+| I07-O07 | Text | Belum ada tiket | Tampil bila belum ada tiket tersimpan di perangkat |
+| I07-O08 | Text | Bayar paket, lalu buka pesanan saat online untuk menyimpan QR dan OTP. | Menjelaskan cara memperoleh tiket tersimpan: setelah pembayaran berhasil, Pembeli membuka pesanan saat online agar QR dan OTP tersimpan |
+| I07-O09 | Kartu tiket | QR pickup dan OTP cadangan | Pada kondisi ada tiket menampilkan QR pickup dan OTP cadangan untuk dipindai atau dibacakan kepada Penjual. Tidak tampil pada gambar |
+| I07-O10 | BottomNavigationBar | Katalog, Pesanan, Tiket (aktif), Akun | Berpindah antarmenu utama: Katalog menuju I-03, Pesanan menuju I-06, Akun menuju I-08 |
+
+
+## 6.8 Rancangan Antarmuka I-08
+
+**Antarmuka:** *I-08*  
+**Nama Layar:** *Akun*
+
+<p align="center">
+<img alt="Rancangan Antarmuka I-08 - Akun" src="./assets/diagram/I-08-akun.jpeg" width="50%">
+</p>
+<p align="center">
+<i>Gambar 6.8. Rancangan Antarmuka I-08 - Akun</i>
+</p>
+
+Tabel 6.8. Spesifikasi Objek Antarmuka I-08
+
+| Id_Objek | Jenis | Konten | Keterangan |
+|:---------|:------|:-------|:-----------|
+| I08-O01 | Text | Akun | Menampilkan judul halaman |
+| I08-O02 | IconButton | Ikon lonceng (notifikasi) | Membuka pemberitahuan/notifikasi pengguna. |
+| I08-O03 | Text | Email pengguna | Menampilkan email akun yang sedang masuk |
+| I08-O04 | Text | Peran: Pembeli | Menampilkan peran akun yang sedang masuk |
+| I08-O05 | ListTile | Filter alergen | Berpindah ke layar I-04 untuk mengubah preferensi alergen |
+| I08-O06 | ListTile | Alamat server, `https://<alamat-server>` | Menampilkan alamat server API yang sedang dipakai dan memungkinkan pengguna mengubahnya |
+| I08-O07 | ListTile | Riwayat pengaduan | Menampilkan daftar pengaduan (refund atau sengketa) yang pernah diajukan Pembeli beserta statusnya |
+| I08-O08 | OutlinedButton | Keluar | Mengakhiri sesi dengan menghapus token autentikasi dari perangkat, lalu kembali ke layar I-01 |
+| I08-O09 | BottomNavigationBar | Katalog, Pesanan, Tiket, Akun (aktif) | Berpindah antarmenu utama: Katalog menuju I-03, Pesanan menuju I-06, Tiket menuju I-07 |
+
+
 ## 6.9 Rancangan Antarmuka Keseluruhan
 
 Tabel 6.9 memuat seluruh antarmuka beserta ID uniknya. ID yang sama dipakai pada subbab 6.1 sampai 6.8.
