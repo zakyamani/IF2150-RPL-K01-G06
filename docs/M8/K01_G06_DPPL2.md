@@ -665,7 +665,6 @@ Tabel 5.1. Daftar Kelas Perancangan dan Kelas Analisis Terkait
 | 9 | *Pengaduan* | *Pengaduan (C09)* |
 | 10 | *Ulasan* | *Ulasan (C10)* |
 | 11 | *RiwayatTransaksi* | *RiwayatTransaksi (C11)* |
-| ... | *...* | *...* |
 
 
 ## 5.1 Kelas Penjual
@@ -690,7 +689,6 @@ Tabel 5.1.2. Atribut Kelas Penjual
 | *alamatToko* | *private* | *String* |
 | *koordinatLokasi* | *private* | *String* |
 | *statusBuka* | *private* | *Boolean* |
-| *...* | *...* | *...* |
 
 
 ## 5.2 Kelas Pembeli
@@ -705,7 +703,6 @@ Tabel 5.2.1. Operasi Kelas Pembeli
 | *getIdPembeli(): String* | *public* | *Mengembalikan ID unik dari entitas Pembeli.* |
 | *getPreferensiAlergen(): String[]* | *public* | *Mengambil daftar alergen yang dihindari oleh Pembeli.* |
 | *updatePreferensi(alergen: String[])* | *public* | *Memperbarui daftar preferensi alergen di basis data.* |
-| *...* | *...* | *...* |
 
 Tabel 5.2.2. Atribut Kelas Pembeli
 
@@ -716,7 +713,6 @@ Tabel 5.2.2. Atribut Kelas Pembeli
 | *alamatToko* | *private* | *String* |
 | *koordinatLokasi* | *private* | *String* |
 | *statusBuka* | *private* | *Boolean* |
-| *...* | *...* | *...* |
 
 
 ## 5.3 Kelas Penawaran
@@ -732,7 +728,6 @@ Tabel 5.3.1. Operasi Kelas Penawaran
 | *kurangiKuota(int): Boolean* | *public* | *Mengurangi sisa kuota penawaran secara transaksional saat pesanan dibuat.* |
 | *getDetailPenawaran(): Penawaran* | *public* | *Mengambil rincian data paket penawaran.* |
 | *ubahStatus(status: Boolean)* | *public* | *Mengubah status aktif atau non-aktif dari penawaran.* |
-| *...* | *...* | *...* |
 
 Tabel 5.3.2. Atribut Kelas Penawaran
 
@@ -747,7 +742,6 @@ Tabel 5.3.2. Atribut Kelas Penawaran
 | *waktuPickupSelesai* | *private* | *DateTime* |
 | *daftarAlergen* | *private* | *String[]* |
 | *statusAktif* | *private* | *Boolean* |
-| *...* | *...* | *...* |
 
 ### 5.3.1 Algoritma/Query
 
@@ -774,7 +768,6 @@ Tabel 5.3.3. Query Operasi kurangiKuota
 | :--- | :--- | :--- |
 | *Q-C03-01* | *SELECT sisaKuota FROM offers WHERE idPenawaran = $1;* | *Mengambil sisa kuota saat ini* |
 | *Q-C03-02* | *UPDATE offers SET sisaKuota = sisaKuota - $1 WHERE idPenawaran = $2 AND sisaKuota >= $1;* | *Menurunkan sisa kuota dengan proteksi race condition* |
-| *...* | *...* | *...* |
 
 
 ## 5.4 Kelas Pesanan
@@ -788,7 +781,6 @@ Tabel 5.4.1. Operasi Kelas Pesanan
 | :--- | :--- | :--- |
 | *buatPesanan(): Pesanan* | *public* | *Memasukkan entitas pesanan baru ke dalam sistem.* |
 | *ubahStatus(statusBaru: String)* | *public* | *memperbarui status alur transaksi(misal: "selesai", "Menunggu").* |
-| *...* | *...* | *...* |
 
 Tabel 5.4.2. Atribut Kelas Pesanan
 
@@ -798,7 +790,6 @@ Tabel 5.4.2. Atribut Kelas Pesanan
 | *statusPesanan* | *private* | *String* |
 | *totalHarga* | *private* | *double* |
 | *waktuPesan* | *private* | *DateTime* |
-| *...* | *...* | *...* |
 
 ### 5.4.1 Algoritma/Query
 
@@ -821,7 +812,6 @@ Tabel 5.4.3. Query Operasi buatPesanan
 | No Query | Query | Keterangan |
 | :--- | :--- | :--- |
 | *[Q-001]* | *INSERT INTO orders (idPesanan, statusPesanan, totalHarga, waktuPesan) VALUES ($1, $2, $3, $4);* | *Menyimpan record pesanan baru ke dalam basis data.* |
-| *...* | *...* | *...* |
 
 
 ## 5.5 Kelas MetodePembayaran
@@ -835,7 +825,6 @@ Tabel 5.5.1. Operasi Kelas MetodePembayaran
 | :--- | :--- | :--- |
 | *prosesPembayaran(): Boolean* | *public* | *Memulai proses otorisasi ke layanan pihak ketiga atau simulator.* |
 | *verifikasiStatus(): String* | *public* | *Mengecek apakah pembayaran telah berhasil dilunasi.* |
-| *...* | *...* | *...* |
 
 Tabel 5.5.2. Atribut Kelas metodePembayaran
 
@@ -844,7 +833,6 @@ Tabel 5.5.2. Atribut Kelas metodePembayaran
 | *idPembayaran* | *private* | *String* |
 | *jumlahBayar* | *private* | *double* |
 | *statusBayar* | *private* | *String* |
-| *...* | *...* | *...* |
 
 ## 5.6 Kelas QRIS
 
@@ -856,7 +844,6 @@ Tabel 5.6.1. Operasi Kelas QRIS
 | Nama Operasi | Visibility (private, public) | Keterangan |
 | :--- | :--- | :--- |
 | *generateQRIS(): String* | *public* | *Menghasilkan representasi string QRIS untuk dirender oleh klien.* |
-| *...* | *...* | *...* |
 
 Tabel 5.6.2. Atribut Kelas QRIS
 
@@ -864,7 +851,6 @@ Tabel 5.6.2. Atribut Kelas QRIS
 | :--- | :--- | :--- |
 | *stringQRIS* | *private* | *String* |
 | *batasWaktu* | *private* | *DateTime* |
-| *...* | *...* | *...* |
 
 
 ## 5.7 Kelas EWallet
@@ -877,7 +863,6 @@ Tabel 5.7.1. Operasi Kelas EWallet
 | Nama Operasi | Visibility (private, public) | Keterangan |
 | :--- | :--- | :--- |
 | *kirimTagihan(): Boolean* | *public* | *mengirim notifikasi penagihan ke dompet digital pembeli.* |
-| *...* | *...* | *...* |
 
 Tabel 5.7.2. Atribut Kelas EWallet
 
@@ -885,7 +870,6 @@ Tabel 5.7.2. Atribut Kelas EWallet
 | :--- | :--- | :--- |
 | *nomorHP* | *private* | *String* |
 | *provider* | *private* | *String* |
-| *...* | *...* | *...* |
 
 
 ## 5.8 Kelas QRPickup
@@ -899,7 +883,6 @@ Tabel 5.8.1. Operasi Kelas QRPickup
 | :--- | :--- | :--- |
 | *generateToken(): String* | *public* | *Membangkitkan token QR unik dan OTP 6 digit untuk pengembalian.* |
 | *validasiToken(token: String): Boolean* | *public* | *Memvalidasi token yang di-scan oleh kamera penjual.* |
-| *...* | *...* | *...* |
 
 Tabel 5.8.2. Atribut Kelas QRPickup
 
@@ -909,7 +892,6 @@ Tabel 5.8.2. Atribut Kelas QRPickup
 | *stringToken* | *private* | *String* |
 | *otpFallback* | *private* | *String* |
 | *isDigunakan* | *private* | *Boolean* |
-| *...* | *...* | *...* |
 
 ### 5.8.1 Algoritma/Query
 
@@ -935,7 +917,6 @@ Tabel 5.8.3. Query Operasi QRPickup
 | :--- | :--- | :--- |
 | *[Q-C08-01]* | *SELECT isDigunakan FROM pickup_tokens WHERE stringToken = $1;* | *Mengecek status penggunaan token QR.* |
 | *[Q-C08-02]* | *UPDATE pickup_tokens SET isDigunakan = true WHERE stringToken = $1;* | *Menandai token kadaluarsa setelah diverifikasi.* |
-| *...* | *...* | *...* |
 
 
 ## 5.9 Kelas Pengaduan
@@ -949,7 +930,6 @@ Tabel 5.9.1. Operasi Kelas Pengaduan
 | :--- | :--- | :--- |
 | *ajukanPengaduan()* | *public* | *Memproses pengajuan refund akibat makanan tidak layak.* |
 | *prosesPengaduan(keputusan: String)* | *public* | *Mengubah status pengaduan menjadi disetujui atau ditolak.* |
-| *...* | *...* | *...* |
 
 Tabel 5.9.2. Atribut Kelas [Nama Kelas 1]
 
@@ -959,7 +939,6 @@ Tabel 5.9.2. Atribut Kelas [Nama Kelas 1]
 | *alasan* | *private* | *String* |
 | *fotoBukti* | *private* | *String* |
 | *statusPengaduan* | *private* | *String* |
-| *...* | *...* | *...* |
 
 
 
@@ -974,7 +953,6 @@ Tabel 5.10.1. Operasi Kelas Ulasan
 | :--- | :--- | :--- |
 | *tambahUlasan()* | *public* | *Menyimpan data rating bintang dan komentar ke sistem.* |
 | *getUlasan(): Ulasan* | *public* | *Mengambil data ulasan spesifik untuk ditampilkan.* |
-| *...* | *...* | *...* |
 
 Tabel 5.10.2. Atribut Kelas Ulasan
 
@@ -984,7 +962,6 @@ Tabel 5.10.2. Atribut Kelas Ulasan
 | *ratingBintang* | *private* | *int* |
 | *komentar* | *private* | *String* |
 | *tanggal* | *private* | *DateTime* |
-| *...* | *...* | *...* |
 
 ### 5.10.1 Algoritma/Query
 
@@ -1007,7 +984,6 @@ Tabel 5.10.3. Query Operasi tambahUlasan
 | No Query | Query | Keterangan |
 | :--- | :--- | :--- |
 | *[Q-C10-01]* | *INSERT INTO reviews (idUlasan, ratingBintang, komentar, tanggal) VALUES ($1, $2, $3, $4);* | *Menambahkan ulasan pelanggan ke tabel ulasan.* |
-| *...* | *...* | *...* |
 
 
 ## 5.11 Kelas RiwayatTransaksi
@@ -1021,16 +997,14 @@ Tabel 5.11.1. Operasi Kelas RiwayatTransaksi
 | :--- | :--- | :--- |
 | *getRiwayatPembeli(idPembeli: String): Pesanan[]* | *public* | *Menarik daftar seluruh pesanan masa lalu berdasarkan entitas Pembeli.* |
 | *getRiwayatPenjual(idPenjual: String): Pesanan[]* | *public* | *Menarik daftar seluruh pesanan tervalidasi yang dilayani oleh Penjual.* |
-| *...* | *...* | *...* |
 
 Tabel 5.11.2. Atribut Kelas RiwayatTransaksi
 
 | Nama Atribut | Visibility (private, public) | Tipe |
 | :--- | :--- | :--- |
 | *idRiwayat* | *private* | *String* |
-| *...* | *...* | *...* |
 
-### 5.1.1 Algoritma/Query
+### 5.11.1 Algoritma/Query
 
 Bagian ini diisi untuk kerangka algoritma proses yang dianggap cukup penting. Algoritma dapat dituliskan sebagai *pseudocode*. Implementasi *skeleton code* juga dapat digunakan untuk kelas yang sudah terdefinisi pada bahasa pemrograman tertentu.
 
@@ -1050,7 +1024,6 @@ Tabel 5.11.3. Query Operasi getRiwayatPembeli
 | No Query | Query | Keterangan |
 | :--- | :--- | :--- |
 | *Q-C11-01* | *SELECT * FROM orders WHERE idPembeli = $1 ORDER BY waktuPesan DESC;* | *Menampilkan histori pemesanan berurutan dari yang terbaru.* |
-| *...* | *...* | *...* |
 
 
 
