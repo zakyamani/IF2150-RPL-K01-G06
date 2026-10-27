@@ -833,7 +833,7 @@ Tabel 6.9. Rancangan Antarmuka Keseluruhan
 
 | No | Tampilan Antarmuka |
 | :--- | :--- |
-| *[I-01]* | <img src="./assets/diagram/I-01-login.jpeg.png" alt="I-01 Masuk" width="400"> |
+| *[I-01]* | <img src="./assets/diagram/I-01-login.jpeg" alt="I-01 Masuk" width="400"> |
 | *[I-02]* | <img src="./assets/diagram/I-02-registrasi.jpeg" alt="I-02 Registrasi Akun" width="400"> |
 | *[I-03]* | <img src="./assets/diagram/I-03-katalog.jpeg" alt="I-03 Katalog Penawaran" width="400"> |
 | *[I-04]* | <img src="./assets/diagram/I-04-filter-alergen.jpeg" alt="I-04 Filter Alergen" width="400"> |
