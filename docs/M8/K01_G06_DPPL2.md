@@ -12,7 +12,7 @@ DESKRIPSI PERANCANGAN PERANGKAT LUNAK 2(DPPL2)
   <img alt="Penerapan Arsitektur Client-Server dan Layered pada SisaRasa" src="./assets/diagram/sisarasa-logo.png" width="85%">
 </p>
 
-### Untuk: *[Amanda Aurellia Salsabilla]*
+### Untuk: *Amanda Aurellia Salsabilla*
 
 Dipersiapkan oleh:
 | Informasi | Keterangan |
@@ -929,7 +929,7 @@ Tabel 5.9.1. Operasi Kelas Pengaduan
 | *ajukanPengaduan()* | *public* | *Memproses pengajuan refund akibat makanan tidak layak.* |
 | *prosesPengaduan(keputusan: String)* | *public* | *Mengubah status pengaduan menjadi disetujui atau ditolak.* |
 
-Tabel 5.9.2. Atribut Kelas [Nama Kelas 1]
+Tabel 5.9.2. Atribut Kelas Pengaduan
 
 | Nama Atribut | Visibility (private, public) | Tipe |
 | :--- | :--- | :--- |
