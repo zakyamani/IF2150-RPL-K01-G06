@@ -95,7 +95,7 @@ Dokumentasi dan acuan standar yang dirujuk dalam penyusunan dokumen DPPL 2 aplik
 8. **Kelompok 6 K1 IF2150.** (2026). *Arsitektur Perangkat Lunak (APL) SisaRasa. Program Studi Teknik Informatika ITB*.
 
 ## 1.6 Deskripsi Umum Dokumen (Ikhtisar)
-Dokumen DPPL ini disusun secara sistematis ke dalam 5 bab utama untuk memberikan gambaran rancangan terstruktur aplikasi SisaRasa: Bab 1 menyajikan pendahuluan, lingkup masalah, daftar definisi, aturan penomoran ID, dan referensi; Bab 2 mendeskripsikan perancangan arsitektur meliputi lingkungan implementasi, pola Client-Server/MVC, identifikasi komponen, dan view arsitektur (Logical & Deployment View); Bab 3 menjabarkan realisasi seluruh use case (UC01–UC07) mencakup identifikasi kelas, sequence diagram skenario normal/alternatif, dan class diagram per use case; Bab 4 menampilkan class diagram keseluruhan beserta rincian lengkap atribut dan metodenya; serta Bab 5 memuat matriks kerunutan yang memetakan kelas terhadap use case yang direalisasikannya.
+Dokumen DPPL ini disusun secara sistematis ke dalam 7 bab utama untuk memberikan gambaran rancangan terstruktur aplikasi SisaRasa: Bab 1 menyajikan pendahuluan, lingkup masalah, daftar definisi, aturan penomoran ID, dan referensi; Bab 2 mendeskripsikan perancangan arsitektur meliputi lingkungan implementasi, pola Client-Server/MVC, identifikasi komponen, dan view arsitektur (Logical & Deployment View); Bab 3 menjabarkan realisasi seluruh use case (UC01–UC07) mencakup identifikasi kelas, sequence diagram skenario normal/alternatif, dan class diagram per use case; Bab 4 menampilkan class diagram keseluruhan beserta rincian lengkap atribut dan metodenya; serta Bab 5 memuat matriks kerunutan yang memetakan kelas terhadap use case yang direalisasikannya.
 
 <br>
 
@@ -707,11 +707,10 @@ Tabel 5.2.2. Atribut Kelas Pembeli
 
 | Nama Atribut | Visibility (private, public) | Tipe |
 | :--- | :--- | :--- |
-| *idPenjual* | *private* | *String* |
-| *namaToko* | *private* | *String* |
-| *alamatToko* | *private* | *String* |
-| *koordinatLokasi* | *private* | *String* |
-| *statusBuka* | *private* | *Boolean* |
+| *idPembeli* | *private* | *String* |
+| *nama* | *private* | *String* |
+| *email* | *private* | *String* |
+| *preferensiAlergen* | *private* | *String[]* |
 
 
 ## 5.3 Kelas Penawaran
