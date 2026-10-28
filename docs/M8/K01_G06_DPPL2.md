@@ -648,7 +648,7 @@ Tabel 4.1. Daftar Kelas Perancangan Keseluruhan
 
 # BAB 5: Perancangan Rinci Kelas
 
-Bagian ini diisi dengan daftar seluruh kelas dalam tabel berikut:
+Pada Bab ini, dilakukan perancangan rincian kelas. Setiap kelas dirincikan operasi-operasi dan atribut-atributnya. Untuk setiap operasi utama, dirincikan juga algoritmanya dalam pseudocode dan query sql-nya.
 
 Tabel 5.1. Daftar Kelas Perancangan dan Kelas Analisis Terkait
 
@@ -1003,8 +1003,6 @@ Tabel 5.11.2. Atribut Kelas RiwayatTransaksi
 | *idRiwayat* | *private* | *String* |
 
 ### 5.11.1 Algoritma/Query
-
-Bagian ini diisi untuk kerangka algoritma proses yang dianggap cukup penting. Algoritma dapat dituliskan sebagai *pseudocode*. Implementasi *skeleton code* juga dapat digunakan untuk kelas yang sudah terdefinisi pada bahasa pemrograman tertentu.
 
 **Nama Kelas:** *RiwayatTransaksi*  
 **Nama Operasi:** *getRiwayatPembeli(idPembeli: String): Pesanan[]*  
