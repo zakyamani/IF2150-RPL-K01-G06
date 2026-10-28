@@ -150,11 +150,13 @@
 | Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                                                                             | Durasi (Jam) | Status | Kendala / _Blocker_ |
 | :----------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------- | :----- | :------------------ |
 | _25-10-2026_ | _Fathar Atandra Denaya_                | _Melengkapi dokumen BAB 1-4 dan BAB 7._ | _45 Menit_      | _Done_ | _-_                 |
+| _26-10-2026_ | _Nabil Rabbani_                | _Membuat desain aplikasi dan figma._ | _2 Jam_      | _Done_ | _-_                 |
 | _26-10-2026_ | _Josephine Bintang N.L_                | _Menyediakan gambar visual aplikasi SisaRasa._ | _30 Menit_      | _Done_ | _-_                 |
 | _27-10-2026_ | _Devina Athalia Putri Kusumah_                | _Menyusun BAB 6 Racangan Antarmuka._ | _2 Jam_      | _Done_ | _-_                 |
 | _27-10-2026_ | _Muhammad Zaky Amani_                | _Menyusun BAB 5 Perancangan Rinci Kelas._ | _2,5 Jam_      | _Done_ | _-_                 |
 | _28-10-2026_ | _Josephine Bintang N.L_                | _Memasukkan link figma aplikasi SisaRasa._ | _5 Menit_      | _Done_ | _-_                 |
 | _28-10-2026_ | _Fathar Atandra Denaya_                | _Melengkapi form asistensi._ | _15 Menit_      | _Done_ | _-_                 |
+
 
 ---
 `Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `

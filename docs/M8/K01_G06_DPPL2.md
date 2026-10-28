@@ -1251,7 +1251,6 @@ Tabel 6.8. Spesifikasi Objek Antarmuka I-08
 Tabel 6.9 memuat seluruh antarmuka beserta ID uniknya. ID yang sama dipakai pada subbab 6.1 sampai 6.8.
 
 Tabel 6.9. Rancangan Antarmuka Keseluruhan
-Link Figma : https://www.figma.com/design/YER2iSiLaORum9VFfqvB9h/SisaRasa-%E2%80%94-Desain-Aplikasi-Android?node-id=2-140&t=2v1dSciYh7ZOjtRd-1
 
 | No | Tampilan Antarmuka |
 | :--- | :--- |
@@ -1284,3 +1283,6 @@ Tabel 7.1. Matriks Kerunutan Kelas terhadap Use Case
 | C06 - QRIS             | UC03 - Melakukan Transaksi Pembayaran                                                                                                                                                                                            |
 | C07 - EWallet          | UC03 - Melakukan Transaksi Pembayaran                                                                                                                                                                                            |
 | C08 - QRPickup         | UC03 - Melakukan Transaksi Pembayaran<br>UC05 - Memvalidasi Pengambilan Pesanan                                                                                                                                                  |
+# BAB 8: Lampiran
+
+Link Figma: https://www.figma.com/design/YER2iSiLaORum9VFfqvB9h/SisaRasa-%E2%80%94-Desain-Aplikasi-Android?node-id=2-140&t=2v1dSciYh7ZOjtRd-1
