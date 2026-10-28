@@ -678,7 +678,6 @@ Tabel 5.1.1. Operasi Kelas Penjual
 | :--- | :--- | :--- |
 | *getIdPenjual(): String* | *public* | *Mengembalikan ID unik dari entitas Penjual.* |
 | *getProfil(): Penjual* | *public* | *Mengambil seluruh data profil toko penjual.* |
-| *...* | *...* | *...* |
 
 Tabel 5.1.2. Atribut Kelas Penjual
 
