@@ -211,21 +211,25 @@ Tabel B.2. Bukti Best Practices
 
 ### B.2.1 Profiling dan Optimasi
 
-Pilih minimal satu fitur yang diprofil.
-
 | Informasi | Keterangan |
 | :--- | :--- |
-| Fitur / proses yang diprofil | *[Nama fitur]* |
-| Alat | *[mis. Chrome DevTools, cProfile, EXPLAIN]* |
-| Temuan (sebelum) | *[Bottleneck yang ditemukan, sertakan angka/tangkapan layar]* |
-| Perbaikan | *[Yang diubah]* |
-| Hasil (sesudah) | *[Perbandingan dengan sebelumnya]* |
+| Fitur / proses yang diprofil | Endpoint dan proses pendukung notifikasi pesanan masuk pada UC04, serta query katalog yang digunakan sebagai pembanding beban query PostgreSQL. |
+| Alat | `src/scripts/benchmark.sh`, PostgreSQL `EXPLAIN (ANALYZE, BUFFERS)`, dan pengukuran waktu respons HTTP. |
+| Temuan (sebelum) | Profiling dilakukan pada database disposable yang berisi 1.000 user, 300 merchant, dan 5.000 penawaran fiktif. Dataset yang digunakan belum menunjukkan bottleneck signifikan pada proses yang diuji. |
+| Perbaikan | Sistem menggunakan inbox dan outbox persisten, cursor untuk catch-up, PostgreSQL `LISTEN/NOTIFY`, WebSocket ticket sekali pakai, reconnect, serta pengiriman event secara idempotent. Query dan constraint transaksi tetap menggunakan struktur database yang telah disediakan. |
+| Hasil (sesudah) | Dari 30 request validasi pickup HTTP lokal, p50 sebesar **4,47 ms**, p95 **5,67 ms**, maksimum **14,46 ms**, dan **0 request gagal**. p95 waktu proses server sebesar **4,39 ms**. Query katalog dengan `LIMIT 20` memiliki waktu **0,729 ms**, penggunaan top-N heapsort **27 kB**, dan shared-buffer hit **97**. |
 
-Jika tidak ada perbaikan yang perlu dilakukan, jelaskan hasil profiling dan alasan kenapa fitur tersebut sudah memadai.
+Hasil profiling menunjukkan bahwa sistem masih memadai pada ukuran dataset uji tersebut sehingga belum diperlukan optimasi indeks tambahan untuk query yang diukur. Planner PostgreSQL memilih sequential scan karena sebagian besar data masih aktif dan ukuran dataset pilot relatif kecil. Profiling ini tidak mengukur beban serentak, kamera, UI perangkat, jaringan 3G, DNS, atau kapasitas deployment VPS.
 
 ## B.3 Kendala dan Catatan Penting
 
-Tuliskan kendala yang ditemui, fitur yang belum sempurna (*known issues*), serta hal yang perlu diketahui asisten saat menjalankan atau menilai aplikasi (misalnya akun uji khusus, urutan menjalankan, atau batasan).
+Implementasi UC04 menggunakan inbox notifikasi persisten sebagai sumber data utama dan WebSocket sebagai jalur pengiriman real-time. Apabila koneksi WebSocket terputus, aplikasi melakukan reconnect dan mengambil event yang terlewat melalui mekanisme cursor catch-up sehingga penggunaan aplikasi tetap dapat dilanjutkan.
+
+Pemantauan notifikasi pada Android bersifat opt-in dan membutuhkan izin notifikasi serta foreground service. Sistem operasi Android atau kebijakan baterai perangkat dapat menghentikan foreground service, sehingga aplikasi tidak menjamin notifikasi real-time selalu diterima ketika aplikasi tidak aktif dalam waktu lama. Inbox tetap dapat disinkronkan ketika pengguna membuka aplikasi kembali.
+
+Pengujian dilakukan pada lingkungan lokal dan belum membuktikan performa pada jaringan 3G, dua perangkat fisik secara bersamaan, perangkat Android minimum API 29, kamera fisik, kebijakan baterai seluruh produsen perangkat, atau deployment VPS dengan beban produksi. Hasil profiling juga tidak dapat dianggap sebagai ukuran kapasitas produksi.
+
+Transaksi pembayaran, refund, payout, dan integrasi gateway pada aplikasi merupakan simulasi. Data seed yang digunakan hanya berupa data fiktif. File `.env`, token, password, database, hasil build, dan kredensial tidak disertakan dalam repository.
 
 ## B.4 Kontribusi Anggota
 
