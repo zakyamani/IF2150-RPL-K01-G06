@@ -203,11 +203,11 @@ Tabel B.2. Bukti Best Practices
 
 | Praktik | Bukti | Keterangan |
 | :--- | :--- | :--- |
-| Branching | *[Tautan ke daftar branch / graph commit]* | *[Skema yang dipakai]* |
-| Semantic commit | *[Tautan ke riwayat commit]* | *[Ringkasan]* |
-| Track tasks | *[Tautan ke Issues/Projects]* | *[Jumlah issue, pembagian]* |
-| Pull request dan review | *[Tautan ke 2-3 PR representatif]* | *[Siapa me-review siapa]* |
-| Pengujian | *[Tautan ke `src/tests/` dan hasil test]* | *[Apa yang diuji, cara menjalankan]* |
+| Branching | [Branch architecture](https://github.com/zakyamani/IF2150-RPL-K01-G06/tree/feat/architecture-foundation), [Branch UC04](https://github.com/zakyamani/IF2150-RPL-K01-G06/tree/feat/uc04-websocket-notifications) | Pekerjaan dipisahkan berdasarkan fondasi arsitektur dan implementasi UC04 menggunakan branch fitur. |
+| Semantic commit | [Commit fondasi](https://github.com/zakyamani/IF2150-RPL-K01-G06/commit/b40a09631fcd0a057916833087250231d2d9a1e3), [Commit backend UC04](https://github.com/zakyamani/IF2150-RPL-K01-G06/commit/5e6cfbcda80bde760308b22b2dfb50619c8d45a5), [Commit Flutter UC04](https://github.com/zakyamani/IF2150-RPL-K01-G06/commit/78b32c5b8eabf04c0df56ccab2ea8c1d0120ab21), [Commit dokumentasi](https://github.com/zakyamani/IF2150-RPL-K01-G06/commit/c3d59d1520a54ca3ebccc0450d5ef937d1b29b0f) | Commit menggunakan format `chore`, `feat`, `docs`. |
+| Track tasks | [Issue fondasi](https://github.com/zakyamani/IF2150-RPL-K01-G06/issues/3), [Issue backend UC04](https://github.com/zakyamani/IF2150-RPL-K01-G06/issues/4), [Issue Flutter UC04](https://github.com/zakyamani/IF2150-RPL-K01-G06/issues/6) | Pekerjaan dipecah menjadi issue fondasi, backend WebSocket, dan Flutter real-time orders. |
+| Pull request dan review | [PR fondasi](https://github.com/zakyamani/IF2150-RPL-K01-G06/pull/2), [PR backend UC04](https://github.com/zakyamani/IF2150-RPL-K01-G06/pull/5), [PR Flutter UC04](https://github.com/zakyamani/IF2150-RPL-K01-G06/pull/7) | Setiap perubahan diajukan melalui pull request dan direview minimal satu anggota lain sebelum digabungkan. |
+| Pengujian | `src/backend/test/integration/notifications.test.ts`, `src/android-app/test/core/socket_client_test.dart`, `src/android-app/test/features/notifications_test.dart` | Pengujian mencakup ticket WebSocket, reconnect, catch-up, deduplikasi notifikasi, logout, dan penolakan permission notifikasi. |
 
 ### B.2.1 Profiling dan Optimasi
 
