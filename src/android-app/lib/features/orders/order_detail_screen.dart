@@ -123,6 +123,7 @@ class _OrderDetailState extends State<OrderDetailScreen> {
         categoryLabel(o.category),
         style: Theme.of(context).textTheme.titleLarge,
       ),
+      DetailLine('Harga paket', rupiah(o.price)),
       DetailLine('Ambil mulai', dateLabel(o.pickupStart)),
       DetailLine('Batas pengambilan', dateLabel(o.pickupEnd)),
       DetailLine('Batas konsumsi', dateLabel(o.safeEatUntil)),
