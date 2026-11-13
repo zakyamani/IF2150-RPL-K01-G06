@@ -180,6 +180,7 @@
 | 13-11-2026 | Nabil Rabbani | Menjalankan build backend dan APK Android, 47 pengujian backend, 63 pengujian Flutter, serta 6 skenario E2E Android pada emulator. Seluruh pengujian lulus. | — | Selesai | Lokasi dua file pengujian dan format lima file Dart diperbaiki agar pemeriksaan berjalan. |
 | 13-11-2026 | Nabil Rabbani | Melengkapi dokumentasi M9 bagian B.1/B.5 C10–C11 dan B.4, memeriksa tautan PR/review pada B.2, serta memperbarui README dan catatan penggunaan AI. | — | Selesai | — |
 | _13-11-2026_ | _Muhammad Zaky Amani_ | _Melengkapi dokumentasi M9 Tabel B.1 dan B.5 untuk kelas `QRPickup (C08)` dan `Pengaduan (C09)`, serta menambahkan URL issue, PR, commit, dan review pada Tabel B.2._ | _2 Jam_ | _Done_ | _Dokumentasi M9_ |
+| _13-11-2026_ | _Josephine Bintang N.L_ | _Mengimplementasikan modul UC03 (Checkout & Payment Gateway QRIS/E-Wallet), melengkapi Tabel B.1 (Perubahan DPPL), serta menyusun traceability kelas C04–C07 untuk laporan implementasi M9._ | _2,5 Jam_ | _Done_ | _-_ |
 
 
 ---
