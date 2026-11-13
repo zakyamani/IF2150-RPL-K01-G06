@@ -23,3 +23,7 @@ API/worker/database akademik menggunakan project `sisarasa-academic`, API3101 da
 SDK: Node22.18, Flutter3.47.2/Dart3.13.2, AndroidAPI35/target36. Kamera dua HP, GPS fisik, API29 hardware, kebijakan baterai OEM, jaringan3G dan soak panjang belum diuji. Timeout dipercepat menguji callback, bukan monitoring enam jam.
 
 Profiling baru: 30 request pickup HTTP lokal, 0 gagal. Hasil lengkap ada di [benchmark.json](evidence/benchmark.json), ringkasan test pada [test-summary.json](evidence/test-summary.json). Pengukuran tidak mencakup latensi kamera, internet atau kapasitas VPS. Reproduksi: [README](../README.md).
+
+## Pengujian ulang setelah sinkronisasi main
+
+Branch integrasi `57f23d8` memuat dokumentasi terbaru teman dari `main@4661a91`. Build backend, 47 backend tests, 63 Flutter tests, analyze, signing guard dan keenam skenario native dijalankan ulang dan lulus. APK debug aplikasi normal juga dibangun untuk ARM64/x86_64 dan berhasil dibuka sampai layar login. Perbandingan source, lockfile dan versi container lokal dicatat pada [perbandingan source](source-comparison.md). PR belum di-merge saat pengujian ini karena belum ada approval.
