@@ -159,11 +159,16 @@
 
 
 ---
-`Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `
-
 
 ### Milestone 9
 
-| Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi | Status | Kendala / Blocker |
-| --- | --- | --- | --- | --- | --- |
+**Periode:** 28-10-2026 - 13-11-2026
+
+| Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                                                                             | Durasi (Jam) | Status | Kendala / _Blocker_ |
+| :----------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------- | :----- | :------------------ |
+| _1-11-2026_ | _Devina Athalia Putri Kusumah_                | _Melengkapi tabel B1 perubahan dari DPPL._ | _45 Menit_      | _Done_ | _-_                 |
 | 13-11-2026 | Nabil Rabbani | Audit source/PR anggota, integrasi auth, UC07 dan UC03 yang disetujui, pemulihan dependensi serta runner BE–Android, pengujian dan pelengkapan laporan | Timestamp aktual tersedia pada riwayat commit PR16 | Implementasi dan pengujian lokal selesai; menunggu review PR16 | Repo awal belum lengkap; dua file test salah lokasi. Sudah diperbaiki tanpa mengubah isi test; pengujian perangkat fisik tetap terpisah |
+
+
+---
+`Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `
