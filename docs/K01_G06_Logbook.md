@@ -159,4 +159,15 @@
 
 
 ---
+
+### Milestone 9
+
+**Periode:** 28-10-2026 - 13-11-2026
+
+| Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                                                                             | Durasi (Jam) | Status | Kendala / _Blocker_ |
+| :----------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------- | :----- | :------------------ |
+| _1-11-2026_ | _Devina Athalia Putri Kusumah_                | _Melengkapi tabel B1 perubahan dari DPPL._ | _45 Menit_      | _Done_ | _-_                 |
+
+
+---
 `Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `
