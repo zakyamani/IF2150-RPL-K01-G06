@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily SisaRasa backup at 02:00 WIB
+
+[Timer]
+OnCalendar=*-*-* 19:00:00 UTC
+Persistent=true
+Unit=sisarasa-backup.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,22 @@
+name: Perbaikan atau fitur
+description: Usulan dengan tujuan dan kriteria selesai.
+title: "[Usulan] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Masalah pengguna
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Usulan perubahan
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Kriteria selesai dan cara menguji
+    validations:
+      required: true
