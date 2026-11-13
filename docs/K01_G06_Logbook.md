@@ -167,7 +167,12 @@
 | Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                                                                             | Durasi (Jam) | Status | Kendala / _Blocker_ |
 | :----------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------- | :----- | :------------------ |
 | _1-11-2026_ | _Devina Athalia Putri Kusumah_                | _Melengkapi tabel B1 perubahan dari DPPL._ | _45 Menit_      | _Done_ | _-_                 |
-| 13-11-2026 | Nabil Rabbani | Audit source/PR anggota, integrasi auth, UC07 dan UC03 yang disetujui, pemulihan dependensi serta runner BE–Android, pengujian dan pelengkapan laporan | Timestamp aktual tersedia pada riwayat commit PR16 | Implementasi dan pengujian lokal selesai; menunggu review PR16 | Repo awal belum lengkap; dua file test salah lokasi. Sudah diperbaiki tanpa mengubah isi test; pengujian perangkat fisik tetap terpisah |
+| _7-11-2026_ | _Fathar Atandra Denaya_ | _Menyiapkan fondasi arsitektur backend Express, aplikasi Flutter, konfigurasi Docker, environment, database, dan struktur source._ | _2 Jam_ | _Done_ | _-_ |
+| _8-11-2026_ | _Fathar Atandra Denaya_ | _Mengimplementasikan backend UC04 berupa inbox notifikasi, WebSocket `/ws`, ticket sekali pakai, outbox, reconnect, dan cursor catch-up._ | _2 Jam_ | _Done_ | _-_ |
+| _9-11-2026_ | _Fathar Atandra Denaya_ | _Mengimplementasikan sisi Flutter UC04 berupa WebSocket client, notification controller, seller monitoring, dan tampilan daftar pesanan masuk real-time._ | _2 Jam_ | _Done_ | _-_ |
+| _10-11-2026_ | _Fathar Atandra Denaya_ | _Melengkapi dokumentasi M9 bagian B.1, B.2.1 profiling performa, dan B.3 kendala serta batasan implementasi._ | _1 Jam_ | _Done_ | _-_ |
+| _11-11-2026_ | _Fathar Atandra Denaya_                | _Melengkapi tabel B.2._ | _45 Menit_      | _Done_ | _-_                 |
+| _12-11-2026_ | _Fathar Atandra Denaya_                | _Melengkapi form asistensi_ | _15 Menit_      | _Done_ | _-_                 |
 
 
 ---
