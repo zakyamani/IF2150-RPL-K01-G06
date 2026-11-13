@@ -63,6 +63,14 @@ Silakan catat penggunaan AI yang berdampak signifikan pada pengerjaan tugas (mis
 | :--- | :--- | :--- | :--- |
 | *Antigravity (LLM)* | *Konsultasi perancangan Deployment View (Physical View) sistem dan memverifikasi keselarasan arsitektur terhadap kode implementasi (Bab 3.2)* | *"ini udah sesuai sama aplikasi kita? kan ada juga tuh aplikasinya di sisa rasa"* | *Nabil memvalidasi kesesuaian komponen simpul fisik pada diagram deployment terhadap struktur kode nyata aplikasi Flutter Android, REST API Express, dan basis data Docker PostgreSQL 15.* |
 
+### Milestone 9
+
+| Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
+| --- | --- | --- | --- |
+| OpenAI Codex | Memeriksa source dan PR anggota; mengintegrasikan autentikasi, UC07, dan modul UC03 dari source referensi; melengkapi dependensi; menjalankan build dan pengujian; serta menyusun dokumentasi integrasi. | "Silakan jalankan testing E2E." | Nabil menentukan lingkup pekerjaan, menyetujui integrasi UC03, dan memeriksa draft dokumentasi. Atan memeriksa PR #16, menyelesaikan konflik, dan melakukan merge. |
+
+Verifikasi teknis dilakukan melalui build backend dan APK Android, 47 pengujian backend, 63 pengujian Flutter, serta 6 skenario E2E Android pada emulator. Seluruhnya lulus. Pengujian tersebut dijalankan dengan bantuan AI dan tidak dinyatakan sebagai pengujian manual oleh anggota.
+
 ---
 ### Pernyataan Integritas dan Persetujuan
 
@@ -75,12 +83,3 @@ Kami yang bertanda tangan di bawah ini menyatakan bahwa seluruh log penggunaan A
 | <img src="./assets/ttd-anggota3.png" width="100"> | **[NIM - Nama Anggota 3]** |
 | <img src="./assets/ttd-anggota4.png" width="100"> | **[NIM - Nama Anggota 4]** |
 | <img src="./assets/ttd-anggota5.png" width="100"> | **[NIM - Nama Anggota 5]** |
-
-
-### Milestone 9
-
-| Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
-| --- | --- | --- | --- |
-| OpenAI Codex | Memeriksa source dan PR anggota; mengintegrasikan autentikasi, UC07, dan modul UC03 dari source referensi; melengkapi dependensi; menjalankan build dan pengujian; serta menyusun dokumentasi integrasi. | "Silakan jalankan testing E2E." | Nabil menentukan lingkup pekerjaan, menyetujui integrasi UC03, dan memeriksa draft dokumentasi. Atan memeriksa PR #16, menyelesaikan konflik, dan melakukan merge. |
-
-Verifikasi teknis dilakukan melalui build backend dan APK Android, 47 pengujian backend, 63 pengujian Flutter, serta 6 skenario E2E Android pada emulator. Seluruhnya lulus. Pengujian tersebut dijalankan dengan bantuan AI dan tidak dinyatakan sebagai pengujian manual oleh anggota.
