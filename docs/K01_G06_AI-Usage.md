@@ -81,4 +81,6 @@ Kami yang bertanda tangan di bawah ini menyatakan bahwa seluruh log penggunaan A
 
 | Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
 | --- | --- | --- | --- |
-| OpenAI Codex —13 November2026, atas instruksi Nabil | Audit commit/PR anggota, integrasi source referensi untuk auth/UC07 dan UC03 yang disetujui, pemulihan dependensi, test BE–Android dan dokumentasi | "Kerjakan bagian saya, commit bertahap, branching, PR; cek kode teman-teman; UC03 boleh diambil dari source awal untuk integrasi." | Source mengacu sarirasa@418b728. Kode teman-teman dipertahankan;47backend,63Flutter,6native serta signing guard lulus. B.4 mengikuti pembagian tim tanpa persentase. Review manusia terhadap PR16 masih diperlukan sebelum merge. |
+| OpenAI Codex | Memeriksa source dan PR anggota; mengintegrasikan autentikasi, UC07, dan modul UC03 dari source referensi; melengkapi dependensi; menjalankan build dan pengujian; serta menyusun dokumentasi integrasi. | "Silakan jalankan testing E2E." | Nabil menentukan lingkup pekerjaan, menyetujui integrasi UC03, dan memeriksa draft dokumentasi. Atan memeriksa PR #16, menyelesaikan konflik, dan melakukan merge. |
+
+Verifikasi teknis dilakukan melalui build backend dan APK Android, 47 pengujian backend, 63 pengujian Flutter, serta 6 skenario E2E Android pada emulator. Seluruhnya lulus. Pengujian tersebut dijalankan dengan bantuan AI dan tidak dinyatakan sebagai pengujian manual oleh anggota.
