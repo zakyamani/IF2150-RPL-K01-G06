@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: disposable-test-only
       POSTGRES_DB: sisarasa_test
     ports:
-      - "127.0.0.1:55433:5432"
+      - "127.0.0.1:${TEST_DB_HOST_PORT:-55433}:5432"
     tmpfs:
       - /var/lib/postgresql/data
     healthcheck:

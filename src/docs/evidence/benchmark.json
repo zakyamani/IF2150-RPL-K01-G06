@@ -1,0 +1,76 @@
+{
+  "measured_at": "2026-11-13T09:52:29.575Z",
+  "environment": {
+    "node": "v22.18.0",
+    "cpu": "AMD Ryzen AI 9 365 w/ Radeon 880M",
+    "cpus": 20,
+    "ram_gib": 23,
+    "postgres": 15,
+    "process_rss_bytes": 168828928
+  },
+  "seeded_dataset": {
+    "users": 1000,
+    "merchants": 300,
+    "offers": 5000
+  },
+  "bcrypt_cost12_ms": 177,
+  "latency": {
+    "local": {
+      "end_to_end": {
+        "samples": 30,
+        "p50_ms": 4.5,
+        "p95_ms": 8.11,
+        "max_ms": 14.66
+      },
+      "server": {
+        "samples": 30,
+        "p50_ms": 3.49,
+        "p95_ms": 6.46,
+        "max_ms": 6.64
+      },
+      "failures": 0
+    }
+  },
+  "query_plan": [
+    {
+      "QUERY PLAN": "Limit  (cost=317.57..317.62 rows=20 width=24) (actual time=0.752..0.754 rows=20 loops=1)"
+    },
+    {
+      "QUERY PLAN": "  Buffers: shared hit=97"
+    },
+    {
+      "QUERY PLAN": "  ->  Sort  (cost=317.57..330.07 rows=5000 width=24) (actual time=0.751..0.752 rows=20 loops=1)"
+    },
+    {
+      "QUERY PLAN": "        Sort Key: created_at DESC, id DESC"
+    },
+    {
+      "QUERY PLAN": "        Sort Method: top-N heapsort  Memory: 27kB"
+    },
+    {
+      "QUERY PLAN": "        Buffers: shared hit=97"
+    },
+    {
+      "QUERY PLAN": "        ->  Seq Scan on offers  (cost=0.00..184.52 rows=5000 width=24) (actual time=0.004..0.510 rows=5001 loops=1)"
+    },
+    {
+      "QUERY PLAN": "              Filter: ((quota_available > 0) AND (pickup_end > '2026-10-05 12:00:00+00'::timestamp with time zone) AND (status = 'active'::text))"
+    },
+    {
+      "QUERY PLAN": "              Buffers: shared hit=97"
+    },
+    {
+      "QUERY PLAN": "Planning:"
+    },
+    {
+      "QUERY PLAN": "  Buffers: shared hit=52"
+    },
+    {
+      "QUERY PLAN": "Planning Time: 0.141 ms"
+    },
+    {
+      "QUERY PLAN": "Execution Time: 0.768 ms"
+    }
+  ],
+  "limits": "30 sequential local HTTP pickup requests against real disposable PostgreSQL. Excludes camera, mobile UI, internet/3G, concurrent load and physical-device latency."
+}

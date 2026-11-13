@@ -1,0 +1,10 @@
+{
+    admin off
+    servers {
+        protocols h1 h2
+    }
+}
+
+{$PUBLIC_HOST} {
+    reverse_proxy 127.0.0.1:{$API_HOST_PORT}
+}

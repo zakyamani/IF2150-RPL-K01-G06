@@ -75,3 +75,10 @@ Kami yang bertanda tangan di bawah ini menyatakan bahwa seluruh log penggunaan A
 | <img src="./assets/ttd-anggota3.png" width="100"> | **[NIM - Nama Anggota 3]** |
 | <img src="./assets/ttd-anggota4.png" width="100"> | **[NIM - Nama Anggota 4]** |
 | <img src="./assets/ttd-anggota5.png" width="100"> | **[NIM - Nama Anggota 5]** |
+
+
+### Milestone 9
+
+| Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
+| --- | --- | --- | --- |
+| OpenAI Codex —13 November2026, atas instruksi Nabil | Audit commit/PR anggota, integrasi source referensi untuk auth/UC07 dan UC03 yang disetujui, pemulihan dependensi, test BE–Android dan dokumentasi | "Kerjakan bagian saya, commit bertahap, branching, PR; cek kode teman-teman; UC03 boleh diambil dari source awal untuk integrasi." | Source mengacu sarirasa@418b728. Kode teman-teman dipertahankan;47backend,63Flutter,6native serta signing guard lulus. B.4 mengikuti pembagian tim tanpa persentase. Review manusia terhadap PR16 masih diperlukan sebelum merge. |

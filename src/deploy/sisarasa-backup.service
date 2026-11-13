@@ -1,0 +1,11 @@
+[Unit]
+Description=SisaRasa consistent database and media backup
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/sarirasa/src
+ExecStart=/opt/sarirasa/src/scripts/backup.sh /opt/sarirasa/src/backups
+UMask=0077
+TimeoutStartSec=15min
