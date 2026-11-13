@@ -111,13 +111,13 @@ Transaksi pembayaran, refund, payout, dan integrasi gateway pada aplikasi merupa
 
 Pembagian tugas implementasi dan dokumentasi anggota kelompok:
 
-| NIM | Nama | Tugas Implementasi | Tugas Dokumentasi |
-| --- | --- | --- | --- |
-| 13525067 | Fathar Atandra Denaya | Fondasi arsitektur backend Express dan aplikasi Flutter; UC04 pemantauan pesanan masuk dan notifikasi WebSocket. | README utama pada `src/`, B.2.1 profiling performa, dan B.3 kendala implementasi. |
-| 13525070 | Devina Athalia Putri Kusumah | UC01 pengelolaan penawaran dan UC02 penelusuran katalog anonim, termasuk filter alergen. | B.1 dan B.5 untuk kelas Pembeli (C02) dan Penawaran (C03), serta bukti PR/commit pada B.2. |
-| 13525139 | Josephine Bintang N.L | UC03 checkout, pembayaran simulasi QRIS/e-wallet, dan tiket pickup. | B.1 dan B.5 untuk kelas Pesanan (C04), MetodePembayaran (C05), QRIS (C06), dan EWallet (C07), serta bukti PR/commit pada B.2. |
-| 13525040 | Muhammad Zaky Amani | UC05 validasi pengambilan melalui QR/OTP dan penyimpanan tiket offline; UC06 pengaduan dan refund. | B.1 dan B.5 untuk kelas QRPickup (C08) dan Pengaduan (C09), serta bukti PR/commit pada B.2. |
-| 13525004 | Nabil Rabbani | Registrasi, login, dan pengelolaan sesi JWT; UC07 riwayat transaksi dan ulasan; integrasi akhir backend–Android, termasuk penggabungan modul UC03. | B.1 dan B.5 untuk kelas Ulasan (C10) dan RiwayatTransaksi (C11), rekap B.4, serta pemeriksaan kelengkapan tautan PR dan review pada B.2. |
+| NIM | Nama | Kontribusi | Tugas Implementasi | Tugas Dokumentasi |
+| -------- | ---------------------------- | :------------: | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 13525067 | Fathar Atandra Denaya | 20% | Fondasi arsitektur backend Express dan aplikasi Flutter; UC04 pemantauan pesanan masuk dan notifikasi WebSocket. | README utama pada `src/`, B.2.1 profiling performa, dan B.3 kendala implementasi. |
+| 13525070 | Devina Athalia Putri Kusumah | 20% | UC01 pengelolaan penawaran dan UC02 penelusuran katalog anonim, termasuk filter alergen. | B.1 dan B.5 untuk kelas Pembeli (C02) dan Penawaran (C03), serta bukti PR/commit pada B.2. |
+| 13525139 | Josephine Bintang N.L | 20% | UC03 checkout, pembayaran simulasi QRIS/e-wallet, dan tiket pickup. | B.1 dan B.5 untuk kelas Pesanan (C04), MetodePembayaran (C05), QRIS (C06), dan EWallet (C07), serta bukti PR/commit pada B.2. |
+| 13525040 | Muhammad Zaky Amani | 20% | UC05 validasi pengambilan melalui QR/OTP dan penyimpanan tiket offline; UC06 pengaduan dan refund. | B.1 dan B.5 untuk kelas QRPickup (C08) dan Pengaduan (C09), serta bukti PR/commit pada B.2. |
+| 13525004 | Nabil Rabbani | 20% | Registrasi, login, dan pengelolaan sesi JWT; UC07 riwayat transaksi dan ulasan; integrasi akhir backend–Android, termasuk penggabungan modul UC03. | B.1 dan B.5 untuk kelas Ulasan (C10) dan RiwayatTransaksi (C11), rekap B.4, serta pemeriksaan kelengkapan tautan PR dan review pada B.2. |
 
 ## B.5 Traceability Kelas Perancangan ke Implementasi
 
