@@ -1,6 +1,8 @@
 
 # Tugas Besar IF2150 Rekayasa Perangkat Lunak
 
+Dokumentasi aplikasi backend dan Android: [src/README.md](src/README.md).
+
 ---
 
 ## 1. Overview

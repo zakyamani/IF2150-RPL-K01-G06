@@ -1,0 +1,5 @@
+# Real file generated locally by scripts/setup-signing.sh. Never commit it.
+storeFile=/ABSOLUTE/PATH/TO/PROJECT/.secrets/release.jks
+storePassword=YOUR_PRIVATE_PASSWORD
+keyAlias=sisarasa
+keyPassword=YOUR_PRIVATE_PASSWORD

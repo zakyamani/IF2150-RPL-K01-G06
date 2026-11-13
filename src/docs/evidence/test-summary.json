@@ -1,0 +1,26 @@
+{
+  "verified_on": "2026-11-13",
+  "reference": "aniceswan/sarirasa@418b728",
+  "academic_base": "80438ca",
+  "backend_tests": {
+    "passed": 47,
+    "failed": 0,
+    "database": "PostgreSQL 15 disposable, localhost55436"
+  },
+  "flutter_tests": {
+    "passed": 63,
+    "failed": 0
+  },
+  "typecheck": "pass",
+  "flutter_analyze": "pass",
+  "signing_guard_tests": 1,
+  "android_native": {
+    "passed": 6,
+    "platform": "Android15 API35 x86_64",
+    "device": "emulator-5582",
+    "api": "http://10.0.2.2:3101",
+    "physical_device": false
+  },
+  "internal_imports_missing_after_integration": 0,
+  "financial_operations": "simulation"
+}

@@ -1,0 +1,25 @@
+# Private runtime configuration and generated work products
+**/node_modules/
+**/dist/
+**/.env
+**/.env.*
+!**/.env.example
+**/.superpowers/
+**/.tooling/
+**/.dart_tool/
+**/.flutter-plugins-dependencies
+**/build/
+**/.gradle/
+**/.kotlin/
+**/local.properties
+**/key.properties
+**/.secrets/
+**/uploads/
+**/backups/
+**/__pycache__/
+*.pyc
+*.jks
+*.keystore
+*.log
+src/artifacts/
+.DS_Store

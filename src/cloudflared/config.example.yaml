@@ -1,0 +1,8 @@
+# Optional stable hostname: supply your own Cloudflare account, tunnel and domain.
+# Quick Tunnel via scripts/tunnel.sh does not require any of these.
+tunnel: YOUR_TUNNEL_UUID
+credentials-file: /ABSOLUTE/PATH/TO/YOUR_TUNNEL_CREDENTIALS.json
+ingress:
+  - hostname: YOUR_HOSTNAME
+    service: http://127.0.0.1:3100
+  - service: http_status:404

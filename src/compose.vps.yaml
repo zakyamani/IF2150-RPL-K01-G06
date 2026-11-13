@@ -1,0 +1,25 @@
+# Add to compose.yaml on the Linux VPS. Backend/DB remain localhost-only.
+services:
+  proxy:
+    image: caddy:2.11.7-alpine
+    network_mode: host
+    restart: unless-stopped
+    init: true
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST:?Set the public hostname in .env}
+      API_HOST_PORT: ${API_HOST_PORT:-3100}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    mem_limit: 128m
+    cpus: 0.5
+    security_opt: ["no-new-privileges:true"]
+    read_only: true
+    tmpfs: ["/tmp:size=16m,mode=1777"]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+volumes:
+  caddy_data:
+  caddy_config:

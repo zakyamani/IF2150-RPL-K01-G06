@@ -1,6 +1,6 @@
-name: sisarasa
+name: sisarasa-academic
 x-app: &app
-  image: sisarasa-api:local
+  image: sisarasa-academic-api:local
   user: "${APP_UID:-1000}:${APP_GID:-1000}"
   build: ./backend
   env_file: ${SISARASA_ENV_FILE:-.env}
