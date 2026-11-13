@@ -167,6 +167,12 @@
 | Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                                                                             | Durasi (Jam) | Status | Kendala / _Blocker_ |
 | :----------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------- | :----- | :------------------ |
 | _1-11-2026_ | _Devina Athalia Putri Kusumah_                | _Melengkapi tabel B1 perubahan dari DPPL._ | _45 Menit_      | _Done_ | _-_                 |
+| _7-11-2026_ | _Fathar Atandra Denaya_ | _Menyiapkan fondasi arsitektur backend Express, aplikasi Flutter, konfigurasi Docker, environment, database, dan struktur source._ | _2 Jam_ | _Done_ | _-_ |
+| _8-11-2026_ | _Fathar Atandra Denaya_ | _Mengimplementasikan backend UC04 berupa inbox notifikasi, WebSocket `/ws`, ticket sekali pakai, outbox, reconnect, dan cursor catch-up._ | _2 Jam_ | _Done_ | _-_ |
+| _9-11-2026_ | _Fathar Atandra Denaya_ | _Mengimplementasikan sisi Flutter UC04 berupa WebSocket client, notification controller, seller monitoring, dan tampilan daftar pesanan masuk real-time._ | _2 Jam_ | _Done_ | _-_ |
+| _10-11-2026_ | _Fathar Atandra Denaya_ | _Melengkapi dokumentasi M9 bagian B.1, B.2.1 profiling performa, dan B.3 kendala serta batasan implementasi._ | _1 Jam_ | _Done_ | _-_ |
+| _11-11-2026_ | _Fathar Atandra Denaya_                | _Melengkapi tabel B.2._ | _45 Menit_      | _Done_ | _-_                 |
+| _12-11-2026_ | _Fathar Atandra Denaya_                | _Melengkapi form asistensi_ | _15 Menit_      | _Done_ | _-_                 |
 
 
 ---
