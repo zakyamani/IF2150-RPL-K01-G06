@@ -160,3 +160,10 @@
 
 ---
 `Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `
+
+
+### Milestone 9
+
+| Tanggal | Nama Anggota | Deskripsi Pekerjaan | Durasi | Status | Kendala / Blocker |
+| --- | --- | --- | --- | --- | --- |
+| 13-11-2026 | Nabil Rabbani | Audit source/PR anggota, integrasi auth, UC07 dan UC03 yang disetujui, pemulihan dependensi serta runner BE–Android, pengujian dan pelengkapan laporan | Timestamp aktual tersedia pada riwayat commit PR16 | Implementasi dan pengujian lokal selesai; menunggu review PR16 | Repo awal belum lengkap; dua file test salah lokasi. Sudah diperbaiki tanpa mengubah isi test; pengujian perangkat fisik tetap terpisah |
