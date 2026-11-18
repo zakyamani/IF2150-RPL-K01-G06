@@ -162,58 +162,88 @@ Tabel 2.1. Daftar Use Case
 
 # BAB 3: Implementasi
 
-Bagian ini diisi dengan informasi tentang elemen P/L yang dikembangkan (*executable files*, *configuration files*, *data files*, dan sebagainya) serta perubahannya terhadap rancangan pada DPPL (jika ada).
+Bagian ini memuat informasi mengenai lingkungan implementasi, daftar modul/kelas, antarmuka pengguna, serta file pendukung lainnya yang telah dikembangkan untuk perangkat lunak SisaRasa, beserta penyesuaian terhadap rancangan pada dokumen DPPL.
 
 ## 3.1 Lingkungan Implementasi
 
-Tuliskan *hardware* dan *software* yang digunakan untuk implementasi, mencakup *operating system*, bahasa pemrograman beserta versinya, *framework*/*library*, DBMS, *development tools*, dan *version control*. Lingkungan ini harus konsisten dengan **Subbab 2.1 DPPL**; jelaskan jika ada perubahan. Cantumkan juga *framework* dan alat pengujian yang dipakai.
+Spesifikasi perangkat keras dan perangkat lunak yang digunakan pada tahap implementasi dan pengujian SisaRasa disajikan pada Tabel 3.1. Lingkungan ini konsisten dengan **Subbab 2.1 DPPL**, dengan penyesuaian pada bahasa pemrograman *backend* yang menggunakan **TypeScript** (dikompilasi ke JavaScript untuk dijalankan di atas runtime Node.js 18+) guna menjaga keamanan tipe data (*type safety*), serta penambahan *worker* pemrosesan *job* latar belakang dan *outbox* notifikasi.
 
 Tabel 3.1. Lingkungan Implementasi
 
 | Aspek | Keterangan |
 | :--- | :--- |
-| *Hardware* | *[Spesifikasi perangkat keras]* |
-| *Operating System* | *[Nama dan versi OS]* |
-| *Bahasa Pemrograman* | *[Bahasa dan versi]* |
-| *Framework/Library* | *[Daftar framework/library beserta versi]* |
-| *DBMS* | *[Nama dan versi DBMS]* |
-| *Development Tools* | *[IDE, version control, tools lain]* |
-| *Testing Tools* | *[Framework unit test, alat ukur performa, alat coverage]* |
+| Hardware | PC/Laptop pengembang (server lokal & emulator Android), VPS Linux untuk server operasional, serta perangkat *smartphone* Android untuk pengujian klien. |
+| Operating System | Linux (Ubuntu LTS) pada VPS server operasional; Linux/Windows/macOS pada lingkungan pengembangan lokal; Android (minimal Android 10 / API level 29) pada perangkat klien. |
+| Bahasa Pemrograman | Dart (aplikasi klien Android Flutter) dan TypeScript / JavaScript pada runtime Node.js 18+ (server *backend*). |
+| Framework/Library | **Klien Android:** Flutter, `dio` (HTTP REST client), `mobile_scanner` (pemindai kamera QR), `geolocator` (layanan lokasi), `flutter_foreground_task` (layanan latar belakang WebSocket).<br>**Server Backend:** Express.js 4, `pg` (PostgreSQL driver & *connection pooling*), WebSocket (`/ws`). |
+| DBMS | PostgreSQL 15 yang dijalankan dalam kontainer terisolasi Docker (port 5433 untuk pengembangan lokal / port 5432 untuk produksi), dilengkapi penyimpanan berkas lokal POSIX (`uploads/`) untuk foto gerai. |
+| Development Tools | Visual Studio Code, Android Studio, Docker & Docker Compose, Git & GitHub, serta Postman. |
+| Testing Tools | `flutter_test` (pengujian unit & widget Flutter), `integration_test` (pengujian *end-to-end* native Android), *test runner* backend TypeScript (`src/backend/test/`), `src/scripts/benchmark.sh` (pengukuran latensi HTTP), dan PostgreSQL `EXPLAIN (ANALYZE, BUFFERS)`. |
+
+Daftar modul dan kelas perancangan (`C01`–`C11`) yang telah diimplementasikan beserta lokasi file fisiknya mengacu pada Tabel 4.1 DPPL dan Tabel B.5 Laporan Implementasi (Tugas 9). Seluruh modul klien Flutter dikompilasi ke dalam satu berkas paket aplikasi Android (`SisaRasaApp.apk`), sedangkan modul *backend* TypeScript dijalankan sebagai layanan server Node.js sehingga tidak menghasilkan file *executable* mandiri per kelas.
 
 ## 3.2 Implementasi Modul
 
-Daftar modul/kelas yang **TELAH** diimplementasikan. Gunakan nama dan ID kelas yang sama dengan DPPL, dan konsisten dengan Tabel B.5 pada dokumen Implementasi (Tugas 9).
+Daftar modul dan kelas perancangan (`C01`–`C11`) yang telah diimplementasikan beserta lokasi file fisiknya mengacu pada Tabel 4.1 DPPL dan Tabel B.5 Laporan Implementasi (Tugas 9). Seluruh modul klien Flutter dikompilasi ke dalam satu berkas paket aplikasi Android (`SisaRasaApp.apk`), sedangkan modul *backend* TypeScript dijalankan sebagai layanan server Node.js sehingga tidak menghasilkan file *executable* mandiri per kelas.
 
 Tabel 3.2. Implementasi Modul
 
 | No | ID Kelas | Nama Modul/Kelas | Nama File Fisik | Nama File Executable |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | *[C01]* | *[Nama modul/kelas]* | *[path/ke/file]* | *[Nama file executable, atau - jika tidak ada]* |
-| 2 | *[C02]* | *[Nama modul/kelas]* | *[path/ke/file]* | *[...]* |
-| ... | *...* | *...* | *...* | *...* |
+| 1 | C01 | Penjual | `src/backend/src/modules/merchants/service.ts`<br>`src/backend/src/modules/merchants/repository.ts`<br>`src/backend/src/modules/merchants/schema.ts`<br>`src/android-app/lib/features/seller/profile_screen.dart` | - |
+| 2 | C02 | Pembeli | `src/backend/src/modules/auth/routes.ts`<br>`src/backend/src/modules/auth/schema.ts`<br>`src/backend/src/modules/auth/service.ts`<br>`src/backend/src/modules/auth/repository.ts`<br>`src/backend/src/core/labels.ts`<br>`src/backend/src/modules/catalog/repository.ts`<br>`src/android-app/lib/core/models/user.dart`<br>`src/android-app/lib/core/storage/session_store.dart`<br>`src/android-app/lib/features/buyer/allergen_screen.dart` | - |
+| 3 | C03 | Penawaran | `src/backend/src/modules/offers/routes.ts`<br>`src/backend/src/modules/offers/service.ts`<br>`src/backend/src/modules/offers/repository.ts`<br>`src/backend/src/modules/offers/schema.ts`<br>`src/backend/src/modules/catalog/routes.ts`<br>`src/backend/src/modules/catalog/service.ts`<br>`src/backend/src/modules/catalog/repository.ts`<br>`src/android-app/lib/core/models/offer.dart`<br>`src/android-app/lib/features/seller/offer_form_controller.dart`<br>`src/android-app/lib/features/seller/seller_controller.dart`<br>`src/android-app/lib/features/seller/seller_repository.dart`<br>`src/android-app/lib/features/buyer/catalog_controller.dart` | - |
+| 4 | C04 | Pesanan | `src/backend/src/modules/orders/routes.ts`<br>`src/backend/src/modules/orders/service.ts`<br>`src/backend/src/modules/orders/repository.ts`<br>`src/android-app/lib/core/models/order.dart`<br>`src/android-app/lib/features/checkout/checkout_controller.dart` | - |
+| 5 | C05 | MetodePembayaran | `src/android-app/lib/core/models/payment_method.dart`<br>`src/backend/src/modules/payment/schema.ts` | - |
+| 6 | C06 | QRIS | `src/android-app/lib/core/models/payment_method.dart`<br>`src/backend/src/modules/payment/simulator.ts` | - |
+| 7 | C07 | EWallet | `src/android-app/lib/core/models/payment_method.dart`<br>`src/backend/src/modules/payment/simulator.ts` | - |
+| 8 | C08 | QRPickup | `src/backend/src/modules/pickup/service.ts`<br>`src/backend/src/modules/pickup/routes.ts`<br>`src/android-app/lib/features/seller/scan_controller.dart`<br>`src/android-app/lib/features/orders/tickets_screen.dart` | - |
+| 9 | C09 | Pengaduan | `src/backend/src/modules/complaints/service.ts`<br>`src/backend/src/modules/complaints/routes.ts`<br>`src/backend/src/modules/complaints/schema.ts`<br>`src/android-app/lib/core/models/complaint.dart`<br>`src/android-app/lib/features/orders/complaint_controller.dart` | - |
+| 10 | C10 | Ulasan | `src/backend/src/modules/reviews/service.ts`<br>`src/backend/src/modules/reviews/repository.ts`<br>`src/backend/src/modules/reviews/schema.ts`<br>`src/backend/src/modules/reviews/routes.ts`<br>`src/android-app/lib/core/models/review.dart`<br>`src/android-app/lib/features/orders/review_controller.dart` | - |
+| 11 | C11 | RiwayatTransaksi | `src/backend/src/modules/orders/repository.ts`<br>`src/backend/src/modules/metrics/`<br>`src/android-app/lib/features/orders/order_repository.dart`<br>`src/android-app/lib/features/orders/history_screen.dart` | - |
 
 ## 3.3 Implementasi Antarmuka
 
-Daftar antarmuka yang telah diimplementasikan. Gunakan ID dan nama layar yang sama dengan ID dan nama layar pada tugas DPPL.
+Daftar antarmuka aplikasi Android yang telah diimplementasikan mengacu pada ID dan nama layar pada Bab 6 dokumen DPPL (`I-01` s.d. `I-08`), dilengkapi layar tambahan yang dikembangkan untuk memenuhi seluruh alur peran Pembeli dan Penjual pada Tugas 9.
 
 Tabel 3.3. Implementasi Antarmuka
 
 | No | ID Antarmuka | Nama Antarmuka | Nama File Fisik | Nama File Executable |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | *[I-01]* | *[Nama layar]* | *[path/ke/file]* | *[Nama file executable, atau - jika tidak ada]* |
-| 2 | *[I-02]* | *[Nama layar]* | *[path/ke/file]* | *[...]* |
-| ... | *...* | *...* | *...* | *...* |
+| 1 | I-01 | Masuk | `src/android-app/lib/features/auth/` (layar login) | `SisaRasaApp.apk` |
+| 2 | I-02 | Registrasi Akun | `src/android-app/lib/features/auth/` (layar registrasi) | `SisaRasaApp.apk` |
+| 3 | I-03 | Katalog Penawaran | `src/android-app/lib/features/buyer/catalog_screen.dart` | `SisaRasaApp.apk` |
+| 4 | I-04 | Filter Alergen | `src/android-app/lib/features/buyer/allergen_screen.dart` | `SisaRasaApp.apk` |
+| 5 | I-05 | Pop up Izin Lokasi | `src/android-app/lib/features/buyer/catalog_screen.dart` (dialog izin lokasi) | `SisaRasaApp.apk` |
+| 6 | I-06 | Daftar Pesanan Pembeli | `src/android-app/lib/features/orders/history_screen.dart` | `SisaRasaApp.apk` |
+| 7 | I-07 | Tiket Pengambilan (Mode Offline) | `src/android-app/lib/features/orders/tickets_screen.dart` | `SisaRasaApp.apk` |
+| 8 | I-08 | Akun | `src/android-app/lib/features/auth/` (layar profil/akun pengguna) | `SisaRasaApp.apk` |
+| 9 | - | Detail Penawaran | `src/android-app/lib/features/buyer/offer_detail_screen.dart` | `SisaRasaApp.apk` |
+| 10 | - | Checkout & Pembayaran | `src/android-app/lib/features/checkout/checkout_screen.dart` | `SisaRasaApp.apk` |
+| 11 | - | Tiket Pickup Aktif | `src/android-app/lib/features/orders/ticket_pickup_screen.dart` | `SisaRasaApp.apk` |
+| 12 | - | Form & Detail Pengaduan | `src/android-app/lib/features/orders/complaint_form_screen.dart`<br>`src/android-app/lib/features/orders/complaint_detail_screen.dart` | `SisaRasaApp.apk` |
+| 13 | - | Form Ulasan & Ulasan Gerai | `src/android-app/lib/features/orders/review_screen.dart`<br>`src/android-app/lib/features/orders/merchant_reviews_screen.dart` | `SisaRasaApp.apk` |
+| 14 | - | Profil & Manajemen Penawaran Penjual | `src/android-app/lib/features/seller/profile_screen.dart`<br>`src/android-app/lib/features/seller/offers_screen.dart`<br>`src/android-app/lib/features/seller/offer_form_screen.dart` | `SisaRasaApp.apk` |
+| 15 | - | Daftar Pesanan Masuk Penjual | `src/android-app/lib/features/seller/seller_orders_screen.dart` | `SisaRasaApp.apk` |
 
 ## 3.4 File Lain
 
-Daftar file lain yang dibuat selain file kelas dan antarmuka, misalnya file *utility*, *configuration*, *database schema/seed*, *file test*, atau *data*.
+Selain file modul/kelas dan antarmuka pengguna, beberapa file konfigurasi, migrasi basis data, pengujian, serta skrip pengukuran turut dibuat untuk mendukung operasional dan verifikasi sistem SisaRasa.
 
 Tabel 3.4. File Lain
 
 | No | Nama File | Keterangan |
 | :--- | :--- | :--- |
-| 1 | *[Nama file]* | *[Fungsi file]* |
-| ... | *...* | *...* |
+| 1 | `src/backend/migrations/001_initial.sql` | Skema migrasi awal basis data relasional PostgreSQL (`users`, `merchant_profiles`, `offers`, `orders`, `checkout_sessions`, `complaints`, `reviews`, `audit_logs`, dan `platform_metrics`). |
+| 2 | `src/backend/test/` (termasuk `integration/notifications.test.ts`) | Kumpulan berkas pengujian unit dan integrasi untuk layanan *backend*, validasi transaksi, dan notifikasi WebSocket. |
+| 3 | `src/android-app/test/` (termasuk `core/socket_client_test.dart`, `features/notifications_test.dart`) | Kumpulan berkas pengujian unit dan widget aplikasi Android Flutter. |
+| 4 | `src/android-app/integration_test/` | Berkas pengujian integrasi *end-to-end* (E2E) aplikasi Android. |
+| 5 | `src/scripts/benchmark.sh` | Skrip pengujian performa dan pengukuran waktu respons HTTP lokal. |
+| 6 | `src/docs/verification.md` | Laporan catatan verifikasi hasil pengujian integrasi *backend* dan Android. |
+| 7 | `src/docs/evidence/benchmark.json` | Data artefak hasil pengukuran performa dan keluaran kueri `EXPLAIN (ANALYZE, BUFFERS)`. |
+| 8 | `compose.yaml` & `Dockerfile` | Konfigurasi kontainer Docker untuk menjalankan layanan PostgreSQL 15 dan *backend* server. |
+| 9 | `openapi.yaml` | Dokumen spesifikasi kontrak REST API antara aplikasi klien Android dan server *backend*. |
+| 10 | `src/README.md` | Panduan pengaturan lingkungan lokal, instalasi dependensi, dan cara menjalankan aplikasi. |
 
 <br>
 
