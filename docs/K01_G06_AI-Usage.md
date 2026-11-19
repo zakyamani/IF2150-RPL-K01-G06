@@ -71,6 +71,13 @@ Silakan catat penggunaan AI yang berdampak signifikan pada pengerjaan tugas (mis
 
 Verifikasi teknis dilakukan melalui build backend dan APK Android, 47 pengujian backend, 63 pengujian Flutter, serta 6 skenario E2E Android pada emulator. Seluruhnya lulus. Pengujian tersebut dijalankan dengan bantuan AI dan tidak dinyatakan sebagai pengujian manual oleh anggota.
 
+### Milestone 10
+
+| Tool AI | Tujuan Penggunaan | Contoh Prompt Utama | Modifikasi & Validasi Manusia |
+| :--- | :--- | :--- | :--- |
+| Copilot | Membuat dan memperbaiki unit test backend Bab 4.2, menambahkan pengukuran coverage | *“buatkan file test untuk semua test case C01 sampai C11”* dan *“perbaiki kesalahan file test tersebut”* | Zaky memverifikasi test secara lokal, menjalankan `npm run test:unit`, memperbaiki assertion dan input test yang salah, lalu memastikan seluruh unit test lulus. |
+| Copilot | Mengukur coverage C04 dan C11 serta memperbaiki kegagalan test cursor riwayat transaksi. | *“tolong buat agar test C04 dan C11 juga mengukur coverage”* | Zaky menjalankan Node.js test coverage, memeriksa hasil `line %`, `branch %`, dan sumber yang terukur, serta memperbaiki assertion timestamp cursor. |
+
 ---
 ### Pernyataan Integritas dan Persetujuan
 
