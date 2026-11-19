@@ -197,5 +197,9 @@
 
 | Tanggal      | Nama Anggota                   | Deskripsi Pekerjaan                                   | Durasi (Jam) | Status | Kendala / _Blocker_ |
 | :----------- | :----------------------------- | :---------------------------------------------------- | :----------- | :----- | :------------------ |
-| _20-09-2026_ | _Devina Athalia Putri Kusumah_ | _Mengisi data kelompok dan mengerjakan bagian 4.1_                              | _1 Jam_      | _Done_ | _-_                 |
+| _17-11-2026_ | _Devina Athalia Putri Kusumah_ | _Mengisi data kelompok dan mengerjakan bagian 4.1_       | _1 Jam_      | _Done_ | _-_ |
+| _18-11-2026_ | _Devina Athalia Putri Kusumah_ | _Mengerjakan Bab 1 dan Bab 2_                            | _1 Jam_      | _Done_ | _-_ |
+
+
+---
 `Gunakan format penulisan Logbook yang sama untuk setiap Milestone dan pastikan pembuatan Daftar Isi juga sudah sesuai sebelum Logbook dikumpulkan. `
