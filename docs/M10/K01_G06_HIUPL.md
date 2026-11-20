@@ -527,8 +527,8 @@ Tabel 4.5. Hasil Pengujian KNF
 
 | ID Pengujian | ID KNF | Parameter | Target Terukur | Metode dan Alat | Hasil Aktual | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| *KNF01-TC01* | *KNF01* | *Reliability* | *Tidak ada data hilang/ganda saat jaringan putus di tengah transaksi* | *Simulasi putus koneksi saat bayar, lalu cek status di DB* | *[Hasil aktual]* | *Pass/Fail* |
-| *KNF02-TC01* | *KNF02* | *Security* | *Password tersimpan sebagai hash, bukan plain-text* | *Inspeksi tabel pengguna di DB* | *[...]* | *Pass/Fail* |
+| *KNF01-TC01* | *KNF01* | *Security* | *Password tersimpan sebagai hash, bukan plain-text* | *Inspeksi tabel pengguna di DB* | *[...]* | *Pass/Fail* |
+| *KNF02-TC01* | KNF02 | Reliability | Tidak ada transaksi, stok, pembayaran, maupun pesan yang hilang atau diproses ganda saat terjadi kegagalan worker, restart API, atau putus koneksi | Pengujian integrasi otomatis (`node --import tsx --test`) pada skenario *persistent worker catch-up* tanpa pelepasan stok ganda, *retry/expired lease* dengan penyelesaian tunggal, serta pemulihan API tanpa kehilangan event *inbox/outbox* | Pass — seluruh 3 skenario pengujian ketahanan transaksi dan pemulihan kegagalan lulus tanpa duplikasi maupun kehilangan data (`pass 3, fail 0`). | Pass |
 | KNF05-TC01 | KNF05 | *Response time* / Latensi notifikasi *real-time* | Latensi pengiriman notifikasi perubahan status pesanan ke klien ≤ 2 detik (2.000 ms) | Pengukuran latensi 30 sampel berurutan menggunakan skrip benchmark TypeScript (`npx tsx test/benchmark/notification-latency.ts`) pada jalur Push Outbox (`LISTEN/NOTIFY`) ke WebSocket serta jalur End-to-End (transaksi hingga klien WS) | 0 kegagalan dari 30 sampel. Jalur Push Outbox ke WebSocket: p50 = 8,12 ms, p95 = 11,52 ms, maks = 12,56 ms. Jalur End-to-End: p50 = 36,45 ms, p95 = 49,93 ms, maks = 50,34 ms (jauh di bawah batas 2.000 ms). | Pass |
 | *KNFXX-TC01* | *KNFXX* | *Response time* | *Halaman tampil ≤ 4 detik* | *Chrome DevTools, 5 kali ukur, ambil rata-rata* | *[Rata-rata ... detik, maks ... detik]* | *Pass/Fail* |
 | *...* | *...* | *...* | *...* | *...* | *...* | *...* |
@@ -552,6 +552,7 @@ Tabel 4.6. Bukti Hasil Pengujian
 | *UC01-TC01* | *[Sisipkan tangkapan layar UC01-TC01 sesuai prosedur pengujian]* |
 | *UC01-TC02* | *[Sisipkan tangkapan layar UC01-TC02 sesuai prosedur pengujian]* |
 | *KNF01-TC01* | *[Sisipkan bukti pengukuran parameter KNF01-TC01]* |
+| KNF02-TC01 | <img src="./assets/knf02-tc01-reliability.png" alt="KNF02-TC01 Pengujian Reliabilitas Transaksi dan Pemulihan" width="400"> |
 | KNF05-TC01 | <img src="./assets/knf05-tc01-latency.jpeg" alt="KNF05-TC01 Pengukuran Latensi Notifikasi Real-Time" width="400">
 |
 | *...* | *...* |
