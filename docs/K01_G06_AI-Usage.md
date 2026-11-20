@@ -79,6 +79,7 @@ Verifikasi teknis dilakukan melalui build backend dan APK Android, 47 pengujian 
 | Copilot | Membuat dan memperbaiki unit test backend Bab 4.2, menambahkan pengukuran coverage | *“buatkan file test untuk semua test case C01 sampai C11”* dan *“perbaiki kesalahan file test tersebut”* | Zaky memverifikasi test secara lokal, menjalankan `npm run test:unit`, memperbaiki assertion dan input test yang salah, lalu memastikan seluruh unit test lulus. |
 | Copilot | Mengukur coverage C04 dan C11 serta memperbaiki kegagalan test cursor riwayat transaksi. | *“tolong buat agar test C04 dan C11 juga mengukur coverage”* | Zaky menjalankan Node.js test coverage, memeriksa hasil `line %`, `branch %`, dan sumber yang terukur, serta memperbaiki assertion timestamp cursor. |
 | Gemini | Membuat narasi laporan berdasarkan aktivitas dan hasil testing | *“buatkan draft narasi laporan sesuai aktivitas testing di terminalku"* | Devina membaca dan memastikan narasi laporannya sesuai dan aktual dengan proses dan hasil testing. |
+| OpenAI Codex | Melengkapi tes integrasi dan UC07, menjalankan pengujian serta benchmark lokal, dan menyusun draf HIUPL. | “Silakan jalankan testing E2E.” | Nabil menentukan lingkup pengujian dan meninjau draf. |
 
 ---
 ### Pernyataan Integritas dan Persetujuan
