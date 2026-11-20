@@ -454,6 +454,8 @@ Tabel 4.3.1. Daftar Antarmuka Antarkomponen
 | *I-02* | *Pesanan (Model)* | *Database* | *Aplikasi - Basis data* | *INT-TC03* |
 | *I-03* | *PaymentGatewayAdapter* | *Payment Gateway (dummy)* | *Aplikasi - Sistem eksternal* | *INT-TC04, INT-TC05* |
 | *[I-XX]* | *[Komponen asal]* | *[Komponen tujuan]* | *[Jenis batas]* | *[ID test case]* |
+| *I-06* | NotificationService / WebSocket Server (`/ws`) | PostgreSQL (`LISTEN/NOTIFY` & `notification_inbox`) dan Klien WebSocket | Aplikasi - Basis data & Klien *real-time* | INT-TC06 |
+| *I-09* | ComplaintService & Background Worker | PostgreSQL (`complaints`, `orders`, `audit_logs`) & Media Bukti | Controller/Service - Model & Basis data | INT-TC09 |
 | *...* | *...* | *...* | *...* | *...* |
 
 Tabel 4.3.2. Hasil Pengujian Integrasi
@@ -463,6 +465,8 @@ Tabel 4.3.2. Hasil Pengujian Integrasi
 | *INT-TC01* | *I-01* | *Normal: tambah item ke keranjang* | *Panggil `tambahItem()` melalui KeranjangController dengan produk valid* | *Item tersimpan pada Keranjang dan tampil pada daftar item* | *[Hasil aktual]* | *Pass/Fail* |
 | *INT-TC03* | *I-02* | *Normal: simpan pesanan* | *Buat pesanan, lalu baca ulang langsung dari basis data* | *Baris pesanan ada dengan nilai total dan status yang sama* | *[...]* | *Pass/Fail* |
 | *INT-TC05* | *I-03* | *Gagal: gateway mengembalikan status gagal* | *Kirim otorisasi dengan saldo dummy tidak cukup* | *Status pesanan tidak berubah menjadi "Lunas", pesan gagal diteruskan ke pengguna* | *[...]* | *Pass/Fail* |
+| INT-TC06 | I-06 | Normal & Negatif: Otentikasi tiket soket *single-use*, pengiriman *real-time* `LISTEN/NOTIFY`, deduplikasi, *catch-up* saat putus koneksi, penutupan soket saat *logout*, serta konsistensi *cursor* konkuren | Jalankan `node --import tsx --test --test-concurrency=1 test/integration/notifications.test.ts` dengan basis data PostgreSQL nyata (`sisarasa_test`) dan koneksi klien WebSocket | Tiket kedaluwarsa/pakai ulang ditolak, event terkirim satu kali tanpa duplikasi, pesan tertunda tersinkronisasi saat rekoneksi, soket tertutup saat *logout*, dan *cursor* tidak melompati transaksi konkuren | Pass — seluruh 4 skenario pengujian integrasi WebSocket dan *durable inbox* lulus (`pass 4, fail 0`). | Pass |
+| INT-TC09 | I-09 | Normal & Konkuren: Penahanan *payout* saat pengaduan diajukan, validasi kepemilikan bukti, *refund* tunggal saat disetujui, transisi ke *no-show* jika ditolak melewati tenggat *pickup*, *race condition* pembatalan/pemindaian, serta *auto-refund* 24 jam khusus toko tutup | Jalankan `node --import tsx --test --test-concurrency=1 test/integration/complaint.test.ts` dan `node --import tsx --test --test-name-pattern="closed-shop" test/integration/jobs.test.ts` | *Payout* ditahan selama sengketa, bukti milik pengguna lain ditolak, *refund* diproses tepat satu kali, *race condition* menghasilkan satu *terminal state* konsisten, dan pengaduan toko tutup otomatis *refund* pada 24 jam | Pass — seluruh 4 skenario pengujian integrasi pengaduan dan *worker auto-refund* lulus (`pass 4, fail 0`). | Pass |
 | *...* | *...* | *...* | *...* | *...* | *...* | *...* |
 
 <br>
@@ -488,6 +492,31 @@ Tabel 4.4.1. Hasil Pengujian Use Case [UC01]
 
 *[Lanjutkan untuk seluruh use case dengan pola yang sama, hingga 4.4.N.]*
 
+### 4.4.4 Use Case Memantau Pesanan Masuk
+
+**ID Use Case:** UC04  
+**Nama Use Case:** Memantau Pesanan Masuk
+
+Tabel 4.4.4. Hasil Pengujian Use Case UC04
+
+| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC04-TC01 | [Sesuai SKPL] | Normal: Menerima notifikasi pesanan masuk secara *real-time* | 1. Jalankan suite pengujian `flutter test test/features/notifications_test.dart test/features/order_actions_test.dart`.<br>2. Simulasikan event pesanan dibayar (`payment.succeeded`) dari server melalui kanal WebSocket.<br>3. Amati pembaruan daftar pesanan masuk dan indikator notifikasi pada antarmuka. | Payload event notifikasi pesanan baru valid dengan tiket soket aktif | Notifikasi pesanan masuk diterima secara *real-time* dan ditampilkan pada daftar notifikasi serta daftar pesanan penjual. | Pass — komponen UI dan state notifikasi merender event pesanan masuk sesuai harapan (bagian dari 11/11 test Flutter lulus). | Pass |
+| UC04-TC02 | [Sesuai SKPL] | Alternatif 1: Sinkronisasi ulang notifikasi tertunda (*catch-up*) dan penandaan terbaca | 1. Simulasikan koneksi WebSocket terputus saat ada event notifikasi baru masuk di *inbox*.<br>2. Sambungkan kembali klien dan lakukan *catch-up* dari *cursor* terakhir.<br>3. Tandai notifikasi sebagai sudah dibaca. | Cursor notifikasi terakhir dan permintaan penandaan status baca | Seluruh notifikasi yang terlewat dimuat ulang secara berurutan tanpa duplikasi dan status terbaca tersimpan. | Pass — sinkronisasi ulang *inbox* dan pembaruan status baca berjalan konsisten tanpa duplikasi item. | Pass |
+
+### 4.4.6 Use Case Mengelola Pesanan
+
+**ID Use Case:** UC06  
+**Nama Use Case:** Mengelola Pesanan
+
+Tabel 4.4.6. Hasil Pengujian Use Case UC06
+
+| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC06-TC01 | [Sesuai SKPL] | Normal: Mengajukan pengaduan pesanan beserta lampiran foto bukti | 1. Jalankan pengujian `flutter test test/features/complaints_test.dart test/features/order_actions_test.dart`.<br>2. Pilih pesanan berstatus lunas pada layar riwayat pembeli.<br>3. Isi alasan pengaduan, deskripsi masalah, dan lampirkan foto bukti lalu kirim. | Alasan pengaduan valid, deskripsi ≥ 10 karakter, dan 1–2 berkas foto bukti | Pengaduan tersimpan, status pesanan berubah menjadi dalam sengketa (*complained*), dan pencairan dana penjual ditahan. | Pass — alur pengiriman pengaduan pada antarmuka dan layanan berjalan sesuai spesifikasi. | Pass |
+| UC06-TC02 | [Sesuai SKPL] | Alternatif 1: Validasi input dan penolakan pengaduan tidak memenuhi syarat | 1. Kirim formulir pengaduan dengan deskripsi terlalu pendek (< 10 karakter) atau lampiran melebihi batas maksimal.<br>2. Simulasikan pengajuan pengaduan melewati batas waktu ketentuan. | Deskripsi < 10 karakter, > 2 lampiran bukti, atau pesanan di luar jendela pengaduan | Sistem menolak pengajuan dan menampilkan pesan validasi yang sesuai tanpa mengubah status pesanan. | Pass — validasi klien dan server menolak seluruh masukan tidak valid sesuai aturan bisnis. | Pass |
+| UC06-TC03 | [Sesuai SKPL] | Alternatif 2: Pemantauan keputusan pengaduan dan *auto-refund* toko tutup 24 jam | 1. Uji tampilan status pengaduan saat disetujui, ditolak, maupun menunggu keputusan.<br>2. Jalankan pengujian `jobs.test.ts` pada skenario `closed-shop` dengan selisih waktu 24 jam tanpa tanggapan penjual. | Kategori pengaduan `toko_tutup` yang melewati batas waktu 24 jam | Status sengketa tampil akurat pada aplikasi dan sistem memproses *auto-refund* penuh secara otomatis tepat setelah 24 jam. | Pass — tampilan status sengketa dan mekanisme *auto-refund* 24 jam berjalan akurat tanpa duplikasi pengembalian dana. | Pass |
+
 <br>
 
 ## 4.5 Pengujian Kebutuhan Non-Fungsional (KNF)
@@ -500,6 +529,7 @@ Tabel 4.5. Hasil Pengujian KNF
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | *KNF01-TC01* | *KNF01* | *Reliability* | *Tidak ada data hilang/ganda saat jaringan putus di tengah transaksi* | *Simulasi putus koneksi saat bayar, lalu cek status di DB* | *[Hasil aktual]* | *Pass/Fail* |
 | *KNF02-TC01* | *KNF02* | *Security* | *Password tersimpan sebagai hash, bukan plain-text* | *Inspeksi tabel pengguna di DB* | *[...]* | *Pass/Fail* |
+| KNF05-TC01 | KNF05 | *Response time* / Latensi notifikasi *real-time* | Latensi pengiriman notifikasi perubahan status pesanan ke klien ≤ 2 detik (2.000 ms) | Pengukuran latensi 30 sampel berurutan menggunakan skrip benchmark TypeScript (`npx tsx test/benchmark/notification-latency.ts`) pada jalur Push Outbox (`LISTEN/NOTIFY`) ke WebSocket serta jalur End-to-End (transaksi hingga klien WS) | 0 kegagalan dari 30 sampel. Jalur Push Outbox ke WebSocket: p50 = 8,12 ms, p95 = 11,52 ms, maks = 12,56 ms. Jalur End-to-End: p50 = 36,45 ms, p95 = 49,93 ms, maks = 50,34 ms (jauh di bawah batas 2.000 ms). | Pass |
 | *KNFXX-TC01* | *KNFXX* | *Response time* | *Halaman tampil ≤ 4 detik* | *Chrome DevTools, 5 kali ukur, ambil rata-rata* | *[Rata-rata ... detik, maks ... detik]* | *Pass/Fail* |
 | *...* | *...* | *...* | *...* | *...* | *...* | *...* |
 
@@ -516,9 +546,14 @@ Tabel 4.6. Bukti Hasil Pengujian
 | *C02-UT01 – C02-UT08* | *[Sisipkan hasil keluaran unit test]* |
 | *C02 (coverage)* | *[Sisipkan laporan coverage kelas C02]* |
 | *INT-TC01* | *[Sisipkan bukti pengujian integrasi]* |
+| *INT-TC06* | <img src="./assets/int-tc06-tc09-backend.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
+| *INT-TC09* | <img src="./assets/int-tc09-autorefund.png" alt="INT-TC09 Auto-Refund 24 Jam Pengaduan Toko Tutup" width="400"> |
+| UC04-TC01 – UC04-TC02, UC06-TC01 – UC06-TC03 | <img src="./assets/uc04-uc06-flutter-test.png" alt="UC04 dan UC06 Pengujian Unit dan Widget Flutter" width="400"> |
 | *UC01-TC01* | *[Sisipkan tangkapan layar UC01-TC01 sesuai prosedur pengujian]* |
 | *UC01-TC02* | *[Sisipkan tangkapan layar UC01-TC02 sesuai prosedur pengujian]* |
 | *KNF01-TC01* | *[Sisipkan bukti pengukuran parameter KNF01-TC01]* |
+| KNF05-TC01 | <img src="./assets/knf05-tc01-latency.jpeg" alt="KNF05-TC01 Pengukuran Latensi Notifikasi Real-Time" width="400">
+|
 | *...* | *...* |
 
 <br>
