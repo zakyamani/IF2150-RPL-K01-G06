@@ -202,6 +202,7 @@
 | _18-11-2026_ | _Devina Athalia Putri Kusumah_ | _Mengerjakan Bab 1 dan Bab 2_                            | _1 Jam_      | _Done_ | _-_ |
 | _18-11-2026_ | _Fathar Atandra Denaya_ | _Mengerjakan dokumen milestone bagian 3.1, 3.2, 3.3, dan 3.4_       | _1 Jam_      | _Done_ | _-_ |
 | _20-11-2026_ | _Devina Athalia Putri Kusumah_ | _Melaksanakan serta melakukan dokumentasi pengujian integrasi (INT-TC06, INT-TC09), pengujian use case (UC04, UC06), serta pengujian non-fungsional (KNF02-TC01, KNF05-TC01)._                            | _2 Jam_      | _Done_ | _-_ |
+| _20-11-2026_ | _Fathar Atandra Denaya_ | _Mengerjakan dokumen milestone bagian 4.3, 4.4.1 dan 4.4.2_       | _3 Jam_      | _Done_ | _-_ |
 
 
 ---
