@@ -487,7 +487,8 @@ Tabel 4.3.1. Daftar Antarmuka Antarkomponen
 
 | ID Antarmuka | Komponen Asal | Komponen Tujuan | Jenis Batas | Test Case |
 | :--- | :--- | :--- | :--- | :--- |
-| *I-01* | *KeranjangController* | *Keranjang (Model)* | *Controller - Model* | *INT-TC01, INT-TC02* |
+| I-01 | `OfferFormController` / `SellerController` | `OfferService` / Basis data PostgreSQL | Controller–Service–Model–Basis data | INT-TC01 |
+| I-02 | `CatalogController` | `CatalogService` / Basis data PostgreSQL | Controller–Service–Model–Basis data | INT-TC02 |
 | *I-02* | *Pesanan (Model)* | *Database* | *Aplikasi - Basis data* | *INT-TC03* |
 | *I-03* | *PaymentGatewayAdapter* | *Payment Gateway (dummy)* | *Aplikasi - Sistem eksternal* | *INT-TC04, INT-TC05* |
 | *[I-XX]* | *[Komponen asal]* | *[Komponen tujuan]* | *[Jenis batas]* | *[ID test case]* |
@@ -499,7 +500,8 @@ Tabel 4.3.2. Hasil Pengujian Integrasi
 
 | ID Pengujian | ID Antarmuka | Skenario | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| *INT-TC01* | *I-01* | *Normal: tambah item ke keranjang* | *Panggil `tambahItem()` melalui KeranjangController dengan produk valid* | *Item tersimpan pada Keranjang dan tampil pada daftar item* | *[Hasil aktual]* | *Pass/Fail* |
+| INT-TC01 | I-01 | Normal: penjual membuat dan mengelola penawaran | Login sebagai `seller@demo.sisarasa.invalid`, buka menu penawaran, tekan **Buat penawaran**, isi kategori, kuota, harga normal/diskon, alergen, jadwal *pickup*, batas konsumsi, serta konfirmasi kelayakan, lalu tekan **Simpan penawaran** | Penawaran tervalidasi dan tersimpan pada basis data, kemudian ditampilkan pada daftar penawaran penjual beserta kuota dan jadwalnya | Penawaran berhasil dibuat dan daftar penjual menampilkan penawaran beserta status dan ringkasan kuota. Bukti dilakukan melalui antarmuka Android nyata pada emulator API 37. | Pass |
+| INT-TC02 | I-02 | Normal: penawaran penjual muncul pada katalog pembeli secara anonim | Logout dari akun penjual, login sebagai `buyer@demo.sisarasa.invalid`, buka katalog, pilih penawaran yang baru dibuat, dan buka rincian paket | Penawaran tampil pada katalog dengan kategori, diskon, kuota, dan jadwal *pickup*; identitas serta alamat presisi gerai tidak ditampilkan sebelum pembayaran | Penawaran baru tampil pada katalog pembeli dan rincian paket menampilkan informasi yang diperlukan tanpa identitas toko. | Pass |
 | *INT-TC03* | *I-02* | *Normal: simpan pesanan* | *Buat pesanan, lalu baca ulang langsung dari basis data* | *Baris pesanan ada dengan nilai total dan status yang sama* | *[...]* | *Pass/Fail* |
 | *INT-TC05* | *I-03* | *Gagal: gateway mengembalikan status gagal* | *Kirim otorisasi dengan saldo dummy tidak cukup* | *Status pesanan tidak berubah menjadi "Lunas", pesan gagal diteruskan ke pengguna* | *[...]* | *Pass/Fail* |
 | INT-TC06 | I-06 | Normal & Negatif: Otentikasi tiket soket *single-use*, pengiriman *real-time* `LISTEN/NOTIFY`, deduplikasi, *catch-up* saat putus koneksi, penutupan soket saat *logout*, serta konsistensi *cursor* konkuren | Jalankan `node --import tsx --test --test-concurrency=1 test/integration/notifications.test.ts` dengan basis data PostgreSQL nyata (`sisarasa_test`) dan koneksi klien WebSocket | Tiket kedaluwarsa/pakai ulang ditolak, event terkirim satu kali tanpa duplikasi, pesan tertunda tersinkronisasi saat rekoneksi, soket tertutup saat *logout*, dan *cursor* tidak melompati transaksi konkuren | Pass — seluruh 4 skenario pengujian integrasi WebSocket dan *durable inbox* lulus (`pass 4, fail 0`). | Pass |
@@ -512,22 +514,32 @@ Tabel 4.3.2. Hasil Pengujian Integrasi
 
 Pengujian use case dilakukan pada seluruh skenario normal dan alternatif sesuai Subbab 4.4 SKPL, dengan minimal satu test case untuk setiap skenario. Kolom ID KF menunjukkan KF yang diverifikasi oleh test case tersebut.
 
-### 4.4.1 Use Case [Nama Use Case 1]
+### 4.4.1 Use Case Membuat dan Mengelola Penawaran
 
-**ID Use Case:** *[UC01 sesuai SKPL]*  
-**Nama Use Case:** *[Nama use case sesuai SKPL]*
+**ID Use Case:** UC01  
+**Nama Use Case:** Membuat dan Mengelola Penawaran
 
-Tabel 4.4.1. Hasil Pengujian Use Case [UC01]
+Tabel 4.4.1. Hasil Pengujian Use Case UC01
 
 | ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| *UC01-TC01* | *KF01* | *Normal* | *1. Buka halaman login.<br>2. Masukkan kredensial.<br>3. Klik tombol "Login".* | *User: rpl@gmail.com<br>Pass: 123456* | *Pengguna diarahkan ke Halaman Dashboard.* | *Pengguna diarahkan ke Halaman Dashboard sesuai hasil yang diharapkan.* | *Pass* |
-| *UC01-TC02* | *KF01* | *Alternatif 1: [Nama skenario]* | *[Langkah-langkah pengujian]* | *[Data masukan]* | *[Hasil yang diharapkan]* | *[Hasil aktual]* | *[Pass/Fail. Jika Fail: penjelasan dan solusi]* |
-| *...* | *...* | *...* | *...* | *...* | *...* | *...* | *...* |
+| UC01-TC01 | KF03 | Normal: Membuat Penawaran Baru | 1. Login sebagai penjual.<br>2. Buka menu penawaran dan tekan **Buat penawaran**.<br>3. Isi kategori, kuota, harga normal, harga diskon, alergen, jadwal *pickup*, batas konsumsi, dan konfirmasi kelayakan.<br>4. Tekan **Simpan penawaran**. | Kategori `Roti & Kudapan`; kuota `5`; harga normal `Rp100.000`; harga diskon `Rp40.000`; alergen `Gluten` dan `Susu`; jendela *pickup* valid; batas konsumsi setelah waktu *pickup*; konfirmasi kelayakan aktif | Sistem memvalidasi kelengkapan data, rentang diskon, dan jadwal; penawaran diterbitkan ke katalog aktif serta ditampilkan pada daftar penjual | Formulir valid berhasil disimpan dan penawaran tampil pada daftar penjual beserta kuota dan jadwalnya | Pass |
+| UC01-TC02 | KF03 | Alternatif 1: Harga Diskon di Luar Rentang yang Diizinkan | 1. Login sebagai penjual dan buka formulir penawaran baru.<br>2. Isi data kuota dan jadwal yang valid.<br>3. Masukkan harga diskon yang menghasilkan diskon di luar rentang 50–70%.<br>4. Tekan **Simpan penawaran**. | Harga normal `Rp100.000`; harga diskon `Rp80.000` | Sistem menolak penyimpanan dan menampilkan pesan kesalahan bahwa harga paket harus berkisar 30–50% dari harga normal | Sistem menolak input diskon `Rp80.000` dan menampilkan pesan batas diskon pada formulir | Pass |
+| UC01-TC03 | KF04 | Alternatif: Mengubah Penawaran Aktif yang Belum Terjual | 1. Login sebagai penjual.<br>2. Pilih penawaran aktif yang belum memiliki penahanan atau pembayaran.<br>3. Tekan **Ubah**.<br>4. Perbarui kuota atau rincian yang dapat diedit.<br>5. Tekan **Simpan penawaran**. | Penawaran aktif tanpa reservasi atau pembayaran; kuota/rincian baru yang masih memenuhi batas validasi | Penawaran dapat diperbarui dan perubahan ditampilkan pada daftar penjual serta katalog | Perubahan penawaran berhasil disimpan dan hasil perubahannya tampil pada daftar penjual | Pass |
+| UC01-TC04 | KF04 | Alternatif 2: Penawaran Terkunci atau Ditutup | 1. Login sebagai penjual dan buka daftar penawaran.<br>2. Pilih penawaran yang sedang ditahan/dibayar atau sudah ditutup.<br>3. Amati tombol **Ubah** dan **Tutup**. | Penawaran yang tidak lagi dapat diubah | Sistem menonaktifkan perubahan dan penutupan penawaran yang telah ditahan, dibayar, atau ditutup, serta menampilkan pesan pembatasan | Pada penawaran yang telah dibayar, kontrol ubah/tutup tidak aktif dan pesan pembatasan terlihat | Pass |
 
-### 4.4.2 Use Case [Nama Use Case 2]
+### 4.4.2 Use Case Menelusuri Penawaran Anonim
 
-*[Lanjutkan untuk seluruh use case dengan pola yang sama, hingga 4.4.N.]*
+**ID Use Case:** UC02  
+**Nama Use Case:** Menelusuri Penawaran Anonim
+
+Tabel 4.4.2. Hasil Pengujian Use Case UC02
+
+| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC02-TC01 | KF06, KF07, KF08 | Normal: Mencari Paket dengan Filter Alergen | 1. Login sebagai pembeli dan buka katalog.<br>2. Tekan **Filter alergen**.<br>3. Pilih alergen yang ingin dihindari dan tekan **Simpan filter**.<br>4. Buka salah satu penawaran pada hasil katalog. | Profil filter alergen pembeli dan daftar penawaran dengan deklarasi alergen | Penawaran yang mengandung alergen pilihan disembunyikan; katalog dan rincian paket tetap menampilkan diskon, kuota, jadwal *pickup*, serta identitas toko yang masih anonim | Filter alergen berhasil diterapkan, hasil filter tidak memuat penawaran yang bertentangan, dan rincian paket menampilkan informasi harga dan jadwal tanpa identitas gerai | Pass |
+| UC02-TC02 | KF06, KF07 | Alternatif 1: Tidak Ada Penawaran yang Cocok dengan Filter | 1. Login sebagai pembeli.<br>2. Buka **Filter alergen**.<br>3. Pilih kombinasi alergen hingga tidak ada penawaran yang cocok.<br>4. Simpan filter dan kembali ke katalog. | Kombinasi filter yang menghilangkan seluruh penawaran tersedia | Sistem menampilkan keadaan kosong dan teks *disclaimer* risiko kontaminasi silang | Katalog menampilkan pesan tidak ada paket yang cocok beserta disclaimer kontaminasi silang | Pass |
+| UC02-TC03 | KF06, KF08 | Alternatif 2: Pembeli Tidak Mengizinkan Akses Lokasi | 1. Buka katalog sebagai pembeli.<br>2. Tekan **Hitung jarak**.<br>3. Tolak izin lokasi pada dialog Android.<br>4. Amati katalog setelah penolakan. | Izin lokasi Android bernilai ditolak | Sistem tetap menampilkan katalog tanpa urutan jarak, memberikan pesan bahwa lokasi tidak diberikan, dan tetap memperbolehkan pembukaan rincian penawaran | Pesan penolakan lokasi tampil, katalog tetap dapat dibuka, dan perhitungan jarak tidak ditampilkan | Pass |
 
 ### 4.4.4 Use Case Memantau Pesanan Masuk
 
@@ -564,7 +576,7 @@ Tabel 4.5. Hasil Pengujian KNF
 
 | ID Pengujian | ID KNF | Parameter | Target Terukur | Metode dan Alat | Hasil Aktual | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| *KNF01-TC01* | *KNF01* | *Security* | *Password tersimpan sebagai hash, bukan plain-text* | *Inspeksi tabel pengguna di DB* | *[...]* | *Pass/Fail* |
+| KNF01-TC01 | KNF01 | Performance / Lamanya pemrosesan penawaran dan katalog | Pengujian dijalankan terhadap basis data dan layanan nyata dengan target waktu respons yang telah ditetapkan pada desain pengujian performa; hasil akhir belum dilampirkan pada sesi pengujian saat ini | Jalankan `src/scripts/benchmark.sh`, lalu ambil hasil `EXPLAIN (ANALYZE, BUFFERS)` pada query katalog aktif; catat latensi total, latensi server, kegagalan, serta plan PostgreSQL | Belum dijalankan/dilampirkan oleh penguji pada tahap penulisan ini. Baris ini tidak dinyatakan Pass atau Fail sebelum hasil benchmark dan `EXPLAIN` tersedia. | Belum diuji |
 | *KNF02-TC01* | KNF02 | Reliability | Tidak ada transaksi, stok, pembayaran, maupun pesan yang hilang atau diproses ganda saat terjadi kegagalan worker, restart API, atau putus koneksi | Pengujian integrasi otomatis (`node --import tsx --test`) pada skenario *persistent worker catch-up* tanpa pelepasan stok ganda, *retry/expired lease* dengan penyelesaian tunggal, serta pemulihan API tanpa kehilangan event *inbox/outbox* | Pass — seluruh 3 skenario pengujian ketahanan transaksi dan pemulihan kegagalan lulus tanpa duplikasi maupun kehilangan data (`pass 3, fail 0`). | Pass |
 | KNF05-TC01 | KNF05 | *Response time* / Latensi notifikasi *real-time* | Latensi pengiriman notifikasi perubahan status pesanan ke klien ≤ 2 detik (2.000 ms) | Pengukuran latensi 30 sampel berurutan menggunakan skrip benchmark TypeScript (`npx tsx test/benchmark/notification-latency.ts`) pada jalur Push Outbox (`LISTEN/NOTIFY`) ke WebSocket serta jalur End-to-End (transaksi hingga klien WS) | 0 kegagalan dari 30 sampel. Jalur Push Outbox ke WebSocket: p50 = 8,12 ms, p95 = 11,52 ms, maks = 12,56 ms. Jalur End-to-End: p50 = 36,45 ms, p95 = 49,93 ms, maks = 50,34 ms (jauh di bawah batas 2.000 ms). | Pass |
 | *KNFXX-TC01* | *KNFXX* | *Response time* | *Halaman tampil ≤ 4 detik* | *Chrome DevTools, 5 kali ukur, ambil rata-rata* | *[Rata-rata ... detik, maks ... detik]* | *Pass/Fail* |
@@ -585,13 +597,19 @@ Tabel 4.6. Bukti Hasil Pengujian
 | C04 (coverage) | <img src="./assets/C04-coverage.png" alt="C04 Coverage" width="400"> |
 | C08 (coverage) | <img src="./assets/C08-coverage.png" alt="C08 Coverage" width="400"> |
 | C09 (coverage) | <img src="./assets/C09-coverage.png" alt="C09 Coverage" width="400"> |
-| *INT-TC01* | *[Sisipkan bukti pengujian integrasi]* |
+| INT-TC01 | <img src="./assets/FatharINT-TC01-1-form-penawaran.png.png" alt="INT-TC01 Formulir Penawaran" width="400"><br><img src="./assets/FatharINT-TC01-2-penawaran-terbit.png.png" alt="INT-TC01 Penawaran Terbit" width="400"><br><img src="./assets/FatharINT-TC01-3-daftar-penjual.png.png" alt="INT-TC01 Daftar Penawaran Penjual" width="400"> |
+| INT-TC02 | <img src="./assets/FatharINT-TC02-1-katalog.png.png" alt="INT-TC02 Katalog Penawaran Pembeli" width="400"><br><img src="./assets/FatharINT-TC02-2-rincian-anonim.png.png" alt="INT-TC02 Rincian Penawaran Anonim" width="400"> |
 | *INT-TC06* | <img src="./assets/int-tc06-tc09-backend.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
 | *INT-TC09* | <img src="./assets/int-tc09-autorefund.png" alt="INT-TC09 Auto-Refund 24 Jam Pengaduan Toko Tutup" width="400"> |
 | UC04-TC01 – UC04-TC02, UC06-TC01 – UC06-TC03 | <img src="./assets/uc04-uc06-flutter-test.png" alt="UC04 dan UC06 Pengujian Unit dan Widget Flutter" width="400"> |
-| *UC01-TC01* | *[Sisipkan tangkapan layar UC01-TC01 sesuai prosedur pengujian]* |
-| *UC01-TC02* | *[Sisipkan tangkapan layar UC01-TC02 sesuai prosedur pengujian]* |
-| *KNF01-TC01* | *[Sisipkan bukti pengukuran parameter KNF01-TC01]* |
+| UC01-TC01 | <img src="./assets/FatharUC01-TC01-1-form-valid.png.png" alt="UC01-TC01 Form Penawaran Valid" width="400"><br><img src="./assets/FatharUC01-TC01-2-sukses.png.png" alt="UC01-TC01 Penawaran Berhasil Disimpan" width="400"> |
+| UC01-TC02 | <img src="./assets/FatharUC01-TC02-2-pesan-ditolak.png.png" alt="UC01-TC02 Pesan Diskon Ditolak" width="400"> |
+| UC01-TC03 | <img src="./assets/FatharUC01-TC03-1-ubah.png.png" alt="UC01-TC03 Form Ubah Penawaran" width="400"><br><img src="./assets/FatharUC01-TC03-2-hasil-perubahan.png.png" alt="UC01-TC03 Hasil Perubahan Penawaran" width="400"> |
+| UC01-TC04 | <img src="./assets/FatharUC01-TC04-1-penawaran-terkunci.png.png" alt="UC01-TC04 Penawaran Terkunci atau Ditutup" width="400"> |
+| UC02-TC01 | <img src="./assets/FatharUC02-TC01-2-filter.png.png" alt="UC02-TC01 Filter Alergen" width="400"><br><img src="./assets/FatharUC02-TC01-3-hasil-filter.png.png" alt="UC02-TC01 Hasil Filter Alergen" width="400"><br><img src="./assets/FatharUC02-TC01-4-rincian.png.png" alt="UC02-TC01 Rincian Penawaran" width="400"> |
+| UC02-TC02 | <img src="./assets/FatharUC02-TC02-1-kombinasi-alergen.png.png" alt="UC02-TC02 Kombinasi Alergen" width="400"><br><img src="./assets/FatharUC02-TC02-2-tidak-ada-hasil.png.png" alt="UC02-TC02 Tidak Ada Penawaran Cocok" width="400"> |
+| UC02-TC03 | <img src="./assets/FatharUC02-TC03-2-lokasi-ditolak.png.png" alt="UC02-TC03 Lokasi Ditolak" width="400"><br><img src="./assets/FatharUC02-TC03-3-katalog-tetap-berfungsi.png.png" alt="UC02-TC03 Katalog Tetap Berfungsi" width="400"> |
+| KNF01-TC01 | Belum dilampirkan: jalankan benchmark dan lampirkan hasil `src/artifacts/benchmark.json` serta bukti `EXPLAIN (ANALYZE, BUFFERS)` |
 | KNF02-TC01 | <img src="./assets/knf02-tc01-reliability.png" alt="KNF02-TC01 Pengujian Reliabilitas Transaksi dan Pemulihan" width="400"> |
 | KNF05-TC01 | <img src="./assets/knf05-tc01-latency.jpeg" alt="KNF05-TC01 Pengukuran Latensi Notifikasi Real-Time" width="400">
 |
@@ -610,7 +628,11 @@ Tabel 5.1. Matriks Kerunutan KF terhadap Implementasi dan Pengujian
 | KF ID | KNF Terkait | Use Case ID | Kelas Terkait | Implementasi File Terkait | Test Case (UC) | Test Case (Unit/Integrasi/KNF) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | *KF05* | *KNF01* | *UC03* | *C02 - Pesanan* | *`src/...`* | *UC03-TC01* | *C02-UT05, INT-TC04, KNF01-TC01* |
-| *KF01* | *-* | *UC01<br>UC02* | *[C01 - Nama kelas]<br>[C02 - Nama kelas]* | *[path/ke/file1]<br>[path/ke/file2]* | *UC01-TC01, UC01-TC02<br>UC02-TC01* | *-* |
+| KF03 | KNF01 | UC01 | C03 - Penawaran | `src/backend/src/modules/offers/`<br>`src/android-app/lib/features/seller/offer_form_screen.dart`<br>`src/android-app/lib/features/seller/offer_form_controller.dart` | UC01-TC01, UC01-TC02 | C03-UT01 s.d. C03-UT10, INT-TC01 |
+| KF04 | KNF01 | UC01 | C03 - Penawaran | `src/backend/src/modules/offers/`<br>`src/android-app/lib/features/seller/offers_screen.dart` | UC01-TC03, UC01-TC04 | C03-UT08 s.d. C03-UT10, INT-TC01 |
+| KF06 | -* | UC02 | C02 - Pembeli, C03 - Penawaran | `src/backend/src/modules/catalog/`<br>`src/android-app/lib/features/buyer/catalog_screen.dart`<br>`src/android-app/lib/features/buyer/offer_detail_screen.dart` | UC02-TC01, UC02-TC02 | C02-UT01 s.d. C02-UT04, C03-UT11, INT-TC02 |
+| KF07 | -* | UC02 | C02 - Pembeli, C03 - Penawaran | `src/backend/src/modules/catalog/`<br>`src/android-app/lib/features/buyer/allergen_screen.dart` | UC02-TC01, UC02-TC02 | C02-UT03, C02-UT04, C03-UT11, INT-TC02 |
+| KF08 | -* | UC02 | C02 - Pembeli, C03 - Penawaran | `src/backend/src/modules/catalog/repository.ts`<br>`src/android-app/lib/features/buyer/catalog_controller.dart` | UC02-TC03 | C03-UT11, INT-TC02 |
 | *KF02* | *[KNFXX atau -]* | *[UCXX]* | *[CXX - Nama kelas]* | *[path/ke/file]* | *[UCXX-TCYY]* | *[CXX-UTYY, INT-TCYY, KNFXX-TCYY atau -]* |
 | *KFXX* | *-* | *[UCXX atau -]* | *[CXX - Nama kelas atau -]* | *Tidak diimplementasikan: [alasan]* | *-* | *-* |
 | *...* | *...* | *...* | *...* | *...* | *...* | *...* |
