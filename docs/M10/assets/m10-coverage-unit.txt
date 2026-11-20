@@ -1,0 +1,121 @@
+SisaRasa M10 · 20 November 2026
+$ node --import tsx --experimental-test-coverage --test-coverage-include="src/modules/**/*.ts" --test --test-concurrency=1 test/unit/*.test.ts
+
+ok 1 - C01-UT01 getIdPenjual: valid seller profile has required fields
+ok 2 - C01-UT02 getProfil: rejects incomplete profile
+ok 3 - C01-UT03 update profile: masks cannot be asserted but bank destination boundaries are validated
+ok 4 - C09-UT01 ajukanPengaduan: reason, description, and evidence limits are validated
+ok 5 - C09-UT02 prosesPengaduan: decision requires approved boolean and response
+ok 6 - C09-UT03 rejects duplicate evidence and more than two evidence files
+ok 7 - C08-UT04 pickup schemas validate OTP format and reject invalid QR kind
+ok 8 - C09-UT12 complaint can be submitted without evidence files
+ok 9 - C02-UT01 getIdPembeli: buyer preference structure is accepted
+ok 10 - C02-UT02 getPreferensiAlergen: empty preference is valid
+ok 11 - C02-UT03 updatePreferensi: allergen list rejects duplicate values
+ok 12 - C02-UT04 updatePreferensi: rejects more than eight allergens
+ok 13 - C06-UT01 generateQRIS: invoice payload can be encrypted and decrypted
+ok 14 - C06-UT02 generateQRIS: expired payment deadline is represented by past deadline
+ok 15 - C06-UT03 generateQRIS: rejects invalid encrypted invoice payload
+ok 16 - C03-UT06 OfferService.create requires complete seller profile and creates/audits offer
+ok 17 - C03-UT07 OfferService.create rejects incomplete profile and wrong role
+ok 18 - C03-UT08 OfferService.update enforces mutable active offer then updates it
+ok 19 - C03-UT09 OfferService.update rejects reserved, previously paid, closed, and missing offers
+ok 20 - C03-UT10 OfferService.close closes active offers and leaves already-closed offers unchanged
+ok 21 - C03-UT11 OfferService.list paginates and detail enforces seller scope
+ok 22 - C03-UT01 getIdPenawaran: valid offer details are returned
+ok 23 - C03-UT02 kurangiKuota: rejects quota zero and accepts lower boundary
+ok 24 - C03-UT03 getDetailPenawaran: valid detail is returned
+ok 25 - C03-UT04 ubahStatus: pickup window boundaries are enforced
+ok 26 - C03-UT05 validates discount, quota upper boundary, and safe-eat time
+ok 27 - C04-UT01 OrderRepository.read returns an order or undefined
+ok 28 - C04-UT02 OrderRepository.release updates inventory only when a held reservation exists
+ok 29 - C04-UT03 OrderService.list applies buyer scope and returns next cursor when more rows exist
+ok 30 - C04-UT04 OrderService.list applies seller scope and returns null cursor on final page
+ok 31 - C11-UT01 MetricsService.summary delegates to repository and returns definition
+ok 32 - C11-UT02 OrderService.list decodes history cursor and encodes cursor for a following page
+ok 33 - C04-UT05 OrderService.detail exposes buyer payment action without revealing unpaid merchant
+ok 34 - C04-UT06 OrderService.detail exposes seller pickup/cancel actions and paid merchant details
+ok 35 - C04-UT07 OrderService.detail offers review for completed buyer order
+ok 36 - C04-UT08 OrderService.detail rejects access by unrelated user
+ok 37 - C04-UT09 OrderService.processNoShow skips ineligible orders and open complaints
+ok 38 - C04-UT10 OrderService.processNoShow closes expired paid order and schedules payout
+ok 39 - C04-UT11 OrderService.checkout creates order, reserves quota and authorizes payment
+ok 40 - C04-UT12 OrderService.checkout rejects wrong role, unavailable offers, and allergen conflicts
+ok 41 - C04-UT13 OrderService.cancelBySeller refunds eligible paid order
+ok 42 - C04-UT14 OrderService.cancelBySeller rejects wrong role, non-owner, and invalid state
+ok 43 - C05-UT01 the simulation signs events with matching invoice values
+ok 44 - C05-UT02 the simulation rejects an unsupported outcome and invalid amount
+ok 45 - C08-UT05 PickupService.issue stores hashed/encrypted one-time credential
+ok 46 - C08-UT06 PickupService.credential returns active credential or undefined
+ok 47 - C08-UT07 PickupService.validate completes an order with valid QR and schedules payout
+ok 48 - C08-UT08 PickupService.validate rejects wrong seller, invalid QR, unavailable order and used credential
+ok 49 - C08-UT01 generateToken: secret token and encrypted credential are generated
+ok 50 - C08-UT02 validasiToken: valid encrypted token and OTP are decrypted
+ok 51 - C08-UT09 validasiToken: invalid or tampered values fail
+ok 52 - C08-UT03 tandaiDigunakan: OTP and QR payload formats are distinguishable
+ok 53 - C09-UT04 ComplaintService.open creates dispute and returns complaint view
+ok 54 - C09-UT05 ComplaintService.open enforces buyer, ownership, paid state, and pickup time
+ok 55 - C09-UT06 ComplaintService.autoRefund rejects non-due cases and refunds due store-closed complaint
+ok 56 - C09-UT07 ComplaintService.detail and list return complaint data with buyer/seller scopes
+ok 57 - C09-UT08 ComplaintService.decide approves complaint and triggers refund
+ok 58 - C09-UT11 ComplaintService.decide rejects complaint and restores paid status
+ok 59 - C09-UT09 ComplaintService.decide handles repeated decisions and negative cases
+ok 60 - C09-UT10 ComplaintService.decide rejects inconsistent dispute state
+ok 61 - C10-UT01 ReviewService.create saves a completed order review and audits it
+ok 62 - C10-UT02 ReviewService.create rejects an order awaiting pickup without writing a review
+ok 63 - integer discount and UTC time boundaries
+1..63
+# tests 63
+# pass 63
+# fail 0
+# skipped 0
+# duration_ms 3411.463854
+
+# start of coverage report
+# ------------------------------------------------------------------------------------
+# file                 | line % | branch % | funcs % | uncovered lines
+# ------------------------------------------------------------------------------------
+# src                  |        |          |         |
+#  modules             |        |          |         |
+#   auth               |        |          |         |
+#    repository.ts     |  68.89 |   100.00 |   40.00 | 6-8 13-20 22-24
+#    service.ts        |  38.51 |    75.00 |   50.00 | 8-9 12-100
+#   complaints         |        |          |         |
+#    repository.ts     |  96.88 |    83.33 |   80.00 | 13
+#    schema.ts         | 100.00 |   100.00 |  100.00 |
+#    service.ts        |  95.69 |    80.85 |  100.00 | 32-34 47-50 153-154
+#   media              |        |          |         |
+#    repository.ts     |  51.61 |   100.00 |   50.00 | 8-15 17-23
+#    service.ts        |  32.24 |    75.00 |   66.67 | 9-111
+#   merchants          |        |          |         |
+#    schema.ts         | 100.00 |   100.00 |  100.00 |
+#   metrics            |        |          |         |
+#    repository.ts     | 100.00 |   100.00 |  100.00 |
+#    service.ts        | 100.00 |   100.00 |  100.00 |
+#   offers             |        |          |         |
+#    repository.ts     | 100.00 |   100.00 |  100.00 |
+#    schema.ts         | 100.00 |   100.00 |  100.00 |
+#    service.ts        | 100.00 |    84.62 |  100.00 |
+#   orders             |        |          |         |
+#    repository.ts     | 100.00 |   100.00 |  100.00 |
+#    service.ts        |  99.65 |    90.91 |  100.00 | 99
+#   payments           |        |          |         |
+#    demo-gateway.ts   | 100.00 |   100.00 |  100.00 |
+#    refund-service.ts | 100.00 |    85.71 |  100.00 |
+#    repository.ts     |  93.10 |   100.00 |   80.00 | 16-17
+#    service.ts        |  41.21 |   100.00 |   50.00 | 10-11 25-32 34-41 43-50 52-132
+#   payouts            |        |          |         |
+#    repository.ts     |  44.12 |    75.00 |   66.67 | 7-25
+#    service.ts        |  66.13 |   100.00 |   71.43 | 23-31 33-44
+#   pickup             |        |          |         |
+#    repository.ts     |  88.46 |   100.00 |   75.00 | 13-15
+#    schema.ts         | 100.00 |   100.00 |  100.00 |
+#    service.ts        |  89.76 |    89.47 |  100.00 | 56-68
+#   reviews            |        |          |         |
+#    repository.ts     |  78.57 |   100.00 |   50.00 | 9-14
+#    schema.ts         | 100.00 |   100.00 |  100.00 |
+#    service.ts        |  59.74 |   100.00 |   85.71 | 26-56
+# ------------------------------------------------------------------------------------
+# all files            |  77.28 |    90.68 |   85.33 |
+# ------------------------------------------------------------------------------------
+# end of coverage report

@@ -1,0 +1,130 @@
+SisaRasa M10 · 20 November 2026
+Flutter 3.47.2 · emulator Android API 35 · backend/PostgreSQL lokal
+
+$ flutter analyze
+Analyzing android-app...
+No issues found! (ran in 1.3s)
+
+$ flutter test --reporter expanded
+00:00 +0: loading test/core/socket_client_test.dart
+00:00 +0: test/core/socket_client_test.dart: expired socket reconnect requests new single-use ticket bound to last cursor
+00:00 +1: test/core/socket_client_test.dart: expired socket reconnect requests new single-use ticket bound to last cursor
+00:00 +2: test/core/socket_client_test.dart: expired socket reconnect requests new single-use ticket bound to last cursor
+00:00 +3: test/core/socket_client_test.dart: expired socket reconnect requests new single-use ticket bound to last cursor
+00:00 +4: test/core/socket_client_test.dart: expired socket reconnect requests new single-use ticket bound to last cursor
+00:00 +5: test/core/socket_client_test.dart: expired socket reconnect requests new single-use ticket bound to last cursor
+00:00 +6: test/core/api_client_test.dart: host change cannot reuse an old refresh or clear a newer refresh flight
+00:00 +7: test/core/scope_regression_test.dart: stale unauthorized callback cannot erase the replacement server session
+00:00 +8: test/core/api_client_test.dart: binary authorization failure stays unauthorized rather than network unavailable
+00:00 +9: test/core/scope_regression_test.dart: cached paid ticket is visible before an unresponsive network request completes
+00:00 +10: test/core/api_client_test.dart: five simultaneous unauthorized requests rotate refresh exactly once
+00:00 +11: test/core/api_client_test.dart: revoked refresh clears local private state and reports unauthorized
+00:00 +12: test/core/api_client_test.dart: POST authentication retry preserves idempotency key
+00:00 +13: test/core/ticket_cache_test.dart: malformed versioned QR never survives encrypted cache decoding
+00:00 +14: test/core/ticket_cache_test.dart: ticket survives cache reconstruction but account B cannot read A
+00:00 +15: test/core/ticket_cache_test.dart: logout and account switch erase cached tickets
+00:01 +16: test/core/upload_test.dart: multipart auth retry clones file body and rotates token once
+00:01 +17: test/features/complaints_test.dart: reopened complaint restores exact request and media after pre-server failure
+00:01 +18: test/features/complaints_test.dart: reopened complaint restores exact request and media after lost response
+00:01 +19: test/features/complaints_test.dart: seller decision persists approved and rejected responses from server
+00:01 +20: test/features/complaints_test.dart: complaint requires meaningful description and max two staged images
+00:01 +21: test/features/complaints_test.dart: uncertain complaint retries same durable request and post-completion denial is explicit
+00:01 +22: test/features/complaints_test.dart: duplicate review acknowledged rather than offered again
+00:02 +23: test/features/history_notifications_test.dart: paid inbox event refreshes an already-open empty seller order history once
+00:02 +24: test/features/history_notifications_test.dart: paid inbox event refreshes an already-open empty seller order history once
+00:02 +25: test/features/notifications_test.dart: reconnect fetches missed cursor and logout discards account state
+00:03 +26: test/features/notifications_test.dart: permission denial does not block inbox and stale account taps cannot route
+00:03 +27: test/features/order_actions_test.dart: reopened cancellation restores custom reason and replays the original key
+00:04 +28: test/features/order_actions_test.dart: reopened cancellation restores custom reason and replays the original key
+00:04 +29: test/features/order_actions_test.dart: reopened cancellation restores custom reason and replays the original key
+00:05 +30: test/features/order_actions_test.dart: reopened cancellation restores custom reason and replays the original key
+00:05 +31: test/features/order_actions_test.dart: reopened cancellation restores custom reason and replays the original key
+00:05 +32: test/features/order_actions_test.dart: reopened cancellation restores custom reason and replays the original key
+00:05 +33: test/features/orders_test.dart: paid ticket shows reveal OTP and offline label at 320px text scale 2
+00:05 +34: test/features/pickup_test.dart: camera denied screen keeps manual OTP available
+00:05 +35: test/features/pickup_test.dart: camera denied screen keeps manual OTP available
+00:05 +36: test/features/pickup_test.dart: camera denied screen keeps manual OTP available
+00:05 +37: test/features/accessibility_regression_test.dart: selected category and complaint reason remain readable at 320px and twice text size
+00:06 +38: test/features/accessibility_regression_test.dart: selected category and complaint reason remain readable at 320px and twice text size
+00:06 +39: test/features/auth_test.dart: login preserves input on failure and fits 320px scaled keyboard
+00:06 +40: test/features/auth_test.dart: login preserves input on failure and fits 320px scaled keyboard
+00:07 +41: test/features/auth_test.dart: login preserves input on failure and fits 320px scaled keyboard
+00:07 +42: test/features/catalog_test.dart: anonymous detail shows complete safety information at 320px scale 2
+00:07 +43: test/features/auth_test.dart: seller session opens seller home
+00:07 +44: test/features/payout_test.dart: seller navigation exposes finance and full profile separately
+00:08 +45: test/features/seller_test.dart: shop upload attaches documented photo response and reloads its visible profile
+00:08 +46: test/features/seller_test.dart: shop upload attaches documented photo response and reloads its visible profile
+00:08 +47: test/features/seller_test.dart: all seller order states remain available in paginated history
+00:08 +48: test/features/seller_test.dart: closing offer requires explicit dialog confirmation
+00:09 +49: test/features/seller_test.dart: profile network failure shows retry and photo failure remains recoverable
+00:10 +50: test/features/seller_test.dart: fitness unchecked and two hour boundary use integer prices and UTC dates
+00:10 +51: test/features/seller_test.dart: offer conflict preserves draft and explains held or previously paid state
+00:10 +52: test/features/seller_test.dart: offer form has date selectors and unchecked fitness at 320px scale 2 with keyboard
+00:12 +53: test/features/user_surface_test.dart: normal sign-in has no server or network configuration controls
+00:12 +54: test/features/user_surface_test.dart: buyer account hides infrastructure but keeps logout and complaints
+00:13 +55: test/features/user_surface_test.dart: seller account hides infrastructure but keeps logout and complaints
+00:13 +56: test/features/user_surface_test.dart: developer screen is guarded even when opened directly
+00:13 +57: test/features/user_surface_test.dart: paid ticket shows QR and OTP early without raw identifiers or coordinates
+00:14 +58: test/visual_evidence_test.dart: render auth catalog and offer evidence
+00:16 +59: test/visual_evidence_test.dart: render checkout and cached ticket evidence at 320px scale 2
+00:16 +60: test/visual_evidence_test.dart: render seller dashboard form and order evidence
+00:17 +61: test/widget_test.dart: application shell renders SisaRasa
+00:17 +62: test/visual_evidence_test.dart: render complaint scanner fallback and finance evidence
+00:18 +63: All tests passed!
+
+$ ./scripts/native-test.sh integration_test/marketplace_test.dart
+id.sisarasa.sisarasa_app.MainActivityTest:.
+
+Time: 57.992
+
+OK (1 test)
+
+$ ./scripts/native-test.sh integration_test/process_recovery_test.dart
+id.sisarasa.sisarasa_app.MainActivityTest:.
+
+Time: 8.932
+
+OK (1 test)
+
+$ ./scripts/native-test.sh integration_test/notification_denied_test.dart
+id.sisarasa.sisarasa_app.MainActivityTest:.
+
+Time: 3.725
+
+OK (1 test)
+
+$ ./scripts/native-test.sh integration_test/notification_timeout_test.dart
+id.sisarasa.sisarasa_app.MainActivityTest:.
+
+Time: 9.694
+
+OK (1 test)
+
+$ ./scripts/native-test.sh integration_test/notification_navigation_test.dart
+id.sisarasa.sisarasa_app.MainActivityTest:.
+
+Time: 3.831
+
+OK (1 test)
+
+$ ./scripts/native-test.sh integration_test/offline_ticket_test.dart
+id.sisarasa.sisarasa_app.MainActivityTest:.
+
+Time: 3.532
+
+OK (1 test)
+
+▸ APK debug aplikasi
+$ flutter build apk --debug --target lib/main.dart --target-platform android-x64
+Running Gradle task 'assembleDebug'...                             19.1s
+✓ Built build/app/outputs/flutter-apk/app-debug.apk
+
+$ adb shell am start -W -n id.sisarasa.sisarasa_app/.MainActivity
+Starting: Intent { cmp=id.sisarasa.sisarasa_app/.MainActivity }
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+Status: ok
+LaunchState: UNKNOWN (0)
+Activity: id.sisarasa.sisarasa_app/.MainActivity
+TotalTime: 0
+WaitTime: 10
+Complete

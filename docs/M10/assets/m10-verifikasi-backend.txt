@@ -1,0 +1,131 @@
+SisaRasa M10 · 20 November 2026
+Backend Express dan PostgreSQL 15 lokal terpisah.
+
+$ npm run build
+> sisarasa-api@2.0.0 build
+> tsc
+
+$ npm run typecheck
+> sisarasa-api@2.0.0 typecheck
+> tsc --noEmit
+
+$ npm test
+ok 1 - E2E buyer/seller register, anonymous offer, retry checkout, signed payment, QR, review and settled ledger
+ok 2 - exact payment deadline: callback holds lock while the other waits
+ok 3 - exact payment deadline: worker holds lock while the other waits
+ok 4 - offer edit races checkout with locked inventory snapshots
+ok 5 - offer edit races seller with locked inventory snapshots
+ok 6 - offer edit races payment with locked inventory snapshots
+ok 7 - offer close races checkout with locked inventory snapshots
+ok 8 - offer close races seller with locked inventory snapshots
+ok 9 - offer close races payment with locked inventory snapshots
+ok 10 - pickup versus no-show: pickup wins without duplicate payout or metric
+ok 11 - pickup versus no-show: worker wins without duplicate payout or metric
+ok 12 - expired worker lease is stolen during its uncommitted payout; stale effects roll back
+ok 13 - registration normalizes email, hides hashes and atomically creates seller profile
+ok 14 - refresh rotates and replay revokes family including current access token
+ok 15 - logout and exact access expiry invalidate credentials; login limit persists
+ok 16 - offer boundary validation and anonymous catalog whitelist/filter
+ok 17 - held checkout blocks concurrent offer edits and close
+ok 18 - INT-TC01/02 offer edit, filter with zero matches, and explicit close reach the catalog
+ok 19 - complaint holds payout, enforces evidence ownership, and approval refunds gross once
+ok 20 - rejected complaint after pickup deadline consistently becomes no-show
+ok 21 - scan racing complaint or seller cancel keeps one consistent terminal state
+ok 22 - HTTP responses conform to the contract consumed by Android
+ok 23 - production refuses example secrets
+ok 24 - readiness reflects PostgreSQL and malformed JSON has request id
+ok 25 - database counter constraint and transaction rollback
+ok 26 - forward migration preserves existing data and repeated migration is non-destructive
+ok 27 - persistent worker catches up payment expiry and paid no-show without double stock release
+ok 28 - only closed-shop complaints auto-refund at exact 24h; other disputes remain held
+ok 29 - lost job acknowledgement rolls back payout; retry and expired lease settle once
+ok 30 - real worker SIGTERM drains an in-flight transaction and restart does not duplicate settlement
+ok 31 - INT-TC12 seller profile persists and rejects buyer access
+ok 32 - INT-TC11 order history scopes buyer and seller and exposes status audit
+ok 33 - disk-full failure returns unavailable without a committed media reference
+ok 34 - private shop images normalize metadata and require paid reveal rights
+ok 35 - upload rejects spoofed MIME, SVG, huge bytes/pixels and foreign evidence
+ok 36 - PNG/WebP normalize successfully and staged orphans are retained for 24 hours
+ok 37 - short-lived single-use socket ticket prevents reuse and expiry
+ok 38 - durable inbox catches up disconnects; LISTEN/NOTIFY delivery dedupes and logout closes socket
+ok 39 - recreated API delivers committed inbox/outbox without loss
+ok 40 - recipient cursor cannot skip an earlier transaction when a later writer overtakes it
+ok 41 - 20 checkouts for one package reserve exactly one; retry recovers same order
+ok 42 - signed callbacks reject identity/amount forgery and duplicate success has one effect
+ok 43 - payment at exact expiry releases stock once and cannot resurrect cancelled order
+ok 44 - audit storage failure rolls back payment and can safely retry
+ok 45 - KNF01-TC01 dropped payment response is recoverable without double settlement
+ok 46 - QR and OTP race completes once and schedules exactly one payout
+ok 47 - OTP attempts persist, block sixth attempt, bind to order and reset after window
+ok 48 - pickup start is inclusive and end exclusive; malformed QR is recoverable
+ok 49 - INT-TC10 review is completed-only, unique, and merchant reviews require reveal rights
+ok 50 - operator backup restores paid credentials/media and recovers original services on failure
+ok 51 - C01-UT01 getIdPenjual: valid seller profile has required fields
+ok 52 - C01-UT02 getProfil: rejects incomplete profile
+ok 53 - C01-UT03 update profile: masks cannot be asserted but bank destination boundaries are validated
+ok 54 - C09-UT01 ajukanPengaduan: reason, description, and evidence limits are validated
+ok 55 - C09-UT02 prosesPengaduan: decision requires approved boolean and response
+ok 56 - C09-UT03 rejects duplicate evidence and more than two evidence files
+ok 57 - C08-UT04 pickup schemas validate OTP format and reject invalid QR kind
+ok 58 - C09-UT12 complaint can be submitted without evidence files
+ok 59 - C02-UT01 getIdPembeli: buyer preference structure is accepted
+ok 60 - C02-UT02 getPreferensiAlergen: empty preference is valid
+ok 61 - C02-UT03 updatePreferensi: allergen list rejects duplicate values
+ok 62 - C02-UT04 updatePreferensi: rejects more than eight allergens
+ok 63 - C06-UT01 generateQRIS: invoice payload can be encrypted and decrypted
+ok 64 - C06-UT02 generateQRIS: expired payment deadline is represented by past deadline
+ok 65 - C06-UT03 generateQRIS: rejects invalid encrypted invoice payload
+ok 66 - C03-UT06 OfferService.create requires complete seller profile and creates/audits offer
+ok 67 - C03-UT07 OfferService.create rejects incomplete profile and wrong role
+ok 68 - C03-UT08 OfferService.update enforces mutable active offer then updates it
+ok 69 - C03-UT09 OfferService.update rejects reserved, previously paid, closed, and missing offers
+ok 70 - C03-UT10 OfferService.close closes active offers and leaves already-closed offers unchanged
+ok 71 - C03-UT11 OfferService.list paginates and detail enforces seller scope
+ok 72 - C03-UT01 getIdPenawaran: valid offer details are returned
+ok 73 - C03-UT02 kurangiKuota: rejects quota zero and accepts lower boundary
+ok 74 - C03-UT03 getDetailPenawaran: valid detail is returned
+ok 75 - C03-UT04 ubahStatus: pickup window boundaries are enforced
+ok 76 - C03-UT05 validates discount, quota upper boundary, and safe-eat time
+ok 77 - C04-UT01 OrderRepository.read returns an order or undefined
+ok 78 - C04-UT02 OrderRepository.release updates inventory only when a held reservation exists
+ok 79 - C04-UT03 OrderService.list applies buyer scope and returns next cursor when more rows exist
+ok 80 - C04-UT04 OrderService.list applies seller scope and returns null cursor on final page
+ok 81 - C11-UT01 MetricsService.summary delegates to repository and returns definition
+ok 82 - C11-UT02 OrderService.list decodes history cursor and encodes cursor for a following page
+ok 83 - C04-UT05 OrderService.detail exposes buyer payment action without revealing unpaid merchant
+ok 84 - C04-UT06 OrderService.detail exposes seller pickup/cancel actions and paid merchant details
+ok 85 - C04-UT07 OrderService.detail offers review for completed buyer order
+ok 86 - C04-UT08 OrderService.detail rejects access by unrelated user
+ok 87 - C04-UT09 OrderService.processNoShow skips ineligible orders and open complaints
+ok 88 - C04-UT10 OrderService.processNoShow closes expired paid order and schedules payout
+ok 89 - C04-UT11 OrderService.checkout creates order, reserves quota and authorizes payment
+ok 90 - C04-UT12 OrderService.checkout rejects wrong role, unavailable offers, and allergen conflicts
+ok 91 - C04-UT13 OrderService.cancelBySeller refunds eligible paid order
+ok 92 - C04-UT14 OrderService.cancelBySeller rejects wrong role, non-owner, and invalid state
+ok 93 - C05-UT01 the simulation signs events with matching invoice values
+ok 94 - C05-UT02 the simulation rejects an unsupported outcome and invalid amount
+ok 95 - C08-UT05 PickupService.issue stores hashed/encrypted one-time credential
+ok 96 - C08-UT06 PickupService.credential returns active credential or undefined
+ok 97 - C08-UT07 PickupService.validate completes an order with valid QR and schedules payout
+ok 98 - C08-UT08 PickupService.validate rejects wrong seller, invalid QR, unavailable order and used credential
+ok 99 - C08-UT01 generateToken: secret token and encrypted credential are generated
+ok 100 - C08-UT02 validasiToken: valid encrypted token and OTP are decrypted
+ok 101 - C08-UT09 validasiToken: invalid or tampered values fail
+ok 102 - C08-UT03 tandaiDigunakan: OTP and QR payload formats are distinguishable
+ok 103 - C09-UT04 ComplaintService.open creates dispute and returns complaint view
+ok 104 - C09-UT05 ComplaintService.open enforces buyer, ownership, paid state, and pickup time
+ok 105 - C09-UT06 ComplaintService.autoRefund rejects non-due cases and refunds due store-closed complaint
+ok 106 - C09-UT07 ComplaintService.detail and list return complaint data with buyer/seller scopes
+ok 107 - C09-UT08 ComplaintService.decide approves complaint and triggers refund
+ok 108 - C09-UT11 ComplaintService.decide rejects complaint and restores paid status
+ok 109 - C09-UT09 ComplaintService.decide handles repeated decisions and negative cases
+ok 110 - C09-UT10 ComplaintService.decide rejects inconsistent dispute state
+ok 111 - C10-UT01 ReviewService.create saves a completed order review and audits it
+ok 112 - C10-UT02 ReviewService.create rejects an order awaiting pickup without writing a review
+ok 113 - integer discount and UTC time boundaries
+1..113
+# tests 113
+# pass 113
+# fail 0
+# skipped 0
+# duration_ms 89856.788878

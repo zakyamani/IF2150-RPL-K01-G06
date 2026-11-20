@@ -60,10 +60,7 @@ Dipersiapkan oleh:
 
 | Revisi | Deskripsi |
 | :--- | :--- |
-| *A* | *Deskripsikan perubahan yang dilakukan dari dokumen sebelumnya pada dokumen ini. Jika tidak terdapat perubahan, harap kosongkan tabel.* |
-| *B* |  |
-| *C* |  |
-| ... |  |
+| A | Melengkapi hasil pengujian dan matriks kerunutan berdasarkan implementasi M10. |
 
 ---
 
@@ -76,7 +73,7 @@ Dokumen Hasil Implementasi dan Uji Perangkat Lunak (HIUPL) ini disusun untuk mel
 SisaRasa adalah aplikasi *marketplace* penyelamat makanan surplus berbasis Android native (Flutter) yang memfasilitasi transaksi "paket kejutan" (*mystery box*) anonim antara *merchant* makanan (Penjual) dan konsumen (Pembeli). Solusi ini dirancang untuk mengatasi kerugian finansial *merchant* akibat penumpukan makanan layak makan yang tak terjual, sekaligus menyediakan akses pangan berkualitas dengan harga terjangkau (diskon 50%–70%) bagi masyarakat. Sistem membatasi interaksi secara anonim hingga transaksi lunas, serta mewajibkan mekanisme pengambilan mandiri (*pickup-only*) menggunakan kode QR dinamis untuk menjamin kepraktisan operasional tanpa mengganggu sistem kasir internal toko.
 
 ## 1.3 Definisi, Istilah, dan Singkatan
-Semua definisi, singkatan, dan akronim yang digunakan beserta penjelasannya diuraikan pada Tabel 1.3 di bawah ini:
+Tabel 1.3 memuat definisi, istilah, dan singkatan yang digunakan dalam dokumen.
 
 Tabel 1.3. Definisi Istilah dan Singkatan
 
@@ -166,25 +163,23 @@ Bagian ini memuat informasi mengenai lingkungan implementasi, daftar modul/kelas
 
 ## 3.1 Lingkungan Implementasi
 
-Spesifikasi perangkat keras dan perangkat lunak yang digunakan pada tahap implementasi dan pengujian SisaRasa disajikan pada Tabel 3.1. Lingkungan ini konsisten dengan **Subbab 2.1 DPPL**, dengan penyesuaian pada bahasa pemrograman *backend* yang menggunakan **TypeScript** (dikompilasi ke JavaScript untuk dijalankan di atas runtime Node.js 18+) guna menjaga keamanan tipe data (*type safety*), serta penambahan *worker* pemrosesan *job* latar belakang dan *outbox* notifikasi.
+Spesifikasi perangkat keras dan perangkat lunak yang digunakan pada tahap implementasi dan pengujian SisaRasa disajikan pada Tabel 3.1. Lingkungan ini konsisten dengan **Subbab 2.1 DPPL**, dengan penyesuaian pada bahasa pemrograman *backend* yang menggunakan **TypeScript** (dikompilasi ke JavaScript untuk dijalankan di atas runtime Node.js 22+) guna menjaga keamanan tipe data (*type safety*), serta penambahan *worker* pemrosesan *job* latar belakang dan *outbox* notifikasi.
 
 Tabel 3.1. Lingkungan Implementasi
 
 | Aspek | Keterangan |
 | :--- | :--- |
-| Hardware | PC/Laptop pengembang (server lokal & emulator Android), VPS Linux untuk server operasional, serta perangkat *smartphone* Android untuk pengujian klien. |
+| Hardware | PC/Laptop pengembang (server lokal & emulator Android), VPS Linux untuk server operasional, dan emulator Android API 35 untuk pengujian klien pada laporan ini. |
 | Operating System | Linux (Ubuntu LTS) pada VPS server operasional; Linux/Windows/macOS pada lingkungan pengembangan lokal; Android (minimal Android 10 / API level 29) pada perangkat klien. |
-| Bahasa Pemrograman | Dart (aplikasi klien Android Flutter) dan TypeScript / JavaScript pada runtime Node.js 18+ (server *backend*). |
+| Bahasa Pemrograman | Dart (aplikasi klien Android Flutter) dan TypeScript / JavaScript pada runtime Node.js 22+ (server *backend*). |
 | Framework/Library | **Klien Android:** Flutter, `dio` (HTTP REST client), `mobile_scanner` (pemindai kamera QR), `geolocator` (layanan lokasi), `flutter_foreground_task` (layanan latar belakang WebSocket).<br>**Server Backend:** Express.js 4, `pg` (PostgreSQL driver & *connection pooling*), WebSocket (`/ws`). |
-| DBMS | PostgreSQL 15 yang dijalankan dalam kontainer terisolasi Docker (port 5433 untuk pengembangan lokal / port 5432 untuk produksi), dilengkapi penyimpanan berkas lokal POSIX (`uploads/`) untuk foto gerai. |
+| DBMS | PostgreSQL 15 yang dijalankan dalam kontainer terisolasi Docker (port 5432 di kontainer dan port host yang dapat dikonfigurasi), dilengkapi penyimpanan berkas lokal POSIX (`uploads/`) untuk foto gerai. |
 | Development Tools | Visual Studio Code, Android Studio, Docker & Docker Compose, Git & GitHub, serta Postman. |
 | Testing Tools | `flutter_test` (pengujian unit & widget Flutter), `integration_test` (pengujian *end-to-end* native Android), *test runner* backend TypeScript (`src/backend/test/`), `src/scripts/benchmark.sh` (pengukuran latensi HTTP), dan PostgreSQL `EXPLAIN (ANALYZE, BUFFERS)`. |
 
-Daftar modul dan kelas perancangan (`C01`–`C11`) yang telah diimplementasikan beserta lokasi file fisiknya mengacu pada Tabel 4.1 DPPL dan Tabel B.5 Laporan Implementasi (Tugas 9). Seluruh modul klien Flutter dikompilasi ke dalam satu berkas paket aplikasi Android (`SisaRasaApp.apk`), sedangkan modul *backend* TypeScript dijalankan sebagai layanan server Node.js sehingga tidak menghasilkan file *executable* mandiri per kelas.
-
 ## 3.2 Implementasi Modul
 
-Daftar modul dan kelas perancangan (`C01`–`C11`) yang telah diimplementasikan beserta lokasi file fisiknya mengacu pada Tabel 4.1 DPPL dan Tabel B.5 Laporan Implementasi (Tugas 9). Seluruh modul klien Flutter dikompilasi ke dalam satu berkas paket aplikasi Android (`SisaRasaApp.apk`), sedangkan modul *backend* TypeScript dijalankan sebagai layanan server Node.js sehingga tidak menghasilkan file *executable* mandiri per kelas.
+Tabel 3.2 memetakan kelas C01–C11 pada DPPL ke file aplikasi. Android dibangun sebagai `app-debug.apk` untuk pengujian. Backend dikompilasi ke JavaScript dan dijalankan dengan Node.js.
 
 Tabel 3.2. Implementasi Modul
 
@@ -193,10 +188,10 @@ Tabel 3.2. Implementasi Modul
 | 1 | C01 | Penjual | `src/backend/src/modules/merchants/service.ts`<br>`src/backend/src/modules/merchants/repository.ts`<br>`src/backend/src/modules/merchants/schema.ts`<br>`src/android-app/lib/features/seller/profile_screen.dart` | - |
 | 2 | C02 | Pembeli | `src/backend/src/modules/auth/routes.ts`<br>`src/backend/src/modules/auth/schema.ts`<br>`src/backend/src/modules/auth/service.ts`<br>`src/backend/src/modules/auth/repository.ts`<br>`src/backend/src/core/labels.ts`<br>`src/backend/src/modules/catalog/repository.ts`<br>`src/android-app/lib/core/models/user.dart`<br>`src/android-app/lib/core/storage/session_store.dart`<br>`src/android-app/lib/features/buyer/allergen_screen.dart` | - |
 | 3 | C03 | Penawaran | `src/backend/src/modules/offers/routes.ts`<br>`src/backend/src/modules/offers/service.ts`<br>`src/backend/src/modules/offers/repository.ts`<br>`src/backend/src/modules/offers/schema.ts`<br>`src/backend/src/modules/catalog/routes.ts`<br>`src/backend/src/modules/catalog/service.ts`<br>`src/backend/src/modules/catalog/repository.ts`<br>`src/android-app/lib/core/models/offer.dart`<br>`src/android-app/lib/features/seller/offer_form_controller.dart`<br>`src/android-app/lib/features/seller/seller_controller.dart`<br>`src/android-app/lib/features/seller/seller_repository.dart`<br>`src/android-app/lib/features/buyer/catalog_controller.dart` | - |
-| 4 | C04 | Pesanan | `src/backend/src/modules/orders/routes.ts`<br>`src/backend/src/modules/orders/service.ts`<br>`src/backend/src/modules/orders/repository.ts`<br>`src/android-app/lib/core/models/order.dart`<br>`src/android-app/lib/features/checkout/checkout_controller.dart` | - |
-| 5 | C05 | MetodePembayaran | `src/android-app/lib/core/models/payment_method.dart`<br>`src/backend/src/modules/payment/schema.ts` | - |
-| 6 | C06 | QRIS | `src/android-app/lib/core/models/payment_method.dart`<br>`src/backend/src/modules/payment/simulator.ts` | - |
-| 7 | C07 | EWallet | `src/android-app/lib/core/models/payment_method.dart`<br>`src/backend/src/modules/payment/simulator.ts` | - |
+| 4 | C04 | Pesanan | `src/backend/src/modules/orders/routes.ts`<br>`src/backend/src/modules/orders/service.ts`<br>`src/backend/src/modules/orders/repository.ts`<br>`src/android-app/lib/core/models/order.dart`<br>`src/android-app/lib/features/orders/order_controller.dart` | - |
+| 5 | C05 | MetodePembayaran | `src/android-app/lib/core/models/payment.dart`<br>`src/backend/src/modules/payments/service.ts` | - |
+| 6 | C06 | QRIS simulasi | `src/android-app/lib/features/orders/payment_screen.dart`<br>`src/backend/src/modules/payments/demo-gateway.ts` | - |
+| 7 | C07 | EWallet | Kanal e-wallet belum tersedia. Checkout menggunakan satu alur pembayaran simulasi. | - |
 | 8 | C08 | QRPickup | `src/backend/src/modules/pickup/service.ts`<br>`src/backend/src/modules/pickup/routes.ts`<br>`src/android-app/lib/features/seller/scan_controller.dart`<br>`src/android-app/lib/features/orders/tickets_screen.dart` | - |
 | 9 | C09 | Pengaduan | `src/backend/src/modules/complaints/service.ts`<br>`src/backend/src/modules/complaints/routes.ts`<br>`src/backend/src/modules/complaints/schema.ts`<br>`src/android-app/lib/core/models/complaint.dart`<br>`src/android-app/lib/features/orders/complaint_controller.dart` | - |
 | 10 | C10 | Ulasan | `src/backend/src/modules/reviews/service.ts`<br>`src/backend/src/modules/reviews/repository.ts`<br>`src/backend/src/modules/reviews/schema.ts`<br>`src/backend/src/modules/reviews/routes.ts`<br>`src/android-app/lib/core/models/review.dart`<br>`src/android-app/lib/features/orders/review_controller.dart` | - |
@@ -210,21 +205,21 @@ Tabel 3.3. Implementasi Antarmuka
 
 | No | ID Antarmuka | Nama Antarmuka | Nama File Fisik | Nama File Executable |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | I-01 | Masuk | `src/android-app/lib/features/auth/` (layar login) | `SisaRasaApp.apk` |
-| 2 | I-02 | Registrasi Akun | `src/android-app/lib/features/auth/` (layar registrasi) | `SisaRasaApp.apk` |
-| 3 | I-03 | Katalog Penawaran | `src/android-app/lib/features/buyer/catalog_screen.dart` | `SisaRasaApp.apk` |
-| 4 | I-04 | Filter Alergen | `src/android-app/lib/features/buyer/allergen_screen.dart` | `SisaRasaApp.apk` |
-| 5 | I-05 | Pop up Izin Lokasi | `src/android-app/lib/features/buyer/catalog_screen.dart` (dialog izin lokasi) | `SisaRasaApp.apk` |
-| 6 | I-06 | Daftar Pesanan Pembeli | `src/android-app/lib/features/orders/history_screen.dart` | `SisaRasaApp.apk` |
-| 7 | I-07 | Tiket Pengambilan (Mode Offline) | `src/android-app/lib/features/orders/tickets_screen.dart` | `SisaRasaApp.apk` |
-| 8 | I-08 | Akun | `src/android-app/lib/features/auth/` (layar profil/akun pengguna) | `SisaRasaApp.apk` |
-| 9 | - | Detail Penawaran | `src/android-app/lib/features/buyer/offer_detail_screen.dart` | `SisaRasaApp.apk` |
-| 10 | - | Checkout & Pembayaran | `src/android-app/lib/features/checkout/checkout_screen.dart` | `SisaRasaApp.apk` |
-| 11 | - | Tiket Pickup Aktif | `src/android-app/lib/features/orders/ticket_pickup_screen.dart` | `SisaRasaApp.apk` |
-| 12 | - | Form & Detail Pengaduan | `src/android-app/lib/features/orders/complaint_form_screen.dart`<br>`src/android-app/lib/features/orders/complaint_detail_screen.dart` | `SisaRasaApp.apk` |
-| 13 | - | Form Ulasan & Ulasan Gerai | `src/android-app/lib/features/orders/review_screen.dart`<br>`src/android-app/lib/features/orders/merchant_reviews_screen.dart` | `SisaRasaApp.apk` |
-| 14 | - | Profil & Manajemen Penawaran Penjual | `src/android-app/lib/features/seller/profile_screen.dart`<br>`src/android-app/lib/features/seller/offers_screen.dart`<br>`src/android-app/lib/features/seller/offer_form_screen.dart` | `SisaRasaApp.apk` |
-| 15 | - | Daftar Pesanan Masuk Penjual | `src/android-app/lib/features/seller/seller_orders_screen.dart` | `SisaRasaApp.apk` |
+| 1 | I-01 | Masuk | `src/android-app/lib/features/auth/` (layar login) | `app-debug.apk` |
+| 2 | I-02 | Registrasi Akun | `src/android-app/lib/features/auth/` (layar registrasi) | `app-debug.apk` |
+| 3 | I-03 | Katalog Penawaran | `src/android-app/lib/features/buyer/catalog_screen.dart` | `app-debug.apk` |
+| 4 | I-04 | Filter Alergen | `src/android-app/lib/features/buyer/allergen_screen.dart` | `app-debug.apk` |
+| 5 | I-05 | Pop up Izin Lokasi | `src/android-app/lib/features/buyer/catalog_screen.dart` (dialog izin lokasi) | `app-debug.apk` |
+| 6 | I-06 | Daftar Pesanan Pembeli | `src/android-app/lib/features/orders/history_screen.dart` | `app-debug.apk` |
+| 7 | I-07 | Tiket Pengambilan (Mode Offline) | `src/android-app/lib/features/orders/tickets_screen.dart` | `app-debug.apk` |
+| 8 | I-08 | Akun | `src/android-app/lib/features/settings/account_screen.dart` | `app-debug.apk` |
+| 9 | - | Detail Penawaran | `src/android-app/lib/features/buyer/offer_detail_screen.dart` | `app-debug.apk` |
+| 10 | - | Checkout & Pembayaran | `src/android-app/lib/features/orders/checkout_screen.dart`<br>`src/android-app/lib/features/orders/payment_screen.dart` | `app-debug.apk` |
+| 11 | - | Tiket Pickup Aktif | `src/android-app/lib/features/orders/order_detail_screen.dart` | `app-debug.apk` |
+| 12 | - | Form & Detail Pengaduan | `src/android-app/lib/features/orders/complaint_form_screen.dart`<br>`src/android-app/lib/features/orders/complaint_detail_screen.dart` | `app-debug.apk` |
+| 13 | - | Form Ulasan & Ulasan Gerai | `src/android-app/lib/features/orders/review_screen.dart`<br>`src/android-app/lib/features/orders/merchant_reviews_screen.dart` | `app-debug.apk` |
+| 14 | - | Profil & Manajemen Penawaran Penjual | `src/android-app/lib/features/seller/profile_screen.dart`<br>`src/android-app/lib/features/seller/offers_screen.dart`<br>`src/android-app/lib/features/seller/offer_form_screen.dart` | `app-debug.apk` |
+| 15 | - | Daftar Pesanan Masuk Penjual | `src/android-app/lib/features/seller/orders_screen.dart` | `app-debug.apk` |
 
 ## 3.4 File Lain
 
@@ -234,15 +229,15 @@ Tabel 3.4. File Lain
 
 | No | Nama File | Keterangan |
 | :--- | :--- | :--- |
-| 1 | `src/backend/migrations/001_initial.sql` | Skema migrasi awal basis data relasional PostgreSQL (`users`, `merchant_profiles`, `offers`, `orders`, `checkout_sessions`, `complaints`, `reviews`, `audit_logs`, dan `platform_metrics`). |
+| 1 | `src/backend/migrations/001_initial.sql` | Skema migrasi awal basis data relasional PostgreSQL (`users`, `merchant_profiles`, `offers`, `orders`, `checkout_reservations`, `complaints`, `reviews`, `audit_logs`, dan `payout_entitlements`). |
 | 2 | `src/backend/test/` (termasuk `integration/notifications.test.ts`) | Kumpulan berkas pengujian unit dan integrasi untuk layanan *backend*, validasi transaksi, dan notifikasi WebSocket. |
 | 3 | `src/android-app/test/` (termasuk `core/socket_client_test.dart`, `features/notifications_test.dart`) | Kumpulan berkas pengujian unit dan widget aplikasi Android Flutter. |
 | 4 | `src/android-app/integration_test/` | Berkas pengujian integrasi *end-to-end* (E2E) aplikasi Android. |
-| 5 | `src/scripts/benchmark.sh` | Skrip pengujian performa dan pengukuran waktu respons HTTP lokal. |
+| 5 | `src/scripts/benchmark.sh` dan `src/backend/test/benchmark/notification-latency.ts` | Skrip pengukuran waktu respons pickup HTTP dan latensi notifikasi WebSocket lokal. |
 | 6 | `src/docs/verification.md` | Laporan catatan verifikasi hasil pengujian integrasi *backend* dan Android. |
 | 7 | `src/docs/evidence/benchmark.json` | Data artefak hasil pengukuran performa dan keluaran kueri `EXPLAIN (ANALYZE, BUFFERS)`. |
-| 8 | `compose.yaml` & `Dockerfile` | Konfigurasi kontainer Docker untuk menjalankan layanan PostgreSQL 15 dan *backend* server. |
-| 9 | `openapi.yaml` | Dokumen spesifikasi kontrak REST API antara aplikasi klien Android dan server *backend*. |
+| 8 | `src/compose.yaml` & `src/backend/Dockerfile` | Konfigurasi kontainer Docker untuk menjalankan layanan PostgreSQL 15 dan *backend* server. |
+| 9 | `src/backend/openapi.yaml` | Dokumen spesifikasi kontrak REST API antara aplikasi klien Android dan server *backend*. |
 | 10 | `src/README.md` | Panduan pengaturan lingkungan lokal, instalasi dependensi, dan cara menjalankan aplikasi. |
 
 <br>
@@ -251,440 +246,345 @@ Tabel 3.4. File Lain
 
 # BAB 4: Hasil Pengujian
 
-Bab ini melaporkan hasil pengujian P/L pada level unit, integrasi, dan sistem. Pengujian dilakukan pada tag release terakhir Tugas 9. Hasil aktual diisi berdasarkan pengamatan saat pengujian. Kesimpulan diisi `Pass` atau `Fail`, dan untuk `Fail` dilengkapi penyebab serta usulan perbaikan.
+Bab ini melaporkan pengujian unit, integrasi, dan sistem pada kode aplikasi dari rilis M9. Status **Pass** berarti hasil sesuai dengan kriteria yang diuji. **Fail** menandai ketidaksesuaian yang ditemukan. **Sebagian** menandai skenario atau kebutuhan yang baru terverifikasi sebagian.
 
 ## 4.1 Strategi dan Kedalaman Pengujian Kelas
 
-Setiap kelas perancangan pada Tabel 4.1 DPPL diklasifikasikan ke dalam tiga tingkat kedalaman pengujian. Tingkat **Mendalam** diberikan pada kelas yang memuat logika bisnis, perhitungan, validasi, aturan status, algoritma, integrasi eksternal, atau keamanan. Tingkat **Sedang** diberikan pada kelas yang hanya mengoordinasikan atau mendelegasikan proses. Tingkat **Tidak perlu** diberikan pada kelas tanpa logika, seperti *entity/DTO* dan kelas konfigurasi, yang teruji secara tidak langsung melalui test case use case. 
+Klasifikasi mengacu pada DPPL. Tingkat mendalam dipakai untuk aturan bisnis dan transisi penting. Tingkat sedang diuji pada operasi utama dan dilengkapi tes integrasi untuk akses serta data persisten.
 
-Tabel 4.1.1. Identifikasi Tingkat Pengujian Kelas
-
-| ID Kelas | Nama Kelas       | Tingkat      | Alasan | Test Case Terkait |
-| -------- | ---------------- | ------------ | ------ | ----------------- |
-| C01 | Penjual | Sedang | `getIdPenjual()` dan `getProfil()` hanya mengembalikan data profil. Algoritmanya terbatas pada pembatasan peran Penjual, validasi isian profil (nama, alamat, koordinat, rekening 6–30 digit), dan penyimpanan nomor rekening hanya dalam bentuk tersamar (empat digit terakhir). Selebihnya didelegasikan ke repository. | C01-UT01 s.d. C01-UT03, INT-TC12 |
-| C02 | Pembeli | Sedang | Menyimpan identitas dan preferensi alergen. `updatePreferensi()` hanya membatasi nilai (daftar alergen tetap, tidak ganda/double, maksimal delapan) lalu mendelegasikan penyimpanan ke repository. Tidak ada perhitungan atau logika bisnis lain. | C02-UT01 s.d. C02-UT04, INT-TC03 |
-| C03 | Penawaran | Mendalam | Memuat validasi dan aturan status: diskon 50–70% (dihitung dengan integer), waktu mulai pickup antara sekarang dan dua jam ke depan, batas konsumsi tidak sebelum pickup selesai, kuota 1–500, dan penguncian ubah/tutup saat kuota ditahan, terjual, atau pesanan pernah dibayar. Katalog juga menyaring alergen dan menghitung jarak di server. | C03-UT01 s.d. C03-UT10, INT-TC01, INT-TC02, INT-TC04 |
-| C04 | Pesanan | Mendalam | `buatPesanan()` membuat pesanan dengan reservasi kuota dan checkout. `ubahStatus()` mengelola nilai status yang dibatasi constraint basis data; perpindahannya dilakukan bersama modul pembayaran, pickup, dan pengaduan. Pembatalan oleh Penjual dan penandaan tidak diambil (no-show) dilakukan di modul pesanan, dan perubahan yang tidak sah ditolak. | C04-UT01 s.d. C04-UT10, INT-TC04, INT-TC11 |
-| C06 | QRIS | Sedang | `generateQRIS()` diwujudkan sebagai invoice pesanan yang digambar menjadi QR simulasi pada layar pembayaran, lengkap dengan batas waktu. Otorisasi didelegasikan ke gateway dummy. QR ini bukan QRIS bank sungguhan. | C06-UT01 s.d. C06-UT02, INT-TC05 |
-| C07 | EWallet | Tidak perlu | Tidak diimplementasikan sebagai kelas tersendiri. Aplikasi hanya menyediakan satu alur pembayaran simulasi (QR invoice dan tombol simulasi berhasil/gagal), tanpa pilihan e-wallet, nomor HP, atau penyedia. Tidak ada logika yang dapat diuji, dan perbedaan dari DPPL dicatat di Laporan Implementasi. | UC03-TC01 (tidak langsung) |
-| C08 | QRPickup | Mendalam | Token acak sekali pakai (disimpan sebagai hash untuk verifikasi dan salinan terenkripsi), OTP enam digit pada pesanan, batas lima percobaan salah per 15 menit, serta penolakan untuk token yang sudah terpakai atau dinonaktifkan. | C08-UT01 s.d. C08-UT09, INT-TC07, INT-TC08 |
-| C09 | Pengaduan | Mendalam | Aturan status pengaduan: alasan dari empat pilihan (tidak layak, tidak tersedia, alergen, toko tutup) dengan deskripsi minimal 10 karakter, bukti maksimal dua berkas/file, setujui atau tolak, refund penuh, dan penahanan dana penjual sampai ada keputusan. Pengaduan "toko tutup" yang tidak ditanggapi dalam 24 jam akan direfund otomatis. | C09-UT01 s.d. C09-UT08, INT-TC09 |
-| C11 | RiwayatTransaksi | Sedang | `getRiwayatPembeli()` dan `getRiwayatPenjual()` hanya menyusun query pesanan per pengguna dan menampilkan riwayat kejadian pesanan dari `audit_logs`, lalu mendelegasikan pembacaan data ke repository. Tidak ada logika bisnis atau perhitungan. | C11-UT01 s.d. C11-UT03, INT-TC11 |
-
-<br>
+| ID Kelas | Nama Kelas | Tingkat | Alasan | Tes Terkait |
+| :--- | :--- | :--- | :--- | :--- |
+| C01 | Penjual | Sedang | Validasi profil dan akses penjual. | C01-UT01 s.d. C01-UT03, INT-TC12 |
+| C02 | Pembeli | Sedang | Validasi dan penyimpanan preferensi. | C02-UT01 s.d. C02-UT04, INT-TC03 |
+| C03 | Penawaran | Mendalam | Aturan stok, diskon, jadwal, dan penguncian penawaran. | C03-UT01 s.d. C03-UT11, INT-TC01, INT-TC02 |
+| C04 | Pesanan | Mendalam | Reservasi, kepemilikan, transisi, refund dan no-show. | C04-UT01 s.d. C04-UT14, INT-TC04, INT-TC11 |
+| C05 | MetodePembayaran | Sedang | Kontrak adapter simulasi. Transaksi callback diuji dengan PostgreSQL. | C05-UT01 s.d. C05-UT02, INT-TC05 |
+| C06 | QRIS | Sedang | Representasi invoice QR simulasi pada layar pembayaran. | C06-UT01 s.d. C06-UT03, INT-TC05, UC03-TC01 |
+| C07 | EWallet | Tidak perlu | Kanal e-wallet terpisah belum diimplementasikan. | UC03-TC01 |
+| C08 | QRPickup | Mendalam | Penerbitan token, aturan jendela pickup, dan validasi server. | C08-UT01 s.d. C08-UT09, INT-TC07, INT-TC08 |
+| C09 | Pengaduan | Mendalam | Status sengketa, bukti media, refund dan auto-refund. | C09-UT01 s.d. C09-UT12, INT-TC09 |
+| C10 | Ulasan | Sedang | Memeriksa status dan menyimpan ulasan serta audit. | C10-UT01 s.d. C10-UT02, INT-TC10, UC07-TC02, UC07-TC03 |
+| C11 | RiwayatTransaksi | Sedang | Paginasi dan agregasi metrik transaksi. | C11-UT01 s.d. C11-UT02, INT-TC11, UC07-TC01 |
 
 ## 4.2 Pengujian Unit Kelas
 
-Pengujian unit dilakukan pada kelas bertingkat Mendalam dan Sedang. Kelas Mendalam diuji pada seluruh operasi public dengan kasus normal, batas, dan negatif, serta mencapai *coverage* minimal 70%. Kelas Sedang diuji minimal dengan satu kasus normal dan satu kasus gagal pada operasi public utama.
+Jalankan `npm run test:unit` dari `src/backend`. Hasil pengukuran lokal mencatat **63 tes lulus**. Rincian test runner, nama kasus dan cakupan tersedia pada [keluaran pengujian unit dan coverage](./assets/m10-coverage-unit.txt).
 
-Cara menjalankan unit test: dari direktori `src/backend`, jalankan `npm run test:unit`.
+Tabel 4.2. Ringkasan cakupan kelas Mendalam
 
-Lokasi file test: `src/backend/test/unit/`.
+| Kelas | File Layanan | Baris | Cabang | Target Baris |
+| :--- | :--- | :--- | :--- | :--- |
+| C03 | offers/service.ts | 100,00% | 84,62% | ≥ 70% |
+| C04 | orders/service.ts | 99,65% | 90,91% | ≥ 70% |
+| C08 | pickup/service.ts | 89,76% | 89,47% | ≥ 70% |
+| C09 | complaints/service.ts | 95,69% | 80,85% | ≥ 70% |
 
-### 4.2.1 Kelas Penjual
+Cakupan diukur dengan Node.js V8 untuk tes unit pada direktori modul. Daftar operasi unit dan integrasi menunjukkan skenario yang diperiksa. C05 menguji kontrak adapter pada unit, sementara transaksi pembayaran diuji di INT-TC05.
 
-**ID Kelas:** C01  
-**Nama Kelas:** Penjual  
-**Tingkat:** Sedang
+### 4.2.1 Kelas Penjual (C01)
 
-Tabel 4.2.1. Hasil Pengujian Unit Kelas C01
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C01-UT01 | Profil valid | Validasi nama, alamat dan koordinat. | Skema menerima profil lengkap. | Pass |
+| C01-UT02 | Profil tidak valid | Masukkan nama terlalu pendek, alamat kosong dan koordinat di luar batas. | Skema menolak nilai yang tidak valid. | Pass |
+| C01-UT03 | Tujuan demo | Uji nomor enam digit dan nilai yang mengandung huruf. | Enam digit diterima. Nilai nonangka ditolak. | Pass |
 
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C01-UT01 | `getIdPenjual()` / validasi profil | Normal | Parse profil berisi `shop_name`, alamat, latitude, dan longitude yang valid. | Profil valid diterima dan nama gerai dipertahankan. | test runner lulus. | Pass |
-| C01-UT02 | `getProfil()` / validasi profil | Negatif/batas | Parse profil dengan nama terlalu pendek, alamat kosong, latitude di luar rentang, dan longitude di luar rentang. | Profil tidak lengkap atau koordinat tidak valid ditolak. | test runner lulus. | Pass |
-| C01-UT03 | Validasi rekening pada profil | Normal/negatif | Profil dengan `bank_destination` enam digit, kemudian dengan karakter nonangka. | Rekening enam digit diterima; nilai nonangka ditolak. | test runner lulus. | Pass |
+### 4.2.2 Kelas Pembeli (C02)
 
-### 4.2.2 Kelas Pembeli
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C02-UT01 s.d. C02-UT02 | Preferensi normal dan kosong | Validasi struktur preferensi dan daftar kosong. | Preferensi diterima. | Pass |
+| C02-UT03 s.d. C02-UT04 | Preferensi di luar batas | Masukkan duplikasi dan daftar lebih dari delapan alergen. | Kedua masukan ditolak. | Pass |
 
-**ID Kelas:** C02  
-**Nama Kelas:** Pembeli  
-**Tingkat:** Sedang
+### 4.2.3 Kelas Penawaran (C03)
 
-Tabel 4.2.2. Hasil Pengujian Unit Kelas C02
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C03-UT01 s.d. C03-UT05 | Validasi penawaran | Uji data valid, kuota 0/1/500/501, diskon, jadwal dan batas konsumsi. | Nilai valid diterima. Pelanggaran diskon, kuota atau waktu ditolak. | Pass |
+| C03-UT06 s.d. C03-UT07 | Penerbitan dan hak akses | Uji penjual berprofil lengkap, penjual berprofil kosong dan peran pembeli. | Penjual berprofil lengkap berhasil dan operasi tercatat. Profil kosong dan peran salah ditolak. | Pass |
+| C03-UT08 s.d. C03-UT09 | Perubahan penawaran | Uji paket aktif, ditahan, terbayar, tutup dan ID tidak ada. | Penawaran yang masih dapat diubah berhasil diperbarui. Kondisi lain ditolak. | Pass |
+| C03-UT10 s.d. C03-UT11 | Penutupan, daftar dan detail | Tutup paket aktif, ulangi penutupan dan uji cursor serta kepemilikan detail. | Tutup ulang mempertahankan status, cursor dapat dipakai dan akses detail dibatasi. | Pass |
 
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C02-UT01 | `getIdPembeli()` | Normal | Periksa struktur preferensi pembeli dengan daftar alergen kosong. | Struktur preferensi kosong terbentuk dengan benar. | test runner lulus. | Pass |
-| C02-UT02 | `getPreferensiAlergen()` | Normal/batas | Parse penawaran dengan daftar alergen kosong. | Daftar alergen kosong diterima. |  test runner lulus. | Pass |
-| C02-UT03 | `updatePreferensi(alergen)` | Negatif | Parse daftar dengan nilai `gluten` berulang. | Duplikasi alergen ditolak. | test runner lulus. | Pass |
-| C02-UT04 | `updatePreferensi(alergen)` | Batas/negatif | Parse daftar dengan sembilan alergen. | Lebih dari delapan alergen ditolak. | test runner lulus. | Pass |
+Validasi, penerbitan, perubahan, penutupan, daftar, dan detail diuji pada unit. Penahanan satu unit kuota pada `Algo-C03-01` diuji bersama C04 pada C04-UT11 dan INT-TC04.
 
-### 4.2.3 Kelas Penawaran
+### 4.2.4 Kelas Pesanan (C04)
 
-**ID Kelas:** C03  
-**Nama Kelas:** Penawaran  
-**Tingkat:** Mendalam
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C04-UT01 s.d. C04-UT02 | Baca pesanan dan lepas reservasi | Uji pesanan ada/tidak dan reservasi berstatus held. | Pembacaan sesuai hasil. Hanya reservasi held mengubah kuota. | Pass |
+| C04-UT03 s.d. C04-UT04 | Riwayat menurut peran | Baca daftar sebagai pembeli dan penjual dalam dua kondisi paginasi. | Scope sesuai akun dan cursor sesuai posisi. | Pass |
+| C04-UT05 s.d. C04-UT08 | Detail dan aksi | Uji pesanan belum bayar, lunas, selesai dan akses akun asing. | Aksi bayar, pickup dan ulasan sesuai status. Akses asing ditolak. | Pass |
+| C04-UT09 s.d. C04-UT10 | No-show | Uji tenggat, pengaduan terbuka dan pesanan layak no-show. | Pesanan tidak layak dilewati. Pesanan layak ditutup dan payout dijadwalkan. | Pass |
+| C04-UT11 s.d. C04-UT12 | Checkout | Uji penawaran valid, peran salah, kuota habis dan konflik alergen. | Checkout valid menahan stok dan membuat intent. Kasus negatif ditolak. | Pass |
+| C04-UT13 s.d. C04-UT14 | Pembatalan penjual | Uji pembatalan sah, peran salah, bukan pemilik, dan status tidak sesuai. | Pembatalan sah memicu refund. Kasus negatif ditolak. | Pass |
 
-Tabel 4.2.3. Hasil Pengujian Unit Kelas C03
+Alur `Algo-C04-01` diuji melalui checkout valid, stok habis, hak akses, dan reservasi. Perubahan status, pembatalan dan no-show juga diuji.
 
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C03-UT01 | `getIdPenawaran()` | Normal | Validasi penawaran dengan kategori `makanan_berat`. | Data penawaran valid dikembalikan. | Test runner lulus. | Pass |
-| C03-UT02 | `kurangiKuota(qty)` | Batas/negatif | Validasi kuota 0 dan kuota 1. | Kuota 0 ditolak; kuota 1 diterima. | Test runner lulus. | Pass |
-| C03-UT03 | `getDetailPenawaran()` | Normal | Validasi harga normal 100000 dan harga diskon 40000. | Detail harga sesuai masukan. | Test runner lulus. | Pass |
-| C03-UT04 | `ubahStatus(status)` | Negatif/batas | Jadwal pickup sebelum sekarang dan jadwal pada rentang valid. | Jadwal lampau ditolak; jadwal valid diterima. | Test runner lulus. | Pass |
-| C03-UT05 | Validasi aturan penawaran | Batas/negatif | Uji diskon, kuota maksimum, waktu pickup, safe-eat, dan konfirmasi kelayakan. | Nilai di luar batas ditolak; nilai batas valid diterima. | Test runner lulus. | Pass |
-| C03-UT06 | `create()` | Normal/negatif | Profil penjual lengkap dan penawaran valid; profil penjual tidak lengkap. | Penawaran dibuat serta diaudit untuk penjual valid; penjual invalid ditolak. | Test runner lulus. | Pass |
-| C03-UT07 | `create()` | Negatif | Profil penjual tidak lengkap dan pengguna bukan penjual. | `PROFILE_INCOMPLETE` atau `FORBIDDEN` dikembalikan. | Test runner lulus. | Pass |
-| C03-UT08 | `update()` | Normal/batas | Perbarui penawaran aktif yang belum memiliki reservasi atau pembayaran. | Penawaran diperbarui dan audit dicatat. | Test runner lulus. | Pass |
-| C03-UT09 | `update()` | Negatif | Penawaran reserved, pernah dibayar, closed, atau tidak ditemukan. | Penawaran ditolak sesuai `OFFER_RESERVED`, `OFFER_PAID`, `OFFER_CLOSED`, atau `OFFER_NOT_FOUND`. | Test runner lulus. | Pass |
-| C03-UT10 | `close()` | Normal/negatif | Tutup penawaran active dan tutup penawaran yang sudah closed. | Penawaran active berubah menjadi closed; penawaran closed tidak berubah. | Test runner lulus. | Pass |
-| C03-UT11 | `list()` dan `detail()` | Normal/negatif | Ambil satu halaman penawaran penjual dan detail milik penjual lain/tidak ada. | Pagination dan scope penjual diterapkan; detail invalid ditolak. | Test runner lulus. | Pass |
+### 4.2.5 Kelas MetodePembayaran (C05)
 
-Tabel 4.2.3b. Ringkasan Cakupan Kelas [C03]
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C05-UT01 | Event pembayaran bertanda tangan | Buat event sukses dari nomor pesanan, nominal dan mata uang invoice. | Event berisi nilai yang sama dan HMAC yang sah. | Pass |
+| C05-UT02 | Validasi event | Uji outcome di luar opsi dan nominal nol. | Kedua masukan ditolak oleh skema. | Pass |
 
-| Informasi | Keterangan |
-| :--- | :--- |
-| Daftar operasi public pada DPPL | `getIdPenawaran()`, `kurangiKuota(qty)`, `getDetailPenawaran()`, `ubahStatus(status)`; implementasi layanan juga menyediakan `create()`, `update()`, `close()`, `list()`, dan `detail()` |
-| Operasi yang diuji | Seluruh operasi validasi C03 serta operasi layanan `create()`, `update()`, `close()`, `list()`, dan `detail()` |
-| ID Algoritma yang tercakup | Validasi integer diskon dan kuota, validasi batas waktu UTC/pickup, kepemilikan penjual, status mutable, pagination, dan audit |
-| Statement/line coverage | `offers/service.ts` 100%; `offers/repository.ts` 100%; `offers/schema.ts` 100% |
-| Branch coverage | `offers/service.ts` 84,62%; `offers/repository.ts` 100%; `offers/schema.ts` 100% |
-| Fungsi | `offers/service.ts` 100%; `offers/repository.ts` 100%; `offers/schema.ts` 100% |
-| Alat dan bukti | Node.js `--experimental-test-coverage` melalui `npm run test:coverage:c03`; 12 test lulus, 0 gagal |
+### 4.2.6 Kelas QRIS (C06)
 
-### 4.2.4 Kelas Pesanan
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C06-UT01 s.d. C06-UT03 | Data pendukung invoice simulasi | Uji enkripsi/dekripsi payload, tenggat lewat, dan ciphertext tidak valid. | Payload valid pulih, tenggat dikenali, dan data rusak gagal didekripsi. Render QR diperiksa di emulator. | Pass |
 
-**ID Kelas:** C04  
-**Nama Kelas:** Pesanan  
-**Tingkat:** Mendalam
+### 4.2.7 Kelas EWallet (C07)
 
-Tabel 4.2.4. Hasil Pengujian Unit Kelas C04
+Pemilihan kanal e-wallet belum tersedia. Kekurangan terhadap KF01 tercatat pada UC03-TC01.
 
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C04-UT01 | `read()` pada repository | Normal/negatif | Baca pesanan yang ada dan pesanan tidak ada. | Pesanan ditemukan atau `undefined` dikembalikan. | Test runner lulus. | Pass |
-| C04-UT02 | `release()` pada repository | Normal/negatif | Reservasi held ada dan tidak ada. | Inventori dikembalikan hanya jika reservasi held ada. | Test runner lulus. | Pass |
-| C04-UT03 | `list()` pembeli | Normal/batas | Daftar pembeli dengan limit 2, tiga baris, status paid. | Scope buyer digunakan dan next cursor dibuat. | Test runner lulus. | Pass |
-| C04-UT04 | `list()` penjual | Normal/batas | Daftar penjual dengan satu baris terakhir. | Scope seller digunakan dan next cursor bernilai null. | Test runner lulus. | Pass |
-| C04-UT05 | `detail()` pembeli pending | Normal/negatif | Pesanan pending_payment milik pembeli. | Aksi `pay` tersedia; identitas merchant tidak dirilis. | Test runner lulus. | Pass |
-| C04-UT06 | `detail()` penjual paid | Normal | Pesanan paid milik penjual pada jendela pickup. | Aksi `cancel` dan `pickup` tersedia; detail merchant terlihat. | Test runner lulus. | Pass |
-| C04-UT07 | `detail()` pembeli completed | Normal | Pesanan completed milik pembeli. | Aksi `review` tersedia. | Test runner lulus. | Pass |
-| C04-UT08 | `detail()` | Negatif | Pembeli lain mencoba membaca pesanan. | `ORDER_NOT_FOUND` dikembalikan. | Test runner lulus. | Pass |
-| C04-UT09 | `processNoShow()` | Negatif/batas | Pesanan belum paid, belum melewati pickup, atau memiliki complaint open. | Tidak ada no-show dan payout tidak dijadwalkan. | Test runner lulus. | Pass |
-| C04-UT10 | `processNoShow()` | Normal/batas | Pesanan paid melewati pickup_end tanpa complaint open. | Status berubah no_show dan payout dijadwalkan. | Test runner lulus. | Pass |
-| C04-UT11 | `checkout()` | Normal | Penawaran valid milik penjual dengan kuota tersedia dan pembeli valid. | Pesanan dibuat, reservasi stok dibuat, dan payment intent diterbitkan. | Test runner lulus. | Pass |
-| C04-UT12 | `checkout()` | Negatif | Pengguna bukan pembeli, penawaran unavailable, atau alergen berkonflik. | Role, availabilitas, atau filter alergen ditolak. | Test runner lulus. | Pass |
-| C04-UT13 | `cancelBySeller()` | Normal | Penjual membatalkan pesanan paid miliknya. | Refund dibuat, complaint open disetujui, status menjadi refunded. | Test runner lulus. | Pass |
-| C04-UT14 | `cancelBySeller()` | Negatif | Pengguna bukan penjual, penjual bukan pemilik, atau status tidak dapat dibatalkan. | Role, kepemilikan, atau state pesanan ditolak. | Test runner lulus. | Pass |
+### 4.2.8 Kelas QRPickup (C08)
 
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C08-UT01 s.d. C08-UT04 | Kredensial dan masukan | Buat token dan OTP, dekripsi, lalu validasi bentuk QR/OTP. | Token terenkripsi dapat dipulihkan dan masukan salah ditolak. | Pass |
+| C08-UT05 s.d. C08-UT06 | Terbitkan dan baca kredensial | Terbitkan tiket, periksa bentuk penyimpanan dan ambil kredensial aktif. | Hash dan data terenkripsi tersimpan. Kredensial aktif dapat dibaca. | Pass |
+| C08-UT07 s.d. C08-UT08 | Validasi pickup | Coba QR sah, penjual keliru, kredensial bekas dan pesanan tidak layak. | QR sah menyelesaikan pesanan dan menjadwalkan payout. Kasus negatif ditolak. | Pass |
+| C08-UT09 | Kredensial rusak | Bandingkan token berbeda dan dekripsi data yang telah diubah. | Token berbeda dan data rusak gagal divalidasi. | Pass |
 
-Tabel 4.2.4b. Ringkasan Cakupan Kelas [C04]
+Alur `Algo-C08-01` diuji pada QR sah, token bekas, batas waktu, percobaan OTP dan akses penjual. Uji balapan QR/OTP tercatat pada INT-TC07.
 
-| Informasi | Keterangan |
-| :--- | :--- |
-| Daftar operasi public pada DPPL | `buatPesanan()`, `ubahStatus(statusBaru)`, `getStatusPesanan()`, `getDetailPesanan()` |
-| Operasi yang diuji | Implementasi aktual: `checkout()`, `detail()`, `list()`, `cancelBySeller()`, `processNoShow()` serta repository `read()` dan `release()` |
-| ID Algoritma yang tercakup | Reservasi kuota, batas deadline pembayaran, scope pembeli/penjual, aksi status pesanan, no-show, refund pembatalan, dan state pesanan |
-| Statement/line coverage | `orders/service.ts` 99,65%; `orders/repository.ts` 100% |
-| Branch coverage | `orders/service.ts` 90,91%; `orders/repository.ts` 100% |
-| Fungsi | `orders/service.ts` 100%; `orders/repository.ts` 100% |
-| Alat dan bukti | Node.js `--experimental-test-coverage` melalui `npm run test:coverage:c04`; 16 test lulus, 0 gagal |
+### 4.2.9 Kelas Pengaduan (C09)
 
-### 4.2.5 Kelas QRIS
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C09-UT01 s.d. C09-UT03 | Validasi pengaduan dan keputusan | Periksa alasan, deskripsi, keputusan, jumlah lampiran dan duplikasi. | Masukan valid diterima. Masukan yang melanggar skema ditolak. | Pass |
+| C09-UT04 s.d. C09-UT05 | Buka pengaduan dan hak akses | Buka pengaduan sah, lalu uji peran, kepemilikan, status dan waktu. | Sengketa sah dibuat. Masukan yang tidak memenuhi syarat ditolak. | Pass |
+| C09-UT06 s.d. C09-UT07 | Auto-refund serta daftar dan detail | Uji tenggat toko tutup dan pembacaan berdasarkan peran. | Refund berjalan pada tenggat yang tepat. Daftar dan detail mengikuti scope. | Pass |
+| C09-UT08 s.d. C09-UT11 | Keputusan sengketa | Uji setuju, tolak, keputusan berulang dan status tidak konsisten. | Persetujuan memicu refund. Penolakan dan pengulangan mengikuti aturan status. | Pass |
+| C09-UT12 | Lampiran kosong | Validasi payload pengaduan dengan media_ids kosong. | Skema menerima payload. Tes alur dengan bukti tercatat pada UC06-TC02. | Pass |
 
-**ID Kelas:** C06  
-**Nama Kelas:** QRIS  
-**Tingkat:** Sedang
+Uji mencakup pengajuan, pembacaan, persetujuan, penolakan, pengulangan keputusan, dan auto-refund. DPPL tidak mencantumkan ID algoritma tersendiri untuk C09.
 
-Tabel 4.2.5. Hasil Pengujian Unit Kelas C06
+### 4.2.10 Kelas Ulasan (C10)
 
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C06-UT01 | `generateQRIS()` | Normal | Enkripsi dan dekripsi invoice berisi nomor, jumlah, dan waktu kedaluwarsa. | Data hasil dekripsi sama dengan data asal. | Test runner lulus. | Pass |
-| C06-UT02 | `generateQRIS()` | Batas | Bandingkan waktu sekarang dengan payment deadline yang telah lewat. | Deadline lampau dikenali kedaluwarsa. | Test runner lulus. | Pass |
-| C06-UT03 | Dekripsi payload invoice | Negatif | Dekripsi payload terenkripsi dengan format tidak valid. | Payload tidak valid ditolak. | Test runner lulus. | Pass |
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C10-UT01 | Simpan ulasan pesanan selesai | Kirim rating 5 dan komentar dengan spasi di awal/akhir ke ReviewService. | Komentar dirapikan, ulasan ditulis dan audit review.created tercatat. | Pass |
+| C10-UT02 | Tolak ulasan sebelum selesai | Kirim ulasan pada pesanan paid yang masih menunggu pickup. | REVIEW_NOT_ELIGIBLE dikembalikan tanpa menulis ulasan. | Pass |
 
-### 4.2.6 Kelas QRPickup
+Alur `Algo-C10-01` mencakup penulisan ulasan dan pencatatan audit. INT-TC10 memeriksa isi ulasan di PostgreSQL dan penolakan duplikasi.
 
-**ID Kelas:** C08  
-**Nama Kelas:** QRPickup  
-**Tingkat:** Mendalam
+### 4.2.11 Kelas RiwayatTransaksi (C11)
 
-Tabel 4.2.6. Hasil Pengujian Unit Kelas C08
-
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C08-UT01 | `generateToken()` | Normal | Buat secret token dan ciphertext bersama OTP. | Token base64url 43 karakter dan ciphertext berformat `v1`. | Test runner lulus. | Pass |
-| C08-UT02 | `validasiToken(token)` | Normal/negatif | Dekripsi token/OTP valid dan bandingkan hash valid/tidak valid. | Nilai valid dikenali; nilai invalid atau tampered ditolak. | Test runner lulus. | Pass |
-| C08-UT03 | `tandaiDigunakan()` | Normal/batas | Parse OTP enam digit dan payload QR. | Bentuk OTP/QR yang memenuhi skema diterima. | Test runner lulus. | Pass |
-| C08-UT04 | Validasi input pickup | Batas/negatif | OTP pendek dan QR dengan bentuk/payload tidak valid. | Input tidak valid ditolak. | Test runner lulus. | Pass |
-| C08-UT05 | `issue()` | Normal | Terbitkan credential untuk pesanan. | Credential QR/OTP tersimpan dengan token hash dan ciphertext. | Test runner lulus. | Pass |
-| C08-UT06 | `credential()` | Normal/negatif | Ambil credential active; credential tidak ada. | Credential active dikembalikan; credential tidak tersedia menghasilkan `undefined`. | Test runner lulus. | Pass |
-| C08-UT07 | `validate()` | Normal | Validasi QR pesanan milik penjual dan paid pada jendela pickup. | Pesanan completed dan payout dijadwalkan. | Test runner lulus. | Pass |
-| C08-UT08 | `validate()` | Negatif | Penjual salah, QR invalid, pesanan unavailable, atau credential used. | Kesalahan kepemilikan, QR, status, atau credential ditolak. | Test runner lulus. | Pass |
-
-Tabel 4.2.6b. Ringkasan Cakupan Kelas [C08]
-
-| Informasi | Keterangan |
-| :--- | :--- |
-| Daftar operasi public pada DPPL | `generateToken()`, `validasiToken(token)`, `tandaiDigunakan()` |
-| Operasi yang diuji | Seluruh operasi implementasi: `issue()`, `credential()`, `validate()` serta pembentukan dan validasi token/OTP/QR |
-| ID Algoritma yang tercakup | Penyimpanan hash dan enkripsi credential, pembentukan OTP enam digit, pembatasan percobaan, validasi kepemilikan/status/jadwal, dan completion payout |
-| Statement/line coverage | `pickup/service.ts` 89,76%; `pickup/repository.ts` 88,46%; `pickup/schema.ts` 100% |
-| Branch coverage | `pickup/service.ts` 89,47%; `pickup/repository.ts` 100%; `pickup/schema.ts` 100% |
-| Fungsi | `pickup/service.ts` 100%; `pickup/repository.ts` 75%; `pickup/schema.ts` 100% |
-| Alat dan bukti | Node.js `--experimental-test-coverage` melalui `npm run test:coverage:c08`; 15 test lulus, 0 gagal |
-
-### 4.2.7 Kelas Pengaduan
-
-**ID Kelas:** C09  
-**Nama Kelas:** Pengaduan  
-**Tingkat:** Mendalam
-
-Tabel 4.2.7. Hasil Pengujian Unit Kelas C09
-
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C09-UT01 | `ajukanPengaduan()` | Normal/negatif | Alasan valid, deskripsi terlalu pendek, atau alasan tidak dikenal. | Masukan valid diterima; deskripsi/alasan tidak valid ditolak. | Test runner lulus. | Pass |
-| C09-UT02 | `prosesPengaduan(keputusan)` | Normal/negatif | Keputusan boolean dan respons valid; tipe keputusan/respons tidak valid. | Keputusan valid diterima; tipe tidak valid ditolak. | Test runner lulus. | Pass |
-| C09-UT03 | Validasi bukti | Batas/negatif | Media duplicate atau lebih dari dua file. | Bukti duplikat atau berlebih ditolak. | Test runner lulus. | Pass |
-| C09-UT04 | `open()` | Normal | Pesanan paid milik pembeli membuka dispute. | Dispute dan complaint view dibuat. | Test runner lulus. | Pass |
-| C09-UT05 | `open()` | Negatif | Pembeli salah, pesanan bukan miliknya, belum paid, atau belum melewati batas pickup. | Pengaduan ditolak sesuai aturan kepemilikan dan status. | Test runner lulus. | Pass |
-| C09-UT06 | `autoRefund()` | Batas/negatif | Complaint belum jatuh tempo dan complaint toko tutup yang jatuh tempo. | Complaint belum jatuh tempo tidak diproses; due complaint direfund. | Test runner lulus. | Pass |
-| C09-UT07 | `detail()` dan `list()` | Normal | Ambil detail dan daftar dengan scope buyer/seller. | Data complaint sesuai scope pengguna dikembalikan. | Test runner lulus. | Pass |
-| C09-UT08 | `decide()` approve | Normal | Keputusan approve pada complaint open. | Complaint approved dan refund dipicu. | Test runner lulus. | Pass |
-| C09-UT08b | `decide()` reject | Normal | Keputusan reject pada complaint open. | Complaint rejected dan status pesanan kembali paid. | Test runner lulus. | Pass |
-| C09-UT09 | `decide()` repeated/negative | Negatif/batas | Keputusan berulang atau kasus negatif. | Keputusan berulang ditangani; kasus negatif ditolak. | Test runner lulus. | Pass |
-| C09-UT10 | `decide()` | Negatif | State dispute tidak konsisten. | Keputusan ditolak untuk state tidak konsisten. | Test runner lulus. | Pass |
-| C09 tambahan | Pengaduan tanpa bukti | Normal | `media_ids` kosong pada pengaduan valid. | Pengaduan tanpa lampiran diterima. | Test runner lulus. | Pass |
-
-Tabel 4.2.7b. Ringkasan Cakupan Kelas [C09]
-
-| Informasi | Keterangan |
-| :--- | :--- |
-| Daftar operasi public pada DPPL | `ajukanPengaduan()`, `prosesPengaduan(keputusan)` |
-| Operasi yang diuji | Implementasi aktual: `open()`, `autoRefund()`, `detail()`, `list()`, `decide()` serta validasi schema pengaduan/keputusan/bukti |
-| ID Algoritma yang tercakup | Validasi alasan/deskripsi/bukti, kepemilikan pesanan, state paid/pickup, auto-refund, scope pengguna, approve/reject, dan penanganan repeated decision |
-| Statement/line coverage | `complaints/service.ts` 95,69%; `complaints/repository.ts` 96,88% |
-| Branch coverage | `complaints/service.ts` 80,85%; `complaints/repository.ts` 83,33% |
-| Fungsi | `complaints/service.ts` 100%; `complaints/repository.ts` 80% |
-| Alat dan bukti | Node.js `--experimental-test-coverage` pada file C09; 8 test layanan C09 lulus, 0 gagal |
-
-### 4.2.8 Kelas RiwayatTransaksi
-
-**ID Kelas:** C11  
-**Nama Kelas:** RiwayatTransaksi  
-**Tingkat:** Sedang
-
-Tabel 4.2.8. Hasil Pengujian Unit Kelas C11
-
-| ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C11-UT01 | `getRiwayatPembeli(idPembeli)` | Normal | Aktor buyer diubah menjadi scope `buyer_id`. | Riwayat hanya menggunakan kolom identitas pembeli. | Test runner lulus. | Pass |
-| C11-UT02 | `getRiwayatPenjual(idPenjual)` | Normal | Aktor seller diubah menjadi scope `seller_id`. | Riwayat hanya menggunakan kolom identitas penjual. | Test runner lulus. | Pass |
-| C11-UT03 | Pagination riwayat | Batas | Ambil dua item dari tiga baris dengan limit 2. | Dua item dikembalikan dan next cursor tersedia. | Test runner lulus. | Pass |
-
-
-<br>
+| ID Pengujian | Operasi dan Skenario | Prosedur dan Masukan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- |
+| C11-UT01 | Ringkasan metrik | Panggil MetricsService.summary dengan hasil agregasi fixture. | Jumlah pesanan selesai dan definisi metrik dikembalikan. | Pass |
+| C11-UT02 | Paginasi riwayat | Baca daftar dengan cursor dan data yang masih memiliki halaman berikutnya. | Cursor masukan didekode dan cursor berikutnya dikembalikan. | Pass |
 
 ## 4.3 Pengujian Integrasi
 
-Pengujian integrasi memeriksa interaksi antarkomponen yang melewati batas, yaitu *Controller* ke *Model*, aplikasi ke basis data, dan aplikasi ke sistem eksternal. Daftar antarmuka mengacu pada dokumen DPPL, dengan minimal satu test case untuk setiap antarmuka. Pengujian memakai komponen nyata, bukan *mock*. Apabila ada antarmuka tambahan yang belum didaftarkan pada dokumen DPPL, cantumkan juga.
+Pengujian menggunakan API Express dan basis data PostgreSQL terpisah. ID antarmuka di tabel ini merujuk pada batas antarkomponen yang diuji. Daftar layar Android ada pada Tabel 3.3.
 
 Tabel 4.3.1. Daftar Antarmuka Antarkomponen
 
-| ID Antarmuka | Komponen Asal | Komponen Tujuan | Jenis Batas | Test Case |
-| :--- | :--- | :--- | :--- | :--- |
-| I-01 | `OfferFormController` / `SellerController` | `OfferService` / Basis data PostgreSQL | Controller–Service–Model–Basis data | INT-TC01 |
-| I-02 | `CatalogController` | `CatalogService` / Basis data PostgreSQL | Controller–Service–Model–Basis data | INT-TC02 |
-| *I-02* | *Pesanan (Model)* | *Database* | *Aplikasi - Basis data* | *INT-TC03* |
-| I-03 | `CheckoutController` | `OrderService` / Basis data PostgreSQL (`orders`, `checkout_sessions`, `offers`) | Controller–Service–Model–Basis data | INT-TC04 |
-| I-04 | `OrderService` / `PaymentRoutes` | `PaymentGatewaySimulator` (Gateway simulasi) | Aplikasi – Sistem eksternal | INT-TC05 |
-| *I-06* | NotificationService / WebSocket Server (`/ws`) | PostgreSQL (`LISTEN/NOTIFY` & `notification_inbox`) dan Klien WebSocket | Aplikasi - Basis data & Klien *real-time* | INT-TC06 |
-| I-07 | `ScanController` & `TicketsScreen` | `PickupService` / Basis data PostgreSQL (`pickup_credentials`, `orders`) | Controller–Service–Model–Basis data | INT-TC07, INT-TC08 |
-| *I-09* | ComplaintService & Background Worker | PostgreSQL (`complaints`, `orders`, `audit_logs`) & Media Bukti | Controller/Service - Model & Basis data | INT-TC09 |
-| *...* | *...* | *...* | *...* | *...* |
+| ID Antarmuka | Komponen yang Berinteraksi | Skenario | Test Case |
+| :--- | :--- | :--- | :--- |
+| I-01 | OfferService → PostgreSQL | Pengelolaan penawaran | INT-TC01 |
+| I-02 | CatalogService → PostgreSQL | Katalog dan detail anonim | INT-TC02 |
+| I-03 | AuthService dan CatalogService → PostgreSQL | Preferensi alergen | INT-TC03 |
+| I-04 | OrderService → PostgreSQL | Checkout dan reservasi | INT-TC04 |
+| I-05 | PaymentService ↔ DemoPaymentGateway dan PostgreSQL | Callback pembayaran | INT-TC05 |
+| I-06 | NotificationService → PostgreSQL dan klien WebSocket | Notifikasi dan sinkronisasi | INT-TC06 |
+| I-07 | PickupService → pesanan dan payout PostgreSQL | Validasi kredensial pickup | INT-TC07 |
+| I-08 | PickupService → penyimpanan percobaan dan kredensial | Penolakan token dan pembatasan OTP | INT-TC08 |
+| I-09 | ComplaintService dan worker → PostgreSQL | Pengaduan dan keputusan | INT-TC09 |
+| I-10 | ReviewService → pesanan, ulasan dan audit | Ulasan | INT-TC10 |
+| I-11 | OrderService → pesanan dan audit PostgreSQL | Riwayat transaksi | INT-TC11 |
+| I-12 | MerchantService → PostgreSQL | Profil gerai | INT-TC12 |
 
 Tabel 4.3.2. Hasil Pengujian Integrasi
 
-| ID Pengujian | ID Antarmuka | Skenario | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
+| ID Pengujian | ID Antarmuka | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| INT-TC01 | I-01 | Normal: penjual membuat dan mengelola penawaran | Login sebagai `seller@demo.sisarasa.invalid`, buka menu penawaran, tekan **Buat penawaran**, isi kategori, kuota, harga normal/diskon, alergen, jadwal *pickup*, batas konsumsi, serta konfirmasi kelayakan, lalu tekan **Simpan penawaran** | Penawaran tervalidasi dan tersimpan pada basis data, kemudian ditampilkan pada daftar penawaran penjual beserta kuota dan jadwalnya | Penawaran berhasil dibuat dan daftar penjual menampilkan penawaran beserta status dan ringkasan kuota. Bukti dilakukan melalui antarmuka Android nyata pada emulator API 37. | Pass |
-| INT-TC02 | I-02 | Normal: penawaran penjual muncul pada katalog pembeli secara anonim | Logout dari akun penjual, login sebagai `buyer@demo.sisarasa.invalid`, buka katalog, pilih penawaran yang baru dibuat, dan buka rincian paket | Penawaran tampil pada katalog dengan kategori, diskon, kuota, dan jadwal *pickup*; identitas serta alamat presisi gerai tidak ditampilkan sebelum pembayaran | Penawaran baru tampil pada katalog pembeli dan rincian paket menampilkan informasi yang diperlukan tanpa identitas toko. | Pass |
-| INT-TC04 | I-03 | Normal: Checkout dan penahanan kuota pesanan pada basis data | Login sebagai `buyer@demo.sisarasa.invalid`, pilih penawaran aktif, tekan **Pesan / Checkout**, lalu periksa baris `orders`, `checkout_sessions`, dan kolom `quota_held` pada tabel `offers` di PostgreSQL | Pesanan tersimpan dengan status `pending_payment`, baris `checkout_sessions` aktif dibuat, dan `quota_available` berkurang 1 sementara `quota_held` bertambah 1 | Pengujian integrasi backend dan aplikasi Android berjalan sesuai alur; data pesanan dan reservasi kuota tercatat konsisten di PostgreSQL. | Pass |
-| INT-TC05 | I-04 | Normal & Gagal: Otorisasi pembayaran melalui *Payment Gateway* simulasi | Jalankan simulasi pembayaran sukses dan simulasi pembayaran gagal/kedaluwarsa pada pesanan berstatus `pending_payment`, lalu amati status pesanan, kuota, dan penerbitan kredensial *pickup* | Pada simulasi sukses: status berubah menjadi `paid`, `quota_held` berpindah ke `quota_sold`, kredensial QR/OTP diterbitkan, dan identitas gerai terbuka. Pada simulasi gagal/kedaluwarsa: status menjadi `failed`/`expired` dan `quota_held` dikembalikan ke `quota_available` | Kedua skenario simulasi gateway berhasil diverifikasi; transisi status, pergeseran kuota, dan penerbitan tiket QR/OTP berjalan transaksional. | Pass |
-| INT-TC06 | I-06 | Normal & Negatif: Otentikasi tiket soket *single-use*, pengiriman *real-time* `LISTEN/NOTIFY`, deduplikasi, *catch-up* saat putus koneksi, penutupan soket saat *logout*, serta konsistensi *cursor* konkuren | Jalankan `node --import tsx --test --test-concurrency=1 test/integration/notifications.test.ts` dengan basis data PostgreSQL nyata (`sisarasa_test`) dan koneksi klien WebSocket | Tiket kedaluwarsa/pakai ulang ditolak, event terkirim satu kali tanpa duplikasi, pesan tertunda tersinkronisasi saat rekoneksi, soket tertutup saat *logout*, dan *cursor* tidak melompati transaksi konkuren | Pass — seluruh 4 skenario pengujian integrasi WebSocket dan *durable inbox* lulus (`pass 4, fail 0`). | Pass |
-| INT-TC07 | I-07 | Normal: Validasi pengambilan pesanan menggunakan pemindaian kode QR | Login sebagai pembeli untuk menampilkan tiket QR aktif, lalu login sebagai penjual pada jendela waktu *pickup*, pindai kode QR melalui `ScanController`, dan periksa basis data | `PickupService.validate()` memverifikasi hash token, menandai kredensial sebagai `used`, mengubah status pesanan menjadi `completed`, dan menjadwalkan *payout* penjual | Pemindaian QR tervalidasi di server, status pesanan berubah menjadi `completed`, dan kredensial tidak dapat dipakai ulang. | Pass |
-| INT-TC08 | I-07 | Normal & Negatif: Validasi pengambilan menggunakan OTP 6 digit dan penolakan kredensial tidak valid | Masukkan kode OTP 6 digit yang tertera pada tiket pembeli di layar validasi penjual; uji pula dengan OTP salah, kredensial yang sudah `used`, atau akun penjual lain | OTP 6 digit valid menyelesaikan pesanan (`completed`), sedangkan OTP salah, kredensial terpakai, atau penjual non-pemilik ditolak dengan kode galat yang sesuai | Validasi OTP 6 digit berhasil dan seluruh kasus negatif ditolak tanpa mengubah status pesanan. | Pass |
-| INT-TC09 | I-09 | Normal & Konkuren: Penahanan *payout* saat pengaduan diajukan, validasi kepemilikan bukti, *refund* tunggal saat disetujui, transisi ke *no-show* jika ditolak melewati tenggat *pickup*, *race condition* pembatalan/pemindaian, serta *auto-refund* 24 jam khusus toko tutup | Jalankan `node --import tsx --test --test-concurrency=1 test/integration/complaint.test.ts` dan `node --import tsx --test --test-name-pattern="closed-shop" test/integration/jobs.test.ts` | *Payout* ditahan selama sengketa, bukti milik pengguna lain ditolak, *refund* diproses tepat satu kali, *race condition* menghasilkan satu *terminal state* konsisten, dan pengaduan toko tutup otomatis *refund* pada 24 jam | Pass — seluruh 4 skenario pengujian integrasi pengaduan dan *worker auto-refund* lulus (`pass 4, fail 0`). | Pass |
-| *...* | *...* | *...* | *...* | *...* | *...* | *...* |
+| INT-TC01 | I-01 | Pengelolaan penawaran | Buat penawaran Rp100.000 → Rp40.000, ubah kuota 1 menjadi 2 sebelum checkout, lalu tutup. | Penawaran dan kuota berubah sesuai masukan. Penutupan menghapus penawaran dari katalog. | POST 201, PATCH dan tutup 200. DB menyimpan kuota 2 dan status closed. [catalog.test.ts](../../src/backend/test/integration/catalog.test.ts) | Pass |
+| INT-TC02 | I-02 | Katalog dan detail anonim | Ambil daftar dan detail paket dengan koordinat pembeli, lalu ulangi tanpa koordinat. | Detail memuat diskon, kuota dan pickup tanpa identitas gerai. Jarak hanya dihitung bila koordinat tersedia. | Detail anonim 200, jarak 0 km untuk titik yang sama, dan distance_km kosong ketika posisi tidak diberikan. [catalog.test.ts](../../src/backend/test/integration/catalog.test.ts) | Pass |
+| INT-TC03 | I-03 | Preferensi alergen | Simpan filter susu, cek DB, muat daftar dan akses ID paket yang menyebut susu. | Preferensi persisten dan paket tersembunyi dari daftar serta detail. | Filter tersimpan di users. Paket hilang dari daftar, detail 404, dan respons memuat peringatan alergen. [catalog.test.ts](../../src/backend/test/integration/catalog.test.ts) | Pass |
+| INT-TC04 | I-04 | Checkout dan reservasi | Jalankan 20 checkout pada paket berkuota 1. Ulangi satu permintaan dengan kunci yang sama. | Satu pesanan dan invoice tercipta. Retry mengembalikan transaksi yang sama. | Satu respons 201 dan 19 respons 409. DB berisi satu pesanan dengan kuota ditahan 1. [payment.test.ts](../../src/backend/test/integration/payment.test.ts) | Pass |
+| INT-TC05 | I-05 | Callback pembayaran | Kirim callback valid dua kali, callback bertanda tangan tidak valid, nominal salah, dan konfirmasi pada batas kedaluwarsa. | Bayar valid diproses sekali. Callback yang salah ditolak. Kedaluwarsa melepas kuota. | Satu pencatatan pembayaran dan kuota terjual 1. Signature salah 401, nominal salah 400, dan invoice kedaluwarsa tidak menghidupkan pesanan. [payment.test.ts](../../src/backend/test/integration/payment.test.ts) | Pass |
+| INT-TC06 | I-06 | Notifikasi dan sinkronisasi | Hubungkan WebSocket, kirim event transaksi, putuskan koneksi, sambungkan kembali dan restart API. | Event tiba satu kali dan event yang tertinggal tetap tersedia. | Empat tes WebSocket lulus, termasuk tiket sekali pakai, catch-up, konsistensi cursor, dan pemulihan inbox/outbox. [notifications.test.ts](../../src/backend/test/integration/notifications.test.ts) | Pass |
+| INT-TC07 | I-07 | Validasi kredensial pickup | Validasi QR dan OTP bersamaan untuk satu pesanan lunas. | Satu validasi menyelesaikan pesanan dan menjadwalkan satu payout. | Satu validasi berhasil, permintaan lain ditolak, dan satu payout tercatat. [pickup.test.ts](../../src/backend/test/integration/pickup.test.ts) | Pass |
+| INT-TC08 | I-08 | Penolakan token dan pembatasan OTP | Kirim QR rusak, uji batas waktu pickup, dan ulangi OTP salah sampai permintaan keenam. | Masukan tidak sah ditolak. Percobaan dibatasi dan dapat dilanjutkan setelah jendela berakhir. | QR rusak ditolak, awal jendela diterima dan akhir ditolak. Percobaan keenam dibatasi dan penghitung pulih setelah jendela berakhir. [pickup.test.ts](../../src/backend/test/integration/pickup.test.ts) | Pass |
+| INT-TC09 | I-09 | Pengaduan dan keputusan | Ajukan bukti milik akun lain, lalu ajukan bukti sah. Uji persetujuan, penolakan, dan toko tutup pada batas 24 jam. | Bukti asing ditolak. Sengketa menahan payout. Keputusan yang memenuhi syarat menghasilkan refund tunggal. | Validasi kepemilikan, hold, refund penuh, no-show setelah penolakan, dan auto-refund toko tutup lulus. [complaint.test.ts](../../src/backend/test/integration/complaint.test.ts) | Pass |
+| INT-TC10 | I-10 | Ulasan | Kirim rating sebelum dan sesudah pickup. Ulangi pengiriman dan baca dari akun yang belum berhak. | Hanya pembeli yang berhak dapat mengirim satu ulasan pesanan selesai. | Sebelum selesai 409, pengiriman sah 201, duplikasi 409, dan akses asing 403. Rating 5 serta komentar cocok di PostgreSQL. [review-payout.test.ts](../../src/backend/test/integration/review-payout.test.ts) | Pass |
+| INT-TC11 | I-11 | Riwayat transaksi | Selesaikan satu pesanan dan buat pesanan lain pada akun berbeda. Filter status sebagai pembeli dan penjual serta coba buka detail milik akun lain. | Riwayat hanya memuat transaksi akun terkait beserta status dan audit. | Kedua pemilik melihat pesanan selesai, log status tersedia, filter paid kosong, dan detail untuk akun lain ditolak 404. [m10-profile-history.test.ts](../../src/backend/test/integration/m10-profile-history.test.ts) | Pass |
+| INT-TC12 | I-12 | Profil gerai | Ubah nama, alamat, lokasi dan tujuan demo. Baca ulang profil sebagai penjual, lalu coba baca dan ubah sebagai pembeli. | Profil persisten, nomor demo tersamar, dan akses pembeli ditolak. | Profil terbaca kembali dengan empat digit terakhir. Nomor lengkap tidak tersimpan. GET dan PATCH pembeli ditolak 403. [m10-profile-history.test.ts](../../src/backend/test/integration/m10-profile-history.test.ts) | Pass |
 
-<br>
+Uji batas 24 jam untuk INT-TC09 menggunakan jam uji pada [jobs.test.ts](../../src/backend/test/integration/jobs.test.ts). Di luar perubahan waktu, worker dan PostgreSQL tetap digunakan.
 
 ## 4.4 Pengujian Use Case
 
-Pengujian use case dilakukan pada seluruh skenario normal dan alternatif sesuai Subbab 4.4 SKPL, dengan minimal satu test case untuk setiap skenario. Kolom ID KF menunjukkan KF yang diverifikasi oleh test case tersebut.
+Skenario mengacu pada Subbab 4.4 SKPL. Hasil API, tes widget, dan pengujian Android pada emulator disebutkan pada masing-masing baris sesuai cara verifikasinya.
 
 ### 4.4.1 Use Case Membuat dan Mengelola Penawaran
 
-**ID Use Case:** UC01  
-**Nama Use Case:** Membuat dan Mengelola Penawaran
+**ID Use Case:** UC01
 
-Tabel 4.4.1. Hasil Pengujian Use Case UC01
-
-| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| UC01-TC01 | KF03 | Normal: Membuat Penawaran Baru | 1. Login sebagai penjual.<br>2. Buka menu penawaran dan tekan **Buat penawaran**.<br>3. Isi kategori, kuota, harga normal, harga diskon, alergen, jadwal *pickup*, batas konsumsi, dan konfirmasi kelayakan.<br>4. Tekan **Simpan penawaran**. | Kategori `Roti & Kudapan`; kuota `5`; harga normal `Rp100.000`; harga diskon `Rp40.000`; alergen `Gluten` dan `Susu`; jendela *pickup* valid; batas konsumsi setelah waktu *pickup*; konfirmasi kelayakan aktif | Sistem memvalidasi kelengkapan data, rentang diskon, dan jadwal; penawaran diterbitkan ke katalog aktif serta ditampilkan pada daftar penjual | Formulir valid berhasil disimpan dan penawaran tampil pada daftar penjual beserta kuota dan jadwalnya | Pass |
-| UC01-TC02 | KF03 | Alternatif 1: Harga Diskon di Luar Rentang yang Diizinkan | 1. Login sebagai penjual dan buka formulir penawaran baru.<br>2. Isi data kuota dan jadwal yang valid.<br>3. Masukkan harga diskon yang menghasilkan diskon di luar rentang 50–70%.<br>4. Tekan **Simpan penawaran**. | Harga normal `Rp100.000`; harga diskon `Rp80.000` | Sistem menolak penyimpanan dan menampilkan pesan kesalahan bahwa harga paket harus berkisar 30–50% dari harga normal | Sistem menolak input diskon `Rp80.000` dan menampilkan pesan batas diskon pada formulir | Pass |
-| UC01-TC03 | KF04 | Alternatif: Mengubah Penawaran Aktif yang Belum Terjual | 1. Login sebagai penjual.<br>2. Pilih penawaran aktif yang belum memiliki penahanan atau pembayaran.<br>3. Tekan **Ubah**.<br>4. Perbarui kuota atau rincian yang dapat diedit.<br>5. Tekan **Simpan penawaran**. | Penawaran aktif tanpa reservasi atau pembayaran; kuota/rincian baru yang masih memenuhi batas validasi | Penawaran dapat diperbarui dan perubahan ditampilkan pada daftar penjual serta katalog | Perubahan penawaran berhasil disimpan dan hasil perubahannya tampil pada daftar penjual | Pass |
-| UC01-TC04 | KF04 | Alternatif 2: Penawaran Terkunci atau Ditutup | 1. Login sebagai penjual dan buka daftar penawaran.<br>2. Pilih penawaran yang sedang ditahan/dibayar atau sudah ditutup.<br>3. Amati tombol **Ubah** dan **Tutup**. | Penawaran yang tidak lagi dapat diubah | Sistem menonaktifkan perubahan dan penutupan penawaran yang telah ditahan, dibayar, atau ditutup, serta menampilkan pesan pembatasan | Pada penawaran yang telah dibayar, kontrol ubah/tutup tidak aktif dan pesan pembatasan terlihat | Pass |
+| ID Pengujian | ID KF | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC01-TC01 | KF03 | Terbitkan penawaran | Kirim penawaran lengkap dengan kuota 1, harga Rp100.000 dan harga diskon Rp40.000. | Penawaran valid masuk katalog. | API mengembalikan 201 dan paket tampil pada katalog. Formulir Penawaran baru tampil pada emulator. | Pass |
+| UC01-TC02 | KF03 | Diskon tidak valid | Coba diskon 49% dan 71% dengan harga normal Rp100.000. | Simpan ditolak. | Kedua permintaan ditolak dengan HTTP 400. | Pass |
+| UC01-TC03 | KF04 | Ubah penawaran terkunci | Ubah harga atau kuota saat paket ditahan atau memiliki riwayat pembayaran. | Penawaran tidak dapat diubah. | Ubah atau tutup dikembalikan 409 saat kuota ditahan. Uji layanan juga menolak perubahan untuk penawaran yang pernah dibayar. | Pass |
+| UC01-TC04 | KF04 | Kelola penawaran aktif | Ubah kuota sebelum checkout, baca kuota dari katalog dan tutup penawaran. | Kuota diperbarui dan penawaran tertutup hilang dari katalog. | Katalog menampilkan kuota 2 setelah perubahan. Sesudah ditutup, daftar kosong dan DB menunjukkan closed. | Pass |
 
 ### 4.4.2 Use Case Menelusuri Penawaran Anonim
 
-**ID Use Case:** UC02  
-**Nama Use Case:** Menelusuri Penawaran Anonim
+**ID Use Case:** UC02
 
-Tabel 4.4.2. Hasil Pengujian Use Case UC02
-
-| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| UC02-TC01 | KF06, KF07, KF08 | Normal: Mencari Paket dengan Filter Alergen | 1. Login sebagai pembeli dan buka katalog.<br>2. Tekan **Filter alergen**.<br>3. Pilih alergen yang ingin dihindari dan tekan **Simpan filter**.<br>4. Buka salah satu penawaran pada hasil katalog. | Profil filter alergen pembeli dan daftar penawaran dengan deklarasi alergen | Penawaran yang mengandung alergen pilihan disembunyikan; katalog dan rincian paket tetap menampilkan diskon, kuota, jadwal *pickup*, serta identitas toko yang masih anonim | Filter alergen berhasil diterapkan, hasil filter tidak memuat penawaran yang bertentangan, dan rincian paket menampilkan informasi harga dan jadwal tanpa identitas gerai | Pass |
-| UC02-TC02 | KF06, KF07 | Alternatif 1: Tidak Ada Penawaran yang Cocok dengan Filter | 1. Login sebagai pembeli.<br>2. Buka **Filter alergen**.<br>3. Pilih kombinasi alergen hingga tidak ada penawaran yang cocok.<br>4. Simpan filter dan kembali ke katalog. | Kombinasi filter yang menghilangkan seluruh penawaran tersedia | Sistem menampilkan keadaan kosong dan teks *disclaimer* risiko kontaminasi silang | Katalog menampilkan pesan tidak ada paket yang cocok beserta disclaimer kontaminasi silang | Pass |
-| UC02-TC03 | KF06, KF08 | Alternatif 2: Pembeli Tidak Mengizinkan Akses Lokasi | 1. Buka katalog sebagai pembeli.<br>2. Tekan **Hitung jarak**.<br>3. Tolak izin lokasi pada dialog Android.<br>4. Amati katalog setelah penolakan. | Izin lokasi Android bernilai ditolak | Sistem tetap menampilkan katalog tanpa urutan jarak, memberikan pesan bahwa lokasi tidak diberikan, dan tetap memperbolehkan pembukaan rincian penawaran | Pesan penolakan lokasi tampil, katalog tetap dapat dibuka, dan perhitungan jarak tidak ditampilkan | Pass |
+| ID Pengujian | ID KF | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC02-TC01 | KF06, KF07, KF08 | Daftar, filter dan detail | Buka katalog, ambil detail dengan lokasi pembeli, lalu simpan filter susu. | Gerai tetap anonim, jarak dihitung dan paket beralergen disembunyikan. | Katalog Android menampilkan paket anonim. API mengembalikan jarak dan detail tanpa identitas gerai, lalu menyaring paket setelah filter tersimpan. | Pass |
+| UC02-TC02 | KF07 | Filter tanpa hasil | Simpan filter susu ketika hanya paket dengan alergen susu tersedia. | Daftar kosong disertai peringatan kontaminasi silang. | API mengembalikan daftar kosong, peringatan masih tersedia, dan paket tidak dapat dibuka lewat ID. | Pass |
+| UC02-TC03 | KF06, KF08 | Izin lokasi ditolak | Jalankan tes Flutter dengan lokasi ditolak dan muat katalog tanpa koordinat. | Katalog tetap dapat dibuka dan memberikan petunjuk lokasi. | Tes Flutter mengonfirmasi katalog dan paginasi tetap tersedia. API mengembalikan distance_km kosong. | Pass |
 
 ### 4.4.3 Use Case Melakukan Transaksi Pembayaran
 
-**ID Use Case:** UC03  
-**Nama Use Case:** Melakukan Transaksi Pembayaran
+**ID Use Case:** UC03
 
-Tabel 4.4.3. Hasil Pengujian Use Case UC03
-
-| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| UC03-TC01 | KF01, KF02, KF09, KF10 | Normal: Melakukan Checkout dan Pembayaran Simulasi hingga Berhasil | 1. Login sebagai pembeli dan buka rincian penawaran aktif.<br>2. Tekan tombol **Pesan / Checkout**.<br>3. Tinjau ringkasan harga dan tenggat pembayaran pada layar *checkout*.<br>4. Pilih metode pembayaran simulasi (QRIS/E-Wallet) dan tekan **Simulasi Bayar Berhasil**. | Penawaran aktif dengan kuota ≥ 1; metode pembayaran simulasi valid | Pesanan berubah status menjadi `paid`, identitas serta alamat lengkap gerai ditampilkan, dan tiket pengambilan (kode QR serta OTP 6 digit) diterbitkan | Pembayaran simulasi berhasil diproses, identitas gerai terbuka, dan tiket QR/OTP tampil pada layar tiket aktif | Pass |
-| UC03-TC02 | KF02, KF09 | Alternatif 1: Pembayaran Simulasi Gagal atau Melewati Tenggat Waktu | 1. Buat pesanan baru hingga masuk ke layar pembayaran (`pending_payment`).<br>2. Tekan **Simulasi Bayar Gagal** atau tunggu hingga batas waktu pembayaran berakhir.<br>3. Periksa status pesanan dan ketersediaan kuota penawaran. | Aksi pembayaran gagal atau waktu melebihi `payment_deadline` | Sistem menampilkan pesan pembayaran gagal/kedaluwarsa, status pesanan tidak menjadi lunas, dan kuota yang ditahan dikembalikan ke katalog | Pembayaran ditolak sesuai skenario dan kuota paket kembali tersedia untuk pembeli lain | Pass |
-| UC03-TC03 | KF01, KF09 | Alternatif 2: Checkout Ditolak karena Kuota Habis atau Konflik Alergen | 1. Coba lakukan *checkout* pada penawaran dengan kuota tersedia `0` atau penawaran yang mengandung alergen pada profil filter pembeli.<br>2. Amati respons sistem. | Penawaran dengan `quota_available = 0` atau alergen yang diblokir pengguna | Sistem menolak pembuatan pesanan dan menampilkan pesan bahwa kuota habis atau paket mengandung alergen yang dihindari | Sistem mencegah pembuatan pesanan dan menampilkan pesan penolakan yang sesuai | Pass |
+| ID Pengujian | ID KF | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC03-TC01 | KF01, KF02, KF09, KF10 | Pembayaran berhasil | Buat checkout, buka invoice QR simulasi, jalankan simulasi berhasil, lalu buka tiket. | Pilihan kanal tersedia, tagihan diproses, kuota berkurang sekali, dan tiket serta identitas gerai terbuka. | Invoice QR simulasi berhasil di Android. Kuota, identitas dan tiket sesuai. Pemilih kanal QRIS/e-wallet belum tersedia. KF01 gagal, bagian KF02, KF09, dan KF10 lulus. | Sebagian |
+| UC03-TC02 | KF02, KF09 | Tagihan kedaluwarsa | Majukan jam uji ke batas waktu pembayaran, lalu kirim ulang event pembayaran. | Tagihan berakhir, reservasi dilepas, dan pembayaran terlambat ditolak. | Invoice kedaluwarsa pada batas waktu. Kuota dilepas satu kali dan callback terlambat tidak mengubah status. | Pass |
+| UC03-TC03 | KF02, KF09 | Kuota habis | Jalankan 20 checkout terhadap penawaran berkuota 1. | Checkout setelah kuota ditahan ditolak tanpa membuat invoice tambahan. | Satu checkout berhasil, 19 ditolak, dan DB berisi tepat satu pesanan. | Pass |
 
 ### 4.4.4 Use Case Memantau Pesanan Masuk
 
-**ID Use Case:** UC04  
-**Nama Use Case:** Memantau Pesanan Masuk
+**ID Use Case:** UC04
 
-Tabel 4.4.4. Hasil Pengujian Use Case UC04
-
-| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| UC04-TC01 | KF05 | Normal: Menerima notifikasi pesanan masuk secara *real-time* | 1. Jalankan suite pengujian `flutter test test/features/notifications_test.dart test/features/order_actions_test.dart`.<br>2. Simulasikan event pesanan dibayar (`payment.succeeded`) dari server melalui kanal WebSocket.<br>3. Amati pembaruan daftar pesanan masuk dan indikator notifikasi pada antarmuka. | Payload event notifikasi pesanan baru valid dengan tiket soket aktif | Notifikasi pesanan masuk diterima secara *real-time* dan ditampilkan pada daftar notifikasi serta daftar pesanan penjual. | Pass — komponen UI dan state notifikasi merender event pesanan masuk sesuai harapan (bagian dari 11/11 test Flutter lulus). | Pass |
-| UC04-TC02 | KF05 | Alternatif 1: Sinkronisasi ulang notifikasi tertunda (*catch-up*) dan penandaan terbaca | 1. Simulasikan koneksi WebSocket terputus saat ada event notifikasi baru masuk di *inbox*.<br>2. Sambungkan kembali klien dan lakukan *catch-up* dari *cursor* terakhir.<br>3. Tandai notifikasi sebagai sudah dibaca. | Cursor notifikasi terakhir dan permintaan penandaan status baca | Seluruh notifikasi yang terlewat dimuat ulang secara berurutan tanpa duplikasi dan status terbaca tersimpan. | Pass — sinkronisasi ulang *inbox* dan pembaruan status baca berjalan konsisten tanpa duplikasi item. | Pass |
+| ID Pengujian | ID KF | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC04-TC01 | KF05 | Pesanan baru masuk | Selesaikan pembayaran simulasi ketika penjual tersambung. Cocokkan payload WebSocket dan daftar riwayat penjual. | Notifikasi tiba dan pesanan lunas beserta jadwal pickup tersedia. | Tes PostgreSQL/WebSocket mengirim event dan tes Flutter memperbarui daftar yang terbuka. Emulator menampilkan kode pesanan lunas, status Siap diambil, dan batas pickup. | Pass |
+| UC04-TC02 | KF05 | Belum ada pesanan | Buka daftar pesanan penjual pada emulator sebelum pembeli melakukan checkout. | Tampilan kosong menjelaskan bahwa pesanan belum tersedia. | Emulator menampilkan Belum ada pesanan. Skenario pembaruan ketika event lunas tiba lulus pada tes Flutter. | Pass |
 
 ### 4.4.5 Use Case Memvalidasi Pengambilan Pesanan
 
-**ID Use Case:** UC05  
-**Nama Use Case:** Memvalidasi Pengambilan Pesanan
+**ID Use Case:** UC05
 
-Tabel 4.4.5. Hasil Pengujian Use Case UC05
-
-| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| UC05-TC01 | KF11, KF12 | Normal: Validasi Pengambilan dengan Pemindaian Kode QR | 1. Pembeli membuka layar **Tiket Pickup** untuk pesanan berstatus `paid`.<br>2. Penjual membuka menu pemindaian QR pada pesanan masuk dalam jendela waktu *pickup*.<br>3. Arahkan pemindai ke kode QR tiket pembeli. | Token QR aktif milik pesanan valid pada rentang `pickup_start` s.d. `pickup_end` | Sistem memverifikasi token QR, mengubah status pesanan menjadi `completed`, menonaktifkan tiket, dan menjadwalkan pencairan dana penjual | Kode QR berhasil dipindai, konfirmasi pengambilan muncul, dan status pesanan berubah menjadi selesai | Pass |
-| UC05-TC02 | KF11, KF12 | Alternatif 1: Validasi Pengambilan Menggunakan Kode OTP 6 Digit | 1. Pembeli membacakan kode OTP 6 digit yang tampil di bawah kode QR tiket.<br>2. Penjual memilih opsi input manual OTP pada layar validasi.<br>3. Masukkan 6 digit OTP dan tekan **Verifikasi**. | Kode OTP 6 digit yang sesuai dengan pesanan aktif | Sistem memvalidasi kecocokan OTP dan menyelesaikan pesanan (`completed`) sama seperti pemindaian QR | Input OTP 6 digit diterima dan status pesanan diperbarui menjadi selesai | Pass |
-| UC05-TC03 | KF11, KF12 | Alternatif 2: Penolakan Kode QR/OTP yang Sudah Terpakai atau Tidak Valid | 1. Coba pindai ulang kode QR atau masukkan OTP dari pesanan yang sudah berstatus `completed`.<br>2. Coba masukkan kode OTP acak yang tidak terdaftar atau validasi di luar jadwal *pickup*. | Token QR/OTP berstatus `used`, OTP salah, atau waktu di luar jendela *pickup* | Sistem menolak validasi dan menampilkan pesan bahwa tiket sudah digunakan, tidak valid, atau belum/lewat waktu pengambilan | Sistem menolak seluruh upaya validasi tidak sah dan mempertahankan integritas status pesanan | Pass |
+| ID Pengujian | ID KF | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC05-TC01 | KF11 | Validasi QR | Kirim payload QR tiket lunas ke endpoint pickup dan periksa status pesanan serta payout. | Kamera membaca QR, lalu pesanan selesai dan payout dijadwalkan. | Backend memvalidasi token QR, mempertahankan transisi tunggal dan membuat satu payout. Bukti yang tersedia untuk validasi QR berasal dari pengujian backend. Bukti Android memperlihatkan konfirmasi OTP. | Sebagian |
+| UC05-TC02 | KF11, KF12 | Fallback OTP | Buka masukan manual, masukkan OTP tiket lunas, dan konfirmasi pengambilan pada emulator. | Pesanan selesai setelah OTP valid. | Pesanan berubah menjadi completed. Tes Android memeriksa payout simulasi Rp38.000 dari pesanan Rp40.000. | Pass |
+| UC05-TC03 | KF11, KF12 | Token atau waktu tidak valid | Kirim QR rusak, ulangi kredensial dan uji batas jendela pickup. | Token rusak, pemakaian ulang dan pengambilan di luar jendela ditolak. | Tes API lulus, termasuk balapan QR/OTP, QR rusak, dan pembatasan percobaan OTP. | Pass |
 
 ### 4.4.6 Use Case Mengelola Pesanan
 
-**ID Use Case:** UC06  
-**Nama Use Case:** Mengelola Pesanan
+**ID Use Case:** UC06
 
-Tabel 4.4.6. Hasil Pengujian Use Case UC06
+| ID Pengujian | ID KF | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC06-TC01 | KF13 | Penjual membatalkan pesanan | Buka pesanan lunas pada emulator sebagai penjual. Tekan Batalkan & refund simulasi dan konfirmasi. Uji balapan dengan pickup di backend. | Sistem mencapai satu status akhir dan mengembalikan pembayaran bila batal. | Dialog menampilkan refund penuh. Setelah konfirmasi, API mengembalikan status refunded. Tes integrasi memastikan satu hasil akhir tanpa refund ganda. | Pass |
+| UC06-TC02 | KF13 | Pengaduan paket tidak layak | Ajukan alasan unfit dengan bukti yang sah, lalu setujui sebagai penjual. | Payout ditahan. Persetujuan memproses refund penuh. | Payout berstatus held dan refund penuh diproses satu kali untuk paket tidak layak. | Pass |
+| UC06-TC03 | KF13 | No-show dan gerai tutup | Jalankan worker pada akhir jendela pickup dan pada batas 24 jam untuk pengaduan gerai tutup. | No-show menjadwalkan payout tanpa refund. Gerai tutup yang memenuhi syarat mendapat refund penuh. | Worker mengubah pesanan kedaluwarsa ke no-show. Pada 24 jam, hanya jenis gerai tutup yang otomatis direfund. | Pass |
 
-| ID Pengujian | ID KF | Skenario | Prosedur Pengujian | Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| UC06-TC01 | KF13 | Normal: Mengajukan pengaduan pesanan beserta lampiran foto bukti | 1. Jalankan pengujian `flutter test test/features/complaints_test.dart test/features/order_actions_test.dart`.<br>2. Pilih pesanan berstatus lunas pada layar riwayat pembeli.<br>3. Isi alasan pengaduan, deskripsi masalah, dan lampirkan foto bukti lalu kirim. | Alasan pengaduan valid, deskripsi ≥ 10 karakter, dan 1–2 berkas foto bukti | Pengaduan tersimpan, status pesanan berubah menjadi dalam sengketa (*complained*), dan pencairan dana penjual ditahan. | Pass — alur pengiriman pengaduan pada antarmuka dan layanan berjalan sesuai spesifikasi. | Pass |
-| UC06-TC02 | KF13 | Alternatif 1: Validasi input dan penolakan pengaduan tidak memenuhi syarat | 1. Kirim formulir pengaduan dengan deskripsi terlalu pendek (< 10 karakter) atau lampiran melebihi batas maksimal.<br>2. Simulasikan pengajuan pengaduan melewati batas waktu ketentuan. | Deskripsi < 10 karakter, > 2 lampiran bukti, atau pesanan di luar jendela pengaduan | Sistem menolak pengajuan dan menampilkan pesan validasi yang sesuai tanpa mengubah status pesanan. | Pass — validasi klien dan server menolak seluruh masukan tidak valid sesuai aturan bisnis. | Pass |
-| UC06-TC03 | KF13 | Alternatif 2: Pemantauan keputusan pengaduan dan *auto-refund* toko tutup 24 jam | 1. Uji tampilan status pengaduan saat disetujui, ditolak, maupun menunggu keputusan.<br>2. Jalankan pengujian `jobs.test.ts` pada skenario `closed-shop` dengan selisih waktu 24 jam tanpa tanggapan penjual. | Kategori pengaduan `toko_tutup` yang melewati batas waktu 24 jam | Status sengketa tampil akurat pada aplikasi dan sistem memproses *auto-refund* penuh secara otomatis tepat setelah 24 jam. | Pass — tampilan status sengketa dan mekanisme *auto-refund* 24 jam berjalan akurat tanpa duplikasi pengembalian dana. | Pass |
+### 4.4.7 Use Case Melihat Riwayat dan Memberikan Ulasan
 
-<br>
+**ID Use Case:** UC07
+
+| ID Pengujian | ID KF | Skenario | Prosedur dan Masukan | Hasil yang Diharapkan | Hasil Aktual | Kesimpulan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UC07-TC01 | KF14 | Lihat riwayat transaksi | Buka layar riwayat pembeli setelah verifikasi pickup. Periksa kode dan label status. | Riwayat menampilkan pesanan dengan status Selesai. | Emulator menampilkan kode pesanan dan status Selesai. INT-TC11 memverifikasi hak akses dan audit. | Pass |
+| UC07-TC02 | KF14 | Kirim rating dan ulasan | Buka detail dari riwayat, pilih Beri ulasan, isi 5 bintang dan komentar, lalu kirim. | Ulasan tersimpan dan masuk daftar penilaian gerai. | Aplikasi menampilkan konfirmasi simpan. API penjual mengembalikan komentar yang sama. INT-TC10 memeriksa nilai di DB. | Pass |
+| UC07-TC03 | KF14 | Pesanan belum selesai | Buka detail pesanan berstatus Siap diambil dan periksa tindakan yang tersedia. | Tombol Beri ulasan tidak tersedia sebelum pesanan selesai. | Tombol tidak dirender di Android. API menolak pengiriman sebelum pickup dengan 409. | Pass |
 
 ## 4.5 Pengujian Kebutuhan Non-Fungsional (KNF)
 
-Setiap KNF pada Tabel 3.2 SKPL diuji secara terukur berdasarkan parameter yang telah didefinisikan. Setiap pengujian memuat target terukur, metode dan alat yang sesuai dengan parameter (misalnya Chrome DevTools untuk *response time* dan inspeksi basis data untuk *security*), serta hasil aktual berupa angka atau data. KNF yang belum dipenuhi atau tidak diimplementasikan dicantumkan beserta alasan dan rencana perbaikan.
+ID KNF mengikuti [Tabel 3.2 SKPL](../M5/K01_G06_SKPL.md#32-kebutuhan-non-fungsional-knf). Benchmark notifikasi dicatat sebagai pengukuran pendukung KF05. Status **Sebagian** berarti ada syarat yang lulus dan syarat lain yang masih terbuka.
 
-Tabel 4.5. Hasil Pengujian KNF
-
-| ID Pengujian | ID KNF | Parameter | Target Terukur | Metode dan Alat | Hasil Aktual | Kesimpulan |
+| ID Pengujian | ID Kebutuhan | Parameter | Target | Metode dan Alat | Hasil Aktual | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| KNF01-TC01 | KNF01 | Performance / Lamanya pemrosesan penawaran, katalog, dan validasi *pickup* | Waktu respons lokal layanannya harus tetap praktis dan tidak menghasilkan kegagalan pada 30 permintaan berurutan; target pengujian benchmark disetarakan dengan batas respons aplikasi kurang dari 3.000 ms | Pengujian TypeScript pada PostgreSQL disposabel nyata melalui `src/scripts/benchmark.sh`, 30 permintaan HTTP berurutan, dan `EXPLAIN (ANALYZE, BUFFERS)` pada query penawaran aktif | Dataset berisi 1.000 pengguna, 300 merchant, dan 5.000 penawaran. 30/30 permintaan berhasil; latency end-to-end p50 = 8,34 ms, p95 = 11,92 ms, maksimum = 23,12 ms; latency server p50 = 6,77 ms, p95 = 9,73 ms, maksimum = 12,92 ms. Planning time = 0,187 ms dan Execution time = 0,835 ms | Pass |
-| *KNF02-TC01* | KNF02 | Reliability | Tidak ada transaksi, stok, pembayaran, maupun pesan yang hilang atau diproses ganda saat terjadi kegagalan worker, restart API, atau putus koneksi | Pengujian integrasi otomatis (`node --import tsx --test`) pada skenario *persistent worker catch-up* tanpa pelepasan stok ganda, *retry/expired lease* dengan penyelesaian tunggal, serta pemulihan API tanpa kehilangan event *inbox/outbox* | Pass — seluruh 3 skenario pengujian ketahanan transaksi dan pemulihan kegagalan lulus tanpa duplikasi maupun kehilangan data (`pass 3, fail 0`). | Pass |
-| KNF03-TC01 | KNF03 | *Security* / Anonimitas gerai, penyimpanan hash kredensial, & *rate limit* OTP | 100% identitas & koordinat gerai tersembunyi sebelum status `paid`; token QR tersimpan sebagai hash SHA-256 & ciphertext terenkripsi; percobaan OTP salah diblokir setelah 5 kali dalam 15 menit | Inspeksi respons JSON katalog/pesanan belum lunas, kueri langsung tabel `pickup_credentials` pada PostgreSQL, serta pengujian 6 kali percobaan OTP salah berturut-turut | Respons katalog & pesanan `pending_payment` tidak memuat nama/alamat/koordinat gerai; tabel `pickup_credentials` hanya menyimpan `token_hash` dan `ciphertext` berawalan `v1`; percobaan OTP ke-6 ditolak oleh *rate limiter* | Pass |
-| KNF04-TC01 | KNF04 | *Availability* / Akses tiket pengambilan dalam mode *offline* | Tiket pengambilan aktif (kode QR, kode OTP 6 digit, dan alamat gerai) tetap dapat diakses dan ditampilkan ≤ 2 detik saat perangkat tidak memiliki koneksi jaringan | Buka tiket aktif saat terhubung jaringan agar tersimpan di *cache* lokal, aktifkan mode pesawat (*offline*) pada perangkat/emulator Android, tutup lalu buka kembali menu **Tiket** (`TicketsScreen`) | Tiket pengambilan tetap tampil lengkap beserta kode QR, OTP 6 digit, dan alamat gerai dalam < 1 detik tanpa koneksi internet | Pass |
-| KNF05-TC01 | KNF05 | *Response time* / Latensi notifikasi *real-time* | Latensi pengiriman notifikasi perubahan status pesanan ke klien ≤ 2 detik (2.000 ms) | Pengukuran latensi 30 sampel berurutan menggunakan skrip benchmark TypeScript (`npx tsx test/benchmark/notification-latency.ts`) pada jalur Push Outbox (`LISTEN/NOTIFY`) ke WebSocket serta jalur End-to-End (transaksi hingga klien WS) | 0 kegagalan dari 30 sampel. Jalur Push Outbox ke WebSocket: p50 = 8,12 ms, p95 = 11,52 ms, maks = 12,56 ms. Jalur End-to-End: p50 = 36,45 ms, p95 = 49,93 ms, maks = 50,34 ms (jauh di bawah batas 2.000 ms). | Pass |
-| *KNFXX-TC01* | *KNFXX* | *Response time* | *Halaman tampil ≤ 4 detik* | *Chrome DevTools, 5 kali ukur, ambil rata-rata* | *[Rata-rata ... detik, maks ... detik]* | *Pass/Fail* |
-| *...* | *...* | *...* | *...* | *...* | *...* | *...* |
-
-<br>
+| KNF01-TC01 | KNF01 | Reliabilitas pembayaran | Kuota dan pencatatan dana tetap konsisten setelah kegagalan jaringan. | Jalankan checkout konkuren, putuskan koneksi melalui proksi setelah API menyelesaikan pembayaran, baca status dan ulangi permintaan. | Satu dari 20 checkout berhasil untuk kuota 1. Pembayaran yang kehilangan respons tetap dapat dibaca kembali. Satu kuota terjual dan satu entri dana tertahan. | Pass |
+| KNF02-TC01 | KNF02 | Keamanan | Kata sandi berupa hash lambat, token QR sekali pakai, dan percobaan OTP dibatasi. | Periksa format bcrypt di PostgreSQL dalam fixture tes. Uji balapan validasi, pemakaian ulang QR dan percobaan OTP. | Tes memverifikasi bcrypt cost 12 tanpa kata sandi polos di database atau respons. QR hanya menyelesaikan sekali dan percobaan OTP keenam ditolak. | Pass |
+| KNF03-TC01 | KNF03 | Waktu respons pickup | Dari pemindaian kamera penjual hingga status Selesai kurang dari 3 detik pada jaringan sesuai SKPL. | Jalankan benchmark endpoint HTTP lokal dan EXPLAIN ANALYZE pada katalog. Uji kamera hingga status Selesai pada jaringan sesuai SKPL masih diperlukan. | 30 permintaan pickup, 0 gagal. Endpoint HTTP lokal: p50 8,34 ms, p95 11,92 ms, maksimum 23,12 ms. Kueri katalog pada 5.000 penawaran selesai dalam 0,835 ms. | Sebagian |
+| KNF04-TC01 | KNF04 | Portabilitas dan tiket offline | Tiket QR tetap tampil setelah koneksi putus. Android mendukung layar kecil. | Tutup proses aplikasi, blokir jaringan di tes Android, buka kembali tiket dari cache, dan uji layout 320 px dengan teks 2×. | Tiket dan label OFFLINE tampil setelah aplikasi dibuka kembali. Tes layout Flutter dan emulator API 35 lulus. | Pass |
+| KNF05-TC01 | KNF05 | Privasi lokasi | Koordinat presisi gerai tidak dikirim sebelum pembayaran sukses. | Inspeksi field respons daftar/detail katalog dan detail pesanan sebelum dan sesudah pembayaran. | Respons katalog hanya berisi jarak relatif. Pesanan sebelum pembayaran tidak memuat objek gerai atau tiket, dan data gerai tersedia setelah pembayaran berhasil. | Pass |
+| KF05-PERF01 | KF05 | Latensi notifikasi WebSocket | Target uji lokal tim ≤ 2.000 ms dari perubahan transaksi sampai klien menerima event. | Jalankan notification-latency.ts dengan 30 sampel pada klien WebSocket lokal. | 0 gagal. Outbox sampai klien: p50 1,41 ms, p95 3,39 ms, maksimum 3,67 ms. Transaksi sampai klien: p50 7,27 ms, p95 15,44 ms, maksimum 16,53 ms. | Pass |
 
 ## 4.6 Tangkapan Layar dan Bukti Hasil Pengujian
 
-Bukti pengujian dilampirkan sesuai ID Pengujian pada Subbab 4.2 sampai 4.5, berupa tangkapan layar aplikasi, keluaran *test runner*, laporan *coverage* untuk setiap kelas Mendalam, atau hasil alat ukur.
-
-Tabel 4.6. Bukti Hasil Pengujian
+Pengujian dilakukan pada 20 November 2026 dengan Node.js 22.18, PostgreSQL 15 dan Flutter 3.47.2. Kode runtime backend, aplikasi Android, konfigurasi build, migrasi, dan dependensi yang diuji sama dengan tag `v9.0` (`e07c29d`). Tes tambahan disiapkan untuk M10. Build backend dan APK debug aplikasi berhasil. APK dipasang dan dibuka di emulator. Analisis Flutter juga lulus. Suite backend mencatat **113 tes lulus**, suite Flutter **63 tes lulus**, dan instrumentation Android **6 dari 6 skenario lulus**. Tangkapan layar berikut membedakan emulator yang terhubung ke backend dari tes widget dengan data fixture.
 
 | ID Pengujian | Bukti Hasil Pengujian |
 | :--- | :--- |
-| C01-UT01 – C01-UT03, C02-UT01 – C02-UT04, C03-UT01 – C03-UT11, C04-UT01 – C04-UT14, C05-UT01 – C05-UT02, C06-UT01 – C06-UT03, C07-UT01, C08-UT01 – C08-UT08, C09-UT01 – C09-UT10, C09-UT08b, C09 tambahan, C11-UT01 – C11-UT02 | <img src="./assets/all-unit-test-C01-C11.png" alt="All Unit test C01 - C11" width="400"> |
-| C03 (coverage) | <img src="./assets/C03-coverage.png" alt="C03 Coverage" width="400"> |
-| C04 (coverage) | <img src="./assets/C04-coverage.png" alt="C04 Coverage" width="400"> |
-| C08 (coverage) | <img src="./assets/C08-coverage.png" alt="C08 Coverage" width="400"> |
-| C09 (coverage) | <img src="./assets/C09-coverage.png" alt="C09 Coverage" width="400"> |
-| INT-TC01 | <img src="./assets/FatharINT-TC01-1-form-penawaran.png.png" alt="INT-TC01 Formulir Penawaran" width="400"><br><img src="./assets/FatharINT-TC01-2-penawaran-terbit.png.png" alt="INT-TC01 Penawaran Terbit" width="400"><br><img src="./assets/FatharINT-TC01-3-daftar-penjual.png.png" alt="INT-TC01 Daftar Penawaran Penjual" width="400"> |
-| INT-TC02 | <img src="./assets/FatharINT-TC02-1-katalog.png.png" alt="INT-TC02 Katalog Penawaran Pembeli" width="400"><br><img src="./assets/FatharINT-TC02-2-rincian-anonim.png.png" alt="INT-TC02 Rincian Penawaran Anonim" width="400"> |
-| *INT-TC06* | <img src="./assets/int-tc06-tc09-backend.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
-| *INT-TC09* | <img src="./assets/int-tc09-autorefund.png" alt="INT-TC09 Auto-Refund 24 Jam Pengaduan Toko Tutup" width="400"> |
-| UC04-TC01 – UC04-TC02, UC06-TC01 – UC06-TC03 | <img src="./assets/uc04-uc06-flutter-test.png" alt="UC04 dan UC06 Pengujian Unit dan Widget Flutter" width="400"> |
-| UC01-TC01 | <img src="./assets/FatharUC01-TC01-1-form-valid.png.png" alt="UC01-TC01 Form Penawaran Valid" width="400"><br><img src="./assets/FatharUC01-TC01-2-sukses.png.png" alt="UC01-TC01 Penawaran Berhasil Disimpan" width="400"><br><img src="./assets/m10-uc01-form-penawaran.png" alt="UC01-TC01 Bukti Cadangan Form Penawaran" width="400"> |
-| UC01-TC02 | <img src="./assets/FatharUC01-TC02-2-pesan-ditolak.png.png" alt="UC01-TC02 Pesan Diskon Ditolak" width="400"> |
-| UC01-TC03 | <img src="./assets/FatharUC01-TC03-1-ubah.png.png" alt="UC01-TC03 Form Ubah Penawaran" width="400"><br><img src="./assets/FatharUC01-TC03-2-hasil-perubahan.png.png" alt="UC01-TC03 Hasil Perubahan Penawaran" width="400"> |
-| UC01-TC04 | <img src="./assets/FatharUC01-TC04-1-penawaran-terkunci.png.png" alt="UC01-TC04 Penawaran Terkunci atau Ditutup" width="400"> |
-| UC02-TC01 | <img src="./assets/FatharUC02-TC01-2-filter.png.png" alt="UC02-TC01 Filter Alergen" width="400"><br><img src="./assets/FatharUC02-TC01-3-hasil-filter.png.png" alt="UC02-TC01 Hasil Filter Alergen" width="400"><br><img src="./assets/FatharUC02-TC01-4-rincian.png.png" alt="UC02-TC01 Rincian Penawaran" width="400"><br><img src="./assets/m10-uc02-katalog-anonim.png" alt="UC02-TC01 Bukti Cadangan Katalog Anonim" width="400"> |
-| UC02-TC02 | <img src="./assets/FatharUC02-TC02-1-kombinasi-alergen.png.png" alt="UC02-TC02 Kombinasi Alergen" width="400"><br><img src="./assets/FatharUC02-TC02-2-tidak-ada-hasil.png.png" alt="UC02-TC02 Tidak Ada Penawaran Cocok" width="400"> |
-| UC02-TC03 | <img src="./assets/FatharUC02-TC03-2-lokasi-ditolak.png.png" alt="UC02-TC03 Lokasi Ditolak" width="400"><br><img src="./assets/FatharUC02-TC03-3-katalog-tetap-berfungsi.png.png" alt="UC02-TC03 Katalog Tetap Berfungsi" width="400"> |
-| KNF01-TC01 | <a href="./assets/m10-benchmark-pickup.json">m10-benchmark-pickup.json</a><br>30 permintaan lokal berhasil tanpa kegagalan; p50 end-to-end 8,34 ms, p95 11,92 ms, maksimum 23,12 ms; Execution time PostgreSQL 0,835 ms |
-| KNF02-TC01 | <img src="./assets/knf02-tc01-reliability.png" alt="KNF02-TC01 Pengujian Reliabilitas Transaksi dan Pemulihan" width="400"> |
-| KNF05-TC01 | <img src="./assets/knf05-tc01-latency.jpeg" alt="KNF05-TC01 Pengukuran Latensi Notifikasi Real-Time" width="400">
-| INT-TC04 | <img src="./assets/m10-uc03-invoice-simulasi.png" alt="INT-TC04 Checkout dan Invoice Simulasi" width="400"> |
-| INT-TC05 | <img src="./assets/m10-tiket-lunas.png" alt="INT-TC05 Pembayaran Lunas dan Penerbitan Tiket QR/OTP" width="400"> |
-| INT-TC07, INT-TC08 | <img src="./assets/m10-uc05-konfirmasi-otp.png" alt="INT-TC07 dan INT-TC08 Validasi Pengambilan Pesanan" width="400"> |
-| UC03-TC01, UC03-TC02 | <img src="./assets/m10-uc03-invoice-simulasi.png" alt="UC03 Invoice Pembayaran Simulasi" width="400"><br><img src="./assets/m10-tiket-lunas.png" alt="UC03 Tiket Lunas dan Identitas Gerai Terbuka" width="400"> |
-| UC05-TC01, UC05-TC02 | <img src="./assets/m10-tiket-lunas.png" alt="UC05 Tiket QR dan OTP Pembeli" width="400"><br><img src="./assets/m10-uc05-konfirmasi-otp.png" alt="UC05 Konfirmasi Validasi OTP Penjual" width="400"> |
-| KNF04-TC01 | <img src="./assets/m10-tiket-offline.png" alt="KNF04-TC01 Akses Tiket Pengambilan Mode Offline" width="400"> |
-| UC03-TC03 | <img src="./assets/Bintang-backend-unit-summary.jpg" alt="UC03-TC03 Penolakan Checkout Kuota Habis atau Konflik Alergen" width="400"> |
-| UC05-TC03 | <img src="./assets/Bintang-backend-unit-summary.jpg" alt="UC05-TC03 Penolakan QR atau OTP Tidak Valid dan Terpakai" width="400"><br><img src="./assets/Bintang-backend-checkout-pickup-security.jpg" alt="UC05-TC03 Validasi Jendela Waktu Pickup dan QR Rusak" width="400"> |
-| KNF03-TC01 | <img src="./assets/Bintang-backend-unit-summary.jpg" alt="KNF03-TC01 Hash dan Enkripsi Kredensial Pickup" width="400"><br><img src="./assets/Bintang-backend-checkout-pickup-security.jpg" alt="KNF03-TC01 Rate Limit Percobaan OTP" width="400"><br><img src="./assets/Bintang-android-security-summary.jpg" alt="KNF03-TC01 Anonimitas Koordinat dan Identifier Tiket" width="400"> |
-| *...* | *...* |
+| Unit C01–C11 dan coverage | [Keluaran tes unit dan V8 coverage](./assets/m10-coverage-unit.txt) |
+| INT-TC01 s.d. INT-TC12 | [Keluaran test runner backend](./assets/m10-verifikasi-backend.txt) |
+| INT-TC06, INT-TC09 | [Bukti integrasi tim](./assets/int-tc06-tc09-backend.png) dan [bukti auto-refund](./assets/int-tc09-autorefund.png) |
+| INT-TC12 | <img src="./assets/m10-int-tc12-profil-gerai.png" alt="Profil gerai dibaca dari API pada emulator" width="310"> |
+| UC01-TC01 s.d. UC01-TC04 | <img src="./assets/m10-uc01-form-penawaran.png" alt="Formulir penawaran di emulator Android" width="310"><br>Hasil simpan, ubah, tutup dan validasi tercatat di INT-TC01. |
+| UC02-TC01 s.d. UC02-TC03 | <img src="./assets/m10-uc02-katalog-anonim.png" alt="Katalog anonim pada emulator" width="310"><br>Hasil filter dan lokasi ditolak tercatat pada bukti backend dan Flutter. |
+| UC03-TC01 s.d. UC03-TC03 | <img src="./assets/m10-uc03-invoice-simulasi.png" alt="Invoice simulasi pada emulator" width="310"><br>[Tiket lunas setelah pembayaran](./assets/m10-tiket-lunas.png) dan [hasil kedaluwarsa serta checkout konkuren](./assets/m10-verifikasi-backend.txt) |
+| UC04-TC01 s.d. UC04-TC02 | <img src="./assets/m10-uc04-tc01-pesanan-masuk.png" alt="Pesanan lunas muncul di daftar penjual" width="310"> <img src="./assets/m10-uc04-tc02-pesanan-kosong.png" alt="Daftar penjual tanpa pesanan" width="310"><br>[Bukti pembaruan layar pada tes Flutter](./assets/uc04-uc06-flutter-test.png) |
+| UC05-TC01 s.d. UC05-TC03 | <img src="./assets/m10-uc05-konfirmasi-otp.png" alt="Dialog konfirmasi OTP pada emulator" width="310"><br>Validasi payload QR dan kasus negatif tercatat dalam hasil backend. |
+| UC06-TC01 s.d. UC06-TC03 | <img src="./assets/m10-uc06-tc01-konfirmasi-refund.png" alt="Konfirmasi pembatalan penjual di emulator" width="310"><br>[Detail pengaduan pada tes widget](./assets/m10-widget-detail-pengaduan.png) dan [bukti auto-refund 24 jam](./assets/int-tc09-autorefund.png) |
+| UC07-TC01 | <img src="./assets/m10-uc07-tc01-riwayat.png" alt="Riwayat selesai pada emulator" width="310"> |
+| UC07-TC02 | <img src="./assets/m10-uc07-tc02-ulasan-tersimpan.png" alt="Konfirmasi ulasan tersimpan pada emulator" width="310"> |
+| UC07-TC03 | <img src="./assets/m10-uc07-tc03-belum-selesai.png" alt="Pesanan aktif pada emulator tanpa tindakan ulasan" width="310"> |
+| KNF01-TC01 | [Uji kuota konkuren dan putus koneksi pembayaran](./assets/m10-verifikasi-backend.txt) · [Bukti tambahan pemulihan worker dari tim](./assets/knf02-tc01-reliability.png) |
+| KNF02-TC01, KNF05-TC01 | [Hasil uji hash, QR sekali pakai, batas OTP, dan privasi respons](./assets/m10-verifikasi-backend.txt) |
+| KNF03-TC01 | [Benchmark HTTP lokal dan EXPLAIN ANALYZE](./assets/m10-benchmark-pickup.json) |
+| KNF04-TC01 | <img src="./assets/m10-tiket-offline.png" alt="Tiket masih terbuka tanpa jaringan pada emulator" width="310"><br>[Hasil uji Android dan Flutter](./assets/m10-verifikasi-android.txt) |
+| KF05-PERF01 | [Hasil pengukuran WebSocket 30 sampel](./assets/m10-benchmark-notifikasi.json) |
 
-<br>
+Bukti pengujian anggota berikut melengkapi hasil di atas. Pengujian keamanan dan privasi serta pengukuran latensi WebSocket menggunakan ID kebutuhan dari SKPL pada tabel ini.
+
+| ID Pengujian | Bukti Tambahan |
+| :--- | :--- |
+| Unit C01–C11 | [All Unit test C01 - C11](./assets/all-unit-test-C01-C11.png) |
+| Coverage C03, C04, C08, C09 | [All Unit test C01 - C11](./assets/all-unit-test-C01-C11.png) · [C03 Coverage](./assets/C03-coverage.png) · [C04 Coverage](./assets/C04-coverage.png) · [C08 Coverage](./assets/C08-coverage.png) · [C09 Coverage](./assets/C09-coverage.png) |
+| INT-TC01 | [INT-TC01 Formulir Penawaran](./assets/FatharINT-TC01-1-form-penawaran.png.png) · [INT-TC01 Penawaran Terbit](./assets/FatharINT-TC01-2-penawaran-terbit.png.png) · [INT-TC01 Daftar Penawaran Penjual](./assets/FatharINT-TC01-3-daftar-penjual.png.png) |
+| INT-TC02 | [INT-TC02 Katalog Penawaran Pembeli](./assets/FatharINT-TC02-1-katalog.png.png) · [INT-TC02 Rincian Penawaran Anonim](./assets/FatharINT-TC02-2-rincian-anonim.png.png) |
+| UC01-TC01 | [UC01-TC01 Form Penawaran Valid](./assets/FatharUC01-TC01-1-form-valid.png.png) · [UC01-TC01 Penawaran Berhasil Disimpan](./assets/FatharUC01-TC01-2-sukses.png.png) |
+| UC01-TC02 | [UC01-TC02 Pesan Diskon Ditolak](./assets/FatharUC01-TC02-2-pesan-ditolak.png.png) |
+| UC01-TC03 | [UC01-TC03 Form Ubah Penawaran](./assets/FatharUC01-TC03-1-ubah.png.png) · [UC01-TC03 Hasil Perubahan Penawaran](./assets/FatharUC01-TC03-2-hasil-perubahan.png.png) |
+| UC01-TC04 | [UC01-TC04 Penawaran Terkunci atau Ditutup](./assets/FatharUC01-TC04-1-penawaran-terkunci.png.png) |
+| UC02-TC01 | [UC02-TC01 Filter Alergen](./assets/FatharUC02-TC01-2-filter.png.png) · [UC02-TC01 Hasil Filter Alergen](./assets/FatharUC02-TC01-3-hasil-filter.png.png) · [UC02-TC01 Rincian Penawaran](./assets/FatharUC02-TC01-4-rincian.png.png) |
+| UC02-TC02 | [UC02-TC02 Kombinasi Alergen](./assets/FatharUC02-TC02-1-kombinasi-alergen.png.png) · [UC02-TC02 Tidak Ada Penawaran Cocok](./assets/FatharUC02-TC02-2-tidak-ada-hasil.png.png) |
+| UC02-TC03 | [UC02-TC03 Lokasi Ditolak](./assets/FatharUC02-TC03-2-lokasi-ditolak.png.png) · [UC02-TC03 Katalog Tetap Berfungsi](./assets/FatharUC02-TC03-3-katalog-tetap-berfungsi.png.png) |
+| UC03-TC03 | [UC03-TC03 Penolakan Checkout Kuota Habis atau Konflik Alergen](./assets/Bintang-backend-unit-summary.jpg) |
+| UC05-TC03 | [UC05-TC03 Penolakan QR atau OTP Tidak Valid dan Terpakai](./assets/Bintang-backend-unit-summary.jpg) · [UC05-TC03 Validasi Jendela Waktu Pickup dan QR Rusak](./assets/Bintang-backend-checkout-pickup-security.jpg) |
+| KNF02-TC01 dan KNF05-TC01 | [Hash dan enkripsi kredensial](./assets/Bintang-backend-unit-summary.jpg) · [Pembatasan percobaan OTP](./assets/Bintang-backend-checkout-pickup-security.jpg) · [Privasi koordinat dan tiket](./assets/Bintang-android-security-summary.jpg) |
+| KF05-PERF01 | [Pengukuran WebSocket oleh tim](./assets/knf05-tc01-latency.jpeg) |
 
 ---
 
 # BAB 5: Traceability
 
-Petakan setiap KF ke KNF, use case, kelas perancangan, file implementasi, dan test case. Tabel traceability berikut akan menjadi sarana verifikasi KF. Setiap KF memiliki minimal satu test case dan dinyatakan terpenuhi apabila **seluruh** test case terkaitnya berkesimpulan `Pass`. KF yang tidak diimplementasikan tetap dicantumkan beserta alasannya.
+Setiap ID mengikuti [SKPL Tabel 3.1, 3.2 dan 4.2](../M5/K01_G06_SKPL.md#bab-3-spesifikasi-kebutuhan-perangkat-lunak). Hasil kebutuhan dinilai dari bagian skenario yang mengujinya. UC03-TC01 menguji empat kebutuhan dan hasilnya dipisahkan per kebutuhan. **Sebagian** berarti ada syarat yang lulus dan syarat lain yang belum terpenuhi atau belum terverifikasi.
 
 Tabel 5.1. Matriks Kerunutan KF terhadap Implementasi dan Pengujian
 
-| KF ID | KNF Terkait | Use Case ID | Kelas Terkait | Implementasi File Terkait | Test Case (UC) | Test Case (Unit/Integrasi/KNF) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| KF01 | - | UC03 | C02 - Pembeli, C04 - Pesanan, C05 - MetodePembayaran, C06 - QRIS, C07 - EWallet | `src/android-app/lib/features/checkout/checkout_screen.dart`<br>`src/android-app/lib/core/models/payment_method.dart` | UC03-TC01, UC03-TC03 | C06-UT01, INT-TC04 |
-| KF02 | KNF01 | UC03 | C04 - Pesanan, C05 - MetodePembayaran, C06 - QRIS | `src/backend/src/modules/orders/service.ts`<br>`src/backend/src/modules/payment/simulator.ts` | UC03-TC01, UC03-TC02 | C04-UT11, C06-UT01 s.d. C06-UT03, INT-TC04, INT-TC05 |
-| KF03 | KNF01 | UC01 | C03 - Penawaran | `src/backend/src/modules/offers/`<br>`src/android-app/lib/features/seller/offer_form_screen.dart`<br>`src/android-app/lib/features/seller/offer_form_controller.dart` | UC01-TC01, UC01-TC02 | C03-UT01 s.d. C03-UT10, INT-TC01 |
-| KF04 | KNF01 | UC01 | C03 - Penawaran | `src/backend/src/modules/offers/`<br>`src/android-app/lib/features/seller/offers_screen.dart` | UC01-TC03, UC01-TC04 | C03-UT08 s.d. C03-UT10, INT-TC01 |
-| KF06 | -* | UC02 | C02 - Pembeli, C03 - Penawaran | `src/backend/src/modules/catalog/`<br>`src/android-app/lib/features/buyer/catalog_screen.dart`<br>`src/android-app/lib/features/buyer/offer_detail_screen.dart` | UC02-TC01, UC02-TC02 | C02-UT01 s.d. C02-UT04, C03-UT11, INT-TC02 |
-| KF07 | -* | UC02 | C02 - Pembeli, C03 - Penawaran | `src/backend/src/modules/catalog/`<br>`src/android-app/lib/features/buyer/allergen_screen.dart` | UC02-TC01, UC02-TC02 | C02-UT03, C02-UT04, C03-UT11, INT-TC02 |
-| KF08 | -* | UC02 | C02 - Pembeli, C03 - Penawaran | `src/backend/src/modules/catalog/repository.ts`<br>`src/android-app/lib/features/buyer/catalog_controller.dart` | UC02-TC03 | C03-UT11, INT-TC02 |
-| KF09 | KNF01 | UC03 | C03 - Penawaran, C04 - Pesanan | `src/backend/src/modules/orders/service.ts`<br>`src/backend/src/modules/orders/repository.ts` | UC03-TC01, UC03-TC02, UC03-TC03 | C04-UT02, C04-UT11, INT-TC04, INT-TC05 |
-| KF10 | KNF02, KNF04, KNF05 | UC03 | C04 - Pesanan, C08 - QRPickup | `src/backend/src/modules/pickup/service.ts`<br>`src/android-app/lib/features/orders/ticket_pickup_screen.dart`<br>`src/android-app/lib/features/orders/tickets_screen.dart` | UC03-TC01 | C04-UT05, C08-UT01, C08-UT05, INT-TC05, KNF03-TC01, KNF04-TC01 |
-| KF11 | KNF02, KNF03 | UC05 | C01 - Penjual, C08 - QRPickup | `src/android-app/lib/features/seller/scan_controller.dart`<br>`src/backend/src/modules/pickup/routes.ts` | UC05-TC01, UC05-TC02, UC05-TC03 | C08-UT03, C08-UT04, INT-TC07, INT-TC08 |
-| KF12 | KNF01, KNF03 | UC05 | C01 - Penjual, C04 - Pesanan, C08 - QRPickup | `src/backend/src/modules/pickup/service.ts`<br>`src/backend/src/modules/orders/service.ts` | UC05-TC01, UC05-TC02, UC05-TC03 | C08-UT02, C08-UT07, C08-UT08, INT-TC07, INT-TC08, KNF03-TC01 |
+| KF ID | KNF Terkait | Use Case | Kelas | File Implementasi | Test Case Use Case | Test Case Pendukung | Status Kebutuhan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| KF01 | — | UC03 | C05, C06, C07 | [checkout_screen.dart](../../src/android-app/lib/features/orders/checkout_screen.dart)<br>[payment_screen.dart](../../src/android-app/lib/features/orders/payment_screen.dart) | UC03-TC01 | C05-UT01, C05-UT02, INT-TC05 | Fail. Pemilih kanal belum tersedia. |
+| KF02 | KNF01 | UC03 | C04, C05, C06 | [service.ts](../../src/backend/src/modules/payments/service.ts)<br>[demo-gateway.ts](../../src/backend/src/modules/payments/demo-gateway.ts) | UC03-TC01–03 | INT-TC04, INT-TC05, KNF01-TC01 | Pass untuk pembuatan, pemrosesan dan kedaluwarsa invoice simulasi. |
+| KF03 | — | UC01 | C01, C03 | [schema.ts](../../src/backend/src/modules/offers/schema.ts)<br>[service.ts](../../src/backend/src/modules/offers/service.ts)<br>[offer_form_screen.dart](../../src/android-app/lib/features/seller/offer_form_screen.dart) | UC01-TC01–02 | C03-UT01 s.d. C03-UT07, INT-TC01 | Pass. |
+| KF04 | — | UC01 | C01, C03 | [service.ts](../../src/backend/src/modules/offers/service.ts)<br>[offers_screen.dart](../../src/android-app/lib/features/seller/offers_screen.dart) | UC01-TC03–04 | C03-UT08 s.d. C03-UT11, INT-TC01 | Pass. |
+| KF05 | — | UC04 | C01, C04 | [socket-server.ts](../../src/backend/src/modules/notifications/socket-server.ts)<br>[orders_screen.dart](../../src/android-app/lib/features/seller/orders_screen.dart) | UC04-TC01–02 | INT-TC06, KF05-PERF01 | Pass. |
+| KF06 | KNF05 | UC02 | C02, C03 | [service.ts](../../src/backend/src/modules/catalog/service.ts)<br>[catalog_screen.dart](../../src/android-app/lib/features/buyer/catalog_screen.dart) | UC02-TC01, UC02-TC03 | INT-TC02, KNF05-TC01 | Pass. |
+| KF07 | — | UC02 | C02, C03 | [service.ts](../../src/backend/src/modules/auth/service.ts)<br>[repository.ts](../../src/backend/src/modules/catalog/repository.ts)<br>[allergen_screen.dart](../../src/android-app/lib/features/buyer/allergen_screen.dart) | UC02-TC01–02 | C02-UT01 s.d. C02-UT04, INT-TC03 | Pass. |
+| KF08 | KNF05 | UC02 | C01, C02, C03 | [repository.ts](../../src/backend/src/modules/catalog/repository.ts)<br>[catalog_controller.dart](../../src/android-app/lib/features/buyer/catalog_controller.dart) | UC02-TC01, UC02-TC03 | INT-TC02, KNF05-TC01 | Pass. |
+| KF09 | KNF01 | UC03 | C03, C04, C05 | [service.ts](../../src/backend/src/modules/orders/service.ts)<br>[service.ts](../../src/backend/src/modules/payments/service.ts) | UC03-TC01–03 | INT-TC04, INT-TC05, KNF01-TC01 | Pass untuk reservasi, perubahan kuota dan callback. |
+| KF10 | KNF02, KNF04, KNF05 | UC03 | C01, C02, C04, C08 | [service.ts](../../src/backend/src/modules/orders/service.ts)<br>[service.ts](../../src/backend/src/modules/pickup/service.ts)<br>[order_detail_screen.dart](../../src/android-app/lib/features/orders/order_detail_screen.dart) | UC03-TC01 | INT-TC05, INT-TC07, KNF05-TC01 | Pass untuk reveal gerai dan penerbitan tiket. |
+| KF11 | KNF02, KNF03 | UC05 | C01, C04, C08 | [scan_screen.dart](../../src/android-app/lib/features/seller/scan_screen.dart)<br>[otp_screen.dart](../../src/android-app/lib/features/seller/otp_screen.dart)<br>[service.ts](../../src/backend/src/modules/pickup/service.ts) | UC05-TC01–03 | INT-TC07, INT-TC08, KNF02-TC01, KNF03-TC01 | Sebagian. OTP dan validasi backend lulus, verifikasi kamera masih terbuka. |
+| KF12 | KNF03 | UC05 | C01, C04, C08 | [service.ts](../../src/backend/src/modules/pickup/service.ts)<br>[service.ts](../../src/backend/src/modules/payouts/service.ts) | UC05-TC02–03 | INT-TC07, INT-TC08 | Pass untuk status selesai dan jadwal payout pada validasi server/OTP. |
+| KF13 | — | UC06 | C01, C02, C04, C09 | [service.ts](../../src/backend/src/modules/complaints/service.ts)<br>[service.ts](../../src/backend/src/modules/jobs/service.ts)<br>[complaint_form_screen.dart](../../src/android-app/lib/features/orders/complaint_form_screen.dart) | UC06-TC01–03 | C09-UT01 s.d. C09-UT12, INT-TC09 | Sebagian. Alur refund untuk paket tidak layak dan gerai tutup lulus. Pembatasan pilihan alasan pengaduan masih perlu diselaraskan dengan SKPL. |
+| KF14 | — | UC07 | C01, C02, C04, C10, C11 | [service.ts](../../src/backend/src/modules/reviews/service.ts)<br>[service.ts](../../src/backend/src/modules/metrics/service.ts)<br>[history_screen.dart](../../src/android-app/lib/features/orders/history_screen.dart)<br>[review_screen.dart](../../src/android-app/lib/features/orders/review_screen.dart) | UC07-TC01–03 | C10-UT01, C10-UT02, C11-UT01, C11-UT02, INT-TC10, INT-TC11 | Pass. Metrik paket selesai juga diperiksa pada [tes balapan pickup dan no-show](../../src/backend/test/integration/acceptance-races.test.ts). |
 
 Tabel 5.2. Matriks Kerunutan KNF terhadap Pengujian
 
-| ID KNF | Parameter | KF/UC Terkait | Test Case |
-| :--- | :--- | :--- | :--- |
-| KNF01 | Performance | KF03, KF04 / UC01, UC02 | KNF01-TC01 |
-| KNF02 | Reliability | KF02, KF09, KF12 / UC03, UC05, UC06 | KNF02-TC01 |
-| KNF03 | Security | KF10, KF11, KF12 / UC03, UC05 | KNF03-TC01 |
-| KNF04 | Availability | KF10 / UC03 | KNF04-TC01 |
-| KNF05 | Response time | KF05, KF10 / UC03, UC04 | KNF05-TC01 |
-| *...* | *...* | *...* | *...* |
+| ID KNF | Parameter SKPL | KF/UC Terkait | Test Case | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| KNF01 | Reliabilitas transaksi pembayaran | KF02, KF09 / UC03 | KNF01-TC01 | Pass |
+| KNF02 | Keamanan kata sandi dan token pickup | KF10, KF11 / UC03, UC05 | KNF02-TC01 | Pass |
+| KNF03 | Waktu respons penjemputan melalui kamera | KF11, KF12 / UC05 | KNF03-TC01 | Sebagian |
+| KNF04 | Portabilitas Android dan tiket offline | KF10 / UC03, UC05 | KNF04-TC01 | Pass |
+| KNF05 | Privasi koordinat gerai | KF06, KF08, KF10 / UC02, UC03 | KNF05-TC01 | Pass |
+
+Tindak lanjut untuk hasil yang masih terbuka:
+
+- **KF01**. Tambahkan pemilih kanal pembayaran simulasi dan uji checkout melalui setiap kanal.
+- **KF11 dan KNF03**. Uji pemindaian QR melalui kamera hingga status Selesai pada jaringan sesuai SKPL, lalu catat waktu dari pemindaian sampai pembaruan status.
+- **KF13**. Selaraskan pilihan alasan pengaduan dengan SKPL. Jika dua alasan tambahan tetap digunakan, perbarui kebutuhan dan skenario pengujiannya.
