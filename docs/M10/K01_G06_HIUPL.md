@@ -580,12 +580,11 @@ Tabel 4.6. Bukti Hasil Pengujian
 
 | ID Pengujian | Bukti Hasil Pengujian |
 | :--- | :--- |
-| C01-UT01 – C01-UT03, C02-UT01 – C02-UT04, C03-UT01 – C03-UT05, C04-UT01 – C04-UT04, C05-UT01 – C05-UT02, C06-UT01 – C06-UT03, C07-UT01, C08-UT01 – C08-UT04, C09-UT01 – C09-UT03, C11-UT01 – C11-UT02 | [Sisipkan screenshot keluaran `npm run test:unit` yang menunjukkan 34 test lulus dan 0 gagal.] |
-| C03 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c03-offer.test.ts`; tunjukkan baris `offers/schema.ts` sebesar 100% line dan 100% branch.] |
-| C04 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c04-c11.test.ts`; laporkan `orders/repository.ts` 71,64% line / 100% branch dan `orders/service.ts` 48,59% line / 100% branch. Catat bahwa coverage baris `orders/service.ts` belum mencapai target 70%.] |
-| C08 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c08-pickup.test.ts`; tunjukkan `pickup/schema.ts` sebesar 92,31% line dan 75% branch.] |
-| C09 (coverage) | [Sisipkan screenshot laporan coverage yang mencakup `complaints/schema.ts`; tunjukkan hasil 100% line dan 100% branch.] |
-| C11 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c04-c11.test.ts`; tunjukkan `metrics/repository.ts` dan `metrics/service.ts` masing-masing 100% line dan 100% branch. `orders/service.ts` juga digunakan bersama C04 dan coverage line-nya 48,59%.] |
+| C01-UT01 – C01-UT03, C02-UT01 – C02-UT04, C03-UT01 – C03-UT11, C04-UT01 – C04-UT14, C05-UT01 – C05-UT02, C06-UT01 – C06-UT03, C07-UT01, C08-UT01 – C08-UT08, C09-UT01 – C09-UT10, C09-UT08b, C09 tambahan, C11-UT01 – C11-UT02 | <img src="./assets/all-unit-test-C01-C11.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
+| C03 (coverage) | <img src="./assets/C03-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
+| C04 (coverage) | <img src="./assets/C04-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
+| C08 (coverage) | <img src="./assets/C08-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
+| C09 (coverage) | <img src="./assets/C09-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
 | *INT-TC01* | *[Sisipkan bukti pengujian integrasi]* |
 | *INT-TC06* | <img src="./assets/int-tc06-tc09-backend.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
 | *INT-TC09* | <img src="./assets/int-tc09-autorefund.png" alt="INT-TC09 Auto-Refund 24 Jam Pengaduan Toko Tutup" width="400"> |
