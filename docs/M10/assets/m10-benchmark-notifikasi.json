@@ -1,0 +1,16 @@
+{
+  "test_id": "KF05-PERF01",
+  "push_outbox_to_ws": {
+    "samples": 30,
+    "p50_ms": 1.41,
+    "p95_ms": 3.39,
+    "max_ms": 3.67
+  },
+  "end_to_end_order_to_ws": {
+    "samples": 30,
+    "p50_ms": 7.27,
+    "p95_ms": 15.44,
+    "max_ms": 16.53
+  },
+  "failures": 0
+}
