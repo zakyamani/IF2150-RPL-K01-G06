@@ -43,6 +43,7 @@ pid=$!
 captured_ticket=false
 captured_offline=false
 backgrounded=false
+declare -A captured_m10=()
 while kill -0 "$pid" 2>/dev/null; do
   logs=$(adb -s "$serial" logcat -d -s flutter:I 2>/dev/null || true)
   if ! $captured_ticket && [[ "$logs" == *NATIVE_TICKET_READY* ]]; then
@@ -52,6 +53,14 @@ while kill -0 "$pid" 2>/dev/null; do
   if ! $captured_offline && [[ "$logs" == *NATIVE_OFFLINE_READY* ]]; then
     adb -s "$serial" exec-out screencap -p > "$root/artifacts/screenshots/native-process-offline.png"
     captured_offline=true
+  fi
+  if [[ "${CAPTURE_M10_EVIDENCE:-0}" == 1 ]]; then
+    while IFS= read -r marker; do
+      if [[ "$marker" =~ ^[a-z0-9-]+$ ]] && [[ ! -v captured_m10[$marker] ]]; then
+        adb -s "$serial" exec-out screencap -p > "$root/artifacts/screenshots/m10-$marker.png"
+        captured_m10[$marker]=1
+      fi
+    done < <(sed -nE 's/.*M10_CAPTURE ([a-z0-9-]+).*/\1/p' <<< "$logs")
   fi
   if ! $backgrounded && [[ "$logs" == *NATIVE_MONITOR_READY* ]]; then
     adb -s "$serial" shell input keyevent KEYCODE_HOME

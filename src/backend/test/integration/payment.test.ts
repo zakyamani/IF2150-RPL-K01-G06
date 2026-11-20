@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
+import { createServer } from 'node:http';
+import type { AddressInfo } from 'node:net';
 import { fixture } from '../helpers/fixture.js';
 import { account } from '../helpers/accounts.js';
 import { sellerOffer } from '../helpers/offers.js';
@@ -183,6 +185,83 @@ test('audit storage failure rolls back payment and can safely retry', async () =
     await f.db.query('DROP TRIGGER fail_payment_audit ON audit_logs; DROP FUNCTION fail_audit()');
     assert.equal((await pay()).status, 200);
   } finally {
+    await f.close();
+  }
+});
+
+test('KNF01-TC01 dropped payment response is recoverable without double settlement', async () => {
+  const f = await fixture();
+  const buyer = await account(f, 'buyer');
+  const { offer } = await sellerOffer(f);
+  const address = f.server.address() as AddressInfo;
+  const origin = `http://127.0.0.1:${address.port}`;
+  const proxy = createServer(async (req, res) => {
+    try {
+      const chunks: Buffer[] = [];
+      for await (const chunk of req) chunks.push(Buffer.from(chunk));
+      const upstream = await fetch(origin + req.url, {
+        method: 'POST',
+        headers: {
+          authorization: req.headers.authorization ?? '',
+          'content-type': 'application/json',
+        },
+        body: new Uint8Array(Buffer.concat(chunks)),
+      });
+      await upstream.arrayBuffer();
+      if (!upstream.ok) {
+        res.writeHead(upstream.status).end();
+        return;
+      }
+      // Drop the client connection after the real upstream has completed the transaction.
+      res.destroy();
+    } catch {
+      res.writeHead(502).end();
+    }
+  });
+  try {
+    const checkout = await f.request
+      .post('/api/v1/orders/checkout')
+      .auth(buyer.access_token, { type: 'bearer' })
+      .set('Idempotency-Key', 'lost-payment-response-m10')
+      .send({ offer_id: offer.id });
+    assert.equal(checkout.status, 201);
+    const path = `/api/v1/payments/${checkout.body.intent_id}/demo-event`;
+    await new Promise<void>((resolve) => proxy.listen(0, '127.0.0.1', resolve));
+    const target = `http://127.0.0.1:${(proxy.address() as AddressInfo).port}${path}`;
+    await assert.rejects(
+      fetch(target, {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${buyer.access_token}`,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({ outcome: 'succeeded' }),
+        signal: AbortSignal.timeout(5000),
+      }),
+      { name: 'TypeError' },
+    );
+    const order = await f.request
+      .get(`/api/v1/orders/${checkout.body.order_id}`)
+      .auth(buyer.access_token, { type: 'bearer' });
+    assert.equal(order.status, 200);
+    assert.equal(order.body.status, 'paid');
+    const retry = await f.request
+      .post(path)
+      .auth(buyer.access_token, { type: 'bearer' })
+      .send({ outcome: 'succeeded' });
+    assert.equal(retry.status, 200);
+    const stock = await f.db.query(
+      'SELECT quota_available,quota_held,quota_sold FROM offers WHERE id=$1',
+      [offer.id],
+    );
+    assert.deepEqual(stock.rows[0], { quota_available: 0, quota_held: 0, quota_sold: 1 });
+    const entries = await f.db.query(
+      "SELECT count(*)::int AS n FROM ledger_entries WHERE kind='funds_held'",
+    );
+    assert.equal(entries.rows[0].n, 1);
+  } finally {
+    proxy.closeAllConnections();
+    await new Promise<void>((resolve) => proxy.close(() => resolve()));
     await f.close();
   }
 });

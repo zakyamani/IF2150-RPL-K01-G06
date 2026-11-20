@@ -96,7 +96,7 @@ try {
   console.log(
     JSON.stringify(
       {
-        test_id: 'KNF05-TC01',
+        test_id: 'KF05-PERF01',
         push_outbox_to_ws: stats(pushLatencies),
         end_to_end_order_to_ws: stats(e2eLatencies),
         failures,

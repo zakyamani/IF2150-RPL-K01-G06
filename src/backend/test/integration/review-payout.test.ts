@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { fixture } from '../helpers/fixture.js';
 import { account } from '../helpers/accounts.js';
 import { paidOrder } from '../helpers/orders.js';
-test('review is completed-only, unique, and merchant reviews require reveal rights', async () => {
+test('INT-TC10 review is completed-only, unique, and merchant reviews require reveal rights', async () => {
   const f = await fixture();
   try {
     const { seller, buyer, order } = await paidOrder(f);
@@ -34,6 +34,11 @@ test('review is completed-only, unique, and merchant reviews require reveal righ
     assert.equal(ratings.status, 200);
     assert.equal(ratings.body.rating_average, 5);
     assert.equal(ratings.body.rating_count, 1);
+    assert.equal(ratings.body.items[0].comment, 'Paket baik dan pickup lancar.');
+    const stored = await f.db.query('SELECT rating, comment FROM reviews WHERE order_id=$1', [
+      order.id,
+    ]);
+    assert.deepEqual(stored.rows, [{ rating: 5, comment: 'Paket baik dan pickup lancar.' }]);
     const finance = await f.request
       .get('/api/v1/payouts/summary')
       .auth(seller.access_token, { type: 'bearer' });

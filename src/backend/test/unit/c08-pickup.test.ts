@@ -21,7 +21,7 @@ test('C08-UT02 validasiToken: valid encrypted token and OTP are decrypted', () =
   assert.equal(safeEqual(hash(token), hash(token)), true);
 });
 
-test('C08-UT02 validasiToken: invalid or tampered values fail', () => {
+test('C08-UT09 validasiToken: invalid or tampered values fail', () => {
   assert.equal(safeEqual(hash('valid'), hash('invalid')), false);
   assert.throws(() => decrypt('invalid', key));
 });

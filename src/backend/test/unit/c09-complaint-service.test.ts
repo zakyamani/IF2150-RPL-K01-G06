@@ -124,7 +124,7 @@ test('C09-UT08 ComplaintService.decide approves complaint and triggers refund', 
   assert.ok(h.parameters.some((values) => values[2] === 'complaint.approved'));
 });
 
-test('C09-UT08b ComplaintService.decide rejects complaint and restores paid status', async () => {
+test('C09-UT11 ComplaintService.decide rejects complaint and restores paid status', async () => {
   const h = harness({ complaint: complaint({ status: 'open' }), order: order({ status: 'dispute' }) });
   const result = await h.service.decide(seller, complaintId, { approved: false, response: 'Pengaduan ditolak setelah ditinjau.' });
   assert.equal(result.status, 'rejected');

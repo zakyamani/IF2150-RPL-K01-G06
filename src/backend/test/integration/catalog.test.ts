@@ -84,10 +84,16 @@ test('offer boundary validation and anonymous catalog whitelist/filter', async (
       (await f.request.get('/api/v1/catalog').auth(seller.access_token, { type: 'bearer' })).status,
       403,
     );
-    await f.request
+    const preference = await f.request
       .patch('/api/v1/auth/allergens')
       .auth(buyer.access_token, { type: 'bearer' })
       .send({ allergen_filters: ['susu'] });
+    assert.equal(preference.status, 200);
+    assert.deepEqual(preference.body.allergen_filters, ['susu']);
+    const stored = await f.db.query('SELECT allergen_filters FROM users WHERE id=$1', [
+      buyer.user.id,
+    ]);
+    assert.deepEqual(stored.rows[0]?.allergen_filters, ['susu']);
     const filtered = await f.request
       .get('/api/v1/catalog')
       .auth(buyer.access_token, { type: 'bearer' });
@@ -165,6 +171,64 @@ test('held checkout blocks concurrent offer edits and close', async () => {
       ).status,
       409,
     );
+  } finally {
+    await f.close();
+  }
+});
+
+test('INT-TC01/02 offer edit, filter with zero matches, and explicit close reach the catalog', async () => {
+  const f = await fixture();
+  try {
+    const seller = await account(f, 'seller');
+    const buyer = await account(f, 'buyer');
+    const sellerToken = seller.access_token;
+    const buyerToken = buyer.access_token;
+    const bearer = { type: 'bearer' } as const;
+    assert.equal(
+      (
+        await f.request.patch('/api/v1/merchant/profile').auth(sellerToken, bearer).send({
+          shop_name: 'Gerai Katalog M10',
+          address: 'Alamat fiktif Bandung',
+          latitude: -6.9,
+          longitude: 107.6,
+        })
+      ).status,
+      200,
+    );
+    const input = offerInput(f.clock.now(), { allergens: ['susu'] });
+    const created = await f.request.post('/api/v1/offers').auth(sellerToken, bearer).send(input);
+    assert.equal(created.status, 201);
+    const id = created.body.id;
+    const edited = await f.request
+      .patch(`/api/v1/offers/${id}`)
+      .auth(sellerToken, bearer)
+      .send({ ...input, quota: 2 });
+    assert.equal(edited.status, 200);
+    const catalog = () => f.request.get('/api/v1/catalog').auth(buyerToken, bearer);
+    const visible = await catalog();
+    assert.equal(visible.status, 200);
+    assert.equal(visible.body.items.length, 1);
+    assert.equal(visible.body.items[0].id, id);
+    assert.equal(visible.body.items[0].quota_available, 2);
+    assert.equal(visible.body.items[0].distance_km, null);
+    const setFilter = (filters: string[]) =>
+      f.request
+        .patch('/api/v1/auth/allergens')
+        .auth(buyerToken, bearer)
+        .send({ allergen_filters: filters });
+    assert.equal((await setFilter(['susu'])).status, 200);
+    const empty = await catalog();
+    assert.equal(empty.status, 200);
+    assert.deepEqual(empty.body.items, []);
+    assert.ok(empty.body.disclaimer);
+    assert.equal((await setFilter([])).status, 200);
+    assert.equal(
+      (await f.request.post(`/api/v1/offers/${id}/close`).auth(sellerToken, bearer)).status,
+      200,
+    );
+    assert.deepEqual((await catalog()).body.items, []);
+    const stored = await f.db.query('SELECT status, quota_total FROM offers WHERE id=$1', [id]);
+    assert.deepEqual(stored.rows[0], { status: 'closed', quota_total: 2 });
   } finally {
     await f.close();
   }
