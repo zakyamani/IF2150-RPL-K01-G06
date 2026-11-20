@@ -291,9 +291,9 @@ Tabel 4.2.1. Hasil Pengujian Unit Kelas C01
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C01-UT01 | Validasi profil penjual | Normal | Parse profil berisi nama gerai, alamat, latitude, dan longitude valid. | Profil valid diterima dan nama gerai dipertahankan. | Pass — test runner lulus. | Pass |
-| C01-UT02 | Validasi profil penjual | Negatif/batas | Parse profil dengan nama terlalu pendek, alamat kosong, dan koordinat di luar rentang. | Profil tidak valid ditolak. | Pass — test runner lulus. | Pass |
-| C01-UT03 | Validasi rekening pada profil | Normal/negatif | Parse profil dengan nomor rekening 6 digit, lalu dengan karakter nonangka. | Nomor rekening valid diterima; nilai nonangka ditolak. | Pass — test runner lulus. | Pass |
+| C01-UT01 | `getIdPenjual()` / validasi profil | Normal | Parse profil berisi `shop_name`, alamat, latitude, dan longitude yang valid. | Profil valid diterima dan nama gerai dipertahankan. | test runner lulus. | Pass |
+| C01-UT02 | `getProfil()` / validasi profil | Negatif/batas | Parse profil dengan nama terlalu pendek, alamat kosong, latitude di luar rentang, dan longitude di luar rentang. | Profil tidak lengkap atau koordinat tidak valid ditolak. | test runner lulus. | Pass |
+| C01-UT03 | Validasi rekening pada profil | Normal/negatif | Profil dengan `bank_destination` enam digit, kemudian dengan karakter nonangka. | Rekening enam digit diterima; nilai nonangka ditolak. | test runner lulus. | Pass |
 
 ### 4.2.2 Kelas Pembeli
 
@@ -305,10 +305,10 @@ Tabel 4.2.2. Hasil Pengujian Unit Kelas C02
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C02-UT01 | Preferensi alergen pembeli | Normal | Pastikan struktur preferensi dengan daftar alergen kosong terbentuk. | Daftar preferensi kosong tersedia. | Pass — test runner lulus. | Pass |
-| C02-UT02 | Validasi daftar alergen | Normal/batas | Parse penawaran dengan daftar alergen kosong. | Daftar kosong diterima. | Pass — test runner lulus. | Pass |
-| C02-UT03 | Validasi daftar alergen | Negatif | Parse penawaran dengan alergen `gluten` berulang. | Duplikasi ditolak. | Pass — test runner lulus. | Pass |
-| C02-UT04 | Validasi daftar alergen | Batas/negatif | Parse penawaran dengan sembilan nilai alergen. | Jumlah lebih dari delapan ditolak. | Pass — test runner lulus. | Pass |
+| C02-UT01 | `getIdPembeli()` | Normal | Periksa struktur preferensi pembeli dengan daftar alergen kosong. | Struktur preferensi kosong terbentuk dengan benar. | test runner lulus. | Pass |
+| C02-UT02 | `getPreferensiAlergen()` | Normal/batas | Parse penawaran dengan daftar alergen kosong. | Daftar alergen kosong diterima. |  test runner lulus. | Pass |
+| C02-UT03 | `updatePreferensi(alergen)` | Negatif | Parse daftar dengan nilai `gluten` berulang. | Duplikasi alergen ditolak. | test runner lulus. | Pass |
+| C02-UT04 | `updatePreferensi(alergen)` | Batas/negatif | Parse daftar dengan sembilan alergen. | Lebih dari delapan alergen ditolak. | test runner lulus. | Pass |
 
 ### 4.2.3 Kelas Penawaran
 
@@ -320,20 +320,29 @@ Tabel 4.2.3. Hasil Pengujian Unit Kelas C03
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C03-UT01 | Validasi detail penawaran | Normal | Validasi penawaran valid dengan kategori `makanan_berat`. | Data penawaran valid dikembalikan. | Pass — test runner lulus. | Pass |
-| C03-UT02 | Validasi kuota | Batas/negatif | Validasi kuota 0 dan kuota 1. | Kuota 0 ditolak; kuota 1 diterima. | Pass — test runner lulus. | Pass |
-| C03-UT03 | `getDetailPenawaran()` (validasi data) | Normal | Validasi penawaran dengan harga normal 100000 dan harga diskon 40000. | Harga normal dan diskon sesuai masukan. | Pass — test runner lulus. | Pass |
-| C03-UT04 | Validasi jadwal pickup | Negatif/batas | Validasi waktu mulai sebelum waktu sekarang dan dua jam ke depan. | Waktu mulai yang lampau ditolak; waktu dalam batas diterima. | Pass — test runner lulus. | Pass |
-| C03-UT05 | Validasi aturan penawaran | Batas/negatif | Periksa diskon 51%, kuota 500 dan 501, waktu selesai pickup sebelum mulai, batas konsumsi sebelum pickup selesai, serta konfirmasi kelayakan false. | Diskon/kuota/jadwal/konfirmasi yang melanggar aturan ditolak; kuota 500 diterima. | Pass — test runner lulus. | Pass |
+| C03-UT01 | `getIdPenawaran()` | Normal | Validasi penawaran dengan kategori `makanan_berat`. | Data penawaran valid dikembalikan. | Test runner lulus. | Pass |
+| C03-UT02 | `kurangiKuota(qty)` | Batas/negatif | Validasi kuota 0 dan kuota 1. | Kuota 0 ditolak; kuota 1 diterima. | Test runner lulus. | Pass |
+| C03-UT03 | `getDetailPenawaran()` | Normal | Validasi harga normal 100000 dan harga diskon 40000. | Detail harga sesuai masukan. | Test runner lulus. | Pass |
+| C03-UT04 | `ubahStatus(status)` | Negatif/batas | Jadwal pickup sebelum sekarang dan jadwal pada rentang valid. | Jadwal lampau ditolak; jadwal valid diterima. | Test runner lulus. | Pass |
+| C03-UT05 | Validasi aturan penawaran | Batas/negatif | Uji diskon, kuota maksimum, waktu pickup, safe-eat, dan konfirmasi kelayakan. | Nilai di luar batas ditolak; nilai batas valid diterima. | Test runner lulus. | Pass |
+| C03-UT06 | `create()` | Normal/negatif | Profil penjual lengkap dan penawaran valid; profil penjual tidak lengkap. | Penawaran dibuat serta diaudit untuk penjual valid; penjual invalid ditolak. | Test runner lulus. | Pass |
+| C03-UT07 | `create()` | Negatif | Profil penjual tidak lengkap dan pengguna bukan penjual. | `PROFILE_INCOMPLETE` atau `FORBIDDEN` dikembalikan. | Test runner lulus. | Pass |
+| C03-UT08 | `update()` | Normal/batas | Perbarui penawaran aktif yang belum memiliki reservasi atau pembayaran. | Penawaran diperbarui dan audit dicatat. | Test runner lulus. | Pass |
+| C03-UT09 | `update()` | Negatif | Penawaran reserved, pernah dibayar, closed, atau tidak ditemukan. | Penawaran ditolak sesuai `OFFER_RESERVED`, `OFFER_PAID`, `OFFER_CLOSED`, atau `OFFER_NOT_FOUND`. | Test runner lulus. | Pass |
+| C03-UT10 | `close()` | Normal/negatif | Tutup penawaran active dan tutup penawaran yang sudah closed. | Penawaran active berubah menjadi closed; penawaran closed tidak berubah. | Test runner lulus. | Pass |
+| C03-UT11 | `list()` dan `detail()` | Normal/negatif | Ambil satu halaman penawaran penjual dan detail milik penjual lain/tidak ada. | Pagination dan scope penjual diterapkan; detail invalid ditolak. | Test runner lulus. | Pass |
 
 Tabel 4.2.3b. Ringkasan Cakupan Kelas [C03]
 
 | Informasi | Keterangan |
 | :--- | :--- |
-| Daftar operasi public pada DPPL | `getIdPenawaran()`, `kurangiKuota(qty)`, `getDetailPenawaran()`, `ubahStatus(status)` |
-| Operasi yang diuji | Pengujian validasi melalui `validateOffer()`: data penawaran, batas kuota, harga/diskon, jadwal pickup, dan batas konsumsi. Operasi public DPPL belum dipanggil langsung. |
-| ID Algoritma yang tercakup | Belum dapat diidentifikasi dari informasi DPPL yang tersedia. |
-| Coverage (wajib ≥ 70%) | `offers/schema.ts`: **100% baris / 100% cabang**. Ini coverage file skema, bukan keseluruhan kelas. Alat: Node.js `--experimental-test-coverage`.|
+| Daftar operasi public pada DPPL | `getIdPenawaran()`, `kurangiKuota(qty)`, `getDetailPenawaran()`, `ubahStatus(status)`; implementasi layanan juga menyediakan `create()`, `update()`, `close()`, `list()`, dan `detail()` |
+| Operasi yang diuji | Seluruh operasi validasi C03 serta operasi layanan `create()`, `update()`, `close()`, `list()`, dan `detail()` |
+| ID Algoritma yang tercakup | Validasi integer diskon dan kuota, validasi batas waktu UTC/pickup, kepemilikan penjual, status mutable, pagination, dan audit |
+| Statement/line coverage | `offers/service.ts` 100%; `offers/repository.ts` 100%; `offers/schema.ts` 100% |
+| Branch coverage | `offers/service.ts` 84,62%; `offers/repository.ts` 100%; `offers/schema.ts` 100% |
+| Fungsi | `offers/service.ts` 100%; `offers/repository.ts` 100%; `offers/schema.ts` 100% |
+| Alat dan bukti | Node.js `--experimental-test-coverage` melalui `npm run test:coverage:c03`; 12 test lulus, 0 gagal |
 
 ### 4.2.4 Kelas Pesanan
 
@@ -345,22 +354,33 @@ Tabel 4.2.4. Hasil Pengujian Unit Kelas C04
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C04-UT01 | Batas waktu checkout | Batas | Hitung batas pembayaran 15 menit dari waktu sekarang, dengan akhir pickup lebih awal. | Deadline pembayaran dibatasi ke akhir pickup. | Pass — test runner lulus. | Pass |
-| C04-UT02 | Status pesanan | Normal/negatif | Periksa status `paid` dan status tidak dikenal dalam daftar status yang diperbolehkan. | Status yang dikenal diterima; status tidak dikenal tidak termasuk. | Pass — test runner lulus. | Pass |
-| C04-UT03 | Aksi berdasarkan status | Normal | Periksa aksi untuk pesanan berstatus `paid`. | Aksi pickup tersedia. | Pass — test runner lulus. | Pass |
-| C04-UT04 | Kepemilikan detail pesanan | Normal/negatif | Cocokkan ID pembeli dan penjual dengan aktor, termasuk ID aktor yang berbeda. | Pemilik yang sesuai dikenali; ID lain tidak cocok. | Pass — test runner lulus. | Pass |
-| C04-UT05 | Ketersediaan reservasi checkout | Negatif | Evaluasi penawaran tertutup dengan kuota tersedia 0. | Penawaran dinilai tidak tersedia untuk checkout. | Pass — test runner lulus. | Pass |
+| C04-UT01 | `read()` pada repository | Normal/negatif | Baca pesanan yang ada dan pesanan tidak ada. | Pesanan ditemukan atau `undefined` dikembalikan. | Test runner lulus. | Pass |
+| C04-UT02 | `release()` pada repository | Normal/negatif | Reservasi held ada dan tidak ada. | Inventori dikembalikan hanya jika reservasi held ada. | Test runner lulus. | Pass |
+| C04-UT03 | `list()` pembeli | Normal/batas | Daftar pembeli dengan limit 2, tiga baris, status paid. | Scope buyer digunakan dan next cursor dibuat. | Test runner lulus. | Pass |
+| C04-UT04 | `list()` penjual | Normal/batas | Daftar penjual dengan satu baris terakhir. | Scope seller digunakan dan next cursor bernilai null. | Test runner lulus. | Pass |
+| C04-UT05 | `detail()` pembeli pending | Normal/negatif | Pesanan pending_payment milik pembeli. | Aksi `pay` tersedia; identitas merchant tidak dirilis. | Test runner lulus. | Pass |
+| C04-UT06 | `detail()` penjual paid | Normal | Pesanan paid milik penjual pada jendela pickup. | Aksi `cancel` dan `pickup` tersedia; detail merchant terlihat. | Test runner lulus. | Pass |
+| C04-UT07 | `detail()` pembeli completed | Normal | Pesanan completed milik pembeli. | Aksi `review` tersedia. | Test runner lulus. | Pass |
+| C04-UT08 | `detail()` | Negatif | Pembeli lain mencoba membaca pesanan. | `ORDER_NOT_FOUND` dikembalikan. | Test runner lulus. | Pass |
+| C04-UT09 | `processNoShow()` | Negatif/batas | Pesanan belum paid, belum melewati pickup, atau memiliki complaint open. | Tidak ada no-show dan payout tidak dijadwalkan. | Test runner lulus. | Pass |
+| C04-UT10 | `processNoShow()` | Normal/batas | Pesanan paid melewati pickup_end tanpa complaint open. | Status berubah no_show dan payout dijadwalkan. | Test runner lulus. | Pass |
+| C04-UT11 | `checkout()` | Normal | Penawaran valid milik penjual dengan kuota tersedia dan pembeli valid. | Pesanan dibuat, reservasi stok dibuat, dan payment intent diterbitkan. | Test runner lulus. | Pass |
+| C04-UT12 | `checkout()` | Negatif | Pengguna bukan pembeli, penawaran unavailable, atau alergen berkonflik. | Role, availabilitas, atau filter alergen ditolak. | Test runner lulus. | Pass |
+| C04-UT13 | `cancelBySeller()` | Normal | Penjual membatalkan pesanan paid miliknya. | Refund dibuat, complaint open disetujui, status menjadi refunded. | Test runner lulus. | Pass |
+| C04-UT14 | `cancelBySeller()` | Negatif | Pengguna bukan penjual, penjual bukan pemilik, atau status tidak dapat dibatalkan. | Role, kepemilikan, atau state pesanan ditolak. | Test runner lulus. | Pass |
 
-Khusus kelas **Mendalam**:
 
 Tabel 4.2.4b. Ringkasan Cakupan Kelas [C04]
 
 | Informasi | Keterangan |
 | :--- | :--- |
 | Daftar operasi public pada DPPL | `buatPesanan()`, `ubahStatus(statusBaru)`, `getStatusPesanan()`, `getDetailPesanan()` |
-| Operasi yang diuji | `OrderRepository.read()`, `OrderRepository.release()`, dan `OrderService.list()` (cakupan buyer dan seller, termasuk pagination). Operasi `buatPesanan()`, `ubahStatus()`, dan `detail()` belum diuji langsung oleh unit test coverage ini. |
-| ID Algoritma yang tercakup | Belum dapat diidentifikasi dari informasi DPPL yang tersedia. |
-| Coverage (wajib ≥ 70%) | `orders/repository.ts`: **71,64% baris / 100% cabang**; `orders/service.ts`: **48,59% baris / 100% cabang**. Jadi, coverage keseluruhan operasi layanan C04 **belum memenuhi target 70% baris**. Alat: Node.js `--experimental-test-coverage`. Bukti: keluaran terminal `test/unit/c04-c11.test.ts` untuk dilampirkan pada Subbab 4.6. |
+| Operasi yang diuji | Implementasi aktual: `checkout()`, `detail()`, `list()`, `cancelBySeller()`, `processNoShow()` serta repository `read()` dan `release()` |
+| ID Algoritma yang tercakup | Reservasi kuota, batas deadline pembayaran, scope pembeli/penjual, aksi status pesanan, no-show, refund pembatalan, dan state pesanan |
+| Statement/line coverage | `orders/service.ts` 99,65%; `orders/repository.ts` 100% |
+| Branch coverage | `orders/service.ts` 90,91%; `orders/repository.ts` 100% |
+| Fungsi | `orders/service.ts` 100%; `orders/repository.ts` 100% |
+| Alat dan bukti | Node.js `--experimental-test-coverage` melalui `npm run test:coverage:c04`; 16 test lulus, 0 gagal |
 
 ### 4.2.5 Kelas QRIS
 
@@ -372,9 +392,9 @@ Tabel 4.2.5. Hasil Pengujian Unit Kelas C06
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C06-UT01 | Enkripsi data invoice QR simulasi | Normal | Enkripsi lalu dekripsi data invoice berisi nomor, jumlah, dan waktu kedaluwarsa. | Data hasil dekripsi sama dengan data asal. | Pass — test runner lulus. | Pass |
-| C06-UT02 | Batas waktu pembayaran | Batas | Bandingkan waktu sekarang dengan deadline pembayaran yang telah lewat. | Deadline yang telah lewat dikenali sebagai kedaluwarsa. | Pass — test runner lulus. | Pass |
-| C06-UT03 | Dekripsi payload invoice | Negatif | Dekripsi payload terenkripsi dengan format tidak valid. | Payload tidak valid ditolak. | Pass — test runner lulus. | Pass |
+| C06-UT01 | `generateQRIS()` | Normal | Enkripsi dan dekripsi invoice berisi nomor, jumlah, dan waktu kedaluwarsa. | Data hasil dekripsi sama dengan data asal. | Test runner lulus. | Pass |
+| C06-UT02 | `generateQRIS()` | Batas | Bandingkan waktu sekarang dengan payment deadline yang telah lewat. | Deadline lampau dikenali kedaluwarsa. | Test runner lulus. | Pass |
+| C06-UT03 | Dekripsi payload invoice | Negatif | Dekripsi payload terenkripsi dengan format tidak valid. | Payload tidak valid ditolak. | Test runner lulus. | Pass |
 
 ### 4.2.6 Kelas QRPickup
 
@@ -386,20 +406,26 @@ Tabel 4.2.6. Hasil Pengujian Unit Kelas C08
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C08-UT01 | `generateToken()` | Normal | Buat token rahasia dan enkripsi token bersama OTP. | Token berformat base64url 43 karakter dan ciphertext memiliki versi `v1`. | Pass — test runner lulus. | Pass |
-| C08-UT02 | `validasiToken(token)` | Normal | Enkripsi lalu dekripsi token dan OTP, serta bandingkan hash token. | Data kembali sama dan hash yang sama cocok. | Pass — test runner lulus. | Pass |
-| C08-UT02 | `validasiToken(token)` | Negatif | Bandingkan hash yang berbeda dan coba dekripsi data invalid. | Token berbeda tidak cocok; data invalid ditolak. | Pass — test runner lulus. | Pass |
-| C08-UT03 | Validasi bentuk QR/OTP | Normal | Parse kode OTP enam digit dan payload QR dengan skema input pickup. | Bentuk input yang memenuhi skema diterima. | Pass — test runner lulus. | Pass |
-| C08-UT04 | Validasi input pickup | Batas/negatif | Parse OTP terlalu pendek dan QR dengan ID/payload tidak valid. | Input tidak valid ditolak. | Pass — test runner lulus. | Pass |
+| C08-UT01 | `generateToken()` | Normal | Buat secret token dan ciphertext bersama OTP. | Token base64url 43 karakter dan ciphertext berformat `v1`. | Test runner lulus. | Pass |
+| C08-UT02 | `validasiToken(token)` | Normal/negatif | Dekripsi token/OTP valid dan bandingkan hash valid/tidak valid. | Nilai valid dikenali; nilai invalid atau tampered ditolak. | Test runner lulus. | Pass |
+| C08-UT03 | `tandaiDigunakan()` | Normal/batas | Parse OTP enam digit dan payload QR. | Bentuk OTP/QR yang memenuhi skema diterima. | Test runner lulus. | Pass |
+| C08-UT04 | Validasi input pickup | Batas/negatif | OTP pendek dan QR dengan bentuk/payload tidak valid. | Input tidak valid ditolak. | Test runner lulus. | Pass |
+| C08-UT05 | `issue()` | Normal | Terbitkan credential untuk pesanan. | Credential QR/OTP tersimpan dengan token hash dan ciphertext. | Test runner lulus. | Pass |
+| C08-UT06 | `credential()` | Normal/negatif | Ambil credential active; credential tidak ada. | Credential active dikembalikan; credential tidak tersedia menghasilkan `undefined`. | Test runner lulus. | Pass |
+| C08-UT07 | `validate()` | Normal | Validasi QR pesanan milik penjual dan paid pada jendela pickup. | Pesanan completed dan payout dijadwalkan. | Test runner lulus. | Pass |
+| C08-UT08 | `validate()` | Negatif | Penjual salah, QR invalid, pesanan unavailable, atau credential used. | Kesalahan kepemilikan, QR, status, atau credential ditolak. | Test runner lulus. | Pass |
 
 Tabel 4.2.6b. Ringkasan Cakupan Kelas [C08]
 
 | Informasi | Keterangan |
 | :--- | :--- |
 | Daftar operasi public pada DPPL | `generateToken()`, `validasiToken(token)`, `tandaiDigunakan()` |
-| Operasi yang diuji | Pembuatan token, enkripsi/dekripsi token dan OTP, perbandingan hash, serta validasi format QR/OTP. Alur layanan `PickupService.validate()`—termasuk penggunaan sekali pakai, kedaluwarsa, dan batas percobaan OTP—belum tercakup langsung oleh test unit ini. |
-| ID Algoritma yang tercakup | Belum dapat diidentifikasi dari informasi DPPL yang tersedia. |
-| Coverage (wajib ≥ 70%) | `pickup/schema.ts`: **92,31% baris / 75% cabang** pada pengukuran khusus `c08-pickup.test.ts`. Ini coverage skema input, bukan keseluruhan layanan QRPickup. Alat: Node.js `--experimental-test-coverage`.|
+| Operasi yang diuji | Seluruh operasi implementasi: `issue()`, `credential()`, `validate()` serta pembentukan dan validasi token/OTP/QR |
+| ID Algoritma yang tercakup | Penyimpanan hash dan enkripsi credential, pembentukan OTP enam digit, pembatasan percobaan, validasi kepemilikan/status/jadwal, dan completion payout |
+| Statement/line coverage | `pickup/service.ts` 89,76%; `pickup/repository.ts` 88,46%; `pickup/schema.ts` 100% |
+| Branch coverage | `pickup/service.ts` 89,47%; `pickup/repository.ts` 100%; `pickup/schema.ts` 100% |
+| Fungsi | `pickup/service.ts` 100%; `pickup/repository.ts` 75%; `pickup/schema.ts` 100% |
+| Alat dan bukti | Node.js `--experimental-test-coverage` melalui `npm run test:coverage:c08`; 15 test lulus, 0 gagal |
 
 ### 4.2.7 Kelas Pengaduan
 
@@ -411,19 +437,30 @@ Tabel 4.2.7. Hasil Pengujian Unit Kelas C09
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C09-UT01 | `ajukanPengaduan()` — validasi masukan | Normal/negatif | Parse pengaduan valid, lalu deskripsi terlalu pendek dan alasan di luar pilihan. | Masukan valid diterima; deskripsi/alasan tidak valid ditolak. | Pass — test runner lulus. | Pass |
-| C09-UT02 | `prosesPengaduan(keputusan)` — validasi keputusan | Normal/negatif | Parse keputusan dengan boolean dan respons valid, lalu tipe keputusan/respons tidak valid. | Keputusan valid diterima; nilai salah tipe atau respons terlalu pendek ditolak. | Pass — test runner lulus. | Pass |
-| C09-UT03 | Validasi bukti pengaduan | Batas/negatif | Parse daftar bukti duplikat dan daftar lebih dari dua berkas. | Bukti duplikat atau lebih dari dua berkas ditolak. | Pass — test runner lulus. | Pass |
-| C09 tambahan | Validasi pengaduan tanpa bukti | Normal | Parse pengaduan valid dengan `media_ids` kosong. | Pengaduan tanpa lampiran diterima. | Pass — test runner lulus. | Pass |
+| C09-UT01 | `ajukanPengaduan()` | Normal/negatif | Alasan valid, deskripsi terlalu pendek, atau alasan tidak dikenal. | Masukan valid diterima; deskripsi/alasan tidak valid ditolak. | Test runner lulus. | Pass |
+| C09-UT02 | `prosesPengaduan(keputusan)` | Normal/negatif | Keputusan boolean dan respons valid; tipe keputusan/respons tidak valid. | Keputusan valid diterima; tipe tidak valid ditolak. | Test runner lulus. | Pass |
+| C09-UT03 | Validasi bukti | Batas/negatif | Media duplicate atau lebih dari dua file. | Bukti duplikat atau berlebih ditolak. | Test runner lulus. | Pass |
+| C09-UT04 | `open()` | Normal | Pesanan paid milik pembeli membuka dispute. | Dispute dan complaint view dibuat. | Test runner lulus. | Pass |
+| C09-UT05 | `open()` | Negatif | Pembeli salah, pesanan bukan miliknya, belum paid, atau belum melewati batas pickup. | Pengaduan ditolak sesuai aturan kepemilikan dan status. | Test runner lulus. | Pass |
+| C09-UT06 | `autoRefund()` | Batas/negatif | Complaint belum jatuh tempo dan complaint toko tutup yang jatuh tempo. | Complaint belum jatuh tempo tidak diproses; due complaint direfund. | Test runner lulus. | Pass |
+| C09-UT07 | `detail()` dan `list()` | Normal | Ambil detail dan daftar dengan scope buyer/seller. | Data complaint sesuai scope pengguna dikembalikan. | Test runner lulus. | Pass |
+| C09-UT08 | `decide()` approve | Normal | Keputusan approve pada complaint open. | Complaint approved dan refund dipicu. | Test runner lulus. | Pass |
+| C09-UT08b | `decide()` reject | Normal | Keputusan reject pada complaint open. | Complaint rejected dan status pesanan kembali paid. | Test runner lulus. | Pass |
+| C09-UT09 | `decide()` repeated/negative | Negatif/batas | Keputusan berulang atau kasus negatif. | Keputusan berulang ditangani; kasus negatif ditolak. | Test runner lulus. | Pass |
+| C09-UT10 | `decide()` | Negatif | State dispute tidak konsisten. | Keputusan ditolak untuk state tidak konsisten. | Test runner lulus. | Pass |
+| C09 tambahan | Pengaduan tanpa bukti | Normal | `media_ids` kosong pada pengaduan valid. | Pengaduan tanpa lampiran diterima. | Test runner lulus. | Pass |
 
 Tabel 4.2.7b. Ringkasan Cakupan Kelas [C09]
 
 | Informasi | Keterangan |
 | :--- | :--- |
 | Daftar operasi public pada DPPL | `ajukanPengaduan()`, `prosesPengaduan(keputusan)` |
-| Operasi yang diuji | Validasi skema pengajuan pengaduan dan keputusan, batas jumlah bukti, bukti duplikat, serta pengaduan tanpa bukti. Alur layanan pembukaan pengaduan, perubahan status, refund, dan keputusan belum diuji langsung oleh unit test coverage ini. |
-| ID Algoritma yang tercakup | Belum dapat diidentifikasi dari informasi DPPL yang tersedia. |
-| Coverage (wajib ≥ 70%) | `complaints/schema.ts`: **100% baris / 100% cabang**. Ini coverage file skema, bukan keseluruhan layanan pengaduan. Alat: Node.js `--experimental-test-coverage`.|
+| Operasi yang diuji | Implementasi aktual: `open()`, `autoRefund()`, `detail()`, `list()`, `decide()` serta validasi schema pengaduan/keputusan/bukti |
+| ID Algoritma yang tercakup | Validasi alasan/deskripsi/bukti, kepemilikan pesanan, state paid/pickup, auto-refund, scope pengguna, approve/reject, dan penanganan repeated decision |
+| Statement/line coverage | `complaints/service.ts` 95,69%; `complaints/repository.ts` 96,88% |
+| Branch coverage | `complaints/service.ts` 80,85%; `complaints/repository.ts` 83,33% |
+| Fungsi | `complaints/service.ts` 100%; `complaints/repository.ts` 80% |
+| Alat dan bukti | Node.js `--experimental-test-coverage` pada file C09; 8 test layanan C09 lulus, 0 gagal |
 
 ### 4.2.8 Kelas RiwayatTransaksi
 
@@ -435,9 +472,9 @@ Tabel 4.2.8. Hasil Pengujian Unit Kelas C11
 
 | ID Pengujian | Operasi yang Diuji | Jenis Kasus | Prosedur/Masukan | Hasil yang Diharapkan | Hasil Pengujian | Kesimpulan |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| C11-UT01 | `getRiwayatPembeli(idPembeli)` — pemilihan cakupan pengguna | Normal | Pastikan aktor buyer diarahkan ke kolom identitas `buyer_id`. | Riwayat menggunakan identitas pembeli. | Pass — test runner lulus. | Pass |
-| C11-UT02 | `getRiwayatPenjual(idPenjual)` — pemilihan cakupan pengguna | Normal | Pastikan aktor seller diarahkan ke kolom identitas `seller_id`. | Riwayat menggunakan identitas penjual. | Pass — test runner lulus. | Pass |
-| C11-UT03 | Pagination riwayat | Batas | Ambil 2 item dari 3 baris dengan limit 2. | Dua item ditampilkan dan next cursor tersedia. | Pass — test runner lulus. | Pass |
+| C11-UT01 | `getRiwayatPembeli(idPembeli)` | Normal | Aktor buyer diubah menjadi scope `buyer_id`. | Riwayat hanya menggunakan kolom identitas pembeli. | Test runner lulus. | Pass |
+| C11-UT02 | `getRiwayatPenjual(idPenjual)` | Normal | Aktor seller diubah menjadi scope `seller_id`. | Riwayat hanya menggunakan kolom identitas penjual. | Test runner lulus. | Pass |
+| C11-UT03 | Pagination riwayat | Batas | Ambil dua item dari tiga baris dengan limit 2. | Dua item dikembalikan dan next cursor tersedia. | Test runner lulus. | Pass |
 
 
 <br>

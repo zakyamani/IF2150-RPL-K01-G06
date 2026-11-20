@@ -17,7 +17,10 @@
     "test": "tsx scripts/test.ts",
     "test:integration": "tsx scripts/test.ts integration",
     "test:unit": "tsx scripts/test.ts unit",
-    "test:e2e": "tsx scripts/test.ts e2e"
+    "test:e2e": "tsx scripts/test.ts e2e",
+    "test:coverage:c04": "node --import tsx --experimental-test-coverage --test --test-concurrency=1 test/unit/c04-c11.test.ts",
+    "test:coverage:c03": "node --import tsx --experimental-test-coverage --test --test-concurrency=1 test/unit/c03-offer.test.ts test/unit/c03-offer-service.test.ts test/unit/offer-rules.test.ts",
+    "test:coverage:c08": "node --import tsx --experimental-test-coverage --test --test-concurrency=1 test/unit/c08-pickup.test.ts test/unit/c08-pickup-service.test.ts test/unit/c01-c09-rules.test.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -44,7 +47,6 @@
     "@types/supertest": "^7.2.1",
     "@types/ws": "^8.18.2",
     "prettier": "^3.9.9",
-    "supertest": "^7.3.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
