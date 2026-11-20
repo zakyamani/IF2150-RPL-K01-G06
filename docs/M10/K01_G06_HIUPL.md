@@ -580,11 +580,11 @@ Tabel 4.6. Bukti Hasil Pengujian
 
 | ID Pengujian | Bukti Hasil Pengujian |
 | :--- | :--- |
-| C01-UT01 – C01-UT03, C02-UT01 – C02-UT04, C03-UT01 – C03-UT11, C04-UT01 – C04-UT14, C05-UT01 – C05-UT02, C06-UT01 – C06-UT03, C07-UT01, C08-UT01 – C08-UT08, C09-UT01 – C09-UT10, C09-UT08b, C09 tambahan, C11-UT01 – C11-UT02 | <img src="./assets/all-unit-test-C01-C11.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
-| C03 (coverage) | <img src="./assets/C03-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
-| C04 (coverage) | <img src="./assets/C04-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
-| C08 (coverage) | <img src="./assets/C08-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
-| C09 (coverage) | <img src="./assets/C09-coverage.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
+| C01-UT01 – C01-UT03, C02-UT01 – C02-UT04, C03-UT01 – C03-UT11, C04-UT01 – C04-UT14, C05-UT01 – C05-UT02, C06-UT01 – C06-UT03, C07-UT01, C08-UT01 – C08-UT08, C09-UT01 – C09-UT10, C09-UT08b, C09 tambahan, C11-UT01 – C11-UT02 | <img src="./assets/all-unit-test-C01-C11.png" alt="All Unit test C01 - C11" width="400"> |
+| C03 (coverage) | <img src="./assets/C03-coverage.png" alt="C03 Coverage" width="400"> |
+| C04 (coverage) | <img src="./assets/C04-coverage.png" alt="C04 Coverage" width="400"> |
+| C08 (coverage) | <img src="./assets/C08-coverage.png" alt="C08 Coverage" width="400"> |
+| C09 (coverage) | <img src="./assets/C09-coverage.png" alt="C09 Coverage" width="400"> |
 | *INT-TC01* | *[Sisipkan bukti pengujian integrasi]* |
 | *INT-TC06* | <img src="./assets/int-tc06-tc09-backend.png" alt="INT-TC06 Pengujian Integrasi WebSocket dan Pengaduan" width="400"> |
 | *INT-TC09* | <img src="./assets/int-tc09-autorefund.png" alt="INT-TC09 Auto-Refund 24 Jam Pengaduan Toko Tutup" width="400"> |
