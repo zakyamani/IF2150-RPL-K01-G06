@@ -513,8 +513,12 @@ Tabel 4.6. Bukti Hasil Pengujian
 
 | ID Pengujian | Bukti Hasil Pengujian |
 | :--- | :--- |
-| *C02-UT01 – C02-UT08* | *[Sisipkan hasil keluaran unit test]* |
-| *C02 (coverage)* | *[Sisipkan laporan coverage kelas C02]* |
+| C01-UT01 – C01-UT03, C02-UT01 – C02-UT04, C03-UT01 – C03-UT05, C04-UT01 – C04-UT04, C05-UT01 – C05-UT02, C06-UT01 – C06-UT03, C07-UT01, C08-UT01 – C08-UT04, C09-UT01 – C09-UT03, C11-UT01 – C11-UT02 | [Sisipkan screenshot keluaran `npm run test:unit` yang menunjukkan 34 test lulus dan 0 gagal.] |
+| C03 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c03-offer.test.ts`; tunjukkan baris `offers/schema.ts` sebesar 100% line dan 100% branch.] |
+| C04 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c04-c11.test.ts`; laporkan `orders/repository.ts` 71,64% line / 100% branch dan `orders/service.ts` 48,59% line / 100% branch. Catat bahwa coverage baris `orders/service.ts` belum mencapai target 70%.] |
+| C08 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c08-pickup.test.ts`; tunjukkan `pickup/schema.ts` sebesar 92,31% line dan 75% branch.] |
+| C09 (coverage) | [Sisipkan screenshot laporan coverage yang mencakup `complaints/schema.ts`; tunjukkan hasil 100% line dan 100% branch.] |
+| C11 (coverage) | [Sisipkan screenshot laporan coverage `test/unit/c04-c11.test.ts`; tunjukkan `metrics/repository.ts` dan `metrics/service.ts` masing-masing 100% line dan 100% branch. `orders/service.ts` juga digunakan bersama C04 dan coverage line-nya 48,59%.] |
 | *INT-TC01* | *[Sisipkan bukti pengujian integrasi]* |
 | *UC01-TC01* | *[Sisipkan tangkapan layar UC01-TC01 sesuai prosedur pengujian]* |
 | *UC01-TC02* | *[Sisipkan tangkapan layar UC01-TC02 sesuai prosedur pengujian]* |
